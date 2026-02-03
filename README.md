@@ -84,6 +84,8 @@ This builds both client and server, then starts the server.
 
 ### Server (.env)
 
+Copy `.env.example` to `.env` and update the values:
+
 ```env
 PORT=5000
 MONGO_URI=mongodb://admin:password@localhost:27017/ajrasakha

@@ -26,3 +26,8 @@ pnpm build
 - TypeScript
 - Vite
 - ESLint
+- react-router-dom
+- axios
+- Tailwind CSS
+- react-query(now @tanstack/react-query)
+- Zod

@@ -36,3 +36,17 @@ JWT_SECRET=your_jwt_secret_here
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `GET /api/auth/profile`
+
+## technologies
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+- JWT
+- jose
+- bcrypt
+- TypeScript
+- zod
+- dotenv
+- cors
+

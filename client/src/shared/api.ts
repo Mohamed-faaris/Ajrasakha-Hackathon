@@ -1,5 +1,9 @@
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:4000/api'
+  import.meta.env.VITE_API_BASE_URL as string
+
+if (!API_BASE_URL) {
+  throw new Error('API_BASE_URL is not defined')
+}
 
 export type QueryParams = Record<string, string | number | boolean | undefined>
 

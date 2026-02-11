@@ -1,34 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { NavLink, Route, Routes } from 'react-router-dom'
+import DashboardPage from './pages/DashboardPage'
+import PricesPage from './pages/PricesPage'
+import MapPage from './pages/MapPage'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app">
+      <header className="app-header">
+        <div className="brand">
+          <div className="brand-mark">MI</div>
+          <div>
+            <div className="brand-title">Mandi-Insights</div>
+            <div className="brand-subtitle">Market intelligence for APMCs</div>
+          </div>
+        </div>
+        <nav className="nav">
+          <NavLink to="/" end className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+            Dashboard
+          </NavLink>
+          <NavLink to="/prices" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+            Prices
+          </NavLink>
+          <NavLink to="/map" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+            Map
+          </NavLink>
+        </nav>
+      </header>
+
+      <main className="app-content">
+        <Routes>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/prices" element={<PricesPage />} />
+          <Route path="/map" element={<MapPage />} />
+        </Routes>
+      </main>
+    </div>
   )
 }
 

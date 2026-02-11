@@ -1,0 +1,13 @@
+pydantic>=2.0
+playwright
+pandas
+beautifulsoup4
+pymongo
+apscheduler
+langchain-google-genai
+python-dotenv
+requests
+httpx
+lxml
+openpyxl
+pypdf

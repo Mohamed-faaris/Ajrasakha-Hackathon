@@ -3,6 +3,7 @@ API scraper.
 
 Replays discovered API endpoints using httpx to fetch daily
 mandi price data. Handles pagination, retries, and rate limiting.
+Supports both JSON and form-encoded POST bodies.
 """
 
 from __future__ import annotations
@@ -38,6 +39,8 @@ async def scrape_api(
     params: dict[str, Any] | None = None,
     headers: dict[str, str] | None = None,
     post_data: dict[str, Any] | None = None,
+    post_content_type: str = "json",
+    paginate: bool = True,
     max_pages: int = 10,
     page_param: str = "page",
     page_size_param: str = "limit",
@@ -46,34 +49,59 @@ async def scrape_api(
     """
     Fetch data from an API endpoint.
 
-    Supports pagination, retries, and configurable parameters.
+    Args:
+        ctx: Run context.
+        endpoint: API URL.
+        method: HTTP method (GET or POST).
+        params: Query parameters (GET) or base params.
+        headers: Extra request headers.
+        post_data: POST body data.
+        post_content_type: "json" (application/json) or "form" (x-www-form-urlencoded).
+        paginate: Whether to auto-paginate. Set False for single-request APIs.
+        max_pages: Max pages to fetch when paginating.
+        page_param: Name of the page parameter.
+        page_size_param: Name of the page size parameter.
+        page_size: Number of records per page.
 
-    Returns a flat list of record dicts.
+    Returns:
+        Flat list of record dicts.
     """
     all_records: list[dict[str, Any]] = []
     request_headers = {**_DEFAULT_HEADERS, **(headers or {})}
+
+    total_pages = max_pages if paginate else 1
 
     async with httpx.AsyncClient(
         timeout=httpx.Timeout(30.0),
         follow_redirects=True,
     ) as client:
-        for page_num in range(1, max_pages + 1):
-            # Build request params
-            req_params = dict(params or {})
-            req_params[page_param] = page_num
-            req_params[page_size_param] = page_size
-
+        for page_num in range(1, total_pages + 1):
             try:
                 if method.upper() == "POST":
                     body = dict(post_data or {})
-                    body[page_param] = page_num
-                    body[page_size_param] = page_size
-                    response = await client.post(
-                        endpoint,
-                        json=body,
-                        headers=request_headers,
-                    )
+
+                    if paginate:
+                        body[page_param] = page_num
+                        body[page_size_param] = page_size
+
+                    if post_content_type == "form":
+                        response = await client.post(
+                            endpoint,
+                            data=body,
+                            headers=request_headers,
+                        )
+                    else:
+                        response = await client.post(
+                            endpoint,
+                            json=body,
+                            headers=request_headers,
+                        )
                 else:
+                    req_params = dict(params or {})
+                    if paginate:
+                        req_params[page_param] = page_num
+                        req_params[page_size_param] = page_size
+
                     response = await client.get(
                         endpoint,
                         params=req_params,
@@ -89,7 +117,6 @@ async def scrape_api(
                     f"HTTP {exc.response.status_code} on page {page_num}",
                 )
                 if exc.response.status_code in (403, 429):
-                    # Rate limited or blocked — back off
                     ctx.logger.warning("Rate limited, waiting 5s...")
                     await asyncio.sleep(5)
                     continue
@@ -117,6 +144,9 @@ async def scrape_api(
                 len(records),
                 len(all_records),
             )
+
+            if not paginate:
+                break
 
             # If we got fewer records than page_size, we've reached the end
             if len(records) < page_size:

@@ -1,4 +1,2 @@
 entryUrl,baseUrl,name,extractionType,endpoint
-https://agmarknet.gov.in/SearchCmmMkt.aspx,https://agmarknet.gov.in,Agmarknet,html_table,
-https://enam.gov.in/web/dashboard/trade-data,https://enam.gov.in,eNAM,api,https://enam.gov.in/web/Ajax/trade_data_list
-https://mpwcdfa.mp.gov.in/mandi_rates.aspx,https://mpwcdfa.mp.gov.in,MP Mandi Board,html_table,
+https://enam.gov.in/web/dashboard/trade-data,https://enam.gov.in,eNAM,api,https://enam.gov.in/web/Ajax_ctrl/trade_data_list

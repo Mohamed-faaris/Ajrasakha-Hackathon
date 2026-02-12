@@ -112,6 +112,8 @@ async def _scrape_api(ctx: RunContext, source: dict[str, Any]) -> list[dict[str,
         params=source.get("endpointParams", {}),
         headers=source.get("endpointHeaders", {}),
         post_data=source.get("endpointPostData"),
+        post_content_type=source.get("postContentType", "json"),
+        paginate=source.get("paginate", True),
     )
 
 

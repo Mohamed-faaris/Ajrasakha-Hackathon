@@ -1,10 +1,10 @@
 # Mandi AI Agent — Workflow & Architecture
 
-This document details the internal operation of the AI-powered Mandi Scraper Agent. The system is designed to autonomously discover, map, and scrape agricultural market price data from disparate government portals using a resilient, multi-stage pipeline.
+This document serves as the definitive technical guide for the Mandi Scraper Agent. The system is designed to autonomously discover, map, and scrape agricultural market price data from disparate government portals using a resilient, multi-stage pipeline powered by LLMs and asynchronous I/O.
 
 ## 1. High-Level Architecture
 
-The agent operates as a CLI tool with a modular architecture:
+The agent operates as a modular CLI tool with distinct layers for orchestration, discovery, scraping, and AI analysis.
 
 ```mermaid
 graph TD
@@ -20,7 +20,8 @@ graph TD
     subgraph "AI Layer (LangChain)"
         Discovery -->|HTML/Net Logs| AI_Discover[AI Discovery Mode]
         Scraper -->|Sample Data| AI_Map[AI Mapping Mode]
-        AI_Discover -->|LLM| LLM_Provider[Google / OpenAI / OpenRouter]
+        AI_Discover -->|LLM| LLM_Factory[LLM Factory]
+        LLM_Factory -->|Failover| Provider[Google / OpenAI / OpenRouter]
     end
     
     subgraph "Data Layer (MongoDB)"
@@ -35,126 +36,149 @@ graph TD
     Single -->|Read/Write| Sources
 ```
 
-## 2. Key Workflows
+## 2. Detailed Workflows
 
 ### A. Discovery Workflow (`mode="discover"`)
 *Goal: Find out HOW to scrape a new website without human coding.*
 
-1.  **Crawl & Sniff**:
-    *   **Crawler**: Uses `Playwright` to visit the target URL and click links (depth-limited BFS).
-    *   **Network Sniffer**: Captures all background XHR/Fetch requests to find hidden APIs.
-    *   **Table/File Detector**: Scans HTML for `<table>` tags and links to PDF/Excel files.
-2.  **AI Analysis**:
-    *   Aggregates all findings (API endpoints, table selectors, file URLs) into a JSON context.
-    *   Sends this context to the LLM (Gemini/GPT/Mistral) with `ExtractionConfig` schema.
-    *   **Decision**: The AI selects the *best* method (API > HTML Table > File) and returns a configuration (e.g., `extractionType="api"`, `endpoint="..."`).
+1.  **Orchestration (`app.discovery.discovery_engine`)**:
+    *   Initializes `Playwright` browser (headless).
+    *   Navigates to the target URL (`page.goto`).
+    *   **Network Sniffing**: Attaches listeners to `request` and `response` events to capture XHR/Fetch calls. Filters for JSON responses > 1KB.
+    *   **Heuristic Crawl**: Uses a priority queue (heapq) to visit links.
+        *   **L0**: File downloads (PDF/XLS) found in `<a>` tags.
+        *   **L1**: "Market", "Rate", "Price" links.
+        *   **L2**: General navigation.
+    *   **Content Detection**:
+        *   `TableDetector`: Finds HTML tables with >3 rows and headers matching keywords (Commodity, Price, Arrival).
+        *   `FileDetector`: Identifies downloadable assets.
+
+2.  **AI Analysis (`app.ai.discovery_mode`)**:
+    *   Aggregates all findings (API endpoints, table selectors, file URLs) into a compressed JSON context.
+    *   **Prompting**: Sends context to the LLM with the `ExtractionConfig` Pydantic schema.
+    *   **Decision**: The AI evaluates the reliability of each method:
+        *   **API**: Preferred (Score 1.0). Checks for JSON structure.
+        *   **HTML Table**: Fallback (Score 0.7). Checks for valid headers.
+        *   **File**: Last resort (Score 0.4).
+    *   **Validation**:
+        *   Normalizes extraction types (`table` → `html_table`).
+        *   Rejects hallucinated selectors (e.g., selectors containing raw HTML).
+
 3.  **Persistence**:
-    *   Saves the discovered configuration to the `sources` collection in MongoDB.
+    *   Saves the valid `ExtractionConfig` to the `sources` collection.
 
 ### B. Mapping Workflow (Implicit in Discovery/First Scrape)
-*Goal: Understand the column names of a new source.*
+*Goal: Semantic understanding of column names.*
 
-1.  **Sample Scrape**: Runs the discovered extraction config to fetch the first 5 records.
-2.  **AI Mapping**:
-    *   Sends the raw field names (e.g., `Orchard_Name`, `Rate_Min`) to the LLM.
-    *   LLM maps them to the unified schema (e.g., `cropName`, `minPrice`) using `SchemaMapping` schema.
-    *   Generates conversion rules (e.g., "Multiply by 100 to convert kg to quintal").
+1.  **Sample Scrape**: The runner executes a "dry run" scrape using the newly discovered config to fetch 5 sample records.
+2.  **AI Mapping (`app.ai.mapping_mode`)**:
+    *   Extracts raw keys from the sample data (e.g., `["Orchard_Name", "Rate_Min", "dt"]`).
+    *   Sends these keys to the LLM with the `SchemaMapping` schema.
+    *   **Logic**:
+        *   Maps raw keys to the unified `Price` schema (`minPrice`, `maxPrice`, `cropName`).
+        *   Generates `FieldConversion` rules (e.g., `multiply: 100` for Quintal conversion, date format strings).
 3.  **Persistence**:
-    *   Saves `schemaMapping` and `conversions` to the `sources` collection.
+    *   Updates the source document with `schemaMapping` and `conversions`.
 
 ### C. Scrape Workflow (`mode="scrape"`)
-*Goal: Extract production data using saved configs.*
+*Goal: High-volume production extraction.*
 
-1.  **Load Sources**: Fetches all enabled sources from MongoDB.
-2.  **Dispatch**:
-    *   **API Scraper**: Uses `httpx` to call endpoints (supports pagination, POST/GET).
-    *   **HTML Scraper**: Uses `httpx` + `pandas` + `BeautifulSoup` to parse tables.
-    *   **File Scraper**: Uses `pdfplumber` (PDF) or `openpyxl` (Excel) to extract tables.
-3.  **Normalize**:
-    *   Applies the saved `schemaMapping` to rename fields.
-    *   Applies `conversions` (math operations, date parsing).
-    *   Validates data types (prices must be numbers, dates must be ISO).
-4.  **Save**:
-    *   Upserts records into `prices` collection (deduplicated by `sourceId` + `date` + `crop` + `mandi`).
-    *   Updates `scrape_runs` log and source health status.
+1.  **Load Sources**: Fetches active sources from MongoDB (or CSV in debug mode).
+2.  **Dispatch (`app.scraping.scrape_engine`)**:
+    *   **API Scraper**:
+        *   Uses `httpx.AsyncClient`.
+        *   Handles pagination (detects `page` param).
+        *   Supports `POST` with JSON or Form data.
+    *   **HTML Scraper**:
+        *   Fetches page HTML via `httpx`.
+        *   Parses with `BeautifulSoup` (lxml) + `pandas.read_html`.
+        *   **Robustness**: Wraps HTML in `io.StringIO` to prevent Pandas from misinterpreting large tables as filenames.
+    *   **File Scraper**:
+        *   Downloads file to temp storage.
+        *   Uses `pdfplumber` for PDFs (table extraction) or `openpyxl` for Excel.
+3.  **Normalize (`app.scraping.normalizer`)**:
+    *   Renames fields using `schemaMapping`.
+    *   Executes conversions (math, string cleaning).
+    *   Parses dates using `dateutil` and strict format strings.
+    *   Validates mandatory fields (`cropName`, `price`, `date`).
+4.  **Save (`app.outputs.db_output`)**:
+    *   Uses `bulk_write` with `UpdateOne(upsert=True)` to prevent duplicates.
+    *   Composite key: `sourceId` + `date` + `cropName` + `mandiName`.
 
 ### D. Single URL Workflow (`mode="single_url" --url ...`)
-*Goal: One-shot onboarding of a new site.*
+*Goal: One-shot onboarding.*
 
-1.  **Check DB**: Does a config exist for this URL?
-2.  **If No**: Run **Discovery Workflow** immediately.
-3.  **Then**: Run **Scrape Workflow** using the (existing or just-discovered) config.
+1.  **Lookup**: Checks DB for `entryUrl`.
+2.  **Branch**:
+    *   **Found**: Loads config and runs **Scrape Workflow**.
+    *   **Not Found**: Runs **Discovery Workflow** → **Mapping Workflow** → **Scrape Workflow** in sequence.
 
-## 3. Data Structures
+## 3. Configuration & Environment
 
-### Source Config (MongoDB `sources`)
-```json
-{
-  "_id": "...",
-  "entryUrl": "https://www.apmcnagpur.com/",
-  "extractionType": "html_table",
-  "htmlSelector": "table.txt_blc",
-  "schemaMapping": {
-    "Agril Produce": "cropName",
-    "Rate": "modalPrice"
-  },
-  "status": "active",
-  "health": "ok"
-}
-```
+The agent uses a frozen `AppConfig` dataclass populated by `.env` and CLI args.
 
-### Price Record (MongoDB `prices`)
-Matches `shared/types/index.ts`:
-```json
-{
-  "sourceId": "...",
-  "cropName": "Wheat",
-  "mandiName": "Nagpur",
-  "minPrice": 2200,
-  "maxPrice": 2400,
-  "modalPrice": 2300,
-  "date": "2025-02-14T00:00:00Z",
-  "unit": "Quintal",
-  "currency": "INR"
-}
-```
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `MONGO_URI` | MongoDB Connection String | — |
+| `DB_NAME` | Database Name | `mandi_insights` |
+| `LLM_PROVIDER` | `google`, `openai`, `openrouter` | `google` |
+| `GOOGLE_API_KEY` | For Gemini models | — |
+| `OPENROUTER_API_KEY` | For OpenRouter | — |
+| `OPENROUTER_MODEL` | Comma-separated model list for failover | `google/gemini-2.0-flash-001` |
+| `HEADLESS` | Run browser without UI | `true` |
 
 ## 4. Resilience & Error Handling
 
-*   **LLM Failover**:
-    *   If using **OpenRouter**, the agent supports a list of models (e.g., Mistral → Gemini → Phi).
-    *   If one fails (429 Rate Limit, 404 Not Found), it automatically retries with the next.
-    *   **Structured Output Fallback**: For models that don't support JSON mode, the agent uses a robust prompt injection + Regex parser to extract valid JSON.
-*   **HTML Parsing**:
-    *   Uses `io.StringIO` to prevent Pandas from misinterpreting large HTML chunks as filenames.
-    *   Validates AI-generated selectors to prevent hallucinations (e.g., rejecting selectors that look like HTML tags).
-*   **Database**:
-    *   Gracefully degrades to CSV logging/output if MongoDB connection fails.
-    *   Uses `asyncio` for non-blocking database writes.
+### LLM Robustness
+*   **Failover Chain**: When using `OPENROUTER`, you can provide a list of models (e.g., `mistral-7b,gemini-2.0,phi-3`). The factory creates a `RunnableWithFallbacks` that automatically retries with the next model upon failure (429, 404, 500).
+*   **Structured Output Fallback**: Many free models do not support OpenAI's "JSON Mode" or "Tool Calling". The agent implements a custom parser that:
+    1.  Injects a strict JSON schema instruction into the user prompt.
+    2.  Uses Regex to strip Markdown fences (` ```json ... ``` `) and "thinking" blocks (`<think>...`).
+    3.  Validates the raw string using Pydantic `model_validate_json`.
+
+### Scraping Robustness
+*   **HTML Parsing**: `pandas.read_html` can crash on large strings if interpreted as filenames. The agent wraps content in `io.StringIO`.
+*   **Hallucination Guard**: Pydantic validators reject AI-generated CSS selectors that contain HTML tags (e.g., `<div...`).
+*   **Async/Await**: All network I/O (DB, HTTP, Playwright) is asynchronous to maximize throughput.
+
+### Database Health
+*   **Connection Check**: Gracefully degrades to text logging if MongoDB is unreachable.
+*   **Health Monitoring**: Tracks consecutive failures. Sources are marked `BROKEN` after 3 failed runs, preventing wasted resources.
 
 ## 5. File System Structure
 
-*   `main.py`: Entry point.
-*   `config.py`: Configuration & CLI parsing.
-*   `app/core/runner.py`: Main orchestration logic.
-*   `app/discovery/`: Playwright crawler & detection logic.
-*   `app/scraping/`: Actual scraping implementations (API/HTML/File).
-*   `app/ai/`: LLM interaction, prompts, and structured output handling.
-*   `app/inputs/` & `app/outputs/`: Adapters for MongoDB vs CSV.
+*   **`main.py`**: Entry point & DI container.
+*   **`config.py`**: Configuration logic.
+*   **`app/core/`**:
+    *   `runner.py`: Main control loop.
+    *   `context.py`: Request-scoped context (logger, stats).
+*   **`app/discovery/`**:
+    *   `crawler.py`: Playwright logic.
+    *   `network_sniffer.py`: API detection.
+*   **`app/scraping/`**:
+    *   `scrape_engine.py`: Dispatcher.
+    *   `html_scraper.py`, `api_scraper.py`: Implementations.
+*   **`app/ai/`**:
+    *   `llm.py`: Factory & Failover logic.
+    *   `prompts.py`: Prompt templates.
+*   **`app/inputs/`**, **`app/outputs/`**: I/O Adapters.
 
-## 6. How to Run
+## 6. Usage Examples
 
-**1. Standard Production Run (Daily)**
+**Production Run** (Cron Job)
 ```bash
+# Runs scraping for all active sources in DB
 python3 main.py --mode scrape --log mongo
 ```
 
-**2. Onboard a New Source**
+**Onboard New Source**
 ```bash
-python3 main.py --url https://new-mandi-site.com/
+# Auto-discovers config, maps schema, scrapes data, and saves to DB
+python3 main.py --url https://www.apmcnagpur.com/
 ```
 
-**3. Debug/Test Offline**
+**Debug Mode** (No DB writes)
 ```bash
-python3 main.py --input csv --log txt --url https://test-site.com/
+# Writes outputs to local CSV/JSON files
+python3 main.py --input csv --log txt --url https://example.com
 ```

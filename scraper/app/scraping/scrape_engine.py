@@ -49,9 +49,9 @@ async def run_scrape(
 
     if extraction_type == "api":
         raw_records = await _scrape_api(ctx, source)
-    elif extraction_type == "html_table":
+    elif extraction_type in ("html_table", "table", "html", "htmltable"):
         raw_records = await _scrape_html(ctx, source)
-    elif extraction_type == "pdf_excel":
+    elif extraction_type in ("pdf_excel", "file", "pdf", "excel"):
         raw_records = await _scrape_file(ctx, source)
     else:
         ctx.add_error(

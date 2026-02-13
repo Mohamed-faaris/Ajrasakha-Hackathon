@@ -13,7 +13,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-from app.ai.llm import get_llm
+from app.ai.llm import get_structured_llm
 from app.ai.prompts import MAPPING_PROMPT
 from app.core.context import RunContext
 
@@ -95,13 +95,12 @@ async def run_mapping_ai(
     ctx.logger.info("Running AI schema mapping for %d fields...", len(raw_fields))
 
     try:
-        llm = get_llm(ctx.config)
-        structured_llm = llm.with_structured_output(SchemaMapping)
+        llm = get_structured_llm(ctx.config, SchemaMapping)
 
         # Prepare sample data (truncate for token efficiency)
         sample_json = json.dumps(sample_data[:3], indent=2, default=str, ensure_ascii=False)
 
-        result: SchemaMapping = await structured_llm.ainvoke(
+        result: SchemaMapping = await llm.ainvoke(
             MAPPING_PROMPT.format_messages(
                 raw_fields=json.dumps(raw_fields),
                 sample_data=sample_json,

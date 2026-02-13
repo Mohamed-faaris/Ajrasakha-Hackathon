@@ -312,7 +312,7 @@ async def _update_health(
 ) -> None:
     """Update health status for a source."""
     source_id = str(source.get("_id", ""))
-    if not source_id or not ctx.db:
+    if not source_id or ctx.db is None:
         return
 
     from app.monitoring.health import update_health

@@ -55,7 +55,7 @@ class AppConfig:
     google_api_key: str = ""
     openai_api_key: str = ""
     openrouter_api_key: str = ""
-    openrouter_model: str = "google/gemini-2.0-flash-001"
+    openrouter_model: tuple[str, ...] = ("google/gemini-2.0-flash-001",)
 
     # Modes
     input_mode: InputMode = InputMode.MONGO
@@ -87,7 +87,13 @@ class AppConfig:
             google_api_key=os.getenv("GOOGLE_API_KEY", ""),
             openai_api_key=os.getenv("OPENAI_API_KEY", ""),
             openrouter_api_key=os.getenv("OPENROUTER_API_KEY", ""),
-            openrouter_model=os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-001"),
+            openrouter_model=tuple(
+                m.strip()
+                for m in os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-001").split(
+                    ","
+                )
+                if m.strip()
+            ),
             input_mode=InputMode(os.getenv("INPUT_MODE", "mongo").lower()),
             log_mode=LogMode(os.getenv("LOG_MODE", "mongo").lower()),
             agent_mode=AgentMode(os.getenv("AGENT_MODE", "discover_and_scrape").lower()),

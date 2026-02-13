@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import logging
 from typing import Any
+import io
 
 import httpx
 import pandas as pd
@@ -106,7 +107,7 @@ def extract_table_from_html(
 
         # Use pandas for robust table parsing
         dfs = pd.read_html(
-            str(table_html),
+            io.StringIO(str(table_html)),
             flavor="lxml",
         )
 

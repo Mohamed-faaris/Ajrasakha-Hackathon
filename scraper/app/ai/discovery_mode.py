@@ -11,9 +11,9 @@ import json
 import logging
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
-from app.ai.llm import get_llm
+from app.ai.llm import get_structured_llm
 from app.ai.prompts import DISCOVERY_PROMPT
 from app.core.constants import MIN_DISCOVERY_CONFIDENCE
 from app.core.context import RunContext
@@ -61,6 +61,32 @@ class ExtractionConfig(BaseModel):
     file_url: str = Field(default="", description="URL of the downloadable file")
     file_type: str = Field(default="", description="File type: 'pdf' or 'excel'")
 
+    @field_validator("extraction_type")
+    @classmethod
+    def normalize_type(cls, v: str) -> str:
+        """Normalize common LLM misspellings."""
+        v = v.lower().strip()
+        if v in ("table", "html", "htmltable"):
+            return "html_table"
+        if v in ("api", "json"):
+            return "api"
+        if v in ("file", "pdf", "excel", "pdfexcel", "download"):
+            return "pdf_excel"
+        return v
+
+    @field_validator("html_selector")
+    @classmethod
+    def clean_selector(cls, v: str) -> str:
+        """Reject selectors that look like HTML or are too generic."""
+        v = v.strip()
+        if v.startswith("<"):
+            # LLM hallucinated HTML content instead of a selector
+            return ""
+        if v.lower() == "table":
+            # "table" is too generic, better to let the scraper find the best table
+            return ""
+        return v
+
 
 # ── Discovery Mode Function ─────────────────────────────────────────────────
 
@@ -85,10 +111,9 @@ async def run_discovery_ai(
     ctx.logger.info("Running AI discovery analysis...")
 
     try:
-        llm = get_llm(ctx.config)
-        structured_llm = llm.with_structured_output(ExtractionConfig)
+        llm = get_structured_llm(ctx.config, ExtractionConfig)
 
-        result: ExtractionConfig = await structured_llm.ainvoke(
+        result: ExtractionConfig = await llm.ainvoke(
             DISCOVERY_PROMPT.format_messages(discovery_context=context_json)
         )
 

@@ -32,7 +32,7 @@ async def update_health(
 
     Returns the new health status string.
     """
-    if not ctx.db:
+    if ctx.db is None:
         logger.debug("No DB connection — skipping health update")
         return HEALTH_OK if success else HEALTH_BROKEN
 

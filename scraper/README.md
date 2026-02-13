@@ -20,6 +20,7 @@ python3 main.py
 
 # Single URL (auto-discovers config if not in DB)
 python3 main.py --url https://agmarknet.gov.in/SearchCmmMkt.aspx
+python3 main.py --url  https://www.apmcnagpur.com/
 
 # CSV mode for offline testing
 python3 main.py --input csv --log txt --mode scrape
@@ -74,9 +75,10 @@ main.py → config.py → runner.py
 Set `LLM_PROVIDER` in `.env`:
 
 | Provider | Model | Env Var |
-|----------|-------|---------|
+|----------|-------|---------| 
 | `google` (default) | Gemini 2.0 Flash | `GOOGLE_API_KEY` |
 | `openai` | GPT-4o Mini | `OPENAI_API_KEY` |
+| `openrouter` | Configurable (default: `google/gemini-2.0-flash-001`) | `OPENROUTER_API_KEY`, `OPENROUTER_MODEL` |
 
 ## MongoDB Collections
 

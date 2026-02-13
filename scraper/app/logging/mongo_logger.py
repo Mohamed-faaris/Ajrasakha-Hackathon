@@ -52,7 +52,9 @@ class MongoLogHandler(logging.Handler):
 
         try:
             loop = asyncio.get_running_loop()
-            loop.create_task(self._collection.insert_one(doc))
+            # Motor returns a Future, not a coroutine — use ensure_future
+            # which accepts both (create_task requires a coroutine in 3.13+)
+            asyncio.ensure_future(self._collection.insert_one(doc))
         except RuntimeError:
             # No running loop (e.g., during shutdown) -- silently drop
             pass

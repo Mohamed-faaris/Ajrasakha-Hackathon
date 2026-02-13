@@ -2,7 +2,7 @@
 LLM factory.
 
 Instantiates the correct LangChain chat model based on config.llm_provider.
-Supports Google Gemini and OpenAI GPT.
+Supports Google Gemini, OpenAI GPT, and OpenRouter (OpenAI-compatible).
 """
 
 from __future__ import annotations
@@ -48,6 +48,23 @@ def get_llm(config: AppConfig) -> BaseChatModel:
             max_tokens=4096,
         )
         logger.info("LLM initialized: OpenAI gpt-4o-mini")
+
+    elif config.llm_provider == LLMProvider.OPENROUTER:
+        if not config.openrouter_api_key:
+            raise ValueError(
+                "OPENROUTER_API_KEY is required when LLM_PROVIDER=openrouter"
+            )
+
+        from langchain_openai import ChatOpenAI
+
+        _llm = ChatOpenAI(
+            model=config.openrouter_model,
+            api_key=config.openrouter_api_key,
+            base_url="https://openrouter.ai/api/v1",
+            temperature=0.1,
+            max_tokens=4096,
+        )
+        logger.info("LLM initialized: OpenRouter %s", config.openrouter_model)
 
     else:
         # Default: Google Gemini

@@ -21,7 +21,7 @@ class SingleUrlInput:
     """Handle single_url mode source resolution."""
 
     def __init__(self, db: AsyncIOMotorDatabase | None, target_url: str) -> None:
-        self._repo = SourcesRepo(db) if db else None
+        self._repo = SourcesRepo(db) if db is not None else None
         self._target_url = target_url
 
     async def load_sources(self) -> list[dict[str, Any]]:

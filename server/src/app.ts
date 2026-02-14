@@ -1,12 +1,20 @@
 import express from 'express';
 import cors from 'cors';
-import authRoutes from './routes/auth.routes';
+import { toNodeHandler } from 'better-auth/node';
+import type { Auth } from './lib/auth';
 
-const app = express();
+const createApp = (auth: Auth) => {
+  const app = express();
 
-app.use(cors());
-app.use(express.json());
+  app.use(cors());
 
-app.use('/api/auth', authRoutes);
+  app.all('/api/auth/{*any}', (req, res) => {
+    return toNodeHandler(auth)(req, res);
+  });
 
-export default app;
+  app.use(express.json());
+
+  return app;
+};
+
+export default createApp;

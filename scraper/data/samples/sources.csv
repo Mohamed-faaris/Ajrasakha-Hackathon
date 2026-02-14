@@ -1,0 +1,2 @@
+entryUrl,baseUrl,name,extractionType,endpoint
+https://enam.gov.in/web/dashboard/trade-data,https://enam.gov.in,eNAM,api,https://enam.gov.in/web/Ajax_ctrl/trade_data_list

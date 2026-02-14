@@ -1,133 +1,133 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 language: "en"
 
+tone_instructions: "Be thorough and professional in code reviews. Focus on security, performance, and maintainability."
+
 reviews:
+  profile: "assertive"
+  request_changes_workflow: true
+  high_level_summary: true
+  review_status: true
+  collapse_walkthrough: false
+  poem: false
+  
+  path_filters:
+    - "!node_modules/**"
+    - "!.git/**"
+    - "!dist/**"
+    - "!build/**"
+    - "!coverage/**"
+    - "!*.lock"
+    - "!*.min.js"
+    - "!*.min.css"
+    - "!.env*"
+    - "!vendor/**"
+    - "!__pycache__/**"
+    - "!*.pyc"
+    - "!.next/**"
+    - "!.nuxt/**"
+    - "src/**"
+    - "lib/**"
+    - "app/**"
+    - "tests/**"
+    - "**/*.js"
+    - "**/*.ts"
+    - "**/*.jsx"
+    - "**/*.tsx"
+    - "**/*.py"
+    - "**/*.go"
+    - "**/*.rs"
+  
+  path_instructions:
+    - path: "**/*.js"
+      instructions: |
+        Review JavaScript code for:
+        - Proper error handling with try-catch blocks
+        - Input validation and sanitization
+        - Security vulnerabilities (XSS, injection attacks)
+        - Clean code principles (DRY, SOLID, KISS)
+        - Performance optimizations
+        - Proper authentication and authorization checks
+        - No sensitive data exposure in logs
+        - Consistent naming conventions
+        - Comprehensive error messages
+        - No unused imports or dead code
+    - path: "**/*.ts"
+      instructions: |
+        Review TypeScript code for:
+        - Proper type usage and type safety
+        - Error handling with try-catch blocks
+        - Input validation and sanitization
+        - Security vulnerabilities
+        - Clean code principles
+        - Performance optimizations
+        - Proper use of interfaces and types
+    - path: "**/*.py"
+      instructions: |
+        Review Python code for:
+        - Proper error handling
+        - Input validation
+        - Security vulnerabilities (SQL injection, XSS)
+        - Following PEP 8 style guide
+        - Proper docstrings and type hints
+        - No secrets or credentials in code
+    - path: "tests/**"
+      instructions: |
+        Review tests for:
+        - Comprehensive test coverage
+        - Descriptive test names
+        - Proper test structure
+        - Testing edge cases and error scenarios
+  
   auto_review:
     enabled: true
     drafts: false
     base_branches: ["main", "master", "develop"]
-    auto_approve:
+  
+  finishing_touches:
+    docstrings:
       enabled: true
-      max_lines_changed: 50
-      require_tests_pass: true
-
-  review_status: true
-
-  high_level_summary: true
-  review_comment_lgtm: false
-  request_changes_workflow: true
-
-  collapse_walkthrough: false
-  poem: false
-
-  instructions: |
-    - Be extremely strict.
-    - Reject insecure code.
-    - Detect API key leaks, secrets, and credentials in code.
-    - Detect bad error handling and suggest try-catch blocks.
-    - Enforce clean code principles (DRY, SOLID, KISS).
-    - Suggest performance optimizations.
-    - Highlight missing validation and sanitization.
-    - Check for proper input validation on all user inputs.
-    - Verify proper authentication and authorization checks.
-    - Ensure proper logging without sensitive data exposure.
-    - Check for SQL injection, XSS, and other injection vulnerabilities.
-    - Always suggest better folder structure if needed.
-    - Enforce consistent naming conventions.
-    - Require comprehensive error messages.
-    - Check for unused imports, variables, and dead code.
-    - Verify test coverage for new features.
-
-  path_filters:
-    exclude:
-      - "node_modules/**"
-      - ".git/**"
-      - "dist/**"
-      - "build/**"
-      - "coverage/**"
-      - "*.lock"
-      - "*.min.js"
-      - "*.min.css"
-      - ".env*"
-      - "vendor/**"
-      - "__pycache__/**"
-      - "*.pyc"
-      - ".next/**"
-      - ".nuxt/**"
-    include:
-      - "src/**"
-      - "lib/**"
-      - "app/**"
-      - "tests/**"
-      - "**/*.js"
-      - "**/*.ts"
-      - "**/*.jsx"
-      - "**/*.tsx"
-      - "**/*.py"
-      - "**/*.go"
-      - "**/*.rs"
-
+    unit_tests:
+      enabled: true
+  
   tools:
     eslint:
       enabled: true
-      config_file: ".eslintrc.js"
-    prettier:
-      enabled: true
-      config_file: ".prettierrc"
     stylelint:
       enabled: true
-      config_file: ".stylelintrc"
-    bandit:
+    ruff:
       enabled: true
-      for: ["python"]
-    semgrep:
+    pylint:
       enabled: true
-      config: "p/security-audit"
+    gitleaks:
+      enabled: true
+    trufflehog:
+      enabled: true
     trivy:
       enabled: true
-      scan_iac: true
-      scan_secrets: true
-
-  code_quality:
-    max_cognitive_complexity: 15
-    max_file_length: 500
-    max_function_length: 50
-    max_parameters: 5
-    require_docstrings: true
-    require_type_hints: true
-
-  notifications:
-    slack:
+    semgrep:
       enabled: true
-      channel: "#code-reviews"
-      notify_on: ["critical", "security", "error"]
-    email:
+    checkov:
       enabled: true
-      notify_on: ["security"]
-
-  labels:
-    auto_label: true
-    security: "security"
-    performance: "performance"
-    bug: "bug"
-    enhancement: "enhancement"
-
-  estimate_review_time: true
-
-  suggest_code_improvements: true
-  suggest_refactorings: true
-  suggest_tests: true
-
-  security:
-    check_dependencies: true
-    check_vulnerabilities: true
-    block_on_high_severity: true
-    secret_detection:
+    yamllint:
       enabled: true
-      patterns:
-        - "api[_-]?key"
-        - "secret[_-]?key"
-        - "password"
-        - "token"
-        - "private[_-]?key"
-        - "aws[_-]?access[_-]?key"
-        - "github[_-]?token"
+    markdownlint:
+      enabled: true
+    shellcheck:
+      enabled: true
+    actionlint:
+      enabled: true
+    golangci-lint:
+      enabled: true
+    clippy:
+      enabled: true
+    flake8:
+      enabled: true
+    hadolint:
+      enabled: true
+
+knowledge_base:
+  code_guidelines:
+    enabled: true
+  learnings:
+    scope: "local"

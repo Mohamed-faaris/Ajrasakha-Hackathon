@@ -31,7 +31,6 @@ const coverageSchema = new mongoose.Schema({
   computedAt: {
     type: Date,
     default: Date.now,
-    expires: 3600,
   },
 }, {
   collection: 'coverage',

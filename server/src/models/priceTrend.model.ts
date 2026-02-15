@@ -8,6 +8,7 @@ const priceTrendSchema = new mongoose.Schema({
   },
   cropId: { type: String, required: true },
   mandiId: { type: String, required: true },
+  stateId: { type: String },
   data: [{
     date: { type: Date, required: true },
     modalPrice: { type: Number, required: true },
@@ -15,12 +16,12 @@ const priceTrendSchema = new mongoose.Schema({
   computedAt: {
     type: Date,
     default: Date.now,
-    expires: 900,
   },
 }, {
   collection: 'pricetrends',
 });
 
-priceTrendSchema.index({ cropId: 1, mandiId: 1 });
+priceTrendSchema.index({ cropId: 1, mandiId: 1, stateId: 1 });
+priceTrendSchema.index({ computedAt: 1 }, { expireAfterSeconds: 900 });
 
 export const PriceTrend = mongoose.model('PriceTrend', priceTrendSchema);

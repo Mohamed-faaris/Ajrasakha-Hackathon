@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 
 const cropSchema = new mongoose.Schema({
-  id: {
+  _id: {
     type: String,
     required: true,
-    unique: true,
     lowercase: true,
     trim: true,
   },

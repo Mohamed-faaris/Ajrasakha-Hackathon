@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 
 const mandiSchema = new mongoose.Schema({
-  id: {
+  _id: {
     type: String,
     required: true,
-    unique: true,
     lowercase: true,
     trim: true,
   },
@@ -24,6 +23,27 @@ const mandiSchema = new mongoose.Schema({
     required: true,
     uppercase: true,
   },
+  districtId: {
+    type: String,
+    trim: true,
+    lowercase: true,
+  },
+  districtName: {
+    type: String,
+    required: true,
+    uppercase: true,
+    trim: true,
+  },
+  apmcCode: {
+    type: String,
+    uppercase: true,
+    trim: true,
+  },
+  sourceMandiId: {
+    type: String,
+    trim: true,
+    lowercase: true,
+  },
   location: {
     type: {
       type: String,
@@ -35,15 +55,15 @@ const mandiSchema = new mongoose.Schema({
       required: true,
     },
   },
-  latitude: { type: Number },
-  longitude: { type: Number },
 }, {
   timestamps: true,
   collection: 'mandis',
 });
 
 mandiSchema.index({ stateId: 1 });
+mandiSchema.index({ districtId: 1 });
 mandiSchema.index({ name: 1 });
 mandiSchema.index({ location: '2dsphere' });
+mandiSchema.index({ sourceMandiId: 1 });
 
 export const Mandi = mongoose.model('Mandi', mandiSchema);

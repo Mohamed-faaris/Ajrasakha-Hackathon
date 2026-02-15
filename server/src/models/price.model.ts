@@ -1,11 +1,6 @@
 import mongoose from 'mongoose';
 
 const priceSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   cropId: {
     type: String,
     required: true,
@@ -32,6 +27,16 @@ const priceSchema = new mongoose.Schema({
     ref: 'State',
   },
   stateName: {
+    type: String,
+    required: true,
+    uppercase: true,
+  },
+  districtId: {
+    type: String,
+    trim: true,
+    lowercase: true,
+  },
+  districtName: {
     type: String,
     required: true,
     uppercase: true,
@@ -70,6 +75,12 @@ const priceSchema = new mongoose.Schema({
   },
   sourceId: {
     type: String,
+    trim: true,
+  },
+  apmcCode: {
+    type: String,
+    uppercase: true,
+    trim: true,
   },
 }, {
   timestamps: true,
@@ -77,11 +88,16 @@ const priceSchema = new mongoose.Schema({
 });
 
 priceSchema.index({ date: -1 });
-priceSchema.index({ cropId: 1, date: -1 });
 priceSchema.index({ mandiId: 1, date: -1 });
-priceSchema.index({ stateId: 1, date: -1 });
-priceSchema.index({ cropId: 1, mandiId: 1, date: -1 });
+priceSchema.index({ cropId: 1, date: -1 });
+priceSchema.index({ stateId: 1, cropId: 1, date: -1 });
+priceSchema.index({ mandiId: 1, cropId: 1, date: -1 });
+priceSchema.index({ mandiId: 1, cropId: 1, districtId: 1, date: -1 });
+priceSchema.index({ stateId: 1, districtId: 1, date: -1 });
+priceSchema.index({ stateId: 1, districtName: 1 });
 priceSchema.index({ source: 1, date: -1 });
+priceSchema.index({ mandiId: 1, modalPrice: -1 });
+priceSchema.index({ mandiId: 1, stateName: 1, districtName: 1 });
 priceSchema.index({ source: 1, date: 1, cropId: 1, mandiId: 1 }, { unique: true });
 
 export const Price = mongoose.model('Price', priceSchema);

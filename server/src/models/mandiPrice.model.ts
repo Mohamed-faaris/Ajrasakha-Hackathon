@@ -11,9 +11,18 @@ const mandiPriceSchema = new mongoose.Schema({
     required: true,
     uppercase: true,
   },
+  cropId: {
+    type: String,
+    required: true,
+    ref: 'Crop',
+  },
   stateName: {
     type: String,
     required: true,
+    uppercase: true,
+  },
+  districtName: {
+    type: String,
     uppercase: true,
   },
   location: {
@@ -42,7 +51,6 @@ const mandiPriceSchema = new mongoose.Schema({
   computedAt: {
     type: Date,
     default: Date.now,
-    expires: 86400,
   },
 }, {
   collection: 'mandiprices',
@@ -50,5 +58,7 @@ const mandiPriceSchema = new mongoose.Schema({
 
 mandiPriceSchema.index({ location: '2dsphere' });
 mandiPriceSchema.index({ stateName: 1 });
+mandiPriceSchema.index({ mandiId: 1, cropId: 1, date: -1 });
+mandiPriceSchema.index({ computedAt: 1 }, { expireAfterSeconds: 86400 });
 
 export const MandiPrice = mongoose.model('MandiPrice', mandiPriceSchema);

@@ -31,12 +31,12 @@ const topMoverSchema = new mongoose.Schema({
   computedAt: {
     type: Date,
     default: Date.now,
-    expires: 86400,
   },
 }, {
   collection: 'topmovers',
 });
 
+topMoverSchema.index({ computedAt: 1 }, { expireAfterSeconds: 86400 });
 topMoverSchema.index({ direction: 1, changePct: -1 });
 
 export const TopMover = mongoose.model('TopMover', topMoverSchema);

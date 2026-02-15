@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 
 const stateSchema = new mongoose.Schema({
-  id: {
+  _id: {
     type: String,
     required: true,
-    unique: true,
     lowercase: true,
     trim: true,
   },

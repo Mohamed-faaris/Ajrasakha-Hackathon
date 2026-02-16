@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { register } from "@/lib/auth";
+import { signUp } from "@/lib/auth";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -28,7 +28,7 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      await register({ name, email, password });
+      await signUp.email({ name, email, password });
       toast({ title: "Account created!", description: "Welcome to Mandi-Insights." });
       navigate("/dashboard");
     } catch (err: any) {

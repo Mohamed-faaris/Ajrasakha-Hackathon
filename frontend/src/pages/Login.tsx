@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { login } from "@/lib/auth";
+import { signIn } from "@/lib/auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -20,7 +20,7 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     try {
-      await login({ email, password });
+      await signIn.email({ email, password });
       toast({ title: "Welcome back!", description: "Logged in successfully." });
       navigate("/dashboard");
     } catch (err: any) {

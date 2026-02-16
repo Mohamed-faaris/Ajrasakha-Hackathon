@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSidebar } from "@/components/ui/sidebar";
-import { logout, useSession } from "@/lib/auth";
+import { signOut, useSession } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
 import {
   User,
@@ -39,7 +39,7 @@ export function ProfileSection() {
 
   const handleLogout = async () => {
     try {
-      await logout();
+      await signOut();
       navigate("/login");
     } catch {
       toast({

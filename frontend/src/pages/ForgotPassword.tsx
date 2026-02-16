@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { forgotPassword } from "@/lib/auth";
+import { authClient } from "@/lib/auth";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -18,7 +18,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     setLoading(true);
     try {
-      await forgotPassword(email);
+      await authClient.forgetPassword({ email, redirectTo: window.location.origin + "/reset-password" });
       setSent(true);
       toast({ title: "Email sent", description: "Check your inbox for a reset link." });
     } catch (err: any) {

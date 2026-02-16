@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { api } from "@/lib/api";
-import type { PriceTrend, CropInfo } from "@/lib/types";
+import { useState } from "react";
+import { usePriceTrend, useCrops } from "@/hooks/use-prices";
+import type { PriceTrend, CropInfo } from "@shared/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
@@ -9,16 +9,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, BarChart, Bar, Area, Area
 const Analytics = () => {
   const [selectedCrop, setSelectedCrop] = useState("Wheat");
   const [period, setPeriod] = useState<number>(6);
-  const [trendData, setTrendData] = useState<PriceTrend[]>([]);
-  const [allCrops, setAllCrops] = useState<CropInfo[]>([]);
-
-  useEffect(() => {
-    api.getCrops().then(setAllCrops);
-  }, []);
-
-  useEffect(() => {
-    api.getPriceTrend(selectedCrop, period).then(setTrendData);
-  }, [selectedCrop, period]);
+  const { data: trendData = [], isLoading: trendLoading, isError: trendError } = usePriceTrend(selectedCrop, period);
+  const { data: allCrops = [] } = useCrops();
 
   const mspCrop = allCrops.find((c) => c.name === selectedCrop);
 
@@ -83,8 +75,13 @@ const Analytics = () => {
             <CardTitle className="font-display text-lg">{selectedCrop} — Price Trend</CardTitle>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={chartConfig} className="h-[320px] w-full">
-              <AreaChart data={trendData.filter((_, i) => i % 3 === 0)}>
+            {trendLoading ? (
+              <div className="p-6 text-center text-sm text-muted-foreground">Loading trend…</div>
+            ) : trendError ? (
+              <div className="p-6 text-center text-sm text-destructive">Failed to load trend.</div>
+            ) : (
+              <ChartContainer config={chartConfig} className="h-[320px] w-full">
+                <AreaChart data={trendData.filter((_, i) => i % 3 === 0)}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" tickFormatter={(d) => new Date(d).toLocaleDateString("en-IN", { month: "short", day: "numeric" })} fontSize={11} />
                 <YAxis fontSize={11} tickFormatter={(v) => `₹${v}`} />
@@ -92,8 +89,9 @@ const Analytics = () => {
                 <Area type="monotone" dataKey="maxPrice" fill="hsl(var(--destructive) / 0.1)" stroke="hsl(var(--destructive) / 0.3)" />
                 <Area type="monotone" dataKey="price" fill="hsl(var(--primary) / 0.2)" stroke="hsl(var(--primary))" strokeWidth={2} />
                 <Area type="monotone" dataKey="minPrice" fill="hsl(var(--muted) / 0.3)" stroke="hsl(var(--muted-foreground) / 0.4)" />
-              </AreaChart>
-            </ChartContainer>
+                </AreaChart>
+              </ChartContainer>
+            )}
           </CardContent>
         </Card>
 

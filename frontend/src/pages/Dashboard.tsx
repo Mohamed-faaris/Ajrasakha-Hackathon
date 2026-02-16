@@ -1,6 +1,7 @@
-import { useEffect, useState, useMemo } from "react";
-import { api, type PriceFilters } from "@/lib/api";
-import type { CropPrice, CropInfo, State } from "@/lib/types";
+import { useState, useMemo } from "react";
+import { usePrices, type PriceFilters } from "@/hooks/use-prices";
+import { useCrops, useStates } from "@/hooks/use-crops";
+import type { CropPrice, CropInfo, State } from "@shared/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,25 +13,17 @@ import { Search, Download, ArrowUpDown, Filter } from "lucide-react";
 type SortKey = "crop" | "minPrice" | "maxPrice" | "modalPrice";
 
 const Dashboard = () => {
-  const [prices, setPrices] = useState<CropPrice[]>([]);
-  const [allCrops, setAllCrops] = useState<CropInfo[]>([]);
-  const [allStates, setAllStates] = useState<State[]>([]);
   const [filters, setFilters] = useState<PriceFilters>({});
   const [searchQ, setSearchQ] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("crop");
   const [sortAsc, setSortAsc] = useState(true);
 
-  useEffect(() => {
-    api.getCrops().then(setAllCrops);
-    api.getStates().then(setAllStates);
-  }, []);
-
-  useEffect(() => {
-    api.getPrices(filters).then(setPrices);
-  }, [filters]);
+  const { data: prices = [], isLoading: pricesLoading, isError: pricesError } = usePrices(filters);
+  const { data: allCrops = [] } = useCrops();
+  const { data: allStates = [] } = useStates();
 
   const filtered = useMemo(() => {
-    let d = [...prices];
+    let d = [...(prices || [])];
     if (searchQ) {
       const q = searchQ.toLowerCase();
       d = d.filter(
@@ -92,20 +85,20 @@ const Dashboard = () => {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input placeholder="Search..." className="pl-9 h-9" value={searchQ} onChange={(e) => setSearchQ(e.target.value)} />
               </div>
-              <Select value={filters.state || "all"} onValueChange={(v) => setFilters({ ...filters, state: v === "all" ? undefined : v })}>
-                <SelectTrigger className="w-[160px] h-9"><SelectValue placeholder="State" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All States</SelectItem>
-                  {allStates.map((s) => <SelectItem key={s.code} value={s.code}>{s.name}</SelectItem>)}
-                </SelectContent>
-              </Select>
-              <Select value={filters.crop || "all"} onValueChange={(v) => setFilters({ ...filters, crop: v === "all" ? undefined : v })}>
-                <SelectTrigger className="w-[160px] h-9"><SelectValue placeholder="Crop" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Crops</SelectItem>
-                  {allCrops.map((c) => <SelectItem key={c.name} value={c.name}>{c.name}</SelectItem>)}
-                </SelectContent>
-              </Select>
+                <Select value={filters.state || "all"} onValueChange={(v) => setFilters({ ...filters, state: v === "all" ? undefined : v })}>
+                  <SelectTrigger className="w-[160px] h-9"><SelectValue placeholder="State" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All States</SelectItem>
+                   {allStates?.map((s) => <SelectItem key={s.code} value={s.code}>{s.name}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                <Select value={filters.crop || "all"} onValueChange={(v) => setFilters({ ...filters, crop: v === "all" ? undefined : v })}>
+                  <SelectTrigger className="w-[160px] h-9"><SelectValue placeholder="Crop" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Crops</SelectItem>
+                   {allCrops?.map((c) => <SelectItem key={c.name} value={c.name}>{c.name}</SelectItem>)}
+                  </SelectContent>
+                </Select>
               <Select value={filters.source || "all"} onValueChange={(v) => setFilters({ ...filters, source: v === "all" ? undefined : v })}>
                 <SelectTrigger className="w-[140px] h-9"><SelectValue placeholder="Source" /></SelectTrigger>
                 <SelectContent>
@@ -121,48 +114,57 @@ const Dashboard = () => {
 
         {/* Table */}
         <Card>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="cursor-pointer" onClick={() => handleSort("crop")}>
-                  <span className="flex items-center gap-1">Crop <ArrowUpDown className="h-3 w-3" /></span>
-                </TableHead>
-                <TableHead>Mandi</TableHead>
-                <TableHead>State / District</TableHead>
-                <TableHead className="cursor-pointer text-right" onClick={() => handleSort("minPrice")}>
-                  <span className="flex items-center gap-1 justify-end">Min ₹ <ArrowUpDown className="h-3 w-3" /></span>
-                </TableHead>
-                <TableHead className="cursor-pointer text-right" onClick={() => handleSort("maxPrice")}>
-                  <span className="flex items-center gap-1 justify-end">Max ₹ <ArrowUpDown className="h-3 w-3" /></span>
-                </TableHead>
-                <TableHead className="cursor-pointer text-right" onClick={() => handleSort("modalPrice")}>
-                  <span className="flex items-center gap-1 justify-end">Modal ₹ <ArrowUpDown className="h-3 w-3" /></span>
-                </TableHead>
-                <TableHead>Source</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filtered.slice(0, 50).map((p) => (
-                <TableRow key={p.id}>
-                  <TableCell className="font-medium">{p.crop}<span className="text-xs text-muted-foreground ml-1">({p.variety})</span></TableCell>
-                  <TableCell>{p.mandi}</TableCell>
-                  <TableCell>
-                    <span className="text-xs">{p.state}</span>
-                    <br />
-                    <span className="text-xs text-muted-foreground">{p.district}</span>
-                  </TableCell>
-                  <TableCell className="text-right font-mono text-sm">₹{p.minPrice.toLocaleString()}</TableCell>
-                  <TableCell className="text-right font-mono text-sm">₹{p.maxPrice.toLocaleString()}</TableCell>
-                  <TableCell className="text-right font-mono text-sm font-semibold">₹{p.modalPrice.toLocaleString()}</TableCell>
-                  <TableCell><Badge variant={sourceBadgeVariant(p.source)} className="text-[10px]">{p.source}</Badge></TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          {filtered.length > 50 && (
-            <div className="p-4 text-center text-sm text-muted-foreground border-t">
-              Showing 50 of {filtered.length} records. Use filters to narrow results.
-            </div>
+          {pricesLoading ? (
+            <div className="p-6 text-center text-sm text-muted-foreground">Loading prices…</div>
+          ) : pricesError ? (
+            <div className="p-6 text-center text-sm text-destructive">Failed to load prices.</div>
+          ) : (
+            <>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="cursor-pointer" onClick={() => handleSort("crop")}>
+                      <span className="flex items-center gap-1">Crop <ArrowUpDown className="h-3 w-3" /></span>
+                    </TableHead>
+                    <TableHead>Mandi</TableHead>
+                    <TableHead>State / District</TableHead>
+                    <TableHead className="cursor-pointer text-right" onClick={() => handleSort("minPrice")}>
+                      <span className="flex items-center gap-1 justify-end">Min ₹ <ArrowUpDown className="h-3 w-3" /></span>
+                    </TableHead>
+                    <TableHead className="cursor-pointer text-right" onClick={() => handleSort("maxPrice")}>
+                      <span className="flex items-center gap-1 justify-end">Max ₹ <ArrowUpDown className="h-3 w-3" /></span>
+                    </TableHead>
+                    <TableHead className="cursor-pointer text-right" onClick={() => handleSort("modalPrice")}>
+                      <span className="flex items-center gap-1 justify-end">Modal ₹ <ArrowUpDown className="h-3 w-3" /></span>
+                    </TableHead>
+                    <TableHead>Source</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filtered.slice(0, 50).map((p) => (
+                    <TableRow key={p.id}>
+                      <TableCell className="font-medium">{p.crop}<span className="text-xs text-muted-foreground ml-1">({p.variety})</span></TableCell>
+                      <TableCell>{p.mandi}</TableCell>
+                      <TableCell>
+                        <span className="text-xs">{p.state}</span>
+                        <br />
+                        <span className="text-xs text-muted-foreground">{p.district}</span>
+                      </TableCell>
+                      <TableCell className="text-right font-mono text-sm">₹{p.minPrice.toLocaleString()}</TableCell>
+                      <TableCell className="text-right font-mono text-sm">₹{p.maxPrice.toLocaleString()}</TableCell>
+                      <TableCell className="text-right font-mono text-sm font-semibold">₹{p.modalPrice.toLocaleString()}</TableCell>
+                      <TableCell><Badge variant={sourceBadgeVariant(p.source)} className="text-[10px]">{p.source}</Badge></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+
+              {filtered.length > 50 && (
+                <div className="p-4 text-center text-sm text-muted-foreground border-t">
+                  Showing 50 of {filtered.length} records. Use filters to narrow results.
+                </div>
+              )}
+            </>
           )}
         </Card>
     </div>

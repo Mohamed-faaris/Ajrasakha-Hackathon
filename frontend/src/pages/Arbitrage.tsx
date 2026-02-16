@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { api } from "@/lib/api";
-import type { ArbitrageOpportunity } from "@/lib/types";
+import { useState } from "react";
+import type { ArbitrageOpportunity } from "@shared/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,54 +9,44 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Label } from "@/components/ui/label";
 import { ArrowLeftRight, Bell, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useArbitrageOpportunities, useAlerts, useCreateAlert, useDeleteAlert } from "@/hooks/use-coverage";
+// use-coverage exports arbitrage hook; alerts mutations come from use-alerts
+import { useCreateAlert as useCreateAlertMutation, useDeleteAlert as useDeleteAlertMutation, useAlerts as useAlertsQuery } from "@/hooks/use-alerts";
 
 const Arbitrage = () => {
-  const [opps, setOpps] = useState<ArbitrageOpportunity[]>([]);
   const [alertCrop, setAlertCrop] = useState("");
   const [alertThreshold, setAlertThreshold] = useState("");
   const [alertType, setAlertType] = useState<"above" | "below">("above");
-  const [alerts, setAlerts] = useState<Array<{ id: string; crop: string; threshold: number; type: "above" | "below" }>>([]);
   const { toast } = useToast();
 
-  useEffect(() => {
-    api.getArbitrageOpportunities().then(setOpps);
-    api
-      .getAlerts()
-      .then(setAlerts)
-      .catch(() => setAlerts([]));
-  }, []);
+  const { data: opps = [], isLoading: oppsLoading, isError: oppsError } = useArbitrageOpportunities();
+  const { data: alerts = [] } = useAlertsQuery();
+  const createAlert = useCreateAlertMutation();
+  const deleteAlert = useDeleteAlertMutation();
+
+  // data fetched via hooks above
 
   const addAlert = async () => {
     if (!alertCrop || !alertThreshold) return;
-
     try {
-      const created = await api.createAlert({
+      await createAlert.mutateAsync({
         crop: alertCrop,
         threshold: Number(alertThreshold),
         type: alertType,
       });
-      setAlerts((prev) => [created, ...prev]);
       setAlertCrop("");
       setAlertThreshold("");
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to create alert.",
-        variant: "destructive",
-      });
+    } catch (err) {
+      // mutation handles toast; fallback
+      toast({ title: "Error", description: "Failed to create alert.", variant: "destructive" });
     }
   };
 
-  const deleteAlert = async (id: string) => {
+  const deleteAlertById = async (id: string) => {
     try {
-      await api.deleteAlert(id);
-      setAlerts((prev) => prev.filter((item) => item.id !== id));
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to delete alert.",
-        variant: "destructive",
-      });
+      await deleteAlert.mutateAsync(id);
+    } catch (err) {
+      toast({ title: "Error", description: "Failed to delete alert.", variant: "destructive" });
     }
   };
 
@@ -99,8 +88,8 @@ const Arbitrage = () => {
                   <TableHead className="text-right">Distance</TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody>
-                {opps.map((item, index) => (
+                <TableBody>
+                 {opps.map((item, index) => (
                   <TableRow key={`${item.crop}-${index}`}>
                     <TableCell className="font-medium">{item.crop}</TableCell>
                     <TableCell>
@@ -137,7 +126,7 @@ const Arbitrage = () => {
                 Price Alerts
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+               <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Label className="text-xs">Crop</Label>
@@ -148,8 +137,8 @@ const Arbitrage = () => {
                   <Input type="number" placeholder="2500" value={alertThreshold} onChange={(e) => setAlertThreshold(e.target.value)} />
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Select value={alertType} onValueChange={(value) => setAlertType(value as "above" | "below")}>
+               <div className="flex items-center gap-3">
+                <Select value={alertType} onValueChange={(value) => setAlertType(value as "above" | "below")}> 
                   <SelectTrigger className="w-[120px]">
                     <SelectValue />
                   </SelectTrigger>
@@ -158,18 +147,18 @@ const Arbitrage = () => {
                     <SelectItem value="below">Below</SelectItem>
                   </SelectContent>
                 </Select>
-                <Button onClick={addAlert} size="sm">
+                <Button onClick={addAlert} size="sm" disabled={createAlert.isLoading}>
                   Add Alert
                 </Button>
               </div>
-              {alerts.length > 0 && (
+               {alerts.length > 0 && (
                 <div className="space-y-2 pt-2 border-t">
                   {alerts.map((alert) => (
                     <div key={alert.id} className="flex items-center justify-between text-sm bg-muted/50 rounded-md px-3 py-2">
                       <span>
-                        {alert.crop} - {alert.type} Rs {alert.threshold.toLocaleString()}/qtl
+                        {alert.crop} - {alert.thresholdType || alert.type} Rs {alert.thresholdPrice ? alert.thresholdPrice.toLocaleString() : alert.threshold}/qtl
                       </span>
-                      <Button variant="ghost" size="sm" onClick={() => deleteAlert(alert.id)}>
+                      <Button variant="ghost" size="sm" onClick={() => deleteAlertById(alert.id)} disabled={deleteAlert.isLoading}>
                         x
                       </Button>
                     </div>

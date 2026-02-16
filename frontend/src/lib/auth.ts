@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
+import type { User } from "@shared/types";
 
 const AUTH_BASE_URL = import.meta.env.VITE_AUTH_BASE_URL || "/api/auth";
 const TOKEN_KEY = "auth_token";
 const USER_KEY = "auth_user";
 
-export interface AuthUser {
-  id: string;
-  name: string;
-  email: string;
-}
-
 export interface AuthResponse {
   token: string;
-  user: AuthUser;
+  user: User;
 }
 
 export interface LoginPayload {
@@ -34,17 +29,17 @@ export function setToken(token: string) {
   localStorage.setItem(TOKEN_KEY, token);
 }
 
-export function getStoredUser(): AuthUser | null {
+export function getStoredUser(): User | null {
   const raw = localStorage.getItem(USER_KEY);
   if (!raw) return null;
   try {
-    return JSON.parse(raw) as AuthUser;
+    return JSON.parse(raw) as User;
   } catch {
     return null;
   }
 }
 
-function setStoredUser(user: AuthUser) {
+function setStoredUser(user: User) {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
 
@@ -119,7 +114,7 @@ export async function logout() {
 }
 
 export function useSession() {
-  const [data, setData] = useState<{ user: AuthUser } | null>(() => {
+  const [data, setData] = useState<{ user: User } | null>(() => {
     const user = getStoredUser();
     return user ? { user } : null;
   });
@@ -141,7 +136,7 @@ export function useSession() {
     })
       .then(async (response) => {
         if (!response.ok) throw new Error("Unauthorized");
-        const payload = (await response.json()) as { user: AuthUser };
+        const payload = (await response.json()) as { user: User };
         setStoredUser(payload.user);
         setData(payload);
       })

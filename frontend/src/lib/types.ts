@@ -1,87 +1,29 @@
-export interface State {
-  code: string;
-  name: string;
+export {
+  type District,
+  type DataSource,
+  type CropPrice,
+  type CropInfo,
+  type PriceTrendPoint,
+  type ArbitrageOpportunity,
+  type PriceAlert,
+  type StateCoverage,
+  type TopMoverDirection,
+  type AlertDirection,
+} from "@shared/types";
+
+export type { FrontendPriceTrend as PriceTrend } from "@shared/types";
+export type { FrontendState as State } from "@shared/types";
+
+import type { Mandi as SharedMandi, TopMover as SharedTopMover } from "@shared/types";
+
+export interface Mandi extends Omit<SharedMandi, 'stateId' | 'stateName' | 'latitude' | 'longitude'> {
+  stateId?: string;
+  stateName?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
-export interface District {
-  name: string;
-  stateCode: string;
-}
-
-export interface Mandi {
-  id: string;
-  name: string;
-  district: string;
-  stateCode: string;
-  isEnamIntegrated: boolean;
-  source: DataSource;
-  lastUpdated: string;
-}
-
-export type DataSource = "eNAM" | "Agmarknet" | "State Portal";
-
-export interface CropPrice {
-  id: string;
-  date: string;
-  stateCode: string;
-  state: string;
-  district: string;
-  mandi: string;
-  crop: string;
-  variety: string;
-  minPrice: number;
-  maxPrice: number;
-  modalPrice: number;
-  unit: string;
-  source: DataSource;
-}
-
-export interface CropInfo {
-  name: string;
-  category: string;
-  mspPrice?: number;
-}
-
-export interface PriceTrend {
-  date: string;
-  price: number;
-  minPrice: number;
-  maxPrice: number;
-}
-
-export interface ArbitrageOpportunity {
-  crop: string;
-  variety: string;
-  mandiA: string;
-  stateA: string;
-  priceA: number;
-  mandiB: string;
-  stateB: string;
-  priceB: number;
-  priceDiff: number;
-  distanceKm: number;
-}
-
-export interface PriceAlert {
-  id: string;
-  crop: string;
-  state: string;
-  thresholdType: "above" | "below";
-  thresholdPrice: number;
-  isActive: boolean;
-}
-
-export interface StateCoverage {
-  stateCode: string;
-  state: string;
-  totalApmcs: number;
-  enamIntegrated: number;
-  statePortal: number;
-  uncovered: number;
-  avgPrice?: number;
-}
-
-export interface TopMover {
+export interface TopMover extends Partial<SharedTopMover> {
   crop: string;
   state: string;
   changePercent: number;

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { api } from "@/lib/api";
-import type { TopMover } from "@/lib/types";
+import { useQuickStats } from "@/hooks/use-quick-stats";
+import { useTopMovers } from "@/hooks/use-prices";
+import type { TopMover } from "@shared/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -9,14 +10,9 @@ import { Button } from "@/components/ui/button";
 import { Search, TrendingUp, TrendingDown, BarChart3, MapPin, Wheat, ArrowRight } from "lucide-react";
 
 const Index = () => {
-  const [stats, setStats] = useState<any>(null);
-  const [movers, setMovers] = useState<TopMover[]>([]);
   const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    api.getQuickStats().then(setStats);
-    api.getTopMovers().then(setMovers);
-  }, []);
+  const { data: stats, isLoading: statsLoading, isError: statsError } = useQuickStats();
+  const { data: movers = [], isLoading: moversLoading } = useTopMovers();
 
   return (
     <div className="max-w-7xl mx-auto space-y-8">
@@ -49,7 +45,11 @@ const Index = () => {
         </section>
 
         {/* Quick Stats */}
-        {stats && (
+        {statsLoading ? (
+          <div className="text-center p-4 text-sm text-muted-foreground">Loading stats…</div>
+        ) : statsError ? (
+          <div className="text-center p-4 text-sm text-destructive">Failed to load stats.</div>
+        ) : stats && (
           <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <StatCard icon={MapPin} label="Total APMCs" value={stats.totalApmcs.toLocaleString()} />
             <StatCard icon={Wheat} label="Crops Tracked" value={stats.cropsTracked} />
@@ -103,10 +103,13 @@ const Index = () => {
             </Button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {movers.slice(0, 8).map((m) => (
-              <Card key={`${m.crop}-${m.state}`} className="hover:shadow-md transition-shadow">
-                <CardContent className="pt-4 pb-4">
-                  <div className="flex items-start justify-between">
+            {moversLoading ? (
+              <div className="col-span-4 text-center text-sm text-muted-foreground">Loading movers…</div>
+            ) : (
+              movers.slice(0, 8).map((m) => (
+                <Card key={`${m.crop}-${m.state}`} className="hover:shadow-md transition-shadow">
+                  <CardContent className="pt-4 pb-4">
+                    <div className="flex items-start justify-between">
                     <div>
                       <p className="font-semibold text-sm">{m.crop}</p>
                       <p className="text-xs text-muted-foreground">{m.state}</p>

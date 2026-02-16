@@ -1,0 +1,9 @@
+export { default as cropRoutes } from './crop.routes';
+export { default as stateRoutes } from './state.routes';
+export { default as mandiRoutes } from './mandi.routes';
+export { default as priceRoutes } from './price.routes';
+export { default as createAlertRoutes } from './alert.routes';
+export { default as coverageRoutes } from './coverage.routes';
+export { default as topMoverRoutes } from './topMover.routes';
+export { default as mandiPriceRoutes } from './mandiPrice.routes';
+export { default as createUserProfileRoutes } from './userProfile.routes';

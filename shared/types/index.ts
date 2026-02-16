@@ -208,7 +208,7 @@ export interface GetPricesQuery extends Pagination {
   dateFrom?: string;
   dateTo?: string;
   source?: PriceSource;
-  sortBy?: 'date' | 'cropId' | 'stateId' | 'mandiId' | 'modalPrice';
+  sortBy?: 'date' | 'crop' | 'state' | 'mandi' | 'modalPrice';
   sortOrder?: SortDirection;
 }
 

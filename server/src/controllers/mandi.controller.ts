@@ -1,26 +1,7 @@
 import { type Request, type Response } from 'express';
 import * as mandiService from '../services/mandi.service';
 import { validateQuery, validateParams } from '../middlewares/validate.middleware';
-import { z } from 'zod';
-
-const GetByIdParamsSchema = z.object({
-  id: z.string().min(1),
-});
-
-const GetByStateParamsSchema = z.object({
-  stateId: z.string().min(1),
-});
-
-const SearchQuerySchema = z.object({
-  q: z.string().min(1),
-});
-
-const BoundsQuerySchema = z.object({
-  minLng: z.coerce.number(),
-  minLat: z.coerce.number(),
-  maxLng: z.coerce.number(),
-  maxLat: z.coerce.number(),
-});
+import { GetByIdParamsSchema, GetByStateParamsSchema, SearchQuerySchema, BoundsQuerySchema } from '@shared/schemas';
 
 export const getAllMandis = async (req: Request, res: Response) => {
   const mandis = await mandiService.getAllMandis();

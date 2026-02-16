@@ -1,11 +1,7 @@
 import { type Request, type Response } from 'express';
 import * as stateService from '../services/state.service';
 import { validateParams } from '../middlewares/validate.middleware';
-import { z } from 'zod';
-
-const GetByIdParamsSchema = z.object({
-  id: z.string().min(1),
-});
+import { GetByIdParamsSchema } from '@shared/schemas';
 
 export const getAllStates = async (req: Request, res: Response) => {
   const states = await stateService.getAllStates();

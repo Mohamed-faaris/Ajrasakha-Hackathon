@@ -1,24 +1,7 @@
 import { type Request, type Response } from 'express';
 import * as mandiPriceService from '../services/mandiPrice.service';
 import { validateQuery, validateParams } from '../middlewares/validate.middleware';
-import { z } from 'zod';
-
-const MandiIdParamsSchema = z.object({
-  mandiId: z.string().min(1),
-});
-
-const GetMandiPricesQuerySchema = z.object({
-  stateName: z.string().optional(),
-  cropId: z.string().optional(),
-});
-
-const GetMandiPricesInBoundsQuerySchema = z.object({
-  minLng: z.coerce.number(),
-  minLat: z.coerce.number(),
-  maxLng: z.coerce.number(),
-  maxLat: z.coerce.number(),
-  cropId: z.string().optional(),
-});
+import { GetMandiPricesQuerySchema, GetMandiPricesInBoundsQuerySchema, MandiIdParamsSchema } from '@shared/schemas';
 
 export const getMandiPrices = [
   validateQuery(GetMandiPricesQuerySchema),

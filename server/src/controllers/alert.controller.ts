@@ -1,8 +1,31 @@
 import { type Request, type Response } from 'express';
 import * as alertService from '../services/alert.service';
 import { validateParams, validateBody } from '../middlewares/validate.middleware';
+import { z } from 'zod';
 import { Types } from 'mongoose';
-import { AlertIdParamsSchema, CreateAlertBodySchema, UpdateAlertBodySchema, ToggleAlertBodySchema } from '../schemas';
+
+const AlertDirectionSchema = z.enum(['above', 'below']);
+
+const AlertIdParamsSchema = z.object({
+  alertId: z.string().min(1),
+});
+
+const CreateAlertBodySchema = z.object({
+  cropId: z.string().min(1),
+  mandiId: z.string().optional(),
+  thresholdPrice: z.number().min(0),
+  direction: AlertDirectionSchema,
+});
+
+const UpdateAlertBodySchema = z.object({
+  thresholdPrice: z.number().min(0).optional(),
+  direction: AlertDirectionSchema.optional(),
+  isActive: z.boolean().optional(),
+});
+
+const ToggleAlertBodySchema = z.object({
+  isActive: z.boolean(),
+});
 
 export const createAlert = [
   validateBody(CreateAlertBodySchema),

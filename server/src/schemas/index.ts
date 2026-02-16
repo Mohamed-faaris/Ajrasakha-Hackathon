@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
-export const PriceSourceSchema = z.enum(['agmarknet', 'enam', 'apmc', 'other']);
+export const PriceSourceSchema = z.enum(['agmarknet', 'enam', 'apmc', 'other', 'mandi-insights']);
 export const SortDirectionSchema = z.enum(['asc', 'desc']);
+export const PriceSortBySchema = z.enum(['date', 'crop', 'state', 'mandi', 'modalPrice']);
 export const AlertDirectionSchema = z.enum(['above', 'below']);
 export const TopMoverDirectionSchema = z.enum(['up', 'down']);
 export const LanguageSchema = z.enum(['en', 'hi', 'mr', 'te', 'ta', 'kn', 'gu', 'pa']);
@@ -151,4 +152,174 @@ export const UpdateUserProfileBodySchema = z.object({
   avatar: z.string().optional(),
   farmerDetails: FarmerDetailsSchema.partial().optional(),
   traderDetails: TraderDetailsSchema.partial().optional(),
+});
+
+export const CropSchema = z.object({
+  _id: z.string(),
+  name: z.string(),
+  commodityGroup: z.string().optional(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});
+
+export const StateSchema = z.object({
+  _id: z.string(),
+  name: z.string(),
+  code: z.string().optional(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});
+
+export const LocationSchema = z.object({
+  type: z.literal('Point'),
+  coordinates: z.tuple([z.number(), z.number()]),
+});
+
+export const MandiSchema = z.object({
+  _id: z.string(),
+  name: z.string(),
+  stateId: z.string(),
+  stateName: z.string(),
+  districtId: z.string().optional(),
+  districtName: z.string(),
+  apmcCode: z.string().optional(),
+  sourceMandiId: z.string().optional(),
+  location: LocationSchema,
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});
+
+export const PriceSchema = z.object({
+  _id: z.string(),
+  cropId: z.string(),
+  cropName: z.string(),
+  mandiId: z.string(),
+  mandiName: z.string(),
+  stateId: z.string(),
+  stateName: z.string(),
+  districtId: z.string().optional(),
+  districtName: z.string(),
+  date: z.coerce.date(),
+  minPrice: z.number().min(0),
+  maxPrice: z.number().min(0),
+  modalPrice: z.number().min(0),
+  unit: z.string().default('Qui'),
+  arrival: z.number().min(0).optional(),
+  source: PriceSourceSchema.default('other'),
+  sourceId: z.string().optional(),
+  apmcCode: z.string().optional(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});
+
+export const AlertSchema = z.object({
+  _id: z.string(),
+  id: z.string(),
+  userId: z.string(),
+  cropId: z.string(),
+  cropName: z.string(),
+  mandiId: z.string().optional(),
+  mandiName: z.string().optional(),
+  thresholdPrice: z.number().min(0),
+  direction: AlertDirectionSchema,
+  isActive: z.boolean().default(true),
+  triggeredAt: z.coerce.date().optional(),
+  message: z.string().optional(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});
+
+export const TopMoverSchema = z.object({
+  _id: z.string(),
+  cropId: z.string(),
+  cropName: z.string(),
+  latestPrice: z.number(),
+  previousPrice: z.number(),
+  changePct: z.number(),
+  direction: TopMoverDirectionSchema,
+  computedAt: z.coerce.date(),
+});
+
+export const CoverageSchema = z.object({
+  _id: z.string(),
+  totalApmcs: z.number().default(0),
+  coveredApmcs: z.number().default(0),
+  coveragePercent: z.number().default(0),
+  statesCovered: z.number().default(0),
+  totalPrices: z.number().default(0),
+  latestDate: z.coerce.date().optional(),
+  computedAt: z.coerce.date(),
+});
+
+export const PriceTrendPointSchema = z.object({
+  date: z.coerce.date(),
+  modalPrice: z.number(),
+});
+
+export const PriceTrendSchema = z.object({
+  _id: z.string(),
+  cacheKey: z.string(),
+  cropId: z.string(),
+  mandiId: z.string(),
+  stateId: z.string().optional(),
+  data: z.array(PriceTrendPointSchema),
+  computedAt: z.coerce.date(),
+});
+
+export const MandiPriceSchema = z.object({
+  _id: z.string(),
+  mandiId: z.string(),
+  mandiName: z.string(),
+  cropId: z.string(),
+  cropName: z.string().optional(),
+  stateName: z.string(),
+  districtName: z.string().optional(),
+  location: LocationSchema,
+  modalPrice: z.number(),
+  date: z.coerce.date(),
+  computedAt: z.coerce.date(),
+});
+
+export const UserProfileSchema = z.object({
+  _id: z.string(),
+  userId: z.string(),
+  phone: z.string().regex(/^[6-9]\d{9}$/).optional(),
+  state: z.string().optional(),
+  district: z.string().optional(),
+  preferredCrops: z.array(z.string()).optional(),
+  preferredMandis: z.array(z.string()).optional(),
+  notificationSettings: NotificationSettingsSchema,
+  language: LanguageSchema.default('en'),
+  avatar: z.string().optional(),
+  farmerDetails: FarmerDetailsSchema.optional(),
+  traderDetails: TraderDetailsSchema.optional(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export const UserSchema = z.object({
+  id: z.string(),
+  email: z.string().email(),
+  name: z.string().optional(),
+  emailVerified: z.boolean().optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
+});
+
+export const SessionSchema = z.object({
+  id: z.string(),
+  userId: z.string(),
+  expiresAt: z.coerce.date(),
+});
+
+export const ApiErrorSchema = z.object({
+  error: z.string(),
+  details: z.record(z.string(), z.unknown()).optional(),
+});
+
+export const GeoBoundsSchema = z.object({
+  minLng: z.number(),
+  minLat: z.number(),
+  maxLng: z.number(),
+  maxLat: z.number(),
 });

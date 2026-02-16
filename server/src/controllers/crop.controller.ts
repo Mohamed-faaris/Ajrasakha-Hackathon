@@ -1,7 +1,15 @@
 import { type Request, type Response } from 'express';
 import * as cropService from '../services/crop.service';
 import { validateQuery, validateParams } from '../middlewares/validate.middleware';
-import { GetByIdParamsSchema, SearchQuerySchema } from '../schemas';
+import { z } from 'zod';
+
+const GetByIdParamsSchema = z.object({
+  id: z.string().min(1),
+});
+
+const SearchQuerySchema = z.object({
+  q: z.string().min(1),
+});
 
 export const getAllCrops = async (req: Request, res: Response) => {
   const crops = await cropService.getAllCrops();

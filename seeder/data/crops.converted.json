@@ -1,0 +1,3260 @@
+[
+  {
+    "_id": "absinthe",
+    "name": "ABSINTHE",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 380
+  },
+  {
+    "_id": "ajwain-husk",
+    "name": "AJWAIN HUSK",
+    "commodityGroup": "Others",
+    "sourceId": 454
+  },
+  {
+    "_id": "ajwan",
+    "name": "AJWAN",
+    "commodityGroup": "Spices",
+    "sourceId": 115
+  },
+  {
+    "_id": "alasande-gram",
+    "name": "ALASANDE GRAM",
+    "commodityGroup": "Pulses",
+    "sourceId": 234
+  },
+  {
+    "_id": "almondbadam",
+    "name": "ALMOND(BADAM)",
+    "commodityGroup": "Nuts",
+    "sourceId": 275
+  },
+  {
+    "_id": "aloe-vera",
+    "name": "ALOE VERA",
+    "commodityGroup": "Vegetables",
+    "sourceId": 455
+  },
+  {
+    "_id": "alsandikai",
+    "name": "ALSANDIKAI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 138
+  },
+  {
+    "_id": "amaranthus",
+    "name": "AMARANTHUS",
+    "commodityGroup": "Vegetables",
+    "sourceId": 72
+  },
+  {
+    "_id": "ambada-seed",
+    "name": "AMBADA SEED",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 112
+  },
+  {
+    "_id": "ambadymesta",
+    "name": "AMBADY/MESTA",
+    "commodityGroup": "Fibers",
+    "sourceId": 346
+  },
+  {
+    "_id": "ambat-chuka",
+    "name": "AMBAT CHUKA",
+    "commodityGroup": "Vegetables",
+    "sourceId": 456
+  },
+  {
+    "_id": "amlanelli-kai",
+    "name": "AMLA(NELLI KAI)",
+    "commodityGroup": "Fruits",
+    "sourceId": 303
+  },
+  {
+    "_id": "amranthas-red",
+    "name": "AMRANTHAS RED",
+    "commodityGroup": "Vegetables",
+    "sourceId": 348
+  },
+  {
+    "_id": "antawala",
+    "name": "ANTAWALA",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 169
+  },
+  {
+    "_id": "anthorium",
+    "name": "ANTHORIUM",
+    "commodityGroup": "Flowers",
+    "sourceId": 326
+  },
+  {
+    "_id": "apple",
+    "name": "APPLE",
+    "commodityGroup": "Fruits",
+    "sourceId": 17
+  },
+  {
+    "_id": "apricotjardalukhumani",
+    "name": "APRICOT(JARDALU/KHUMANI)",
+    "commodityGroup": "Fruits",
+    "sourceId": 276
+  },
+  {
+    "_id": "arecanutbetelnutsupari",
+    "name": "ARECANUT(BETELNUT/SUPARI)",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 118
+  },
+  {
+    "_id": "arhar-daltur-dal",
+    "name": "ARHAR DAL(TUR DAL)",
+    "commodityGroup": "Pulses",
+    "sourceId": 214
+  },
+  {
+    "_id": "arharturred-gramwhole",
+    "name": "ARHAR(TUR/RED GRAM)(WHOLE)",
+    "commodityGroup": "Pulses",
+    "sourceId": 45
+  },
+  {
+    "_id": "arrowroot",
+    "name": "ARROWROOT",
+    "commodityGroup": "Vegetables",
+    "sourceId": 457
+  },
+  {
+    "_id": "asalia",
+    "name": "ASALIA",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 373
+  },
+  {
+    "_id": "asgand",
+    "name": "ASGAND",
+    "commodityGroup": "Spices",
+    "sourceId": 434
+  },
+  {
+    "_id": "ashgourd",
+    "name": "ASHGOURD",
+    "commodityGroup": "Vegetables",
+    "sourceId": 69
+  },
+  {
+    "_id": "ashoka",
+    "name": "ASHOKA",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 435
+  },
+  {
+    "_id": "ashwagandha",
+    "name": "ASHWAGANDHA",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 372
+  },
+  {
+    "_id": "asparagus",
+    "name": "ASPARAGUS",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 363
+  },
+  {
+    "_id": "astera",
+    "name": "ASTERA",
+    "commodityGroup": "Flowers",
+    "sourceId": 190
+  },
+  {
+    "_id": "atis",
+    "name": "ATIS",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 436
+  },
+  {
+    "_id": "avare-dal",
+    "name": "AVARE DAL",
+    "commodityGroup": "Pulses",
+    "sourceId": 223
+  },
+  {
+    "_id": "avocado",
+    "name": "AVOCADO",
+    "commodityGroup": "Fruits",
+    "sourceId": 458
+  },
+  {
+    "_id": "bop",
+    "name": "BOP",
+    "commodityGroup": "Flowers",
+    "sourceId": 327
+  },
+  {
+    "_id": "baby-corn",
+    "name": "BABY CORN",
+    "commodityGroup": "Vegetables",
+    "sourceId": 459
+  },
+  {
+    "_id": "bael",
+    "name": "BAEL",
+    "commodityGroup": "Fruits",
+    "sourceId": 347
+  },
+  {
+    "_id": "bajji-chilli",
+    "name": "BAJJI CHILLI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 420
+  },
+  {
+    "_id": "bajrapearl-milletcumbu",
+    "name": "BAJRA(PEARL MILLET/CUMBU)",
+    "commodityGroup": "Cereals",
+    "sourceId": 28
+  },
+  {
+    "_id": "balekai",
+    "name": "BALEKAI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 228
+  },
+  {
+    "_id": "bamboo",
+    "name": "BAMBOO",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 164
+  },
+  {
+    "_id": "bamboo-shoot",
+    "name": "BAMBOO SHOOT",
+    "commodityGroup": "Vegetables",
+    "sourceId": 460
+  },
+  {
+    "_id": "banana",
+    "name": "BANANA",
+    "commodityGroup": "Fruits",
+    "sourceId": 19
+  },
+  {
+    "_id": "banana-green",
+    "name": "BANANA - GREEN",
+    "commodityGroup": "Vegetables",
+    "sourceId": 76
+  },
+  {
+    "_id": "banana-leaf",
+    "name": "BANANA LEAF",
+    "commodityGroup": "Vegetables",
+    "sourceId": 414
+  },
+  {
+    "_id": "banana-flower",
+    "name": "BANANA FLOWER",
+    "commodityGroup": "Vegetables",
+    "sourceId": 412
+  },
+  {
+    "_id": "banana-stem",
+    "name": "BANANA STEM",
+    "commodityGroup": "Vegetables",
+    "sourceId": 413
+  },
+  {
+    "_id": "barleyjau",
+    "name": "BARLEY(JAU)",
+    "commodityGroup": "Cereals",
+    "sourceId": 29
+  },
+  {
+    "_id": "barnyard-millet",
+    "name": "BARNYARD MILLET",
+    "commodityGroup": "Cereals",
+    "sourceId": 461
+  },
+  {
+    "_id": "bay-leaftejpatta",
+    "name": "BAY LEAF(TEJPATTA)",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 271
+  },
+  {
+    "_id": "beans",
+    "name": "BEANS",
+    "commodityGroup": "Pulses",
+    "sourceId": 80
+  },
+  {
+    "_id": "beaten-rice",
+    "name": "BEATEN RICE",
+    "commodityGroup": "Cereals",
+    "sourceId": 216
+  },
+  {
+    "_id": "beetroot",
+    "name": "BEETROOT",
+    "commodityGroup": "Vegetables",
+    "sourceId": 129
+  },
+  {
+    "_id": "behada",
+    "name": "BEHADA",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 437
+  },
+  {
+    "_id": "bengal-gram-dalchana-dal",
+    "name": "BENGAL GRAM DAL(CHANA DAL)",
+    "commodityGroup": "Pulses",
+    "sourceId": 217
+  },
+  {
+    "_id": "bengal-gramgramwhole",
+    "name": "BENGAL GRAM(GRAM)(WHOLE)",
+    "commodityGroup": "Pulses",
+    "sourceId": 6
+  },
+  {
+    "_id": "berzizyphusborehannu",
+    "name": "BER(ZIZYPHUS/BOREHANNU)",
+    "commodityGroup": "Fruits",
+    "sourceId": 304
+  },
+  {
+    "_id": "betal-leaves",
+    "name": "BETAL LEAVES",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 121
+  },
+  {
+    "_id": "betelnuts",
+    "name": "BETELNUTS",
+    "commodityGroup": "Spices",
+    "sourceId": 37
+  },
+  {
+    "_id": "bhindiladies-finger",
+    "name": "BHINDI(LADIES FINGER)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 71
+  },
+  {
+    "_id": "bhui-amlaya",
+    "name": "BHUI AMLAYA",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 377
+  },
+  {
+    "_id": "big-gram",
+    "name": "BIG GRAM",
+    "commodityGroup": "Pulses",
+    "sourceId": 97
+  },
+  {
+    "_id": "bilimbi",
+    "name": "BILIMBI",
+    "commodityGroup": "Fruits",
+    "sourceId": 462
+  },
+  {
+    "_id": "binoula",
+    "name": "BINOULA",
+    "commodityGroup": "Vegetables",
+    "sourceId": 47
+  },
+  {
+    "_id": "bitter-gourd",
+    "name": "BITTER GOURD",
+    "commodityGroup": "Vegetables",
+    "sourceId": 67
+  },
+  {
+    "_id": "black-currant",
+    "name": "BLACK CURRANT",
+    "commodityGroup": "Fruits",
+    "sourceId": 463
+  },
+  {
+    "_id": "black-gram-dalurd-dal",
+    "name": "BLACK GRAM DAL(URD DAL)",
+    "commodityGroup": "Pulses",
+    "sourceId": 218
+  },
+  {
+    "_id": "black-gramurd-beanswhole",
+    "name": "BLACK GRAM(URD BEANS)(WHOLE)",
+    "commodityGroup": "Pulses",
+    "sourceId": 8
+  },
+  {
+    "_id": "black-pepper",
+    "name": "BLACK PEPPER",
+    "commodityGroup": "Spices",
+    "sourceId": 34
+  },
+  {
+    "_id": "blueberry",
+    "name": "BLUEBERRY",
+    "commodityGroup": "Fruits",
+    "sourceId": 464
+  },
+  {
+    "_id": "borehannu",
+    "name": "BOREHANNU",
+    "commodityGroup": "Fruits",
+    "sourceId": 159
+  },
+  {
+    "_id": "bottle-gourd",
+    "name": "BOTTLE GOURD",
+    "commodityGroup": "Vegetables",
+    "sourceId": 68
+  },
+  {
+    "_id": "brahmi",
+    "name": "BRAHMI",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 378
+  },
+  {
+    "_id": "bran",
+    "name": "BRAN",
+    "commodityGroup": "Others",
+    "sourceId": 242
+  },
+  {
+    "_id": "bread-fruit",
+    "name": "BREAD FRUIT",
+    "commodityGroup": "Fruits",
+    "sourceId": 426
+  },
+  {
+    "_id": "brinjal",
+    "name": "BRINJAL",
+    "commodityGroup": "Vegetables",
+    "sourceId": 32
+  },
+  {
+    "_id": "brocoli",
+    "name": "BROCOLI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 416
+  },
+  {
+    "_id": "broken-rice",
+    "name": "BROKEN RICE",
+    "commodityGroup": "Others",
+    "sourceId": 244
+  },
+  {
+    "_id": "broomstickflower-broom",
+    "name": "BROOMSTICK(FLOWER BROOM)",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 270
+  },
+  {
+    "_id": "browntop-millet",
+    "name": "BROWNTOP MILLET",
+    "commodityGroup": "Cereals",
+    "sourceId": 465
+  },
+  {
+    "_id": "bull",
+    "name": "BULL",
+    "commodityGroup": "Livestock",
+    "sourceId": 173
+  },
+  {
+    "_id": "bullar",
+    "name": "BULLAR",
+    "commodityGroup": "Pulses",
+    "sourceId": 237
+  },
+  {
+    "_id": "bunch-beans",
+    "name": "BUNCH BEANS",
+    "commodityGroup": "Others",
+    "sourceId": 183
+  },
+  {
+    "_id": "butter",
+    "name": "BUTTER",
+    "commodityGroup": "Oils & Fats",
+    "sourceId": 226
+  },
+  {
+    "_id": "cabbage",
+    "name": "CABBAGE",
+    "commodityGroup": "Vegetables",
+    "sourceId": 126
+  },
+  {
+    "_id": "calendula",
+    "name": "CALENDULA",
+    "commodityGroup": "Flowers",
+    "sourceId": 409
+  },
+  {
+    "_id": "calf",
+    "name": "CALF",
+    "commodityGroup": "Livestock",
+    "sourceId": 174
+  },
+  {
+    "_id": "camel-hair",
+    "name": "CAMEL HAIR",
+    "commodityGroup": "Others",
+    "sourceId": 302
+  },
+  {
+    "_id": "cane",
+    "name": "CANE",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 165
+  },
+  {
+    "_id": "capsicum",
+    "name": "CAPSICUM",
+    "commodityGroup": "Vegetables",
+    "sourceId": 136
+  },
+  {
+    "_id": "cardamoms",
+    "name": "CARDAMOMS",
+    "commodityGroup": "Spices",
+    "sourceId": 36
+  },
+  {
+    "_id": "carissakarvand",
+    "name": "CARISSA(KARVAND)",
+    "commodityGroup": "Fruits",
+    "sourceId": 466
+  },
+  {
+    "_id": "carnation",
+    "name": "CARNATION",
+    "commodityGroup": "Flowers",
+    "sourceId": 322
+  },
+  {
+    "_id": "carrot",
+    "name": "CARROT",
+    "commodityGroup": "Vegetables",
+    "sourceId": 125
+  },
+  {
+    "_id": "cashew-kernnel",
+    "name": "CASHEW KERNNEL",
+    "commodityGroup": "Others",
+    "sourceId": 196
+  },
+  {
+    "_id": "cashewnuts",
+    "name": "CASHEWNUTS",
+    "commodityGroup": "Nuts",
+    "sourceId": 33
+  },
+  {
+    "_id": "castor-oil",
+    "name": "CASTOR OIL",
+    "commodityGroup": "Oils & Fats",
+    "sourceId": 224
+  },
+  {
+    "_id": "castor-seed",
+    "name": "CASTOR SEED",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 106
+  },
+  {
+    "_id": "cauliflower",
+    "name": "CAULIFLOWER",
+    "commodityGroup": "Vegetables",
+    "sourceId": 31
+  },
+  {
+    "_id": "chakhaoblack-rice",
+    "name": "CHAKHAO(BLACK RICE)",
+    "commodityGroup": "Cereals",
+    "sourceId": 467
+  },
+  {
+    "_id": "chakotha",
+    "name": "CHAKOTHA",
+    "commodityGroup": "Fruits",
+    "sourceId": 158
+  },
+  {
+    "_id": "chandrashoor",
+    "name": "CHANDRASHOOR",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 367
+  },
+  {
+    "_id": "chapparad-avare",
+    "name": "CHAPPARAD AVARE",
+    "commodityGroup": "Vegetables",
+    "sourceId": 141
+  },
+  {
+    "_id": "chennangi-dal",
+    "name": "CHENNANGI DAL",
+    "commodityGroup": "Pulses",
+    "sourceId": 246
+  },
+  {
+    "_id": "chennangiwhole",
+    "name": "CHENNANGI(WHOLE)",
+    "commodityGroup": "Pulses",
+    "sourceId": 198
+  },
+  {
+    "_id": "cherry",
+    "name": "CHERRY",
+    "commodityGroup": "Fruits",
+    "sourceId": 278
+  },
+  {
+    "_id": "chhappan-kaddu",
+    "name": "CHHAPPAN KADDU",
+    "commodityGroup": "Vegetables",
+    "sourceId": 468
+  },
+  {
+    "_id": "chikoossapota",
+    "name": "CHIKOOS(SAPOTA)",
+    "commodityGroup": "Fruits",
+    "sourceId": 58
+  },
+  {
+    "_id": "chili-red",
+    "name": "CHILI RED",
+    "commodityGroup": "Spices",
+    "sourceId": 26
+  },
+  {
+    "_id": "chilly-capsicum",
+    "name": "CHILLY CAPSICUM",
+    "commodityGroup": "Vegetables",
+    "sourceId": 74
+  },
+  {
+    "_id": "chironji",
+    "name": "CHIRONJI",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 438
+  },
+  {
+    "_id": "chow-chow",
+    "name": "CHOW CHOW",
+    "commodityGroup": "Vegetables",
+    "sourceId": 139
+  },
+  {
+    "_id": "chrysanthemum",
+    "name": "CHRYSANTHEMUM",
+    "commodityGroup": "Flowers",
+    "sourceId": 331
+  },
+  {
+    "_id": "chrysanthemumloose",
+    "name": "CHRYSANTHEMUM(LOOSE)",
+    "commodityGroup": "Flowers",
+    "sourceId": 189
+  },
+  {
+    "_id": "cinamondalchini",
+    "name": "CINAMON(DALCHINI)",
+    "commodityGroup": "Spices",
+    "sourceId": 267
+  },
+  {
+    "_id": "clarkia",
+    "name": "CLARKIA",
+    "commodityGroup": "Flowers",
+    "sourceId": 407
+  },
+  {
+    "_id": "cloves",
+    "name": "CLOVES",
+    "commodityGroup": "Spices",
+    "sourceId": 89
+  },
+  {
+    "_id": "cluster-beans",
+    "name": "CLUSTER BEANS",
+    "commodityGroup": "Vegetables",
+    "sourceId": 66
+  },
+  {
+    "_id": "coca",
+    "name": "COCA",
+    "commodityGroup": "Spices",
+    "sourceId": 266
+  },
+  {
+    "_id": "cock",
+    "name": "COCK",
+    "commodityGroup": "Livestock",
+    "sourceId": 315
+  },
+  {
+    "_id": "cocoa",
+    "name": "COCOA",
+    "commodityGroup": "Plantation Crops",
+    "sourceId": 88
+  },
+  {
+    "_id": "coconut",
+    "name": "COCONUT",
+    "commodityGroup": "Spices",
+    "sourceId": 116
+  },
+  {
+    "_id": "coconut-coir",
+    "name": "COCONUT COIR",
+    "commodityGroup": "Others",
+    "sourceId": 469
+  },
+  {
+    "_id": "coconut-oil",
+    "name": "COCONUT OIL",
+    "commodityGroup": "Oils & Fats",
+    "sourceId": 220
+  },
+  {
+    "_id": "coconut-seed",
+    "name": "COCONUT SEED",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 96
+  },
+  {
+    "_id": "coffee",
+    "name": "COFFEE",
+    "commodityGroup": "Plantation Crops",
+    "sourceId": 41
+  },
+  {
+    "_id": "colacasia",
+    "name": "COLACASIA",
+    "commodityGroup": "Vegetables",
+    "sourceId": 269
+  },
+  {
+    "_id": "coleus",
+    "name": "COLEUS",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 470
+  },
+  {
+    "_id": "copra",
+    "name": "COPRA",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 111
+  },
+  {
+    "_id": "corianderleaves",
+    "name": "CORIANDER(LEAVES)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 39
+  },
+  {
+    "_id": "corriander-seed",
+    "name": "CORRIANDER SEED",
+    "commodityGroup": "Spices",
+    "sourceId": 92
+  },
+  {
+    "_id": "cossandra",
+    "name": "COSSANDRA",
+    "commodityGroup": "Flowers",
+    "sourceId": 401
+  },
+  {
+    "_id": "cotton",
+    "name": "COTTON",
+    "commodityGroup": "Fibers",
+    "sourceId": 15
+  },
+  {
+    "_id": "cotton-seed",
+    "name": "COTTON SEED",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 84
+  },
+  {
+    "_id": "cow",
+    "name": "COW",
+    "commodityGroup": "Livestock",
+    "sourceId": 171
+  },
+  {
+    "_id": "cowpealobiakaramani",
+    "name": "COWPEA(LOBIA/KARAMANI)",
+    "commodityGroup": "Pulses",
+    "sourceId": 78
+  },
+  {
+    "_id": "cowpeaveg",
+    "name": "COWPEA(VEG)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 75
+  },
+  {
+    "_id": "crab",
+    "name": "CRAB",
+    "commodityGroup": "Livestock",
+    "sourceId": 471
+  },
+  {
+    "_id": "cucumbarkheera",
+    "name": "CUCUMBAR(KHEERA)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 131
+  },
+  {
+    "_id": "cummin-seedjeera",
+    "name": "CUMMIN SEED(JEERA)",
+    "commodityGroup": "Spices",
+    "sourceId": 38
+  },
+  {
+    "_id": "curry-leaf",
+    "name": "CURRY LEAF",
+    "commodityGroup": "Vegetables",
+    "sourceId": 415
+  },
+  {
+    "_id": "custard-applesharifa",
+    "name": "CUSTARD APPLE(SHARIFA)",
+    "commodityGroup": "Fruits",
+    "sourceId": 300
+  },
+  {
+    "_id": "dailachandni",
+    "name": "DAILA(CHANDNI)",
+    "commodityGroup": "Flowers",
+    "sourceId": 329
+  },
+  {
+    "_id": "dalavare",
+    "name": "DAL(AVARE)",
+    "commodityGroup": "Pulses",
+    "sourceId": 77
+  },
+  {
+    "_id": "dalda",
+    "name": "DALDA",
+    "commodityGroup": "Oils & Fats",
+    "sourceId": 227
+  },
+  {
+    "_id": "dates",
+    "name": "DATES",
+    "commodityGroup": "Nuts",
+    "sourceId": 472
+  },
+  {
+    "_id": "delha",
+    "name": "DELHA",
+    "commodityGroup": "Flowers",
+    "sourceId": 339
+  },
+  {
+    "_id": "dhaincha",
+    "name": "DHAINCHA",
+    "commodityGroup": "Others",
+    "sourceId": 57
+  },
+  {
+    "_id": "double-beans",
+    "name": "DOUBLE BEANS",
+    "commodityGroup": "Vegetables",
+    "sourceId": 421
+  },
+  {
+    "_id": "dragon-fruit",
+    "name": "DRAGON FRUIT",
+    "commodityGroup": "Fruits",
+    "sourceId": 424
+  },
+  {
+    "_id": "drumstick",
+    "name": "DRUMSTICK",
+    "commodityGroup": "Vegetables",
+    "sourceId": 140
+  },
+  {
+    "_id": "dry-chillies",
+    "name": "DRY CHILLIES",
+    "commodityGroup": "Spices",
+    "sourceId": 113
+  },
+  {
+    "_id": "dry-fish",
+    "name": "DRY FISH",
+    "commodityGroup": "Livestock",
+    "sourceId": 473
+  },
+  {
+    "_id": "dry-fodder",
+    "name": "DRY FODDER",
+    "commodityGroup": "Others",
+    "sourceId": 293
+  },
+  {
+    "_id": "dry-grapes",
+    "name": "DRY GRAPES",
+    "commodityGroup": "Nuts",
+    "sourceId": 231
+  },
+  {
+    "_id": "duck",
+    "name": "DUCK",
+    "commodityGroup": "Livestock",
+    "sourceId": 317
+  },
+  {
+    "_id": "duster-beans",
+    "name": "DUSTER BEANS",
+    "commodityGroup": "Vegetables",
+    "sourceId": 135
+  },
+  {
+    "_id": "egg",
+    "name": "EGG",
+    "commodityGroup": "Livestock",
+    "sourceId": 314
+  },
+  {
+    "_id": "egypian-cloverbarseem",
+    "name": "EGYPIAN CLOVER(BARSEEM)",
+    "commodityGroup": "Others",
+    "sourceId": 308
+  },
+  {
+    "_id": "elephant-yamsuranamorphophallus",
+    "name": "ELEPHANT YAM(SURAN)/AMORPHOPHALLUS",
+    "commodityGroup": "Vegetables",
+    "sourceId": 247
+  },
+  {
+    "_id": "field-beananumulu",
+    "name": "FIELD BEAN(ANUMULU)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 474
+  },
+  {
+    "_id": "field-gram",
+    "name": "FIELD GRAM",
+    "commodityGroup": "Pulses",
+    "sourceId": 475
+  },
+  {
+    "_id": "field-pea",
+    "name": "FIELD PEA",
+    "commodityGroup": "Vegetables",
+    "sourceId": 53
+  },
+  {
+    "_id": "fig-dry",
+    "name": "FIG (DRY)",
+    "commodityGroup": "Nuts",
+    "sourceId": 476
+  },
+  {
+    "_id": "figanjuraanjeer",
+    "name": "FIG(ANJURA/ANJEER)",
+    "commodityGroup": "Others",
+    "sourceId": 180
+  },
+  {
+    "_id": "firewood",
+    "name": "FIREWOOD",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 166
+  },
+  {
+    "_id": "fish",
+    "name": "FISH",
+    "commodityGroup": "Livestock",
+    "sourceId": 313
+  },
+  {
+    "_id": "flax-seeds",
+    "name": "FLAX SEEDS",
+    "commodityGroup": "Others",
+    "sourceId": 439
+  },
+  {
+    "_id": "flower-broom",
+    "name": "FLOWER BROOM",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 312
+  },
+  {
+    "_id": "foxtail-milletnavane",
+    "name": "FOXTAIL MILLET(NAVANE)",
+    "commodityGroup": "Cereals",
+    "sourceId": 104
+  },
+  {
+    "_id": "french-beansfrasbean",
+    "name": "FRENCH BEANS(FRASBEAN)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 249
+  },
+  {
+    "_id": "galgallemon",
+    "name": "GALGAL(LEMON)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 298
+  },
+  {
+    "_id": "gamphrena",
+    "name": "GAMPHRENA",
+    "commodityGroup": "Flowers",
+    "sourceId": 400
+  },
+  {
+    "_id": "garcinia",
+    "name": "GARCINIA",
+    "commodityGroup": "Fruits",
+    "sourceId": 477
+  },
+  {
+    "_id": "garlic",
+    "name": "GARLIC",
+    "commodityGroup": "Vegetables",
+    "sourceId": 25
+  },
+  {
+    "_id": "gerbera",
+    "name": "GERBERA",
+    "commodityGroup": "Flowers",
+    "sourceId": 478
+  },
+  {
+    "_id": "ghee",
+    "name": "GHEE",
+    "commodityGroup": "Oils & Fats",
+    "sourceId": 206
+  },
+  {
+    "_id": "gherkin",
+    "name": "GHERKIN",
+    "commodityGroup": "Vegetables",
+    "sourceId": 479
+  },
+  {
+    "_id": "ghost-pepperking-chilli",
+    "name": "GHOST PEPPER(KING CHILLI)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 480
+  },
+  {
+    "_id": "giloy",
+    "name": "GILOY",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 381
+  },
+  {
+    "_id": "gingelly-oil",
+    "name": "GINGELLY OIL",
+    "commodityGroup": "Oils & Fats",
+    "sourceId": 229
+  },
+  {
+    "_id": "ginger-seed",
+    "name": "GINGER SEED",
+    "commodityGroup": "Spices",
+    "sourceId": 481
+  },
+  {
+    "_id": "gingerdry",
+    "name": "GINGER(DRY)",
+    "commodityGroup": "Spices",
+    "sourceId": 27
+  },
+  {
+    "_id": "gingergreen",
+    "name": "GINGER(GREEN)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 87
+  },
+  {
+    "_id": "gladiolus-bulb",
+    "name": "GLADIOLUS BULB",
+    "commodityGroup": "Flowers",
+    "sourceId": 311
+  },
+  {
+    "_id": "gladiolus-cut-flower",
+    "name": "GLADIOLUS CUT FLOWER",
+    "commodityGroup": "Flowers",
+    "sourceId": 310
+  },
+  {
+    "_id": "glardia",
+    "name": "GLARDIA",
+    "commodityGroup": "Flowers",
+    "sourceId": 391
+  },
+  {
+    "_id": "goat",
+    "name": "GOAT",
+    "commodityGroup": "Livestock",
+    "sourceId": 178
+  },
+  {
+    "_id": "goat-hair",
+    "name": "GOAT HAIR",
+    "commodityGroup": "Others",
+    "sourceId": 301
+  },
+  {
+    "_id": "gond",
+    "name": "GOND",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 440
+  },
+  {
+    "_id": "goose-berrynellikkai",
+    "name": "GOOSE BERRY(NELLIKKAI)",
+    "commodityGroup": "Fruits",
+    "sourceId": 423
+  },
+  {
+    "_id": "goosefoot",
+    "name": "GOOSEFOOT",
+    "commodityGroup": "Vegetables",
+    "sourceId": 482
+  },
+  {
+    "_id": "gram-rawchholia",
+    "name": "GRAM RAW(CHHOLIA)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 306
+  },
+  {
+    "_id": "gramflour",
+    "name": "GRAMFLOUR",
+    "commodityGroup": "Others",
+    "sourceId": 245
+  },
+  {
+    "_id": "grapes",
+    "name": "GRAPES",
+    "commodityGroup": "Fruits",
+    "sourceId": 22
+  },
+  {
+    "_id": "green-avarew",
+    "name": "GREEN AVARE(W)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 137
+  },
+  {
+    "_id": "green-chilli",
+    "name": "GREEN CHILLI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 73
+  },
+  {
+    "_id": "green-fodder",
+    "name": "GREEN FODDER",
+    "commodityGroup": "Others",
+    "sourceId": 294
+  },
+  {
+    "_id": "green-gram-dalmoong-dal",
+    "name": "GREEN GRAM DAL(MOONG DAL)",
+    "commodityGroup": "Pulses",
+    "sourceId": 219
+  },
+  {
+    "_id": "green-grammoongwhole",
+    "name": "GREEN GRAM(MOONG)(WHOLE)",
+    "commodityGroup": "Pulses",
+    "sourceId": 9
+  },
+  {
+    "_id": "green-peas",
+    "name": "GREEN PEAS",
+    "commodityGroup": "Pulses",
+    "sourceId": 46
+  },
+  {
+    "_id": "green-tea",
+    "name": "GREEN TEA",
+    "commodityGroup": "Plantation Crops",
+    "sourceId": 483
+  },
+  {
+    "_id": "grey-fruit",
+    "name": "GREY FRUIT",
+    "commodityGroup": "Fruits",
+    "sourceId": 484
+  },
+  {
+    "_id": "ground-nut-oil",
+    "name": "GROUND NUT OIL",
+    "commodityGroup": "Oils & Fats",
+    "sourceId": 221
+  },
+  {
+    "_id": "ground-nut-seed",
+    "name": "GROUND NUT SEED",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 222
+  },
+  {
+    "_id": "groundnut",
+    "name": "GROUNDNUT",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 10
+  },
+  {
+    "_id": "groundnut-podsraw",
+    "name": "GROUNDNUT PODS(RAW)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 263
+  },
+  {
+    "_id": "groundnutsplit",
+    "name": "GROUNDNUT(SPLIT)",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 265
+  },
+  {
+    "_id": "guar",
+    "name": "GUAR",
+    "commodityGroup": "Vegetables",
+    "sourceId": 62
+  },
+  {
+    "_id": "guar-seedcluster-beans-seed",
+    "name": "GUAR SEED(CLUSTER BEANS SEED)",
+    "commodityGroup": "Pulses",
+    "sourceId": 342
+  },
+  {
+    "_id": "guava",
+    "name": "GUAVA",
+    "commodityGroup": "Fruits",
+    "sourceId": 156
+  },
+  {
+    "_id": "gudmar",
+    "name": "GUDMAR",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 382
+  },
+  {
+    "_id": "guggal",
+    "name": "GUGGAL",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 383
+  },
+  {
+    "_id": "gurjaggery",
+    "name": "GUR(JAGGERY)",
+    "commodityGroup": "Others",
+    "sourceId": 61
+  },
+  {
+    "_id": "gurellu",
+    "name": "GURELLU",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 232
+  },
+  {
+    "_id": "haralekai",
+    "name": "HARALEKAI",
+    "commodityGroup": "Others",
+    "sourceId": 208
+  },
+  {
+    "_id": "harrah",
+    "name": "HARRAH",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 441
+  },
+  {
+    "_id": "he-buffalo",
+    "name": "HE BUFFALO",
+    "commodityGroup": "Livestock",
+    "sourceId": 175
+  },
+  {
+    "_id": "heliconia-species",
+    "name": "HELICONIA SPECIES",
+    "commodityGroup": "Flowers",
+    "sourceId": 403
+  },
+  {
+    "_id": "hen",
+    "name": "HEN",
+    "commodityGroup": "Livestock",
+    "sourceId": 316
+  },
+  {
+    "_id": "hilsa",
+    "name": "HILSA",
+    "commodityGroup": "Others",
+    "sourceId": 485
+  },
+  {
+    "_id": "hippe-seed",
+    "name": "HIPPE SEED",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 108
+  },
+  {
+    "_id": "hog-plum",
+    "name": "HOG PLUM",
+    "commodityGroup": "Fruits",
+    "sourceId": 486
+  },
+  {
+    "_id": "honey",
+    "name": "HONEY",
+    "commodityGroup": "Others",
+    "sourceId": 194
+  },
+  {
+    "_id": "honge-seed",
+    "name": "HONGE SEED",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 107
+  },
+  {
+    "_id": "hybrid-cumbu",
+    "name": "HYBRID CUMBU",
+    "commodityGroup": "Cereals",
+    "sourceId": 102
+  },
+  {
+    "_id": "indian-beansseam",
+    "name": "INDIAN BEANS(SEAM)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 250
+  },
+  {
+    "_id": "indian-colzasarson",
+    "name": "INDIAN COLZA(SARSON)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 292
+  },
+  {
+    "_id": "indian-sherbet-berryphalsa",
+    "name": "INDIAN SHERBET BERRY(PHALSA)",
+    "commodityGroup": "Fruits",
+    "sourceId": 487
+  },
+  {
+    "_id": "irish",
+    "name": "IRISH",
+    "commodityGroup": "Flowers",
+    "sourceId": 394
+  },
+  {
+    "_id": "isabgulpsyllium",
+    "name": "ISABGUL(PSYLLIUM)",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 212
+  },
+  {
+    "_id": "isbgol",
+    "name": "ISBGOL",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 488
+  },
+  {
+    "_id": "jack-fruit",
+    "name": "JACK FRUIT",
+    "commodityGroup": "Fruits",
+    "sourceId": 153
+  },
+  {
+    "_id": "jackfruit-seed",
+    "name": "JACKFRUIT SEED",
+    "commodityGroup": "Vegetables",
+    "sourceId": 489
+  },
+  {
+    "_id": "jaee",
+    "name": "JAEE",
+    "commodityGroup": "Cereals",
+    "sourceId": 442
+  },
+  {
+    "_id": "jaffri",
+    "name": "JAFFRI",
+    "commodityGroup": "Flowers",
+    "sourceId": 335
+  },
+  {
+    "_id": "jaggery",
+    "name": "JAGGERY",
+    "commodityGroup": "Others",
+    "sourceId": 123
+  },
+  {
+    "_id": "jamamkhan",
+    "name": "JAMAMKHAN",
+    "commodityGroup": "Vegetables",
+    "sourceId": 147
+  },
+  {
+    "_id": "jamunnarale-hannu",
+    "name": "JAMUN(NARALE HANNU)",
+    "commodityGroup": "Fruits",
+    "sourceId": 155
+  },
+  {
+    "_id": "jarbara",
+    "name": "JARBARA",
+    "commodityGroup": "Flowers",
+    "sourceId": 323
+  },
+  {
+    "_id": "jasmine",
+    "name": "JASMINE",
+    "commodityGroup": "Flowers",
+    "sourceId": 187
+  },
+  {
+    "_id": "javi",
+    "name": "JAVI",
+    "commodityGroup": "Others",
+    "sourceId": 207
+  },
+  {
+    "_id": "jowarsorghum",
+    "name": "JOWAR(SORGHUM)",
+    "commodityGroup": "Cereals",
+    "sourceId": 5
+  },
+  {
+    "_id": "jute",
+    "name": "JUTE",
+    "commodityGroup": "Fibers",
+    "sourceId": 16
+  },
+  {
+    "_id": "jute-seed",
+    "name": "JUTE SEED",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 170
+  },
+  {
+    "_id": "kabuli-chanachickpeas-white",
+    "name": "KABULI CHANA(CHICKPEAS-WHITE)",
+    "commodityGroup": "Pulses",
+    "sourceId": 309
+  },
+  {
+    "_id": "kacholam",
+    "name": "KACHOLAM",
+    "commodityGroup": "Spices",
+    "sourceId": 268
+  },
+  {
+    "_id": "kagda",
+    "name": "KAGDA",
+    "commodityGroup": "Flowers",
+    "sourceId": 490
+  },
+  {
+    "_id": "kakada",
+    "name": "KAKADA",
+    "commodityGroup": "Flowers",
+    "sourceId": 188
+  },
+  {
+    "_id": "kalihari",
+    "name": "KALIHARI",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 385
+  },
+  {
+    "_id": "kalmegh",
+    "name": "KALMEGH",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 386
+  },
+  {
+    "_id": "kankambra",
+    "name": "KANKAMBRA",
+    "commodityGroup": "Flowers",
+    "sourceId": 191
+  },
+  {
+    "_id": "karamani",
+    "name": "KARAMANI",
+    "commodityGroup": "Pulses",
+    "sourceId": 99
+  },
+  {
+    "_id": "karbujamusk-melon",
+    "name": "KARBUJA(MUSK MELON)",
+    "commodityGroup": "Fruits",
+    "sourceId": 157
+  },
+  {
+    "_id": "kartalikantola",
+    "name": "KARTALI(KANTOLA)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 256
+  },
+  {
+    "_id": "kevda",
+    "name": "KEVDA",
+    "commodityGroup": "Flowers",
+    "sourceId": 410
+  },
+  {
+    "_id": "kharif-mash",
+    "name": "KHARIF MASH",
+    "commodityGroup": "Others",
+    "sourceId": 50
+  },
+  {
+    "_id": "khirni",
+    "name": "KHIRNI",
+    "commodityGroup": "Fruits",
+    "sourceId": 443
+  },
+  {
+    "_id": "khoya",
+    "name": "KHOYA",
+    "commodityGroup": "Others",
+    "sourceId": 319
+  },
+  {
+    "_id": "kidney-beansrajma",
+    "name": "KIDNEY BEANS(RAJMA)",
+    "commodityGroup": "Pulses",
+    "sourceId": 491
+  },
+  {
+    "_id": "kinnow",
+    "name": "KINNOW",
+    "commodityGroup": "Fruits",
+    "sourceId": 284
+  },
+  {
+    "_id": "kiwi-fruit",
+    "name": "KIWI FRUIT",
+    "commodityGroup": "Fruits",
+    "sourceId": 492
+  },
+  {
+    "_id": "knool-khol",
+    "name": "KNOOL KHOL",
+    "commodityGroup": "Vegetables",
+    "sourceId": 149
+  },
+  {
+    "_id": "kodo-milletvaragu",
+    "name": "KODO MILLET(VARAGU)",
+    "commodityGroup": "Cereals",
+    "sourceId": 101
+  },
+  {
+    "_id": "kooth",
+    "name": "KOOTH",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 388
+  },
+  {
+    "_id": "kuchur",
+    "name": "KUCHUR",
+    "commodityGroup": "Others",
+    "sourceId": 200
+  },
+  {
+    "_id": "kuchur-kusum-seed",
+    "name": "KUCHUR - KUSUM SEED",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 493
+  },
+  {
+    "_id": "kulthihorse-gram",
+    "name": "KULTHI(HORSE GRAM)",
+    "commodityGroup": "Pulses",
+    "sourceId": 98
+  },
+  {
+    "_id": "kutki",
+    "name": "KUTKI",
+    "commodityGroup": "Cereals",
+    "sourceId": 344
+  },
+  {
+    "_id": "ladies-finger",
+    "name": "LADIES FINGER",
+    "commodityGroup": "Vegetables",
+    "sourceId": 127
+  },
+  {
+    "_id": "laha",
+    "name": "LAHA",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 444
+  },
+  {
+    "_id": "lakteora",
+    "name": "LAK(TEORA)",
+    "commodityGroup": "Pulses",
+    "sourceId": 81
+  },
+  {
+    "_id": "large-cardamom",
+    "name": "LARGE CARDAMOM",
+    "commodityGroup": "Spices",
+    "sourceId": 494
+  },
+  {
+    "_id": "leafy-vegetable",
+    "name": "LEAFY VEGETABLE",
+    "commodityGroup": "Vegetables",
+    "sourceId": 143
+  },
+  {
+    "_id": "leek",
+    "name": "LEEK",
+    "commodityGroup": "Vegetables",
+    "sourceId": 495
+  },
+  {
+    "_id": "lemon",
+    "name": "LEMON",
+    "commodityGroup": "Vegetables",
+    "sourceId": 261
+  },
+  {
+    "_id": "lemongrass",
+    "name": "LEMONGRASS",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 496
+  },
+  {
+    "_id": "lentilmasurwhole",
+    "name": "LENTIL(MASUR)(WHOLE)",
+    "commodityGroup": "Pulses",
+    "sourceId": 52
+  },
+  {
+    "_id": "lesser-yam",
+    "name": "LESSER YAM",
+    "commodityGroup": "Vegetables",
+    "sourceId": 497
+  },
+  {
+    "_id": "lilly",
+    "name": "LILLY",
+    "commodityGroup": "Flowers",
+    "sourceId": 325
+  },
+  {
+    "_id": "lime",
+    "name": "LIME",
+    "commodityGroup": "Fruits",
+    "sourceId": 151
+  },
+  {
+    "_id": "limoniastatus",
+    "name": "LIMONIA(STATUS)",
+    "commodityGroup": "Flowers",
+    "sourceId": 399
+  },
+  {
+    "_id": "linseed",
+    "name": "LINSEED",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 56
+  },
+  {
+    "_id": "lint",
+    "name": "LINT",
+    "commodityGroup": "Fibers",
+    "sourceId": 233
+  },
+  {
+    "_id": "litchi",
+    "name": "LITCHI",
+    "commodityGroup": "Fruits",
+    "sourceId": 299
+  },
+  {
+    "_id": "little-millet",
+    "name": "LITTLE MILLET",
+    "commodityGroup": "Cereals",
+    "sourceId": 498
+  },
+  {
+    "_id": "little-gourdkundru",
+    "name": "LITTLE GOURD(KUNDRU)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 253
+  },
+  {
+    "_id": "long-melonkakri",
+    "name": "LONG MELON(KAKRI)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 255
+  },
+  {
+    "_id": "lotus",
+    "name": "LOTUS",
+    "commodityGroup": "Flowers",
+    "sourceId": 332
+  },
+  {
+    "_id": "lotus-sticks",
+    "name": "LOTUS STICKS",
+    "commodityGroup": "Vegetables",
+    "sourceId": 287
+  },
+  {
+    "_id": "lukad",
+    "name": "LUKAD",
+    "commodityGroup": "Fruits",
+    "sourceId": 285
+  },
+  {
+    "_id": "lupine",
+    "name": "LUPINE",
+    "commodityGroup": "Flowers",
+    "sourceId": 408
+  },
+  {
+    "_id": "mainji",
+    "name": "MA.INJI",
+    "commodityGroup": "Others",
+    "sourceId": 433
+  },
+  {
+    "_id": "mace",
+    "name": "MACE",
+    "commodityGroup": "Spices",
+    "sourceId": 91
+  },
+  {
+    "_id": "mahedi",
+    "name": "MAHEDI",
+    "commodityGroup": "Others",
+    "sourceId": 340
+  },
+  {
+    "_id": "mahua",
+    "name": "MAHUA",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 283
+  },
+  {
+    "_id": "mahua-seedhippe-seed",
+    "name": "MAHUA SEED(HIPPE SEED)",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 318
+  },
+  {
+    "_id": "maida-atta",
+    "name": "MAIDA ATTA",
+    "commodityGroup": "Others",
+    "sourceId": 241
+  },
+  {
+    "_id": "maize",
+    "name": "MAIZE",
+    "commodityGroup": "Cereals",
+    "sourceId": 4
+  },
+  {
+    "_id": "mango",
+    "name": "MANGO",
+    "commodityGroup": "Fruits",
+    "sourceId": 20
+  },
+  {
+    "_id": "mangoraw-ripe",
+    "name": "MANGO(RAW-RIPE)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 144
+  },
+  {
+    "_id": "mangosteen",
+    "name": "MANGOSTEEN",
+    "commodityGroup": "Fruits",
+    "sourceId": 499
+  },
+  {
+    "_id": "maragensu",
+    "name": "MARAGENSU",
+    "commodityGroup": "Others",
+    "sourceId": 184
+  },
+  {
+    "_id": "marasebu",
+    "name": "MARASEBU",
+    "commodityGroup": "Fruits",
+    "sourceId": 152
+  },
+  {
+    "_id": "marget",
+    "name": "MARGET",
+    "commodityGroup": "Flowers",
+    "sourceId": 336
+  },
+  {
+    "_id": "marigoldcalcutta",
+    "name": "MARIGOLD(CALCUTTA)",
+    "commodityGroup": "Flowers",
+    "sourceId": 193
+  },
+  {
+    "_id": "marigoldloose",
+    "name": "MARIGOLD(LOOSE)",
+    "commodityGroup": "Flowers",
+    "sourceId": 334
+  },
+  {
+    "_id": "marikozhunthu",
+    "name": "MARIKOZHUNTHU",
+    "commodityGroup": "Flowers",
+    "sourceId": 431
+  },
+  {
+    "_id": "mash",
+    "name": "MASH",
+    "commodityGroup": "Others",
+    "sourceId": 49
+  },
+  {
+    "_id": "mashrooms",
+    "name": "MASHROOMS",
+    "commodityGroup": "Vegetables",
+    "sourceId": 288
+  },
+  {
+    "_id": "masur-dal",
+    "name": "MASUR DAL",
+    "commodityGroup": "Pulses",
+    "sourceId": 213
+  },
+  {
+    "_id": "mataki",
+    "name": "MATAKI",
+    "commodityGroup": "Pulses",
+    "sourceId": 79
+  },
+  {
+    "_id": "meal-maker-soya-chunks",
+    "name": "MEAL MAKER (SOYA CHUNKS)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 500
+  },
+  {
+    "_id": "mentha-oil",
+    "name": "MENTHA OIL",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 501
+  },
+  {
+    "_id": "methi-seeds",
+    "name": "METHI SEEDS",
+    "commodityGroup": "Spices",
+    "sourceId": 43
+  },
+  {
+    "_id": "methileaves",
+    "name": "METHI(LEAVES)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 42
+  },
+  {
+    "_id": "millets",
+    "name": "MILLETS",
+    "commodityGroup": "Others",
+    "sourceId": 195
+  },
+  {
+    "_id": "mintpudina",
+    "name": "MINT(PUDINA)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 307
+  },
+  {
+    "_id": "moath-dal",
+    "name": "MOATH DAL",
+    "commodityGroup": "Pulses",
+    "sourceId": 452
+  },
+  {
+    "_id": "mousambisweet-lime",
+    "name": "MOUSAMBI(SWEET LIME)",
+    "commodityGroup": "Fruits",
+    "sourceId": 64
+  },
+  {
+    "_id": "muesli",
+    "name": "MUESLI",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 375
+  },
+  {
+    "_id": "mulberry",
+    "name": "MULBERRY",
+    "commodityGroup": "Fruits",
+    "sourceId": 502
+  },
+  {
+    "_id": "muleti",
+    "name": "MULETI",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 357
+  },
+  {
+    "_id": "muskmelon-seeds",
+    "name": "MUSKMELON SEEDS",
+    "commodityGroup": "Spices",
+    "sourceId": 445
+  },
+  {
+    "_id": "mustard",
+    "name": "MUSTARD",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 12
+  },
+  {
+    "_id": "mustard-oil",
+    "name": "MUSTARD OIL",
+    "commodityGroup": "Oils & Fats",
+    "sourceId": 274
+  },
+  {
+    "_id": "myrobolanharad",
+    "name": "MYROBOLAN(HARAD)",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 120
+  },
+  {
+    "_id": "nargasi",
+    "name": "NARGASI",
+    "commodityGroup": "Others",
+    "sourceId": 202
+  },
+  {
+    "_id": "nearle-hannu",
+    "name": "NEARLE HANNU",
+    "commodityGroup": "Fruits",
+    "sourceId": 181
+  },
+  {
+    "_id": "neem-fruits",
+    "name": "NEEM FRUITS",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 503
+  },
+  {
+    "_id": "neem-seed",
+    "name": "NEEM SEED",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 109
+  },
+  {
+    "_id": "nelli-kai",
+    "name": "NELLI KAI",
+    "commodityGroup": "Fruits",
+    "sourceId": 182
+  },
+  {
+    "_id": "nerium",
+    "name": "NERIUM",
+    "commodityGroup": "Flowers",
+    "sourceId": 429
+  },
+  {
+    "_id": "niger-seedramtil",
+    "name": "NIGER SEED(RAMTIL)",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 83
+  },
+  {
+    "_id": "nutmeg",
+    "name": "NUTMEG",
+    "commodityGroup": "Spices",
+    "sourceId": 90
+  },
+  {
+    "_id": "onion",
+    "name": "ONION",
+    "commodityGroup": "Vegetables",
+    "sourceId": 23
+  },
+  {
+    "_id": "onion-green",
+    "name": "ONION GREEN",
+    "commodityGroup": "Vegetables",
+    "sourceId": 305
+  },
+  {
+    "_id": "orange",
+    "name": "ORANGE",
+    "commodityGroup": "Fruits",
+    "sourceId": 18
+  },
+  {
+    "_id": "orchid",
+    "name": "ORCHID",
+    "commodityGroup": "Flowers",
+    "sourceId": 328
+  },
+  {
+    "_id": "other-pulses",
+    "name": "OTHER PULSES",
+    "commodityGroup": "Pulses",
+    "sourceId": 82
+  },
+  {
+    "_id": "other-green-and-fresh-vegetables",
+    "name": "OTHER GREEN AND FRESH VEGETABLES",
+    "commodityGroup": "Vegetables",
+    "sourceId": 349
+  },
+  {
+    "_id": "ox",
+    "name": "OX",
+    "commodityGroup": "Livestock",
+    "sourceId": 172
+  },
+  {
+    "_id": "paddybasmati",
+    "name": "PADDY(BASMATI)",
+    "commodityGroup": "Cereals",
+    "sourceId": 343
+  },
+  {
+    "_id": "paddycommon",
+    "name": "PADDY(COMMON)",
+    "commodityGroup": "Cereals",
+    "sourceId": 2
+  },
+  {
+    "_id": "palash-flowers",
+    "name": "PALASH FLOWERS",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 370
+  },
+  {
+    "_id": "papaya",
+    "name": "PAPAYA",
+    "commodityGroup": "Fruits",
+    "sourceId": 59
+  },
+  {
+    "_id": "papayaraw",
+    "name": "PAPAYA(RAW)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 264
+  },
+  {
+    "_id": "passion-fruit",
+    "name": "PASSION FRUIT",
+    "commodityGroup": "Fruits",
+    "sourceId": 504
+  },
+  {
+    "_id": "patti-calcutta",
+    "name": "PATTI CALCUTTA",
+    "commodityGroup": "Flowers",
+    "sourceId": 333
+  },
+  {
+    "_id": "pea-podpea-cod",
+    "name": "PEA POD/PEA COD/हरी मटर",
+    "commodityGroup": "Vegetables",
+    "sourceId": 259
+  },
+  {
+    "_id": "peach",
+    "name": "PEACH",
+    "commodityGroup": "Fruits",
+    "sourceId": 281
+  },
+  {
+    "_id": "pearmarasebu",
+    "name": "PEAR(MARASEBU)",
+    "commodityGroup": "Fruits",
+    "sourceId": 280
+  },
+  {
+    "_id": "peas-wet",
+    "name": "PEAS WET",
+    "commodityGroup": "Vegetables",
+    "sourceId": 146
+  },
+  {
+    "_id": "peasdry",
+    "name": "PEAS(DRY)",
+    "commodityGroup": "Pulses",
+    "sourceId": 295
+  },
+  {
+    "_id": "pegeon-peaarhar-fali",
+    "name": "PEGEON PEA(ARHAR FALI)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 252
+  },
+  {
+    "_id": "pepper-garbled",
+    "name": "PEPPER GARBLED",
+    "commodityGroup": "Spices",
+    "sourceId": 93
+  },
+  {
+    "_id": "pepper-ungarbled",
+    "name": "PEPPER UNGARBLED",
+    "commodityGroup": "Spices",
+    "sourceId": 94
+  },
+  {
+    "_id": "perandai",
+    "name": "PERANDAI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 418
+  },
+  {
+    "_id": "persimonjapani-fal",
+    "name": "PERSIMON(JAPANI FAL)",
+    "commodityGroup": "Fruits",
+    "sourceId": 277
+  },
+  {
+    "_id": "phueeleafy-veg",
+    "name": "PHUEE(LEAFY VEG)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 505
+  },
+  {
+    "_id": "pigs",
+    "name": "PIGS",
+    "commodityGroup": "Livestock",
+    "sourceId": 179
+  },
+  {
+    "_id": "pincushion-flower",
+    "name": "PINCUSHION FLOWER",
+    "commodityGroup": "Flowers",
+    "sourceId": 506
+  },
+  {
+    "_id": "pine-nutchilgoza-niyoza",
+    "name": "PINE NUT(CHILGOZA /NIYOZA)",
+    "commodityGroup": "Nuts",
+    "sourceId": 507
+  },
+  {
+    "_id": "pineapple",
+    "name": "PINEAPPLE",
+    "commodityGroup": "Fruits",
+    "sourceId": 21
+  },
+  {
+    "_id": "pistapistachio",
+    "name": "PISTA(PISTACHIO)",
+    "commodityGroup": "Nuts",
+    "sourceId": 508
+  },
+  {
+    "_id": "plum",
+    "name": "PLUM",
+    "commodityGroup": "Fruits",
+    "sourceId": 279
+  },
+  {
+    "_id": "pointed-gourdparval",
+    "name": "POINTED GOURD(PARVAL)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 254
+  },
+  {
+    "_id": "pokcha-leafy-veg",
+    "name": "POKCHA LEAFY VEG",
+    "commodityGroup": "Vegetables",
+    "sourceId": 509
+  },
+  {
+    "_id": "polherb",
+    "name": "POLHERB",
+    "commodityGroup": "Others",
+    "sourceId": 197
+  },
+  {
+    "_id": "pomegranate",
+    "name": "POMEGRANATE",
+    "commodityGroup": "Fruits",
+    "sourceId": 160
+  },
+  {
+    "_id": "poppy-capsules",
+    "name": "POPPY CAPSULES",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 354
+  },
+  {
+    "_id": "potato",
+    "name": "POTATO",
+    "commodityGroup": "Vegetables",
+    "sourceId": 24
+  },
+  {
+    "_id": "prawn",
+    "name": "PRAWN",
+    "commodityGroup": "Livestock",
+    "sourceId": 510
+  },
+  {
+    "_id": "proso-millet",
+    "name": "PROSO MILLET",
+    "commodityGroup": "Cereals",
+    "sourceId": 511
+  },
+  {
+    "_id": "pumpkin",
+    "name": "PUMPKIN",
+    "commodityGroup": "Vegetables",
+    "sourceId": 70
+  },
+  {
+    "_id": "pundi",
+    "name": "PUNDI",
+    "commodityGroup": "Others",
+    "sourceId": 210
+  },
+  {
+    "_id": "pundi-seed",
+    "name": "PUNDI SEED",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 110
+  },
+  {
+    "_id": "pupadia",
+    "name": "PUPADIA",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 376
+  },
+  {
+    "_id": "purslane",
+    "name": "PURSLANE",
+    "commodityGroup": "Vegetables",
+    "sourceId": 512
+  },
+  {
+    "_id": "quincenakh",
+    "name": "QUINCE(NAKH)",
+    "commodityGroup": "Fruits",
+    "sourceId": 513
+  },
+  {
+    "_id": "raddish",
+    "name": "RADDISH",
+    "commodityGroup": "Vegetables",
+    "sourceId": 133
+  },
+  {
+    "_id": "ragifinger-millet",
+    "name": "RAGI(FINGER MILLET)",
+    "commodityGroup": "Cereals",
+    "sourceId": 30
+  },
+  {
+    "_id": "raibel",
+    "name": "RAIBEL",
+    "commodityGroup": "Flowers",
+    "sourceId": 338
+  },
+  {
+    "_id": "rajgir",
+    "name": "RAJGIR",
+    "commodityGroup": "Others",
+    "sourceId": 205
+  },
+  {
+    "_id": "rala",
+    "name": "RALA",
+    "commodityGroup": "Cereals",
+    "sourceId": 446
+  },
+  {
+    "_id": "ram",
+    "name": "RAM",
+    "commodityGroup": "Livestock",
+    "sourceId": 235
+  },
+  {
+    "_id": "rambutan",
+    "name": "RAMBUTAN",
+    "commodityGroup": "Fruits",
+    "sourceId": 514
+  },
+  {
+    "_id": "ramphal",
+    "name": "RAMPHAL",
+    "commodityGroup": "Fruits",
+    "sourceId": 447
+  },
+  {
+    "_id": "rat-tail-radishmogari",
+    "name": "RAT TAIL RADISH(MOGARI)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 258
+  },
+  {
+    "_id": "ratanjot",
+    "name": "RATANJOT",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 389
+  },
+  {
+    "_id": "raw-biomassagro-residue",
+    "name": "RAW BIOMASS(AGRO RESIDUE)",
+    "commodityGroup": "Others",
+    "sourceId": 515
+  },
+  {
+    "_id": "raya",
+    "name": "RAYA",
+    "commodityGroup": "Others",
+    "sourceId": 54
+  },
+  {
+    "_id": "rayee",
+    "name": "RAYEE",
+    "commodityGroup": "Spices",
+    "sourceId": 448
+  },
+  {
+    "_id": "red-cabbage",
+    "name": "RED CABBAGE",
+    "commodityGroup": "Vegetables",
+    "sourceId": 422
+  },
+  {
+    "_id": "red-gourd",
+    "name": "RED GOURD",
+    "commodityGroup": "Vegetables",
+    "sourceId": 516
+  },
+  {
+    "_id": "red-gram",
+    "name": "RED GRAM",
+    "commodityGroup": "Pulses",
+    "sourceId": 7
+  },
+  {
+    "_id": "resinwood",
+    "name": "RESINWOOD",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 272
+  },
+  {
+    "_id": "ribbed-celery",
+    "name": "RIBBED CELERY",
+    "commodityGroup": "Vegetables",
+    "sourceId": 517
+  },
+  {
+    "_id": "riccbcan",
+    "name": "RICCBCAN",
+    "commodityGroup": "Others",
+    "sourceId": 51
+  },
+  {
+    "_id": "rice",
+    "name": "RICE",
+    "commodityGroup": "Cereals",
+    "sourceId": 3
+  },
+  {
+    "_id": "rice-bean",
+    "name": "RICE BEAN",
+    "commodityGroup": "Pulses",
+    "sourceId": 518
+  },
+  {
+    "_id": "ridge-gourdpermalhybrid-gourd",
+    "name": "RIDGE GOURD(PERMAL/HYBRID GOURD)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 519
+  },
+  {
+    "_id": "ridgeguardtori",
+    "name": "RIDGEGUARD(TORI)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 132
+  },
+  {
+    "_id": "roselocal",
+    "name": "ROSE(LOCAL)",
+    "commodityGroup": "Flowers",
+    "sourceId": 321
+  },
+  {
+    "_id": "roseloose",
+    "name": "ROSE(LOOSE))",
+    "commodityGroup": "Flowers",
+    "sourceId": 186
+  },
+  {
+    "_id": "rosetata",
+    "name": "ROSE(TATA)",
+    "commodityGroup": "Flowers",
+    "sourceId": 320
+  },
+  {
+    "_id": "round-chilli",
+    "name": "ROUND CHILLI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 520
+  },
+  {
+    "_id": "round-gourd",
+    "name": "ROUND GOURD",
+    "commodityGroup": "Vegetables",
+    "sourceId": 257
+  },
+  {
+    "_id": "rubber",
+    "name": "RUBBER",
+    "commodityGroup": "Others",
+    "sourceId": 95
+  },
+  {
+    "_id": "sabu-dan",
+    "name": "SABU DAN",
+    "commodityGroup": "Others",
+    "sourceId": 243
+  },
+  {
+    "_id": "safflower",
+    "name": "SAFFLOWER",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 48
+  },
+  {
+    "_id": "saffron",
+    "name": "SAFFRON",
+    "commodityGroup": "Spices",
+    "sourceId": 286
+  },
+  {
+    "_id": "sajje",
+    "name": "SAJJE",
+    "commodityGroup": "Cereals",
+    "sourceId": 225
+  },
+  {
+    "_id": "sal-seeds",
+    "name": "SAL SEEDS",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 521
+  },
+  {
+    "_id": "salix-pursiwillow",
+    "name": "SALIX-PURSI(WILLOW)",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 522
+  },
+  {
+    "_id": "samesavi",
+    "name": "SAME/SAVI",
+    "commodityGroup": "Cereals",
+    "sourceId": 105
+  },
+  {
+    "_id": "sandalwood",
+    "name": "SANDALWOOD",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 379
+  },
+  {
+    "_id": "sarasum",
+    "name": "SARASUM",
+    "commodityGroup": "Others",
+    "sourceId": 204
+  },
+  {
+    "_id": "season-leaves",
+    "name": "SEASON LEAVES",
+    "commodityGroup": "Vegetables",
+    "sourceId": 230
+  },
+  {
+    "_id": "seegu",
+    "name": "SEEGU",
+    "commodityGroup": "Others",
+    "sourceId": 209
+  },
+  {
+    "_id": "seemebadnekai",
+    "name": "SEEMEBADNEKAI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 148
+  },
+  {
+    "_id": "seetapal",
+    "name": "SEETAPAL",
+    "commodityGroup": "Fruits",
+    "sourceId": 162
+  },
+  {
+    "_id": "sem",
+    "name": "SEM",
+    "commodityGroup": "Vegetables",
+    "sourceId": 523
+  },
+  {
+    "_id": "sesamumsesamegingellytil",
+    "name": "SESAMUM(SESAME,GINGELLY,TIL)",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 11
+  },
+  {
+    "_id": "she-buffalo",
+    "name": "SHE BUFFALO",
+    "commodityGroup": "Livestock",
+    "sourceId": 176
+  },
+  {
+    "_id": "she-goat",
+    "name": "SHE GOAT",
+    "commodityGroup": "Livestock",
+    "sourceId": 236
+  },
+  {
+    "_id": "sheep",
+    "name": "SHEEP",
+    "commodityGroup": "Livestock",
+    "sourceId": 177
+  },
+  {
+    "_id": "shrimp",
+    "name": "SHRIMP",
+    "commodityGroup": "Livestock",
+    "sourceId": 524
+  },
+  {
+    "_id": "siddota",
+    "name": "SIDDOTA",
+    "commodityGroup": "Fruits",
+    "sourceId": 154
+  },
+  {
+    "_id": "silk-cocoon",
+    "name": "SILK COCOON",
+    "commodityGroup": "Livestock",
+    "sourceId": 525
+  },
+  {
+    "_id": "siru-kizhagu",
+    "name": "SIRU KIZHAGU",
+    "commodityGroup": "Vegetables",
+    "sourceId": 419
+  },
+  {
+    "_id": "skin-and-hide",
+    "name": "SKIN AND HIDE",
+    "commodityGroup": "Others",
+    "sourceId": 185
+  },
+  {
+    "_id": "snakeguard",
+    "name": "SNAKEGUARD",
+    "commodityGroup": "Vegetables",
+    "sourceId": 128
+  },
+  {
+    "_id": "snow-mountain-garlic",
+    "name": "SNOW MOUNTAIN GARLIC",
+    "commodityGroup": "Vegetables",
+    "sourceId": 526
+  },
+  {
+    "_id": "soanf",
+    "name": "SOANF",
+    "commodityGroup": "Spices",
+    "sourceId": 114
+  },
+  {
+    "_id": "soapnutantawalaretha",
+    "name": "SOAPNUT(ANTAWALA/RETHA)",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 167
+  },
+  {
+    "_id": "soha",
+    "name": "SOHA",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 449
+  },
+  {
+    "_id": "soji",
+    "name": "SOJI",
+    "commodityGroup": "Cereals",
+    "sourceId": 239
+  },
+  {
+    "_id": "sompu",
+    "name": "SOMPU",
+    "commodityGroup": "Others",
+    "sourceId": 203
+  },
+  {
+    "_id": "soursop",
+    "name": "SOURSOP",
+    "commodityGroup": "Fruits",
+    "sourceId": 527
+  },
+  {
+    "_id": "soyabean",
+    "name": "SOYABEAN",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 13
+  },
+  {
+    "_id": "spinach",
+    "name": "SPINACH",
+    "commodityGroup": "Vegetables",
+    "sourceId": 290
+  },
+  {
+    "_id": "sponge-gourd",
+    "name": "SPONGE GOURD",
+    "commodityGroup": "Vegetables",
+    "sourceId": 262
+  },
+  {
+    "_id": "squashchappal-kadoo",
+    "name": "SQUASH(CHAPPAL KADOO)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 282
+  },
+  {
+    "_id": "star-fruitkamraikh",
+    "name": "STAR FRUIT(KAMRAIKH)",
+    "commodityGroup": "Fruits",
+    "sourceId": 528
+  },
+  {
+    "_id": "strawberry",
+    "name": "STRAWBERRY",
+    "commodityGroup": "Fruits",
+    "sourceId": 529
+  },
+  {
+    "_id": "sugar",
+    "name": "SUGAR",
+    "commodityGroup": "Others",
+    "sourceId": 44
+  },
+  {
+    "_id": "sugar-snap-peas",
+    "name": "SUGAR SNAP PEAS",
+    "commodityGroup": "Vegetables",
+    "sourceId": 530
+  },
+  {
+    "_id": "sugarcane",
+    "name": "SUGARCANE",
+    "commodityGroup": "Others",
+    "sourceId": 122
+  },
+  {
+    "_id": "sundaikai",
+    "name": "SUNDAIKAI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 417
+  },
+  {
+    "_id": "sunflower",
+    "name": "SUNFLOWER",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 14
+  },
+  {
+    "_id": "sunflower-seed",
+    "name": "SUNFLOWER SEED",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 238
+  },
+  {
+    "_id": "sunhemp",
+    "name": "SUNHEMP",
+    "commodityGroup": "Fibers",
+    "sourceId": 117
+  },
+  {
+    "_id": "suram",
+    "name": "SURAM",
+    "commodityGroup": "Others",
+    "sourceId": 199
+  },
+  {
+    "_id": "surat-beanspapadi",
+    "name": "SURAT BEANS(PAPADI)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 251
+  },
+  {
+    "_id": "suvadill-seed",
+    "name": "SUVA(DILL SEED)",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 211
+  },
+  {
+    "_id": "suvarna-gadde",
+    "name": "SUVARNA GADDE",
+    "commodityGroup": "Vegetables",
+    "sourceId": 150
+  },
+  {
+    "_id": "swan-phaliflat-bean",
+    "name": "SWAN PHALI(FLAT BEAN)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 531
+  },
+  {
+    "_id": "swan-plant-green-herb",
+    "name": "SWAN PLANT (GREEN HERB)",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 532
+  },
+  {
+    "_id": "swanflower",
+    "name": "SWANFLOWER",
+    "commodityGroup": "Flowers",
+    "sourceId": 533
+  },
+  {
+    "_id": "sweet-corn",
+    "name": "SWEET CORN",
+    "commodityGroup": "Cereals",
+    "sourceId": 534
+  },
+  {
+    "_id": "sweet-potato",
+    "name": "SWEET POTATO",
+    "commodityGroup": "Vegetables",
+    "sourceId": 124
+  },
+  {
+    "_id": "sweet-pumpkin",
+    "name": "SWEET PUMPKIN",
+    "commodityGroup": "Vegetables",
+    "sourceId": 145
+  },
+  {
+    "_id": "sweet-saag",
+    "name": "SWEET SAAG",
+    "commodityGroup": "Vegetables",
+    "sourceId": 535
+  },
+  {
+    "_id": "sweet-sultan",
+    "name": "SWEET SULTAN",
+    "commodityGroup": "Flowers",
+    "sourceId": 395
+  },
+  {
+    "_id": "tv-cumbu",
+    "name": "T.V. CUMBU",
+    "commodityGroup": "Cereals",
+    "sourceId": 103
+  },
+  {
+    "_id": "tamarind-fruit",
+    "name": "TAMARIND FRUIT",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 215
+  },
+  {
+    "_id": "tamarind-seed",
+    "name": "TAMARIND SEED",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 168
+  },
+  {
+    "_id": "tapioca",
+    "name": "TAPIOCA",
+    "commodityGroup": "Vegetables",
+    "sourceId": 85
+  },
+  {
+    "_id": "taramira",
+    "name": "TARAMIRA",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 63
+  },
+  {
+    "_id": "taro-arvi-leaves",
+    "name": "TARO (ARVI) LEAVES",
+    "commodityGroup": "Vegetables",
+    "sourceId": 537
+  },
+  {
+    "_id": "taro-arvi-stem",
+    "name": "TARO (ARVI) STEM",
+    "commodityGroup": "Vegetables",
+    "sourceId": 538
+  },
+  {
+    "_id": "tea",
+    "name": "TEA",
+    "commodityGroup": "Plantation Crops",
+    "sourceId": 40
+  },
+  {
+    "_id": "tender-coconut",
+    "name": "TENDER COCONUT",
+    "commodityGroup": "Fruits",
+    "sourceId": 161
+  },
+  {
+    "_id": "tevada",
+    "name": "TEVADA",
+    "commodityGroup": "Pulses",
+    "sourceId": 539
+  },
+  {
+    "_id": "thinaiitalian-millet",
+    "name": "THINAI(ITALIAN MILLET)",
+    "commodityGroup": "Pulses",
+    "sourceId": 100
+  },
+  {
+    "_id": "thogrikai",
+    "name": "THOGRIKAI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 142
+  },
+  {
+    "_id": "thondekai",
+    "name": "THONDEKAI",
+    "commodityGroup": "Vegetables",
+    "sourceId": 134
+  },
+  {
+    "_id": "tinda",
+    "name": "TINDA",
+    "commodityGroup": "Vegetables",
+    "sourceId": 297
+  },
+  {
+    "_id": "tobacco",
+    "name": "TOBACCO",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 119
+  },
+  {
+    "_id": "tomato",
+    "name": "TOMATO",
+    "commodityGroup": "Vegetables",
+    "sourceId": 65
+  },
+  {
+    "_id": "torchwood",
+    "name": "TORCHWOOD",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 273
+  },
+  {
+    "_id": "toria",
+    "name": "TORIA",
+    "commodityGroup": "Oilseeds",
+    "sourceId": 55
+  },
+  {
+    "_id": "tube-flower",
+    "name": "TUBE FLOWER",
+    "commodityGroup": "Flowers",
+    "sourceId": 192
+  },
+  {
+    "_id": "tube-rosedouble",
+    "name": "TUBE ROSE(DOUBLE)",
+    "commodityGroup": "Flowers",
+    "sourceId": 330
+  },
+  {
+    "_id": "tube-roseloose",
+    "name": "TUBE ROSE(LOOSE)",
+    "commodityGroup": "Flowers",
+    "sourceId": 337
+  },
+  {
+    "_id": "tube-rosesingle",
+    "name": "TUBE ROSE(SINGLE)",
+    "commodityGroup": "Flowers",
+    "sourceId": 324
+  },
+  {
+    "_id": "tulasi",
+    "name": "TULASI",
+    "commodityGroup": "Others",
+    "sourceId": 432
+  },
+  {
+    "_id": "turmeric",
+    "name": "TURMERIC",
+    "commodityGroup": "Spices",
+    "sourceId": 35
+  },
+  {
+    "_id": "turmericraw",
+    "name": "TURMERIC(RAW)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 260
+  },
+  {
+    "_id": "turnip",
+    "name": "TURNIP",
+    "commodityGroup": "Vegetables",
+    "sourceId": 289
+  },
+  {
+    "_id": "vatsanabha",
+    "name": "VATSANABHA",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 366
+  },
+  {
+    "_id": "walnut",
+    "name": "WALNUT",
+    "commodityGroup": "Nuts",
+    "sourceId": 291
+  },
+  {
+    "_id": "water-apple",
+    "name": "WATER APPLE",
+    "commodityGroup": "Fruits",
+    "sourceId": 425
+  },
+  {
+    "_id": "water-melon",
+    "name": "WATER MELON",
+    "commodityGroup": "Fruits",
+    "sourceId": 60
+  },
+  {
+    "_id": "water-plantkaseru",
+    "name": "WATER PLANT(KASERU)",
+    "commodityGroup": "Others",
+    "sourceId": 540
+  },
+  {
+    "_id": "water-chestnut",
+    "name": "WATER CHESTNUT",
+    "commodityGroup": "Others",
+    "sourceId": 450
+  },
+  {
+    "_id": "wax",
+    "name": "WAX",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 451
+  },
+  {
+    "_id": "wheat",
+    "name": "WHEAT",
+    "commodityGroup": "Cereals",
+    "sourceId": 1
+  },
+  {
+    "_id": "wheat-atta",
+    "name": "WHEAT ATTA",
+    "commodityGroup": "Others",
+    "sourceId": 240
+  },
+  {
+    "_id": "white-muesli",
+    "name": "WHITE MUESLI",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 358
+  },
+  {
+    "_id": "white-peas",
+    "name": "WHITE PEAS",
+    "commodityGroup": "Pulses",
+    "sourceId": 341
+  },
+  {
+    "_id": "white-pumpkin",
+    "name": "WHITE PUMPKIN",
+    "commodityGroup": "Vegetables",
+    "sourceId": 130
+  },
+  {
+    "_id": "wild-bean-pod",
+    "name": "WILD BEAN / POD",
+    "commodityGroup": "Pulses",
+    "sourceId": 541
+  },
+  {
+    "_id": "wild-cucumber",
+    "name": "WILD CUCUMBER",
+    "commodityGroup": "Vegetables",
+    "sourceId": 542
+  },
+  {
+    "_id": "wild-garlic-shoots",
+    "name": "WILD GARLIC / SHOOTS",
+    "commodityGroup": "Vegetables",
+    "sourceId": 543
+  },
+  {
+    "_id": "wild-melon",
+    "name": "WILD MELON",
+    "commodityGroup": "Fruits",
+    "sourceId": 544
+  },
+  {
+    "_id": "wild-spinach",
+    "name": "WILD SPINACH",
+    "commodityGroup": "Vegetables",
+    "sourceId": 545
+  },
+  {
+    "_id": "wild-lemon",
+    "name": "WILD LEMON",
+    "commodityGroup": "Fruits",
+    "sourceId": 427
+  },
+  {
+    "_id": "wood",
+    "name": "WOOD",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 163
+  },
+  {
+    "_id": "wood-apple",
+    "name": "WOOD APPLE",
+    "commodityGroup": "Fruits",
+    "sourceId": 428
+  },
+  {
+    "_id": "wool",
+    "name": "WOOL",
+    "commodityGroup": "Others",
+    "sourceId": 296
+  },
+  {
+    "_id": "yam",
+    "name": "YAM",
+    "commodityGroup": "Others",
+    "sourceId": 201
+  },
+  {
+    "_id": "yam-bean-mexican-turnipbankla",
+    "name": "YAM BEAN / MEXICAN TURNIP(BANKLA)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 546
+  },
+  {
+    "_id": "yamratalu",
+    "name": "YAM(RATALU)",
+    "commodityGroup": "Vegetables",
+    "sourceId": 248
+  },
+  {
+    "_id": "balsam",
+    "name": "BALSAM",
+    "commodityGroup": "Flowers",
+    "sourceId": 411
+  },
+  {
+    "_id": "basil",
+    "name": "BASIL",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 364
+  },
+  {
+    "_id": "buttery",
+    "name": "BUTTERY",
+    "commodityGroup": "Pulses",
+    "sourceId": 345
+  },
+  {
+    "_id": "cineraria",
+    "name": "CINERARIA",
+    "commodityGroup": "Flowers",
+    "sourceId": 396
+  },
+  {
+    "_id": "dhawai-flowers",
+    "name": "DHAWAI FLOWERS",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 371
+  },
+  {
+    "_id": "dianthus",
+    "name": "DIANTHUS",
+    "commodityGroup": "Flowers",
+    "sourceId": 405
+  },
+  {
+    "_id": "dried-mango",
+    "name": "DRIED MANGO",
+    "commodityGroup": "Spices",
+    "sourceId": 352
+  },
+  {
+    "_id": "golden-rod",
+    "name": "GOLDEN ROD",
+    "commodityGroup": "Flowers",
+    "sourceId": 404
+  },
+  {
+    "_id": "gulli",
+    "name": "GULLI",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 390
+  },
+  {
+    "_id": "gypsophila",
+    "name": "GYPSOPHILA",
+    "commodityGroup": "Flowers",
+    "sourceId": 398
+  },
+  {
+    "_id": "hydrangea",
+    "name": "HYDRANGEA",
+    "commodityGroup": "Flowers",
+    "sourceId": 402
+  },
+  {
+    "_id": "kakatan",
+    "name": "KAKATAN",
+    "commodityGroup": "Flowers",
+    "sourceId": 430
+  },
+  {
+    "_id": "karanja-seeds",
+    "name": "KARANJA SEEDS",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 368
+  },
+  {
+    "_id": "kokum",
+    "name": "KOKUM",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 387
+  },
+  {
+    "_id": "kutki-355",
+    "name": "KUTKI",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 355
+  },
+  {
+    "_id": "liquor-turmeric",
+    "name": "LIQUOR TURMERIC",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 361
+  },
+  {
+    "_id": "macoy",
+    "name": "MACOY",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 356
+  },
+  {
+    "_id": "mango-powder",
+    "name": "MANGO POWDER",
+    "commodityGroup": "Spices",
+    "sourceId": 351
+  },
+  {
+    "_id": "nigella",
+    "name": "NIGELLA",
+    "commodityGroup": "Spices",
+    "sourceId": 353
+  },
+  {
+    "_id": "nigella-seeds",
+    "name": "NIGELLA SEEDS",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 374
+  },
+  {
+    "_id": "pippali",
+    "name": "PIPPALI",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 360
+  },
+  {
+    "_id": "poppy-seeds",
+    "name": "POPPY SEEDS",
+    "commodityGroup": "Spices",
+    "sourceId": 350
+  },
+  {
+    "_id": "salvia",
+    "name": "SALVIA",
+    "commodityGroup": "Flowers",
+    "sourceId": 397
+  },
+  {
+    "_id": "sanay",
+    "name": "SANAY",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 362
+  },
+  {
+    "_id": "sevanti",
+    "name": "SEVANTI",
+    "commodityGroup": "Flowers",
+    "sourceId": 393
+  },
+  {
+    "_id": "spikenard",
+    "name": "SPIKENARD",
+    "commodityGroup": "Minor Forest Produce",
+    "sourceId": 384
+  },
+  {
+    "_id": "stevia",
+    "name": "STEVIA",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 369
+  },
+  {
+    "_id": "stone-pulverizer",
+    "name": "STONE PULVERIZER",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 359
+  },
+  {
+    "_id": "sweet-william",
+    "name": "SWEET WILLIAM",
+    "commodityGroup": "Flowers",
+    "sourceId": 406
+  },
+  {
+    "_id": "tulip",
+    "name": "TULIP",
+    "commodityGroup": "Flowers",
+    "sourceId": 392
+  },
+  {
+    "_id": "vadang",
+    "name": "VADANG",
+    "commodityGroup": "Medicinal & Aromatic",
+    "sourceId": 365
+  }
+]

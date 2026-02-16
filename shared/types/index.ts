@@ -1,6 +1,7 @@
 export type ISODateString = string;
 
 export type PriceSource = 'agmarknet' | 'enam' | 'apmc' | 'other' | 'mandi-insights';
+export type DataSource = 'eNAM' | 'Agmarknet' | 'State Portal';
 export type SortDirection = 'asc' | 'desc';
 export type PriceSortBy = 'date' | 'crop' | 'state' | 'mandi' | 'modalPrice';
 export type AlertDirection = 'above' | 'below';
@@ -29,9 +30,19 @@ export interface State {
   code?: string;
 }
 
+export interface FrontendState {
+  code: string;
+  name: string;
+}
+
 export interface Location {
   type: 'Point';
   coordinates: [number, number];
+}
+
+export interface District {
+  name: string;
+  stateCode: string;
 }
 
 export interface Mandi {
@@ -41,6 +52,11 @@ export interface Mandi {
   stateName: string;
   latitude: number;
   longitude: number;
+  district?: string;
+  stateCode?: string;
+  isEnamIntegrated?: boolean;
+  source?: DataSource;
+  lastUpdated?: string;
 }
 
 export interface Price {
@@ -80,6 +96,10 @@ export interface TopMover {
   previousPrice: number;
   changePct: number;
   direction: TopMoverDirection;
+  crop?: string;
+  state?: string;
+  changePercent?: number;
+  currentPrice?: number;
 }
 
 export interface Coverage {
@@ -93,6 +113,9 @@ export interface Coverage {
 export interface PriceTrendPoint {
   date: ISODateString;
   modalPrice: number;
+  price?: number;
+  minPrice?: number;
+  maxPrice?: number;
 }
 
 export interface PriceTrend {
@@ -103,6 +126,13 @@ export interface PriceTrend {
   stateId?: string | null;
   data: PriceTrendPoint[];
   computedAt: Date;
+}
+
+export interface FrontendPriceTrend {
+  date: string;
+  price: number;
+  minPrice: number;
+  maxPrice: number;
 }
 
 export interface MandiPrice {
@@ -284,4 +314,58 @@ export interface GeoBounds {
   minLat: number;
   maxLng: number;
   maxLat: number;
+}
+
+export interface CropPrice {
+  id: string;
+  date: string;
+  stateCode: string;
+  state: string;
+  district: string;
+  mandi: string;
+  crop: string;
+  variety: string;
+  minPrice: number;
+  maxPrice: number;
+  modalPrice: number;
+  unit: string;
+  source: DataSource;
+}
+
+export interface CropInfo {
+  name: string;
+  category: string;
+  mspPrice?: number;
+}
+
+export interface ArbitrageOpportunity {
+  crop: string;
+  variety: string;
+  mandiA: string;
+  stateA: string;
+  priceA: number;
+  mandiB: string;
+  stateB: string;
+  priceB: number;
+  priceDiff: number;
+  distanceKm: number;
+}
+
+export interface PriceAlert {
+  id: string;
+  crop: string;
+  state: string;
+  thresholdType: AlertDirection;
+  thresholdPrice: number;
+  isActive: boolean;
+}
+
+export interface StateCoverage {
+  stateCode: string;
+  state: string;
+  totalApmcs: number;
+  enamIntegrated: number;
+  statePortal: number;
+  uncovered: number;
+  avgPrice?: number;
 }

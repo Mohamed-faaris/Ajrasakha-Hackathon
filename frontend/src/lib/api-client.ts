@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { getToken } from "./auth";
 import {
   ApiError,
   ValidationError,
@@ -74,8 +73,7 @@ function buildQuery(params?: QueryParams): string {
 }
 
 function getAuthHeaders(): Record<string, string> {
-  const token = getToken();
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  return {};
 }
 
 interface RequestOptions {
@@ -98,9 +96,9 @@ async function request<T>(
   try {
     response = await fetch(url, {
       method,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        ...getAuthHeaders(),
         ...headers,
       },
       body: body ? JSON.stringify(body) : undefined,

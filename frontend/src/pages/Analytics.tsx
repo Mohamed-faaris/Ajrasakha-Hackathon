@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { usePriceTrend, useCrops } from "@/hooks/use-prices";
+import { usePriceTrend } from "@/hooks/use-prices";
+import { useCrops } from "@/hooks/use-crops";
 import type { PriceTrend, CropInfo } from "@shared/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";

@@ -3,10 +3,24 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { TrendingUp, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { signIn } from "@/lib/auth";
+
+const getErrorMessage = (error: unknown, fallback: string) => {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+  return fallback;
+};
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -23,8 +37,12 @@ export default function Login() {
       await signIn.email({ email, password });
       toast({ title: "Welcome back!", description: "Logged in successfully." });
       navigate("/dashboard");
-    } catch (err: any) {
-      toast({ title: "Error", description: err.message || "Login failed.", variant: "destructive" });
+    } catch (err: unknown) {
+      toast({
+        title: "Error",
+        description: getErrorMessage(err, "Login failed."),
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
@@ -38,14 +56,20 @@ export default function Login() {
           <div className="h-14 w-14 rounded-xl bg-primary flex items-center justify-center">
             <TrendingUp className="h-7 w-7 text-primary-foreground" />
           </div>
-          <h1 className="font-display text-2xl font-bold text-foreground">Mandi-Insights</h1>
-          <p className="text-sm text-muted-foreground">Agricultural Market Intelligence</p>
+          <h1 className="font-display text-2xl font-bold text-foreground">
+            Mandi-Insights
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Agricultural Market Intelligence
+          </p>
         </div>
 
         <Card>
           <CardHeader className="text-center">
             <CardTitle className="text-xl">Sign In</CardTitle>
-            <CardDescription>Enter your credentials to access the platform</CardDescription>
+            <CardDescription>
+              Enter your credentials to access the platform
+            </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
@@ -63,7 +87,10 @@ export default function Login() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-                  <Link to="/forgot-password" className="text-xs text-primary hover:underline">
+                  <Link
+                    to="/forgot-password"
+                    className="text-xs text-primary hover:underline"
+                  >
                     Forgot password?
                   </Link>
                 </div>
@@ -81,7 +108,11 @@ export default function Login() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -92,7 +123,10 @@ export default function Login() {
               </Button>
               <p className="text-sm text-muted-foreground text-center">
                 Don't have an account?{" "}
-                <Link to="/signup" className="text-primary font-medium hover:underline">
+                <Link
+                  to="/signup"
+                  className="text-primary font-medium hover:underline"
+                >
                   Sign Up
                 </Link>
               </p>

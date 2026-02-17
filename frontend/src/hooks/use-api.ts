@@ -13,6 +13,10 @@ export const queryKeys = {
   stateCoverage: () => ["stateCoverage"] as const,
   arbitrageOpportunities: () => ["arbitrageOpportunities"] as const,
   quickStats: () => ["quickStats"] as const,
+  profileSettings: () => ["profileSettings"] as const,
+  notificationSettings: () => ["notificationSettings"] as const,
+  profilePreferences: () => ["profilePreferences"] as const,
+  profileSecurity: () => ["profileSecurity"] as const,
 };
 
 export function useTypedQuery<TData, TError = Error>(

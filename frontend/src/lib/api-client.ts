@@ -15,6 +15,8 @@ import {
   FrontendPriceTrendSchema,
   CreateAlertBodySchema,
   PriceAlertSchema,
+  NotificationSettingsSchema,
+  LanguageSchema,
 } from "@shared/schemas";
 import type {
   CropPrice,
@@ -27,6 +29,8 @@ import type {
   FrontendPriceTrend,
   PriceAlert,
   AlertDirection,
+  NotificationSettings,
+  Language,
 } from "@shared/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
@@ -59,6 +63,93 @@ export interface PriceFilters {
   source?: string;
 }
 
+export interface UserProfileSettings {
+  phone?: string;
+  state?: string;
+  district?: string;
+  preferredCrops?: string[];
+  preferredMandis?: string[];
+  language?: Language;
+  avatar?: string;
+  farmerDetails?: {
+    isFarmer?: boolean;
+    farmSize?: number;
+    primaryCrops?: string[];
+  };
+  traderDetails?: {
+    isTrader?: boolean;
+    companyName?: string;
+    gstNumber?: string;
+    tradingStates?: string[];
+  };
+}
+
+export interface ProfilePreferences {
+  language?: Language;
+  state?: string;
+  district?: string;
+  preferredCrops: string[];
+  preferredMandis: string[];
+  avatar?: string;
+}
+
+export interface ProfileSecurity {
+  email?: string;
+  name?: string;
+  phone?: string;
+  session: {
+    id: string;
+    expiresAt: string | Date;
+  } | null;
+}
+
+const UserProfileSettingsSchema: z.ZodType<UserProfileSettings> = z.object({
+  phone: z.string().optional(),
+  state: z.string().optional(),
+  district: z.string().optional(),
+  preferredCrops: z.array(z.string()).optional(),
+  preferredMandis: z.array(z.string()).optional(),
+  notificationSettings: NotificationSettingsSchema.optional(),
+  language: LanguageSchema.optional(),
+  avatar: z.string().optional(),
+  farmerDetails: z
+    .object({
+      isFarmer: z.boolean().optional(),
+      farmSize: z.number().optional(),
+      primaryCrops: z.array(z.string()).optional(),
+    })
+    .optional(),
+  traderDetails: z
+    .object({
+      isTrader: z.boolean().optional(),
+      companyName: z.string().optional(),
+      gstNumber: z.string().optional(),
+      tradingStates: z.array(z.string()).optional(),
+    })
+    .optional(),
+});
+
+const ProfilePreferencesSchema: z.ZodType<ProfilePreferences> = z.object({
+  language: LanguageSchema.optional(),
+  state: z.string().optional(),
+  district: z.string().optional(),
+  preferredCrops: z.array(z.string()).default([]),
+  preferredMandis: z.array(z.string()).default([]),
+  avatar: z.string().optional(),
+});
+
+const ProfileSecuritySchema: z.ZodType<ProfileSecurity> = z.object({
+  email: z.string().optional(),
+  name: z.string().optional(),
+  phone: z.string().optional(),
+  session: z
+    .object({
+      id: z.string(),
+      expiresAt: z.union([z.string(), z.coerce.date()]),
+    })
+    .nullable(),
+});
+
 type QueryParams = Record<string, string | number | boolean | undefined>;
 
 function buildQuery(params?: QueryParams): string {
@@ -70,10 +161,6 @@ function buildQuery(params?: QueryParams): string {
   });
   const query = search.toString();
   return query ? `?${query}` : "";
-}
-
-function getAuthHeaders(): Record<string, string> {
-  return {};
 }
 
 interface RequestOptions {
@@ -209,6 +296,42 @@ export const apiClient = {
 
   deleteAlert: (id: string): Promise<void> =>
     request(`/alerts/${id}`, z.void(), undefined, { method: "DELETE" }),
+
+  getProfileSettings: (): Promise<UserProfileSettings> =>
+    request("/profile/settings", UserProfileSettingsSchema),
+
+  updateProfileSettings: (payload: UserProfileSettings): Promise<UserProfileSettings> =>
+    request("/profile/settings", UserProfileSettingsSchema, undefined, {
+      method: "PATCH",
+      body: payload,
+    }),
+
+  getNotificationSettings: (): Promise<NotificationSettings> =>
+    request("/profile/notifications", NotificationSettingsSchema),
+
+  updateNotificationSettings: (payload: NotificationSettings): Promise<NotificationSettings> =>
+    request("/profile/notifications", NotificationSettingsSchema, undefined, {
+      method: "PATCH",
+      body: payload,
+    }),
+
+  getProfilePreferences: (): Promise<ProfilePreferences> =>
+    request("/profile/preferences", ProfilePreferencesSchema),
+
+  updateProfilePreferences: (payload: Partial<ProfilePreferences>): Promise<ProfilePreferences> =>
+    request("/profile/preferences", ProfilePreferencesSchema, undefined, {
+      method: "PATCH",
+      body: payload,
+    }),
+
+  getProfileSecurity: (): Promise<ProfileSecurity> =>
+    request("/profile/security", ProfileSecuritySchema),
+
+  updateProfileSecurity: (payload: { phone?: string }): Promise<{ phone?: string }> =>
+    request("/profile/security", z.object({ phone: z.string().optional() }), undefined, {
+      method: "PATCH",
+      body: payload,
+    }),
 
   request,
 };

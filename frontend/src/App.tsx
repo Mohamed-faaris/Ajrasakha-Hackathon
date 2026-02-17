@@ -12,6 +12,7 @@ import Analytics from "./pages/Analytics";
 import MapInsights from "./pages/MapInsights";
 import Arbitrage from "./pages/Arbitrage";
 import Reports from "./pages/Reports";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import { ProtectedRoute, PublicOnlyRoute } from "./components/ProtectedRoute";
 import { AppLayout } from "./components/AppLayout";
@@ -56,37 +57,15 @@ const App = () => (
               </ProtectedRoute>
             }
           >
-            <Route
-              path="/"
-              element={<Index />}
-            />
-            <Route
-              path="/dashboard"
-              element={<Dashboard />}
-            />
-            <Route
-              path="/analytics"
-              element={<Analytics />}
-            />
-            <Route
-              path="/map"
-              element={<MapInsights />}
-            />
-            <Route
-              path="/arbitrage"
-              element={<Arbitrage />}
-            />
-            <Route
-              path="/reports"
-              element={<Reports />}
-            />
+            <Route path="/" element={<Index />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/map" element={<MapInsights />} />
+            <Route path="/arbitrage" element={<Arbitrage />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
-          <Route
-            path="*"
-            element={
-              <NotFound />
-            }
-          />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

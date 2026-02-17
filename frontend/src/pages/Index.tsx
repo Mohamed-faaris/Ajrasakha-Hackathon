@@ -15,6 +15,7 @@ import {
   MapPin,
   Wheat,
   ArrowRight,
+  type LucideIcon,
 } from "lucide-react";
 
 const Index = () => {
@@ -226,7 +227,7 @@ function StatCard({
   label,
   value,
 }: {
-  icon: any;
+  icon: LucideIcon;
   label: string;
   value: string | number;
 }) {

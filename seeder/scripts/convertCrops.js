@@ -1,9 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-const SOURCE_PATH = path.join(__dirname, '../../tmp/seed-scraper/data-tmps/crops/data.json');
-const OUTPUT_PATH = path.join(__dirname, '../data/crops.converted.json');
-
 const COMMODITY_GROUP_MAP = {
   1: 'Cereals',
   2: 'Pulses',
@@ -33,8 +30,8 @@ function generateSlug(name) {
     .substring(0, 50);
 }
 
-function main() {
-  const sourceData = JSON.parse(fs.readFileSync(SOURCE_PATH, 'utf8'));
+function convertCrops(inputPath, outputPath) {
+  const sourceData = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
   const cmdtData = sourceData.data.cmdt_data;
 
   const crops = cmdtData.map(crop => ({
@@ -57,23 +54,35 @@ function main() {
     finalCrops.push(crop);
   }
 
-  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(finalCrops, null, 2));
-  
-  console.log(`Converted ${finalCrops.length} crops to ${OUTPUT_PATH}`);
-  console.log(`Groups used: ${[...new Set(finalCrops.map(c => c.commodityGroup))].join(', ')}`);
+  fs.writeFileSync(outputPath, JSON.stringify(finalCrops, null, 2));
+
+  console.log(`Converted ${finalCrops.length} crops`);
+  console.log(`Output: ${outputPath}`);
   
   if (duplicates.length > 0) {
-    console.log(`\nResolved ${duplicates.length} duplicate slugs by appending sourceId`);
+    console.log(`Resolved ${duplicates.length} duplicate slugs`);
   }
 
-  const groupCounts = {};
-  finalCrops.forEach(c => {
-    groupCounts[c.commodityGroup] = (groupCounts[c.commodityGroup] || 0) + 1;
-  });
-  console.log('\nCrops per group:');
-  Object.entries(groupCounts)
-    .sort((a, b) => b[1] - a[1])
-    .forEach(([group, count]) => console.log(`  ${group}: ${count}`));
+  return finalCrops;
+}
+
+function main() {
+  const args = process.argv.slice(2);
+  
+  if (args.length < 2) {
+    console.log('Usage: node convertCrops.js <input.json> <output.json>');
+    console.log('Example: node convertCrops.js data.json crops.converted.json');
+    process.exit(1);
+  }
+
+  const [inputPath, outputPath] = args;
+  
+  if (!fs.existsSync(inputPath)) {
+    console.error(`Error: Input file not found: ${inputPath}`);
+    process.exit(1);
+  }
+
+  convertCrops(inputPath, outputPath);
 }
 
 main();

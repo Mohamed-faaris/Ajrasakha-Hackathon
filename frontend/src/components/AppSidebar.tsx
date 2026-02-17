@@ -11,7 +11,16 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { BarChart3, Home, LayoutDashboard, Map, ArrowLeftRight, FileText, TrendingUp } from "lucide-react";
+import {
+  BarChart3,
+  Home,
+  LayoutDashboard,
+  Map,
+  ArrowLeftRight,
+  FileText,
+  TrendingUp,
+  User,
+} from "lucide-react";
 import { ProfileSection } from "@/components/ProfileSection";
 
 const navItems = [
@@ -21,6 +30,7 @@ const navItems = [
   { title: "Map Insights", url: "/map", icon: Map },
   { title: "Arbitrage", url: "/arbitrage", icon: ArrowLeftRight },
   { title: "Reports", url: "/reports", icon: FileText },
+  { title: "Profile", url: "/profile", icon: User },
 ];
 
 export function AppSidebar() {

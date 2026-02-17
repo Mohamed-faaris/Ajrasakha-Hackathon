@@ -120,20 +120,32 @@ async function seedPrices() {
   }
   
   const prices = JSON.parse(fs.readFileSync(PRICES_PATH, 'utf8'));
-  await Price.deleteMany({});
   
-  let inserted = 0;
+  let upserted = 0;
   const batchSize = 500;
   
   for (let i = 0; i < prices.length; i += batchSize) {
     const batch = prices.slice(i, i + batchSize);
-    await Price.insertMany(batch);
-    inserted += batch.length;
-    process.stdout.write(`\rSeeding prices: ${inserted}/${prices.length}`);
+    const bulkOps = batch.map(p => ({
+      updateOne: {
+        filter: { 
+          source: p.source, 
+          date: new Date(p.date), 
+          cropId: p.cropId, 
+          mandiId: p.mandiId 
+        },
+        update: { $set: p },
+        upsert: true
+      }
+    }));
+    
+    const result = await Price.bulkWrite(bulkOps, { ordered: false });
+    upserted += result.upsertedCount + result.modifiedCount;
+    process.stdout.write(`\rSeeding prices: ${Math.min(i + batchSize, prices.length)}/${prices.length}`);
   }
   
-  console.log(`\nSeeded ${inserted} prices`);
-  return inserted;
+  console.log(`\nSeeded ${upserted} prices (upserted/updated)`);
+  return upserted;
 }
 
 async function clearCollection(name) {

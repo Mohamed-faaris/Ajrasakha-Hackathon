@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { usePrices, type PriceFilters } from "@/hooks/use-prices";
 import { useCrops, useStates } from "@/hooks/use-crops";
-import type { CropPrice, CropInfo, State } from "@shared/types";
+import type { CropPrice, CropInfo, FrontendState } from "@shared/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

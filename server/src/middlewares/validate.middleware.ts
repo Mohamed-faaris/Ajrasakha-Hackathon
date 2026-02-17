@@ -1,18 +1,17 @@
 import { type Request, type Response, type NextFunction } from 'express';
-import type { z } from 'zod';
+import { ZodError, type ZodType } from 'zod';
 
-export const validateQuery = <T extends z.ZodType>(schema: T) => {
+export const validateQuery = <T extends ZodType>(schema: T) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = schema.parse(req.query);
       req.query = result as typeof req.query;
       next();
     } catch (error) {
-      if (error instanceof Error && 'issues' in error) {
-        const zodError = error as z.ZodError;
+      if (error instanceof ZodError) {
         res.status(400).json({
           error: 'Validation error',
-          details: zodError.issues,
+          details: error.issues,
         });
         return;
       }
@@ -21,18 +20,17 @@ export const validateQuery = <T extends z.ZodType>(schema: T) => {
   };
 };
 
-export const validateParams = <T extends z.ZodType>(schema: T) => {
+export const validateParams = <T extends ZodType>(schema: T) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = schema.parse(req.params);
       req.params = result as typeof req.params;
       next();
     } catch (error) {
-      if (error instanceof Error && 'issues' in error) {
-        const zodError = error as z.ZodError;
+      if (error instanceof ZodError) {
         res.status(400).json({
           error: 'Validation error',
-          details: zodError.issues,
+          details: error.issues,
         });
         return;
       }
@@ -41,17 +39,16 @@ export const validateParams = <T extends z.ZodType>(schema: T) => {
   };
 };
 
-export const validateBody = <T extends z.ZodType>(schema: T) => {
+export const validateBody = <T extends ZodType>(schema: T) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       req.body = schema.parse(req.body);
       next();
     } catch (error) {
-      if (error instanceof Error && 'issues' in error) {
-        const zodError = error as z.ZodError;
+      if (error instanceof ZodError) {
         res.status(400).json({
           error: 'Validation error',
-          details: zodError.issues,
+          details: error.issues,
         });
         return;
       }

@@ -1,6 +1,6 @@
 import { useTypedQuery, queryKeys } from "./use-api";
 import { apiClient } from "@/lib/api-client";
-import type { CropInfo, Mandi, State } from "@shared/types";
+import type { CropInfo, Mandi, FrontendState } from "@shared/types";
 
 export function useCrops() {
   return useTypedQuery(
@@ -33,4 +33,4 @@ export function useMandis(stateCode?: string) {
   );
 }
 
-export type { CropInfo, Mandi, State };
+export type { CropInfo, Mandi, FrontendState };

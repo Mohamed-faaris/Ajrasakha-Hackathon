@@ -21,7 +21,7 @@ import {
 import type {
   CropPrice,
   CropInfo,
-  State,
+  FrontendState,
   Mandi,
   TopMover,
   StateCoverage,
@@ -152,6 +152,29 @@ const ProfileSecuritySchema: z.ZodType<ProfileSecurity> = z.object({
 
 type QueryParams = Record<string, string | number | boolean | undefined>;
 
+const sourceMap: Record<string, string> = {
+  "eNAM": "enam",
+  "Agmarknet": "agmarknet",
+  "State Portal": "apmc",
+};
+
+function transformFilters(filters?: PriceFilters): QueryParams {
+  if (!filters) return {};
+  const params: QueryParams = { ...filters };
+  if (filters.source && sourceMap[filters.source]) {
+    params.source = sourceMap[filters.source];
+  }
+  if (filters.state) {
+    params.stateId = filters.state;
+    delete params.state;
+  }
+  if (filters.crop) {
+    params.cropId = filters.crop.toLowerCase().replace(/\s+/g, '-');
+    delete params.crop;
+  }
+  return params;
+}
+
 function buildQuery(params?: QueryParams): string {
   if (!params) return "";
   const search = new URLSearchParams();
@@ -241,12 +264,12 @@ async function request<T>(
 
 export const apiClient = {
   getPrices: (filters?: PriceFilters): Promise<CropPrice[]> =>
-    request("/prices", z.array(CropPriceSchema), filters as QueryParams),
+    request("/prices", z.array(CropPriceSchema), transformFilters(filters)),
 
   getCrops: (): Promise<CropInfo[]> =>
     request("/crops", z.array(CropInfoSchema)),
 
-  getStates: (): Promise<State[]> =>
+  getStates: (): Promise<FrontendState[]> =>
     request("/states", z.array(FrontendStateSchema)),
 
   getMandis: (stateCode?: string): Promise<Mandi[]> =>

@@ -6,6 +6,34 @@ export type PriceSortBy = 'date' | 'crop' | 'state' | 'mandi' | 'modalPrice';
 export type AlertDirection = 'above' | 'below';
 export type TopMoverDirection = 'up' | 'down';
 export type Language = 'en' | 'hi' | 'mr' | 'te' | 'ta' | 'kn' | 'gu' | 'pa';
+export type UserRole = 'farmer' | 'trader' | 'policy_maker' | 'agri_startup';
+export type RoleCapability =
+  | 'realtime_price_dashboard'
+  | 'price_trend_analytics'
+  | 'geographic_comparison'
+  | 'smart_alerts'
+  | 'simple_reports'
+  | 'arbitrage_detection'
+  | 'multi_market_comparison'
+  | 'volatility_risk_analysis'
+  | 'bulk_export'
+  | 'coverage_gap_visualization'
+  | 'state_level_analytics'
+  | 'price_anomaly_detection'
+  | 'predictive_insights'
+  | 'policy_reports'
+  | 'api_access'
+  | 'bulk_historical_data_access'
+  | 'data_visualization_tools'
+  | 'data_quality_indicators';
+
+export interface RolePrivileges {
+  role: UserRole;
+  capabilities: RoleCapability[];
+  restrictions: string[];
+}
+
+export interface GetRolePrivilegesResponse extends RolePrivileges {}
 
 export interface Filters {
   cropId?: string;
@@ -151,9 +179,22 @@ export interface TraderDetails {
   tradingStates?: string[] | null;
 }
 
+export interface PolicyMakerDetails {
+  organization?: string | null;
+  designation?: string | null;
+  policyFocusAreas?: string[] | null;
+}
+
+export interface AgriStartupDetails {
+  startupName?: string | null;
+  stage?: 'idea' | 'mvp' | 'early' | 'growth' | 'scale' | null;
+  focusAreas?: string[] | null;
+}
+
 export interface UserProfile {
   _id: string;
   userId: string;
+  role: UserRole;
   phone?: string | null;
   state?: string | null;
   district?: string | null;
@@ -164,6 +205,13 @@ export interface UserProfile {
   avatar?: string | null;
   farmerDetails?: FarmerDetails | null;
   traderDetails?: TraderDetails | null;
+  policyMakerDetails?: PolicyMakerDetails | null;
+  agriStartupDetails?: AgriStartupDetails | null;
+  classification?: {
+    method: 'self_declared' | 'rule_based';
+    confidence: number;
+    evaluatedAt: Date;
+  } | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -267,6 +315,7 @@ export interface GetTopMoversQuery {
 }
 
 export interface UpdateUserProfileBody {
+  role?: UserRole;
   phone?: string;
   state?: string;
   district?: string;
@@ -277,6 +326,13 @@ export interface UpdateUserProfileBody {
   avatar?: string;
   farmerDetails?: Partial<FarmerDetails>;
   traderDetails?: Partial<TraderDetails>;
+  policyMakerDetails?: Partial<PolicyMakerDetails>;
+  agriStartupDetails?: Partial<AgriStartupDetails>;
+  classification?: {
+    method: 'self_declared' | 'rule_based';
+    confidence: number;
+    evaluatedAt: Date;
+  };
 }
 
 export interface GeoBounds {

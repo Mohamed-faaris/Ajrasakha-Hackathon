@@ -12,9 +12,11 @@ import Analytics from "./pages/Analytics";
 import MapInsights from "./pages/MapInsights";
 import Arbitrage from "./pages/Arbitrage";
 import Reports from "./pages/Reports";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import { ProtectedRoute, PublicOnlyRoute } from "./components/ProtectedRoute";
 import { AppLayout } from "./components/AppLayout";
+import { RoleRoute } from "./components/RoleRoute";
 
 const queryClient = new QueryClient();
 
@@ -66,19 +68,43 @@ const App = () => (
             />
             <Route
               path="/analytics"
-              element={<Analytics />}
+              element={
+                <RoleRoute route="/analytics">
+                  <Analytics />
+                </RoleRoute>
+              }
             />
             <Route
               path="/map"
-              element={<MapInsights />}
+              element={
+                <RoleRoute route="/map">
+                  <MapInsights />
+                </RoleRoute>
+              }
             />
             <Route
               path="/arbitrage"
-              element={<Arbitrage />}
+              element={
+                <RoleRoute route="/arbitrage">
+                  <Arbitrage />
+                </RoleRoute>
+              }
             />
             <Route
               path="/reports"
-              element={<Reports />}
+              element={
+                <RoleRoute route="/reports">
+                  <Reports />
+                </RoleRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+            <Route
+              path="/profile/:role"
+              element={<Profile />}
             />
           </Route>
           <Route

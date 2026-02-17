@@ -11,10 +11,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { BarChart3, Home, LayoutDashboard, Map, ArrowLeftRight, FileText, TrendingUp, LogOut } from "lucide-react";
+import { BarChart3, Home, LayoutDashboard, Map, ArrowLeftRight, FileText, TrendingUp, LogOut, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { logout, useSession } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
+import type { UserRole } from "@/lib/types";
+import { isRoleAllowedForRoute } from "@/lib/role-access";
 
 const navItems = [
   { title: "Home", url: "/", icon: Home },
@@ -23,6 +25,7 @@ const navItems = [
   { title: "Map Insights", url: "/map", icon: Map },
   { title: "Arbitrage", url: "/arbitrage", icon: ArrowLeftRight },
   { title: "Reports", url: "/reports", icon: FileText },
+  { title: "Profile", url: "/profile", icon: UserRound },
 ];
 
 export function AppSidebar() {
@@ -31,7 +34,9 @@ export function AppSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { data } = useSession();
+  const role = data?.user?.role as UserRole | undefined;
   const { toast } = useToast();
+  const visibleNavItems = navItems.filter((item) => isRoleAllowedForRoute(role, item.url));
 
   const handleLogout = async () => {
     try {
@@ -69,7 +74,7 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navItems.map((item) => (
+              {visibleNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild

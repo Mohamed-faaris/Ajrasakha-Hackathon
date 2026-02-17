@@ -8,6 +8,7 @@ export interface AuthUser {
   id: string;
   name: string;
   email: string;
+  role?: "farmer" | "trader" | "policy_maker" | "agri_startup";
 }
 
 export interface AuthResponse {
@@ -48,6 +49,12 @@ function setStoredUser(user: AuthUser) {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
 
+export function updateStoredUser(patch: Partial<AuthUser>) {
+  const current = getStoredUser();
+  if (!current) return;
+  setStoredUser({ ...current, ...patch });
+}
+
 export function removeToken() {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(USER_KEY);
@@ -63,18 +70,27 @@ export function authHeaders(): Record<string, string> {
 }
 
 async function parseResponse<T>(response: Response): Promise<T> {
+  const raw = await response.text();
+  let parsed: any = null;
+  if (raw) {
+    try {
+      parsed = JSON.parse(raw);
+    } catch {
+      parsed = raw;
+    }
+  }
+
   if (!response.ok) {
     let message = "Request failed.";
-    try {
-      const body = await response.json();
-      message = body.message || message;
-    } catch {
-      const text = await response.text();
-      if (text) message = text;
+    if (parsed && typeof parsed === "object") {
+      message = parsed.message || parsed.error || message;
+    } else if (typeof parsed === "string" && parsed) {
+      message = parsed;
     }
     throw new Error(message);
   }
-  return (await response.json()) as T;
+
+  return (parsed ?? {}) as T;
 }
 
 export async function login(payload: LoginPayload): Promise<AuthResponse> {

@@ -1,12 +1,18 @@
 import type {
+  AgriStartupProfileDetails,
   ArbitrageOpportunity,
   CropInfo,
   CropPrice,
+  FarmerProfileDetails,
   Mandi,
+  PolicyMakerProfileDetails,
   PriceTrend,
   State,
   StateCoverage,
   TopMover,
+  TraderProfileDetails,
+  UserProfile,
+  UserRole,
 } from "./types";
 import { authHeaders } from "./auth";
 
@@ -35,6 +41,24 @@ export interface UserAlert {
   crop: string;
   threshold: number;
   type: "above" | "below";
+}
+
+export interface UpdateUserProfilePayload {
+  role?: UserRole;
+  phone?: string;
+  state?: string;
+  district?: string;
+  preferredCrops?: string[];
+  preferredMandis?: string[];
+  farmerDetails?: FarmerProfileDetails;
+  traderDetails?: TraderProfileDetails;
+  policyMakerDetails?: PolicyMakerProfileDetails;
+  agriStartupDetails?: AgriStartupProfileDetails;
+  classification?: {
+    method: "self_declared" | "rule_based";
+    confidence: number;
+    evaluatedAt: string;
+  };
 }
 
 const buildQuery = (params?: Record<string, string | number | undefined>) => {
@@ -111,5 +135,14 @@ export const api = {
   deleteAlert: (id: string): Promise<void> =>
     request<void>(`/alerts/${id}`, undefined, {
       method: "DELETE",
+    }),
+
+  getMyProfile: (): Promise<UserProfile | null> =>
+    request<UserProfile | null>("/profile"),
+
+  updateMyProfile: (payload: UpdateUserProfilePayload): Promise<UserProfile> =>
+    request<UserProfile>("/profile", undefined, {
+      method: "PATCH",
+      body: JSON.stringify(payload),
     }),
 };

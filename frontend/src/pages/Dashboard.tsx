@@ -8,10 +8,16 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Search, Download, ArrowUpDown, Filter } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useSession } from "@/lib/auth";
+import type { UserRole } from "@/lib/types";
+import { hasRoleCapability } from "@/lib/role-access";
 
 type SortKey = "crop" | "minPrice" | "maxPrice" | "modalPrice";
 
 const Dashboard = () => {
+  const { data } = useSession();
+  const role = data?.user?.role as UserRole | undefined;
   const [prices, setPrices] = useState<CropPrice[]>([]);
   const [allCrops, setAllCrops] = useState<CropInfo[]>([]);
   const [allStates, setAllStates] = useState<State[]>([]);
@@ -71,6 +77,11 @@ const Dashboard = () => {
     return "outline";
   };
 
+  const canBulkExport = hasRoleCapability(role, "bulk_export") || hasRoleCapability(role, "bulk_historical_data_access");
+  const canUseArbitrage = hasRoleCapability(role, "arbitrage_detection");
+  const canSeeCoverageGaps = hasRoleCapability(role, "coverage_gap_visualization");
+  const canUseApi = hasRoleCapability(role, "api_access");
+
   return (
     <div className="max-w-7xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -79,9 +90,53 @@ const Dashboard = () => {
             <p className="text-sm text-muted-foreground">Today's prices across {filtered.length} records</p>
           </div>
           <Button variant="outline" size="sm" onClick={exportCSV}>
-            <Download className="h-4 w-4 mr-1" /> Export CSV
+            <Download className="h-4 w-4 mr-1" /> {canBulkExport ? "Bulk Export CSV" : "Export CSV"}
           </Button>
         </div>
+
+        <Card className="bg-muted/20">
+          <CardContent className="pt-5">
+            {canUseArbitrage && (
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div>
+                  <p className="text-sm font-medium">Trader tools enabled</p>
+                  <p className="text-xs text-muted-foreground">Use live arbitrage signals to compare mandi spreads.</p>
+                </div>
+                <Button asChild size="sm">
+                  <Link to="/arbitrage">Open Arbitrage Engine</Link>
+                </Button>
+              </div>
+            )}
+            {!canUseArbitrage && canSeeCoverageGaps && (
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div>
+                  <p className="text-sm font-medium">Policy analytics mode</p>
+                  <p className="text-xs text-muted-foreground">Review integration gaps and market anomalies from map insights.</p>
+                </div>
+                <Button asChild size="sm" variant="outline">
+                  <Link to="/map">Open Coverage View</Link>
+                </Button>
+              </div>
+            )}
+            {!canUseArbitrage && !canSeeCoverageGaps && canUseApi && (
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div>
+                  <p className="text-sm font-medium">Startup data mode</p>
+                  <p className="text-xs text-muted-foreground">API/data-quality oriented workflows are enabled for your account.</p>
+                </div>
+                <Button asChild size="sm" variant="outline">
+                  <Link to="/reports">Open Data Exports</Link>
+                </Button>
+              </div>
+            )}
+            {!canUseArbitrage && !canSeeCoverageGaps && !canUseApi && (
+              <div>
+                <p className="text-sm font-medium">Farmer market mode</p>
+                <p className="text-xs text-muted-foreground">Track live prices, trends, and alerts to decide where and when to sell.</p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Filters */}
         <Card>

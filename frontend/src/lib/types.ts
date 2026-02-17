@@ -89,3 +89,52 @@ export interface TopMover {
   previousPrice: number;
   direction: "up" | "down";
 }
+
+export type UserRole = "farmer" | "trader" | "policy_maker" | "agri_startup";
+
+export interface FarmerProfileDetails {
+  isFarmer?: boolean;
+  farmSize?: number;
+  primaryCrops?: string[];
+}
+
+export interface TraderProfileDetails {
+  isTrader?: boolean;
+  companyName?: string;
+  gstNumber?: string;
+  tradingStates?: string[];
+}
+
+export interface PolicyMakerProfileDetails {
+  organization?: string;
+  designation?: string;
+  policyFocusAreas?: string[];
+}
+
+export interface AgriStartupProfileDetails {
+  startupName?: string;
+  stage?: "idea" | "mvp" | "early" | "growth" | "scale";
+  focusAreas?: string[];
+}
+
+export interface UserProfile {
+  _id?: string;
+  userId?: string;
+  role: UserRole;
+  phone?: string;
+  state?: string;
+  district?: string;
+  preferredCrops?: string[];
+  preferredMandis?: string[];
+  language?: "en" | "hi" | "mr" | "te" | "ta" | "kn" | "gu" | "pa";
+  avatar?: string;
+  farmerDetails?: FarmerProfileDetails;
+  traderDetails?: TraderProfileDetails;
+  policyMakerDetails?: PolicyMakerProfileDetails;
+  agriStartupDetails?: AgriStartupProfileDetails;
+  classification?: {
+    method: "self_declared" | "rule_based";
+    confidence: number;
+    evaluatedAt: string;
+  };
+}

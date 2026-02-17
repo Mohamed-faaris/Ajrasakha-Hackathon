@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
-import type { PriceTrend, CropInfo } from "@/lib/types";
+import type { PriceTrend, CropInfo, UserRole } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, BarChart, Bar, Area, AreaChart } from "recharts";
+import { useSession } from "@/lib/auth";
+import { hasRoleCapability } from "@/lib/role-access";
 
 const Analytics = () => {
+  const { data } = useSession();
+  const role = data?.user?.role as UserRole | undefined;
   const [selectedCrop, setSelectedCrop] = useState("Wheat");
   const [period, setPeriod] = useState<number>(6);
   const [trendData, setTrendData] = useState<PriceTrend[]>([]);
@@ -50,6 +54,11 @@ const Analytics = () => {
     const v = 5 + Math.random() * 25;
     return { name, volatility: +v.toFixed(1) };
   }).sort((a, b) => b.volatility - a.volatility);
+
+  const canViewVolatility = hasRoleCapability(role, "volatility_risk_analysis") || hasRoleCapability(role, "price_trend_analytics");
+  const canViewAnomalies = hasRoleCapability(role, "price_anomaly_detection");
+  const canViewDataQuality = hasRoleCapability(role, "data_quality_indicators");
+  const canViewPrediction = hasRoleCapability(role, "predictive_insights");
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
@@ -119,27 +128,66 @@ const Analytics = () => {
             </Card>
           )}
 
-          {/* Volatility Index */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-display text-lg">Volatility Index</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="mb-4">
-                <span className="text-sm text-muted-foreground">{selectedCrop} volatility:</span>
-                <span className="ml-2 text-xl font-bold font-display">{volatility}%</span>
-              </div>
-              <ChartContainer config={{ volatility: { label: "Volatility %", color: "hsl(var(--accent))" } }} className="h-[180px] w-full">
-                <BarChart data={volatileCrops}>
-                  <XAxis dataKey="name" fontSize={11} />
-                  <YAxis fontSize={11} />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Bar dataKey="volatility" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ChartContainer>
-            </CardContent>
-          </Card>
+          {canViewVolatility && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-display text-lg">Volatility Index</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-4">
+                  <span className="text-sm text-muted-foreground">{selectedCrop} volatility:</span>
+                  <span className="ml-2 text-xl font-bold font-display">{volatility}%</span>
+                </div>
+                <ChartContainer config={{ volatility: { label: "Volatility %", color: "hsl(var(--accent))" } }} className="h-[180px] w-full">
+                  <BarChart data={volatileCrops}>
+                    <XAxis dataKey="name" fontSize={11} />
+                    <YAxis fontSize={11} />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Bar dataKey="volatility" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ChartContainer>
+              </CardContent>
+            </Card>
+          )}
         </div>
+
+        {(canViewAnomalies || canViewDataQuality || canViewPrediction) && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {canViewAnomalies && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="font-display text-lg">Anomaly Signals</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2 text-sm">
+                  <p>Spike detection threshold crossed in 3 markets this week.</p>
+                  <p className="text-muted-foreground">Suggested action: inspect supply-chain disruption in high-volatility zones.</p>
+                </CardContent>
+              </Card>
+            )}
+            {canViewPrediction && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="font-display text-lg">Predictive Snapshot</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2 text-sm">
+                  <p>30-day forward band indicates moderate upside for {selectedCrop}.</p>
+                  <p className="text-muted-foreground">Use forecast with policy simulation before intervention rollout.</p>
+                </CardContent>
+              </Card>
+            )}
+            {canViewDataQuality && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="font-display text-lg">Data Quality Indicators</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2 text-sm">
+                  <p>Source confidence: 0.92 | Missing points: 4.1%</p>
+                  <p className="text-muted-foreground">Recommended: prefer eNAM-tagged records for embedded analytics outputs.</p>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        )}
     </div>
   );
 };

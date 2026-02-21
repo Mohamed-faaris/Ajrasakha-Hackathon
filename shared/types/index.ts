@@ -7,6 +7,7 @@ export type PriceSortBy = 'date' | 'crop' | 'state' | 'mandi' | 'modalPrice';
 export type AlertDirection = 'above' | 'below';
 export type TopMoverDirection = 'up' | 'down';
 export type Language = 'en' | 'hi' | 'mr' | 'te' | 'ta' | 'kn' | 'gu' | 'pa';
+export type UserRole = 'farmer' | 'trader' | 'policy_maker' | 'agri_startup';
 
 export interface Filters {
   cropId?: string;
@@ -181,9 +182,22 @@ export interface TraderDetails {
   tradingStates?: string[] | null;
 }
 
+export interface PolicyMakerDetails {
+  organization?: string | null;
+  designation?: string | null;
+  policyFocusAreas?: string[] | null;
+}
+
+export interface AgriStartupDetails {
+  startupName?: string | null;
+  stage?: 'idea' | 'mvp' | 'early' | 'growth' | 'scale' | null;
+  focusAreas?: string[] | null;
+}
+
 export interface UserProfile {
   _id: string;
   userId: string;
+  role?: UserRole | null;
   phone?: string | null;
   state?: string | null;
   district?: string | null;
@@ -194,6 +208,8 @@ export interface UserProfile {
   avatar?: string | null;
   farmerDetails?: FarmerDetails | null;
   traderDetails?: TraderDetails | null;
+  policyMakerDetails?: PolicyMakerDetails | null;
+  agriStartupDetails?: AgriStartupDetails | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -297,6 +313,7 @@ export interface GetTopMoversQuery {
 }
 
 export interface UpdateUserProfileBody {
+  role?: UserRole;
   phone?: string;
   state?: string;
   district?: string;
@@ -307,6 +324,8 @@ export interface UpdateUserProfileBody {
   avatar?: string;
   farmerDetails?: Partial<FarmerDetails>;
   traderDetails?: Partial<TraderDetails>;
+  policyMakerDetails?: Partial<PolicyMakerDetails>;
+  agriStartupDetails?: Partial<AgriStartupDetails>;
 }
 
 export interface GeoBounds {

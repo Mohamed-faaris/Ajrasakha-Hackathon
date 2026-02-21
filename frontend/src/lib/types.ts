@@ -9,6 +9,15 @@ export {
   type StateCoverage,
   type TopMoverDirection,
   type AlertDirection,
+  type UserRole,
+  type Language,
+  type NotificationSettings,
+  type FarmerDetails,
+  type TraderDetails,
+  type PolicyMakerDetails,
+  type AgriStartupDetails,
+  type UserProfile,
+  type UpdateUserProfileBody,
 } from "@shared/types";
 
 export type { FrontendPriceTrend as PriceTrend } from "@shared/types";

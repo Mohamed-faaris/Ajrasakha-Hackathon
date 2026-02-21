@@ -7,6 +7,8 @@ import type {
   State,
   StateCoverage,
   TopMover,
+  UserProfile,
+  UpdateUserProfileBody,
 } from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
@@ -110,5 +112,14 @@ export const api = {
   deleteAlert: (id: string): Promise<void> =>
     request<void>(`/alerts/${id}`, undefined, {
       method: "DELETE",
+    }),
+
+  getMyProfile: (): Promise<UserProfile | null> =>
+    request<UserProfile | null>("/profile"),
+
+  updateMyProfile: (payload: UpdateUserProfileBody): Promise<UserProfile> =>
+    request<UserProfile>("/profile", undefined, {
+      method: "PATCH",
+      body: JSON.stringify(payload),
     }),
 };

@@ -251,6 +251,11 @@ const userProfileSchema = new mongoose.Schema(
       unique: true,
       ref: "user",
     },
+    role: {
+      type: String,
+      enum: ["farmer", "trader", "policy_maker", "agri_startup"],
+      default: "farmer",
+    },
     phone: {
       type: String,
       trim: true,
@@ -323,6 +328,27 @@ const userProfileSchema = new mongoose.Schema(
       companyName: { type: String, trim: true },
       gstNumber: { type: String, trim: true },
       tradingStates: [
+        {
+          type: String,
+        },
+      ],
+    },
+    policyMakerDetails: {
+      organization: { type: String, trim: true },
+      designation: { type: String, trim: true },
+      policyFocusAreas: [
+        {
+          type: String,
+        },
+      ],
+    },
+    agriStartupDetails: {
+      startupName: { type: String, trim: true },
+      stage: {
+        type: String,
+        enum: ["idea", "mvp", "early", "growth", "scale"],
+      },
+      focusAreas: [
         {
           type: String,
         },

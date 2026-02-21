@@ -7,6 +7,7 @@ export const PriceSortBySchema = z.enum(['date', 'crop', 'state', 'mandi', 'moda
 export const AlertDirectionSchema = z.enum(['above', 'below']);
 export const TopMoverDirectionSchema = z.enum(['up', 'down']);
 export const LanguageSchema = z.enum(['en', 'hi', 'mr', 'te', 'ta', 'kn', 'gu', 'pa']);
+export const UserRoleSchema = z.enum(['farmer', 'trader', 'policy_maker', 'agri_startup']);
 
 export const FiltersSchema = z.object({
   cropId: z.string().optional(),
@@ -158,8 +159,21 @@ export const TraderDetailsSchema = z.object({
   tradingStates: z.array(z.string()).optional(),
 });
 
+export const PolicyMakerDetailsSchema = z.object({
+  organization: z.string().optional(),
+  designation: z.string().optional(),
+  policyFocusAreas: z.array(z.string()).optional(),
+});
+
+export const AgriStartupDetailsSchema = z.object({
+  startupName: z.string().optional(),
+  stage: z.enum(['idea', 'mvp', 'early', 'growth', 'scale']).optional(),
+  focusAreas: z.array(z.string()).optional(),
+});
+
 export const UserProfileSchema = z.object({
   userId: z.string(),
+  role: UserRoleSchema.optional(),
   phone: z.string().optional(),
   state: z.string().optional(),
   district: z.string().optional(),
@@ -170,6 +184,8 @@ export const UserProfileSchema = z.object({
   avatar: z.string().optional(),
   farmerDetails: FarmerDetailsSchema.optional(),
   traderDetails: TraderDetailsSchema.optional(),
+  policyMakerDetails: PolicyMakerDetailsSchema.optional(),
+  agriStartupDetails: AgriStartupDetailsSchema.optional(),
 });
 
 export const UserSchema = z.object({
@@ -299,6 +315,7 @@ export const ToggleAlertBodySchema = z.object({
 });
 
 export const UpdateUserProfileBodySchema = z.object({
+  role: UserRoleSchema.optional(),
   phone: z.string().optional(),
   state: z.string().optional(),
   district: z.string().optional(),
@@ -309,6 +326,8 @@ export const UpdateUserProfileBodySchema = z.object({
   avatar: z.string().optional(),
   farmerDetails: FarmerDetailsSchema.partial().optional(),
   traderDetails: TraderDetailsSchema.partial().optional(),
+  policyMakerDetails: PolicyMakerDetailsSchema.partial().optional(),
+  agriStartupDetails: AgriStartupDetailsSchema.partial().optional(),
 });
 
 export const CropPriceSchema = z.object({

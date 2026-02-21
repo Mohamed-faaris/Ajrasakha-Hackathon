@@ -11,7 +11,8 @@ import {
   coverageRoutes,
   topMoverRoutes,
   mandiPriceRoutes,
-  createUserProfileRoutes
+  createUserProfileRoutes,
+  adminRoutes
 } from './routes';
 
 const createApp = (auth: Auth) => {
@@ -37,6 +38,7 @@ const createApp = (auth: Auth) => {
   app.use('/api/top-movers', topMoverRoutes);
   app.use('/api/mandi-prices', mandiPriceRoutes);
   app.use('/api/profile', createUserProfileRoutes(auth));
+  app.use('/api/admin', adminRoutes);
 
   app.get('/api/health', (_req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });

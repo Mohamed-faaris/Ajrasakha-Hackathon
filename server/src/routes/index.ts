@@ -7,3 +7,4 @@ export { default as coverageRoutes } from './coverage.routes';
 export { default as topMoverRoutes } from './topMover.routes';
 export { default as mandiPriceRoutes } from './mandiPrice.routes';
 export { default as createUserProfileRoutes } from './userProfile.routes';
+export { default as adminRoutes } from './admin.routes';

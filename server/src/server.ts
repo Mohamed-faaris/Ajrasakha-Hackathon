@@ -5,6 +5,7 @@ import connectDB from './config/db';
 import { env } from './config/env';
 import mongoose from 'mongoose';
 import { createAuth } from './lib/auth';
+import { startScheduler } from './jobs/cron';
 
 const PORT = env.PORT;
 
@@ -17,6 +18,8 @@ const start = async () => {
   
   const auth = createAuth(db);
   const app = createApp(auth);
+  
+  startScheduler();
   
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

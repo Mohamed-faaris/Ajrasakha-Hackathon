@@ -25,25 +25,26 @@ export interface Crop {
   commodityGroup?: string;
 }
 
-export interface State {
-  id: string;
+export interface District {
+  _id: string;
   name: string;
-  code?: string;
+}
+
+export interface State {
+  code: string;
+  name: string;
+  districts?: District[];
 }
 
 export interface FrontendState {
   code: string;
   name: string;
+  districts?: District[];
 }
 
 export interface Location {
   type: 'Point';
   coordinates: [number, number];
-}
-
-export interface District {
-  name: string;
-  stateCode: string;
 }
 
 export interface Mandi {

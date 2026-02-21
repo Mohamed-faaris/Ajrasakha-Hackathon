@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "@/lib/api";
 import type {
@@ -8,6 +8,7 @@ import type {
   TraderDetails,
   PolicyMakerDetails,
   AgriStartupDetails,
+  State,
 } from "@/lib/types";
 import { useSession } from "@/lib/auth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -62,6 +63,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [states, setStates] = useState<State[]>([]);
 
   const [role, setRole] = useState<UserRole>("farmer");
   const [phone, setPhone] = useState("");
@@ -124,10 +126,26 @@ export default function Profile() {
   }, []);
 
   useEffect(() => {
+    api.getStates().then(setStates).catch(() => setStates([]));
+  }, []);
+
+  useEffect(() => {
     if (requestedRole) {
       setRole(requestedRole);
     }
   }, [requestedRole]);
+
+  const selectedState = useMemo(
+    () => states.find((s) => s.name === stateName),
+    [states, stateName]
+  );
+
+  const districts = selectedState?.districts || [];
+
+  const handleStateChange = (value: string) => {
+    setStateName(value);
+    setDistrict("");
+  };
 
   const handleSave = async () => {
     setSaving(true);
@@ -270,19 +288,33 @@ export default function Profile() {
             </div>
             <div className="space-y-2">
               <Label>State</Label>
-              <Input
-                value={stateName}
-                onChange={(e) => setStateName(e.target.value)}
-                placeholder="Maharashtra"
-              />
+              <Select value={stateName} onValueChange={handleStateChange}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select state" />
+                </SelectTrigger>
+                <SelectContent>
+                  {states.map((s) => (
+                    <SelectItem key={s.code} value={s.name}>
+                      {s.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-2">
               <Label>District</Label>
-              <Input
-                value={district}
-                onChange={(e) => setDistrict(e.target.value)}
-                placeholder="Nashik"
-              />
+              <Select value={district} onValueChange={setDistrict} disabled={!stateName || districts.length === 0}>
+                <SelectTrigger>
+                  <SelectValue placeholder={districts.length === 0 ? "No districts available" : "Select district"} />
+                </SelectTrigger>
+                <SelectContent>
+                  {districts.map((d) => (
+                    <SelectItem key={d._id} value={d.name}>
+                      {d.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-2">
               <Label>Preferred Crops (comma separated)</Label>

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { TrendingUp, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { signUp } from "@/lib/auth";
 import { api } from "@/lib/api";
-import type { UserRole } from "@/lib/types";
+import type { UserRole, State } from "@/lib/types";
 import { CAPABILITY_LABELS, ROLE_ACCESS } from "@/lib/role-access";
 
 const ROLE_LABELS: Record<UserRole, string> = {
@@ -65,8 +65,25 @@ export default function Signup() {
   const [startupName, setStartupName] = useState("");
   const [startupStage, setStartupStage] = useState<"idea" | "mvp" | "early" | "growth" | "scale">("idea");
   const [startupFocusAreas, setStartupFocusAreas] = useState("");
+  const [states, setStates] = useState<State[]>([]);
+
+  useEffect(() => {
+    api.getStates().then(setStates).catch(() => setStates([]));
+  }, []);
 
   const roleAccess = useMemo(() => ROLE_ACCESS[role], [role]);
+
+  const selectedState = useMemo(
+    () => states.find((s) => s.name === stateName),
+    [states, stateName]
+  );
+
+  const districts = selectedState?.districts || [];
+
+  const handleStateChange = (value: string) => {
+    setStateName(value);
+    setDistrict("");
+  };
 
   const validateRoleFields = () => {
     if (role === "farmer" && (!farmSize || !primaryCrops.trim())) {
@@ -217,24 +234,34 @@ export default function Signup() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="state">State (optional)</Label>
-                  <Input
-                    id="state"
-                    type="text"
-                    placeholder="Maharashtra"
-                    value={stateName}
-                    onChange={(e) => setStateName(e.target.value)}
-                  />
+                  <Label>State (optional)</Label>
+                  <Select value={stateName} onValueChange={handleStateChange}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select state" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {states.map((s) => (
+                        <SelectItem key={s.code} value={s.name}>
+                          {s.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="district">District (optional)</Label>
-                  <Input
-                    id="district"
-                    type="text"
-                    placeholder="Nashik"
-                    value={district}
-                    onChange={(e) => setDistrict(e.target.value)}
-                  />
+                  <Label>District (optional)</Label>
+                  <Select value={district} onValueChange={setDistrict} disabled={!stateName || districts.length === 0}>
+                    <SelectTrigger>
+                      <SelectValue placeholder={districts.length === 0 ? "No districts available" : "Select district"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {districts.map((d) => (
+                        <SelectItem key={d._id} value={d.name}>
+                          {d.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
 

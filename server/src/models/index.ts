@@ -51,6 +51,12 @@ const stateSchema = new mongoose.Schema(
       uppercase: true,
       trim: true,
     },
+    districts: [
+      {
+        _id: { type: String },
+        name: { type: String },
+      },
+    ],
   },
   {
     timestamps: true,

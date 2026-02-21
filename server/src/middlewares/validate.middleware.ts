@@ -4,18 +4,19 @@ import { ZodError, type ZodType } from 'zod';
 export const validateQuery = <T extends ZodType>(schema: T) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = schema.parse(req.query);
-      req.query = result as typeof req.query;
+      const result = schema.parse(req.params);
+      Object.defineProperty(req, 'params', { value: result, writable: true, enumerable: true, configurable: true });
       next();
-    } catch (error) {
-      if (error instanceof ZodError) {
+    } catch (error: any) {
+      console.error("VALIDATION ERROR CAUGHT:", error);
+      if (error?.name === 'ZodError' || error instanceof ZodError) {
         res.status(400).json({
           error: 'Validation error',
           details: error.issues,
         });
         return;
       }
-      res.status(400).json({ error: 'Invalid query parameters' });
+      res.status(400).json({ error: 'Invalid query parameters', actualError: error?.message || String(error) });
     }
   };
 };

@@ -20,11 +20,19 @@ export const startScheduler = () => {
 export const computeTopMovers = async () => {
   console.log('[Cron] Computing top movers...');
   try {
-    const today = new Date();
+    const latestPricesData = await Price.aggregate([
+      { $sort: { date: -1 } },
+      { $limit: 1 }
+    ]);
+
+    const latestDate = latestPricesData[0]?.date;
+    if (!latestDate) {
+      console.log('[Cron] No prices found to compute top movers');
+      return;
+    }
+
+    const today = new Date(latestDate);
     today.setHours(0, 0, 0, 0);
-    
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
 
     const latestPrices = await Price.aggregate([
       { $match: { date: { $gte: today } } },
@@ -40,7 +48,7 @@ export const computeTopMovers = async () => {
     ]);
 
     const previousPrices = await Price.aggregate([
-      { $match: { date: { $gte: yesterday, $lt: today } } },
+      { $match: { date: { $lt: today } } },
       { $sort: { date: -1 } },
       { $group: {
         _id: { cropId: '$cropId', mandiId: '$mandiId' },
@@ -100,7 +108,18 @@ export const computeTopMovers = async () => {
 export const computeMandiPrices = async () => {
   console.log('[Cron] Computing mandi prices for map...');
   try {
-    const today = new Date();
+    const latestPricesData = await Price.aggregate([
+      { $sort: { date: -1 } },
+      { $limit: 1 }
+    ]);
+
+    const latestDate = latestPricesData[0]?.date;
+    if (!latestDate) {
+      console.log('[Cron] No prices found to compute mandi prices');
+      return;
+    }
+
+    const today = new Date(latestDate);
     today.setHours(0, 0, 0, 0);
 
     const latestPrices = await Price.aggregate([
@@ -123,7 +142,7 @@ export const computeMandiPrices = async () => {
     const mandiMap = new Map(mandis.map(m => [m._id, m]));
 
     const mandiPrices = latestPrices
-      .filter(p => mandiMap.has(p.mandiId))
+      .filter(p => mandiMap.has(p.mandiId) && mandiMap.get(p.mandiId)!.location?.coordinates)
       .map(p => {
         const mandi = mandiMap.get(p.mandiId)!;
         return {

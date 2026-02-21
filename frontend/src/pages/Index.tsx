@@ -163,13 +163,13 @@ const Index = () => {
           ) : (
             movers.slice(0, 8).map((m) => (
               <Card
-                key={`${m.crop}-${m.state}`}
+                key={`${m.cropId}-${m.state}`}
                 className="hover:shadow-md transition-shadow"
               >
                 <CardContent className="pt-4 pb-4">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="font-semibold text-sm">{m.crop}</p>
+                      <p className="font-semibold text-sm">{m.cropName}</p>
                       <p className="text-xs text-muted-foreground">{m.state}</p>
                     </div>
                     <Badge
@@ -181,12 +181,12 @@ const Index = () => {
                       ) : (
                         <TrendingDown className="h-3 w-3 mr-1" />
                       )}
-                      {m.changePercent > 0 ? "+" : ""}
-                      {m.changePercent}%
+                      {m.changePct > 0 ? "+" : ""}
+                      {m.changePct}%
                     </Badge>
                   </div>
                   <p className="text-lg font-bold mt-2 font-display">
-                    ₹{m.currentPrice.toLocaleString()}
+                    ₹{m.latestPrice?.toLocaleString()}
                     <span className="text-xs font-normal text-muted-foreground">
                       /qtl
                     </span>

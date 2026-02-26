@@ -40,7 +40,7 @@ export const ROLE_ACCESS: Record<UserRole, RoleAccess> = {
       "No raw dataset exports",
       "No admin controls",
     ],
-    allowedRoutes: ["/", "/dashboard", "/analytics", "/map", "/reports", "/profile"],
+    allowedRoutes: ["/", "/dashboard", "/analytics", "/map", "/alerts", "/reports", "/profile"],
   },
   trader: {
     capabilities: [
@@ -58,7 +58,7 @@ export const ROLE_ACCESS: Record<UserRole, RoleAccess> = {
       "No price data modification",
       "No scraping controls",
     ],
-    allowedRoutes: ["/", "/dashboard", "/analytics", "/map", "/arbitrage", "/reports", "/profile"],
+    allowedRoutes: ["/", "/dashboard", "/analytics", "/map", "/arbitrage", "/alerts", "/reports", "/profile"],
   },
   policy_maker: {
     capabilities: [

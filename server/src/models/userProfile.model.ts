@@ -7,6 +7,13 @@ const userProfileSchema = new mongoose.Schema({
     unique: true,
     ref: 'user',
   },
+  role: {
+    type: String,
+    enum: ['farmer', 'trader', 'policy_maker', 'agri_startup'],
+    default: 'farmer',
+    required: true,
+    index: true,
+  },
   phone: {
     type: String,
     trim: true,
@@ -71,9 +78,41 @@ const userProfileSchema = new mongoose.Schema({
   traderDetails: {
     isTrader: { type: Boolean, default: false },
     companyName: { type: String, trim: true },
+    gstNumber: { type: String, trim: true },
     tradingStates: [{
       type: String,
     }],
+  },
+  policyMakerDetails: {
+    organization: { type: String, trim: true },
+    designation: { type: String, trim: true },
+    policyFocusAreas: [{
+      type: String,
+    }],
+  },
+  agriStartupDetails: {
+    startupName: { type: String, trim: true },
+    stage: {
+      type: String,
+      enum: ['idea', 'mvp', 'early', 'growth', 'scale'],
+    },
+    focusAreas: [{
+      type: String,
+    }],
+  },
+  classification: {
+    method: {
+      type: String,
+      enum: ['self_declared', 'rule_based'],
+    },
+    confidence: {
+      type: Number,
+      min: 0,
+      max: 1,
+    },
+    evaluatedAt: {
+      type: Date,
+    },
   },
 }, {
   timestamps: true,

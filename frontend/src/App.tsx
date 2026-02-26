@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import Analytics from "./pages/Analytics";
 import MapInsights from "./pages/MapInsights";
 import Arbitrage from "./pages/Arbitrage";
+import PriceAlerts from "./pages/PriceAlerts";
 import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
@@ -87,6 +88,14 @@ const App = () => (
               element={
                 <RoleRoute route="/arbitrage">
                   <Arbitrage />
+                </RoleRoute>
+              }
+            />
+            <Route
+              path="/alerts"
+              element={
+                <RoleRoute route="/alerts">
+                  <PriceAlerts />
                 </RoleRoute>
               }
             />

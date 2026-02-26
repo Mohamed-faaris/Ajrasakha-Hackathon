@@ -3,12 +3,12 @@ import { api } from "@/lib/api";
 import type { StateCoverage, CropInfo, UserRole } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts";
 import { useSession } from "@/lib/auth";
 import { hasRoleCapability } from "@/lib/role-access";
+import { IndiaCoverageHeatmap } from "@/components/IndiaCoverageHeatmap";
 
 const MapInsights = () => {
   const { data } = useSession();
@@ -17,6 +17,7 @@ const MapInsights = () => {
   const [coverage, setCoverage] = useState<StateCoverage[]>([]);
   const [allCrops, setAllCrops] = useState<CropInfo[]>([]);
   const [selectedCrop, setSelectedCrop] = useState("Wheat");
+  const [selectedState, setSelectedState] = useState<string | null>(null);
 
   useEffect(() => {
     api.getStateCoverage().then(setCoverage);
@@ -83,23 +84,12 @@ const MapInsights = () => {
           <CardTitle className="font-display text-lg">State-wise APMC Coverage</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {coverage.map((c) => {
-              const pct = (c.enamIntegrated + c.statePortal) / c.totalApmcs * 100;
-              const bg = pct > 80 ? "bg-primary/15 border-primary/30" : pct > 50 ? "bg-secondary/15 border-secondary/30" : "bg-destructive/10 border-destructive/20";
-              return (
-                <div key={c.stateCode} className={`rounded-lg border p-3 ${bg}`}>
-                  <p className="font-semibold text-sm truncate">{c.state}</p>
-                  <p className="text-xs text-muted-foreground">{c.totalApmcs} APMCs</p>
-                  <div className="flex gap-1 mt-2">
-                    <Badge variant="default" className="text-[9px] px-1.5">{c.enamIntegrated} eNAM</Badge>
-                    <Badge variant="secondary" className="text-[9px] px-1.5">{c.statePortal} Portal</Badge>
-                  </div>
-                  <p className="text-[10px] text-muted-foreground mt-1">{pct.toFixed(0)}% covered</p>
-                </div>
-              );
-            })}
-          </div>
+          <IndiaCoverageHeatmap coverageData={coverage} onStateClick={setSelectedState} />
+          {selectedState && (
+            <p className="mt-2 text-xs text-muted-foreground">
+              Selected: <span className="font-medium text-foreground">{selectedState}</span>
+            </p>
+          )}
         </CardContent>
       </Card>
 

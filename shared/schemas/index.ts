@@ -8,32 +8,6 @@ export const AlertDirectionSchema = z.enum(['above', 'below']);
 export const TopMoverDirectionSchema = z.enum(['up', 'down']);
 export const LanguageSchema = z.enum(['en', 'hi', 'mr', 'te', 'ta', 'kn', 'gu', 'pa']);
 export const UserRoleSchema = z.enum(['farmer', 'trader', 'policy_maker', 'agri_startup']);
-export const RoleCapabilitySchema = z.enum([
-  'realtime_price_dashboard',
-  'price_trend_analytics',
-  'geographic_comparison',
-  'smart_alerts',
-  'simple_reports',
-  'arbitrage_detection',
-  'multi_market_comparison',
-  'volatility_risk_analysis',
-  'bulk_export',
-  'coverage_gap_visualization',
-  'state_level_analytics',
-  'price_anomaly_detection',
-  'predictive_insights',
-  'policy_reports',
-  'api_access',
-  'bulk_historical_data_access',
-  'data_visualization_tools',
-  'data_quality_indicators',
-]);
-
-export const RolePrivilegesSchema = z.object({
-  role: UserRoleSchema,
-  capabilities: z.array(RoleCapabilitySchema),
-  restrictions: z.array(z.string()),
-});
 
 export const FiltersSchema = z.object({
   cropId: z.string().optional(),
@@ -212,11 +186,6 @@ export const UserProfileSchema = z.object({
   traderDetails: TraderDetailsSchema.optional(),
   policyMakerDetails: PolicyMakerDetailsSchema.optional(),
   agriStartupDetails: AgriStartupDetailsSchema.optional(),
-  classification: z.object({
-    method: z.enum(['self_declared', 'rule_based']),
-    confidence: z.number().min(0).max(1),
-    evaluatedAt: z.coerce.date(),
-  }).optional(),
 });
 
 export const UserSchema = z.object({
@@ -359,11 +328,6 @@ export const UpdateUserProfileBodySchema = z.object({
   traderDetails: TraderDetailsSchema.partial().optional(),
   policyMakerDetails: PolicyMakerDetailsSchema.partial().optional(),
   agriStartupDetails: AgriStartupDetailsSchema.partial().optional(),
-  classification: z.object({
-    method: z.enum(['self_declared', 'rule_based']),
-    confidence: z.number().min(0).max(1),
-    evaluatedAt: z.coerce.date(),
-  }).optional(),
 });
 
 export const CropPriceSchema = z.object({
@@ -430,5 +394,4 @@ export const FrontendPriceTrendSchema = z.object({
   price: z.number(),
   minPrice: z.number(),
   maxPrice: z.number(),
->>>>>>> origin/faaris/express
 });

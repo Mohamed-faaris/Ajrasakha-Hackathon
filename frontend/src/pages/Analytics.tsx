@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid, BarChart, Bar, ReferenceLine } from "recharts";
+import { usePricePrediction } from "@/hooks/usePricePrediction";
 
 const Analytics = () => {
   const [selectedCrop, setSelectedCrop] = useState("Wheat");
@@ -33,6 +34,7 @@ const Analytics = () => {
 
   // Volatility: std dev / mean
   const prices = trendData.map((d) => d.price);
+  const { predictedPrice, trend, confidence } = usePricePrediction(prices);
   const mean = prices.length ? prices.reduce((a, b) => a + b, 0) / prices.length : 0;
   const stddev = prices.length ? Math.sqrt(prices.reduce((sum, p) => sum + (p - mean) ** 2, 0) / prices.length) : 0;
   const volatility = mean ? ((stddev / mean) * 100).toFixed(1) : "0";
@@ -187,6 +189,37 @@ const Analytics = () => {
                   <Bar dataKey="volatility" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ChartContainer>
+            </CardContent>
+          </Card>
+        )}
+        {canViewPrediction && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-display text-lg">Real-Time Price Prediction</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <p className="text-sm text-muted-foreground">Predicted Next Price</p>
+                <p className="text-2xl font-bold font-display">{`\u20b9${predictedPrice.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Trend</p>
+                <p
+                  className={
+                    trend === "Bullish"
+                      ? "font-semibold text-emerald-600"
+                      : trend === "Bearish"
+                        ? "font-semibold text-destructive"
+                        : "font-semibold text-muted-foreground"
+                  }
+                >
+                  {trend}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Confidence</p>
+                <p className="font-semibold">{confidence}%</p>
+              </div>
             </CardContent>
           </Card>
         )}

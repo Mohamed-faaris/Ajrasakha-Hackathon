@@ -1,7 +1,15 @@
 import { Price } from '../models';
-import type { GetPricesQuery } from '@shared/types';
+import type { GetPricesQuery, CropPrice, PriceSource, DataSource } from '@shared/types';
 
-export const getPrices = async (query: GetPricesQuery) => {
+const sourceMap: Record<PriceSource, DataSource> = {
+  'enam': 'eNAM',
+  'agmarknet': 'Agmarknet',
+  'apmc': 'State Portal',
+  'other': 'State Portal',
+  'mandi-insights': 'State Portal',
+};
+
+export const getPrices = async (query: GetPricesQuery): Promise<{ items: CropPrice[]; total: number; page: number; pageSize: number }> => {
   const {
     cropId,
     stateId,
@@ -40,8 +48,24 @@ export const getPrices = async (query: GetPricesQuery) => {
     .limit(pageSize)
     .lean();
 
+  const cropPrices: CropPrice[] = items.map((p) => ({
+    id: p._id.toString(),
+    date: p.date.toISOString().split('T')[0],
+    stateCode: p.stateId,
+    state: p.stateName,
+    district: p.districtName,
+    mandi: p.mandiName,
+    crop: p.cropName,
+    variety: p.cropName,
+    minPrice: p.minPrice,
+    maxPrice: p.maxPrice,
+    modalPrice: p.modalPrice,
+    unit: p.unit,
+    source: sourceMap[p.source as PriceSource] || 'State Portal',
+  }));
+
   return {
-    items,
+    items: cropPrices,
     total,
     page,
     pageSize

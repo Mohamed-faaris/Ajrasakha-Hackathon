@@ -69,59 +69,22 @@ const App = () => (
             />
             <Route
               path="/analytics"
-              element={
-                <RoleRoute route="/analytics">
-                  <Analytics />
-                </RoleRoute>
-              }
+              element={<Analytics />}
             />
             <Route
               path="/map"
-              element={
-                <RoleRoute route="/map">
-                  <MapInsights />
-                </RoleRoute>
-              }
+              element={<MapInsights />}
             />
             <Route
               path="/arbitrage"
-              element={
-                <RoleRoute route="/arbitrage">
-                  <Arbitrage />
-                </RoleRoute>
-              }
-            />
-            <Route
-              path="/alerts"
-              element={
-                <RoleRoute route="/alerts">
-                  <PriceAlerts />
-                </RoleRoute>
-              }
+              element={<Arbitrage />}
             />
             <Route
               path="/reports"
-              element={
-                <RoleRoute route="/reports">
-                  <Reports />
-                </RoleRoute>
-              }
-            />
-            <Route
-              path="/profile"
-              element={<Profile />}
-            />
-            <Route
-              path="/profile/:role"
-              element={<Profile />}
+              element={<Reports />}
             />
           </Route>
-          <Route
-            path="*"
-            element={
-              <NotFound />
-            }
-          />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

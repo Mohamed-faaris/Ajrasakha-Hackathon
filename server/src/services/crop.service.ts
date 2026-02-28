@@ -1,7 +1,11 @@
 import { Crop } from '../models';
 
 export const getAllCrops = async () => {
-  return Crop.find().sort({ name: 1 }).lean();
+  const crops = await Crop.find().sort({ name: 1 }).lean();
+  return crops.map(crop => ({
+    name: crop.name,
+    category: crop.commodityGroup || 'Others',
+  }));
 };
 
 export const getCropById = async (id: string) => {

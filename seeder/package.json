@@ -1,0 +1,21 @@
+{
+  "name": "seeder",
+  "version": "1.0.0",
+  "description": "Database seeder scripts",
+  "main": "seeder.js",
+  "scripts": {
+    "seed": "node seeder.js all",
+    "seed:crops": "node seeder.js crops",
+    "seed:states": "node seeder.js states",
+    "seed:mandis": "node seeder.js mandis",
+    "seed:prices": "node seeder.js prices",
+    "clear": "node seeder.js clear all",
+    "convert": "node scripts/convertCrops.js ../tmp/seed-scraper/data-tmps/crops/data.json data/crops.converted.json && node scripts/convertStates.js ../tmp/seed-scraper/data-tmps/crops/data.json data/states.converted.json data/stateCodeMap.json && node scripts/convertMandis.js ../tmp/seed-scraper/data-tmps/crops/data.json data/mandis.converted.json data/stateCodeMap.json && node scripts/convertPrices.js enam ../tmp/seed-scraper/data-tmps/crops/enam.json data/prices.converted.json data/crops.converted.json data/mandis.converted.json"
+  },
+  "dependencies": {
+    "mongoose": "^9.1.5"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.3"
+  }
+}

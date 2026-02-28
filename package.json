@@ -12,10 +12,7 @@
     "dev": "concurrently \"pnpm run dev:frontend\" \"pnpm run dev:server\"",
     "build:frontend": "cd frontend && pnpm build",
     "build:server": "cd server && pnpm build",
-    "build": "pnpm run build:frontend && pnpm run build:server",
-    "test:frontend": "cd frontend && pnpm test",
-    "test:frontend:watch": "cd frontend && pnpm test:watch",
-    "test": "pnpm run test:frontend",
+    "build": "pnpm run build:client && pnpm run build:server",
     "start:server": "cd server && pnpm start",
     "prod": "pnpm run build && pnpm run start:server"
   },

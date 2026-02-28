@@ -5,10 +5,11 @@ A full-stack application with a React frontend and Node.js/Express server using 
 
 ## Project Structure
 
-```text
-frontend/  # React + Vite UI
-server/    # Node.js + Express backend
-shared/    # Shared types/utilities
+```
+├── frontend/        # React + Vite frontend
+├── server/          # Node.js + Express backend
+├── shared/          # Shared types/utilities
+└── README.md        # This file
 ```
 
 ## Prerequisites
@@ -36,7 +37,7 @@ Example connection string:
 
 ## Installation
 
-Install all dependencies:
+Install dependencies for both frontend and server:
 
 ```bash
 pnpm install
@@ -45,23 +46,25 @@ pnpm install
 Or install separately:
 
 ```bash
-pnpm run install:frontend
-pnpm run install:server
+pnpm run install:frontend  # Install frontend dependencies
+pnpm run install:server  # Install server dependencies
 ```
 
 ## Development
 
-Start frontend + server:
+Start both frontend and server in development mode:
 
 ```bash
 pnpm run dev
 ```
 
-Run only one service:
+This runs the frontend on `http://localhost:5173` and server on `http://localhost:5000`.
+
+Or run separately:
 
 ```bash
-pnpm run dev:frontend
-pnpm run dev:server
+pnpm run dev:frontend  # Start frontend only
+pnpm run dev:server  # Start server only
 ```
 
 ## Testing
@@ -84,6 +87,8 @@ pnpm run test:frontend:watch
 pnpm run prod
 ```
 
+This builds both frontend and server, then starts the server.
+
 ## Environment Variables
 
 Server (`server/.env`):
@@ -96,21 +101,23 @@ JWT_SECRET=your_jwt_secret_here
 
 Frontend: no required env vars for basic setup.
 
+## API Endpoints
+
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login
+- `GET /api/auth/profile` - Get user profile (requires Bearer token)
+
 ## Scripts
 
-- `pnpm run install`
-- `pnpm run install:frontend`
-- `pnpm run install:server`
-- `pnpm run dev`
-- `pnpm run dev:frontend`
-- `pnpm run dev:server`
-- `pnpm run build`
-- `pnpm run build:frontend`
-- `pnpm run build:server`
-- `pnpm run test:frontend`
-- `pnpm run test:frontend:watch`
-- `pnpm run start:server`
-- `pnpm run prod`
+- `pnpm run install` - Install all dependencies
+- `pnpm run dev` - Start development servers
+- `pnpm run build` - Build for production
+- `pnpm run prod` - Build and start production server
+- `pnpm run dev:frontend` - Start frontend dev server
+- `pnpm run dev:server` - Start server dev server
+- `pnpm run build:frontend` - Build frontend
+- `pnpm run build:server` - Build server
+- `pnpm run start:server` - Start production server
 
 ## Technologies
 

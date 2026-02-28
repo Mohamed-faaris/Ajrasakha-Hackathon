@@ -3,14 +3,11 @@ import * as priceService from '../services/price.service';
 import { validateQuery, validateParams } from '../middlewares/validate.middleware';
 import { GetPricesQuerySchema, GetLatestPricesQuerySchema, GetPriceTrendsQuerySchema, GetByMandiAndCropParamsSchema, PricesByMandiAndCropQuerySchema } from '@shared/schemas';
 
-export const getPrices = [
-  validateQuery(GetPricesQuerySchema),
-  async (req: Request, res: Response) => {
-    const query = GetPricesQuerySchema.parse(req.query);
-    const result = await priceService.getPrices(query);
-    res.json(result);
-  },
-];
+export const getPrices = async (req: Request, res: Response) => {
+  const query = GetPricesQuerySchema.parse(req.query);
+  const result = await priceService.getPrices(query);
+  res.json(result.items);
+};
 
 export const getLatestPrices = [
   validateQuery(GetLatestPricesQuerySchema),

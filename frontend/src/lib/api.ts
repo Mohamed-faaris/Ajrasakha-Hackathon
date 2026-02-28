@@ -13,8 +13,8 @@ import type {
   TraderProfileDetails,
   UserProfile,
   UserRole,
+  UpdateUserProfileBody,
 } from "./types";
-import { authHeaders } from "./auth";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
 
@@ -76,9 +76,9 @@ const request = async <T>(path: string, params?: Record<string, string | number 
   const url = `${API_BASE_URL}${path}${buildQuery(params)}`;
   const response = await fetch(url, {
     ...init,
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      ...authHeaders(),
       ...(init?.headers || {}),
     },
   });
@@ -140,7 +140,7 @@ export const api = {
   getMyProfile: (): Promise<UserProfile | null> =>
     request<UserProfile | null>("/profile"),
 
-  updateMyProfile: (payload: UpdateUserProfilePayload): Promise<UserProfile> =>
+  updateMyProfile: (payload: UpdateUserProfileBody): Promise<UserProfile> =>
     request<UserProfile>("/profile", undefined, {
       method: "PATCH",
       body: JSON.stringify(payload),

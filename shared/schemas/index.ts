@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const PriceSourceSchema = z.enum(['agmarknet', 'enam', 'apmc', 'other', 'mandi-insights']);
+export const DataSourceSchema = z.enum(['eNAM', 'Agmarknet', 'State Portal']);
 export const SortDirectionSchema = z.enum(['asc', 'desc']);
 export const PriceSortBySchema = z.enum(['date', 'crop', 'state', 'mandi', 'modalPrice']);
 export const AlertDirectionSchema = z.enum(['above', 'below']);
@@ -55,6 +56,11 @@ export const StateSchema = z.object({
   code: z.string().optional(),
 });
 
+export const DistrictSchema = z.object({
+  name: z.string(),
+  stateCode: z.string(),
+});
+
 export const LocationSchema = z.object({
   type: z.literal('Point'),
   coordinates: z.tuple([z.number(), z.number()]),
@@ -67,6 +73,11 @@ export const MandiSchema = z.object({
   stateName: z.string(),
   latitude: z.number(),
   longitude: z.number(),
+  district: z.string().optional(),
+  stateCode: z.string().optional(),
+  isEnamIntegrated: z.boolean().optional(),
+  source: DataSourceSchema.optional(),
+  lastUpdated: z.string().optional(),
 });
 
 export const PriceSchema = z.object({
@@ -106,6 +117,10 @@ export const TopMoverSchema = z.object({
   previousPrice: z.number(),
   changePct: z.number(),
   direction: TopMoverDirectionSchema,
+  crop: z.string().optional(),
+  state: z.string().optional(),
+  changePercent: z.number().optional(),
+  currentPrice: z.number().optional(),
 });
 
 export const CoverageSchema = z.object({
@@ -119,6 +134,9 @@ export const CoverageSchema = z.object({
 export const PriceTrendPointSchema = z.object({
   date: z.string(),
   modalPrice: z.number(),
+  price: z.number().optional(),
+  minPrice: z.number().optional(),
+  maxPrice: z.number().optional(),
 });
 
 export const MandiPriceSchema = z.object({
@@ -181,7 +199,7 @@ export const AgriStartupDetailsSchema = z.object({
 
 export const UserProfileSchema = z.object({
   userId: z.string(),
-  role: UserRoleSchema,
+  role: UserRoleSchema.optional(),
   phone: z.string().optional(),
   state: z.string().optional(),
   district: z.string().optional(),
@@ -346,4 +364,71 @@ export const UpdateUserProfileBodySchema = z.object({
     confidence: z.number().min(0).max(1),
     evaluatedAt: z.coerce.date(),
   }).optional(),
+});
+
+export const CropPriceSchema = z.object({
+  id: z.string(),
+  date: z.string(),
+  stateCode: z.string(),
+  state: z.string(),
+  district: z.string(),
+  mandi: z.string(),
+  crop: z.string(),
+  variety: z.string(),
+  minPrice: z.number(),
+  maxPrice: z.number(),
+  modalPrice: z.number(),
+  unit: z.string(),
+  source: DataSourceSchema,
+});
+
+export const CropInfoSchema = z.object({
+  name: z.string(),
+  category: z.string(),
+  mspPrice: z.number().optional(),
+});
+
+export const ArbitrageOpportunitySchema = z.object({
+  crop: z.string(),
+  variety: z.string(),
+  mandiA: z.string(),
+  stateA: z.string(),
+  priceA: z.number(),
+  mandiB: z.string(),
+  stateB: z.string(),
+  priceB: z.number(),
+  priceDiff: z.number(),
+  distanceKm: z.number(),
+});
+
+export const PriceAlertSchema = z.object({
+  id: z.string(),
+  crop: z.string(),
+  state: z.string(),
+  thresholdType: AlertDirectionSchema,
+  thresholdPrice: z.number(),
+  isActive: z.boolean(),
+});
+
+export const StateCoverageSchema = z.object({
+  stateCode: z.string(),
+  state: z.string(),
+  totalApmcs: z.number(),
+  enamIntegrated: z.number(),
+  statePortal: z.number(),
+  uncovered: z.number(),
+  avgPrice: z.number().optional(),
+});
+
+export const FrontendStateSchema = z.object({
+  code: z.string(),
+  name: z.string(),
+});
+
+export const FrontendPriceTrendSchema = z.object({
+  date: z.string(),
+  price: z.number(),
+  minPrice: z.number(),
+  maxPrice: z.number(),
+>>>>>>> origin/faaris/express
 });

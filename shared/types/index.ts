@@ -1,39 +1,12 @@
 export type ISODateString = string;
 
 export type PriceSource = 'agmarknet' | 'enam' | 'apmc' | 'other' | 'mandi-insights';
+export type DataSource = 'eNAM' | 'Agmarknet' | 'State Portal';
 export type SortDirection = 'asc' | 'desc';
 export type PriceSortBy = 'date' | 'crop' | 'state' | 'mandi' | 'modalPrice';
 export type AlertDirection = 'above' | 'below';
 export type TopMoverDirection = 'up' | 'down';
 export type Language = 'en' | 'hi' | 'mr' | 'te' | 'ta' | 'kn' | 'gu' | 'pa';
-export type UserRole = 'farmer' | 'trader' | 'policy_maker' | 'agri_startup';
-export type RoleCapability =
-  | 'realtime_price_dashboard'
-  | 'price_trend_analytics'
-  | 'geographic_comparison'
-  | 'smart_alerts'
-  | 'simple_reports'
-  | 'arbitrage_detection'
-  | 'multi_market_comparison'
-  | 'volatility_risk_analysis'
-  | 'bulk_export'
-  | 'coverage_gap_visualization'
-  | 'state_level_analytics'
-  | 'price_anomaly_detection'
-  | 'predictive_insights'
-  | 'policy_reports'
-  | 'api_access'
-  | 'bulk_historical_data_access'
-  | 'data_visualization_tools'
-  | 'data_quality_indicators';
-
-export interface RolePrivileges {
-  role: UserRole;
-  capabilities: RoleCapability[];
-  restrictions: string[];
-}
-
-export interface GetRolePrivilegesResponse extends RolePrivileges {}
 
 export interface Filters {
   cropId?: string;
@@ -51,10 +24,21 @@ export interface Crop {
   commodityGroup?: string;
 }
 
-export interface State {
-  id: string;
+export interface District {
+  _id: string;
   name: string;
-  code?: string;
+}
+
+export interface State {
+  code: string;
+  name: string;
+  districts?: District[];
+}
+
+export interface FrontendState {
+  code: string;
+  name: string;
+  districts?: District[];
 }
 
 export interface Location {
@@ -69,6 +53,11 @@ export interface Mandi {
   stateName: string;
   latitude: number;
   longitude: number;
+  district?: string;
+  stateCode?: string;
+  isEnamIntegrated?: boolean;
+  source?: DataSource;
+  lastUpdated?: string;
 }
 
 export interface Price {
@@ -108,6 +97,10 @@ export interface TopMover {
   previousPrice: number;
   changePct: number;
   direction: TopMoverDirection;
+  crop?: string;
+  state?: string;
+  changePercent?: number;
+  currentPrice?: number;
 }
 
 export interface Coverage {
@@ -121,6 +114,9 @@ export interface Coverage {
 export interface PriceTrendPoint {
   date: ISODateString;
   modalPrice: number;
+  price?: number;
+  minPrice?: number;
+  maxPrice?: number;
 }
 
 export interface PriceTrend {
@@ -131,6 +127,13 @@ export interface PriceTrend {
   stateId?: string | null;
   data: PriceTrendPoint[];
   computedAt: Date;
+}
+
+export interface FrontendPriceTrend {
+  date: string;
+  price: number;
+  minPrice: number;
+  maxPrice: number;
 }
 
 export interface MandiPrice {
@@ -194,7 +197,6 @@ export interface AgriStartupDetails {
 export interface UserProfile {
   _id: string;
   userId: string;
-  role: UserRole;
   phone?: string | null;
   state?: string | null;
   district?: string | null;
@@ -205,13 +207,6 @@ export interface UserProfile {
   avatar?: string | null;
   farmerDetails?: FarmerDetails | null;
   traderDetails?: TraderDetails | null;
-  policyMakerDetails?: PolicyMakerDetails | null;
-  agriStartupDetails?: AgriStartupDetails | null;
-  classification?: {
-    method: 'self_declared' | 'rule_based';
-    confidence: number;
-    evaluatedAt: Date;
-  } | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -326,13 +321,6 @@ export interface UpdateUserProfileBody {
   avatar?: string;
   farmerDetails?: Partial<FarmerDetails>;
   traderDetails?: Partial<TraderDetails>;
-  policyMakerDetails?: Partial<PolicyMakerDetails>;
-  agriStartupDetails?: Partial<AgriStartupDetails>;
-  classification?: {
-    method: 'self_declared' | 'rule_based';
-    confidence: number;
-    evaluatedAt: Date;
-  };
 }
 
 export interface GeoBounds {
@@ -340,4 +328,58 @@ export interface GeoBounds {
   minLat: number;
   maxLng: number;
   maxLat: number;
+}
+
+export interface CropPrice {
+  id: string;
+  date: string;
+  stateCode: string;
+  state: string;
+  district: string;
+  mandi: string;
+  crop: string;
+  variety: string;
+  minPrice: number;
+  maxPrice: number;
+  modalPrice: number;
+  unit: string;
+  source: DataSource;
+}
+
+export interface CropInfo {
+  name: string;
+  category: string;
+  mspPrice?: number;
+}
+
+export interface ArbitrageOpportunity {
+  crop: string;
+  variety: string;
+  mandiA: string;
+  stateA: string;
+  priceA: number;
+  mandiB: string;
+  stateB: string;
+  priceB: number;
+  priceDiff: number;
+  distanceKm: number;
+}
+
+export interface PriceAlert {
+  id: string;
+  crop: string;
+  state: string;
+  thresholdType: AlertDirection;
+  thresholdPrice: number;
+  isActive: boolean;
+}
+
+export interface StateCoverage {
+  stateCode: string;
+  state: string;
+  totalApmcs: number;
+  enamIntegrated: number;
+  statePortal: number;
+  uncovered: number;
+  avgPrice?: number;
 }

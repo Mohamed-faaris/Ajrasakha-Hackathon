@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { TrendingUp, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,9 +8,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { register, updateStoredUser } from "@/lib/auth";
+import { signUp } from "@/lib/auth";
 import { api } from "@/lib/api";
-import type { UserRole } from "@/lib/types";
+import type { UserRole, State } from "@/lib/types";
 import { CAPABILITY_LABELS, ROLE_ACCESS } from "@/lib/role-access";
 
 const ROLE_LABELS: Record<UserRole, string> = {
@@ -58,8 +58,28 @@ export default function Signup() {
   const [startupName, setStartupName] = useState("");
   const [startupStage, setStartupStage] = useState<"idea" | "mvp" | "early" | "growth" | "scale">("idea");
   const [startupFocusAreas, setStartupFocusAreas] = useState("");
+  const [startupName, setStartupName] = useState("");
+  const [startupStage, setStartupStage] = useState<"idea" | "mvp" | "early" | "growth" | "scale">("idea");
+  const [startupFocusAreas, setStartupFocusAreas] = useState("");
+  const [states, setStates] = useState<State[]>([]);
+
+  useEffect(() => {
+    api.getStates().then(setStates).catch(() => setStates([]));
+  }, []);
 
   const roleAccess = useMemo(() => ROLE_ACCESS[role], [role]);
+
+  const selectedState = useMemo(
+    () => states.find((s) => s.name === stateName),
+    [states, stateName]
+  );
+
+  const districts = selectedState?.districts || [];
+
+  const handleStateChange = (value: string) => {
+    setStateName(value);
+    setDistrict("");
+  };
 
   const validateRoleFields = () => {
     if (role === "farmer" && (!farmSize || !primaryCrops.trim())) {
@@ -96,7 +116,7 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      await register({ name, email, password });
+      await signUp.email({ name, email, password });
       try {
         await api.updateMyProfile({
           role,
@@ -134,11 +154,11 @@ export default function Signup() {
       } catch {
         // Non-blocking: user can still continue and complete profile later.
       }
-      updateStoredUser({ role });
       toast({ title: "Account created", description: "Welcome to Mandi-Insights." });
       navigate("/dashboard");
-    } catch (err: any) {
-      toast({ title: "Error", description: err.message || "Registration failed.", variant: "destructive" });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Registration failed.";
+      toast({ title: "Error", description: message, variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -165,11 +185,25 @@ export default function Signup() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" type="text" placeholder="Ramesh Kumar" value={name} onChange={(e) => setName(e.target.value)} required />
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="Ramesh Kumar"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="farmer@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="farmer@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label>User Role</Label>
@@ -180,20 +214,58 @@ export default function Signup() {
                       <SelectItem value="trader">Trader</SelectItem>
                       <SelectItem value="policy_maker">Policy Maker</SelectItem>
                       <SelectItem value="agri_startup">Agri Startup</SelectItem>
+=======
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="farmer">Farmer</SelectItem>
+                      <SelectItem value="trader">Trader</SelectItem>
+                      <SelectItem value="policy_maker">Policy Maker</SelectItem>
+                      <SelectItem value="agri_startup">Agri Startup</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone (optional)</Label>
-                  <Input id="phone" type="tel" placeholder="9876543210" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="9876543210"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="state">State (optional)</Label>
-                  <Input id="state" type="text" placeholder="Maharashtra" value={stateName} onChange={(e) => setStateName(e.target.value)} />
+                  <Label>State (optional)</Label>
+                  <Select value={stateName} onValueChange={handleStateChange}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select state" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {states.map((s) => (
+                        <SelectItem key={s.code} value={s.name}>
+                          {s.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="district">District (optional)</Label>
-                  <Input id="district" type="text" placeholder="Nashik" value={district} onChange={(e) => setDistrict(e.target.value)} />
+                  <Label>District (optional)</Label>
+                  <Select value={district} onValueChange={setDistrict} disabled={!stateName || districts.length === 0}>
+                    <SelectTrigger>
+                      <SelectValue placeholder={districts.length === 0 ? "No districts available" : "Select district"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {districts.map((d) => (
+                        <SelectItem key={d._id} value={d.name}>
+                          {d.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+>>>>>>> origin/faaris/express
                 </div>
               </div>
 
@@ -224,11 +296,26 @@ export default function Signup() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="farmSize">Farm Size (acres)</Label>
-                      <Input id="farmSize" type="number" min={0} step="0.1" value={farmSize} onChange={(e) => setFarmSize(e.target.value)} required />
+                      <Input
+                        id="farmSize"
+                        type="number"
+                        min={0}
+                        step="0.1"
+                        value={farmSize}
+                        onChange={(e) => setFarmSize(e.target.value)}
+                        required
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="primaryCrops">Primary Crops (comma separated)</Label>
-                      <Input id="primaryCrops" type="text" placeholder="Onion, Tomato" value={primaryCrops} onChange={(e) => setPrimaryCrops(e.target.value)} required />
+                      <Input
+                        id="primaryCrops"
+                        type="text"
+                        placeholder="Onion, Tomato"
+                        value={primaryCrops}
+                        onChange={(e) => setPrimaryCrops(e.target.value)}
+                        required
+                      />
                     </div>
                   </div>
                 </div>
@@ -240,7 +327,14 @@ export default function Signup() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="companyName">Company Name</Label>
-                      <Input id="companyName" type="text" placeholder="AgriTrade Pvt Ltd" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
+                      <Input
+                        id="companyName"
+                        type="text"
+                        placeholder="AgriTrade Pvt Ltd"
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                        required
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label>GST Available?</Label>
@@ -255,12 +349,39 @@ export default function Signup() {
                     {hasGst === "yes" && (
                       <div className="space-y-2 md:col-span-2">
                         <Label htmlFor="gstNumber">GST Number</Label>
-                        <Input id="gstNumber" type="text" placeholder="27ABCDE1234F1Z5" value={gstNumber} onChange={(e) => setGstNumber(e.target.value)} required />
+                        <Input
+                          id="gstNumber"
+                          type="text"
+                          placeholder="27ABCDE1234F1Z5"
+                          value={gstNumber}
+                          onChange={(e) => setGstNumber(e.target.value)}
+                          required
+                        />
+>>>>>>> origin/faaris/express
                       </div>
                     )}
                     <div className="space-y-2 md:col-span-2">
                       <Label htmlFor="tradingStates">Trading States (comma separated)</Label>
-                      <Input id="tradingStates" type="text" placeholder="Maharashtra, Gujarat" value={tradingStates} onChange={(e) => setTradingStates(e.target.value)} required />
+                      <Input
+                        id="gstNumber"
+                        type="text"
+                        placeholder="27ABCDE1234F1Z5"
+                        value={gstNumber}
+                        onChange={(e) => setGstNumber(e.target.value)}
+                        required
+                      />
+                    </div>
+                    )}
+                    <div className="space-y-2 md:col-span-2">
+                      <Label htmlFor="tradingStates">Trading States (comma separated)</Label>
+                      <Input
+                        id="tradingStates"
+                        type="text"
+                        placeholder="Maharashtra, Gujarat"
+                        value={tradingStates}
+                        onChange={(e) => setTradingStates(e.target.value)}
+                        required
+                      />
                     </div>
                   </div>
                 </div>
@@ -272,11 +393,25 @@ export default function Signup() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="organization">Organization</Label>
-                      <Input id="organization" type="text" placeholder="State Agriculture Department" value={organization} onChange={(e) => setOrganization(e.target.value)} required />
+                      <Input
+                        id="organization"
+                        type="text"
+                        placeholder="State Agriculture Department"
+                        value={organization}
+                        onChange={(e) => setOrganization(e.target.value)}
+                        required
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="designation">Designation</Label>
-                      <Input id="designation" type="text" placeholder="Deputy Director" value={designation} onChange={(e) => setDesignation(e.target.value)} required />
+                      <Input
+                        id="designation"
+                        type="text"
+                        placeholder="Deputy Director"
+                        value={designation}
+                        onChange={(e) => setDesignation(e.target.value)}
+                        required
+                      />
                     </div>
                     <div className="space-y-2 md:col-span-2">
                       <Label htmlFor="policyFocusAreas">Policy Focus Areas (comma separated)</Label>
@@ -298,12 +433,37 @@ export default function Signup() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="startupName">Startup Name</Label>
-                      <Input id="startupName" type="text" placeholder="FarmPulse" value={startupName} onChange={(e) => setStartupName(e.target.value)} required />
+                      <Input
+                        id="startupName"
+                        type="text"
+                        placeholder="FarmPulse"
+                        value={startupName}
+                        onChange={(e) => setStartupName(e.target.value)}
+                        required
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label>Startup Stage</Label>
                       <Select value={startupStage} onValueChange={(v) => setStartupStage(v as "idea" | "mvp" | "early" | "growth" | "scale")}>
                         <SelectTrigger><SelectValue /></SelectTrigger>
+                        id="startupName"
+                        type="text"
+                        placeholder="FarmPulse"
+                        value={startupName}
+                        onChange={(e) => setStartupName(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Startup Stage</Label>
+                      <Select
+                        value={startupStage}
+                        onValueChange={(v) => setStartupStage(v as "idea" | "mvp" | "early" | "growth" | "scale")}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+>>>>>>> origin/faaris/express
                         <SelectContent>
                           <SelectItem value="idea">Idea</SelectItem>
                           <SelectItem value="mvp">MVP</SelectItem>
@@ -330,15 +490,33 @@ export default function Signup() {
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
-                  <Input id="password" type={showPassword ? "text" : "password"} placeholder="********" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input id="confirmPassword" type="password" placeholder="********" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
               </div>
             </CardContent>
             <CardFooter className="flex flex-col gap-3">
@@ -347,7 +525,9 @@ export default function Signup() {
               </Button>
               <p className="text-sm text-muted-foreground text-center">
                 Already have an account?{" "}
-                <Link to="/login" className="text-primary font-medium hover:underline">Sign In</Link>
+                <Link to="/login" className="text-primary font-medium hover:underline">
+                  Sign In
+                </Link>
               </p>
             </CardFooter>
           </form>

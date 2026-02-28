@@ -8,6 +8,7 @@ export const createAuth = (db: mongoose.mongo.Db) => {
     database: mongodbAdapter(db),
     secret: env.BETTER_AUTH_SECRET,
     baseURL: env.BETTER_AUTH_URL,
+    trustedOrigins: env.BETTER_AUTH_TRUSTED_ORIGINS,
     emailAndPassword: {
       enabled: true,
     },

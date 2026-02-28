@@ -1,5 +1,5 @@
 import { NavLink } from "@/components/NavLink";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar";
 import { BarChart3, Home, LayoutDashboard, Map, ArrowLeftRight, Bell, FileText, TrendingUp, LogOut, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { logout, useSession } from "@/lib/auth";
+import { signOut as logout, useSession } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
 import type { UserRole } from "@/lib/types";
 import { isRoleAllowedForRoute } from "@/lib/role-access";

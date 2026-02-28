@@ -58,9 +58,6 @@ export default function Signup() {
   const [startupName, setStartupName] = useState("");
   const [startupStage, setStartupStage] = useState<"idea" | "mvp" | "early" | "growth" | "scale">("idea");
   const [startupFocusAreas, setStartupFocusAreas] = useState("");
-  const [startupName, setStartupName] = useState("");
-  const [startupStage, setStartupStage] = useState<"idea" | "mvp" | "early" | "growth" | "scale">("idea");
-  const [startupFocusAreas, setStartupFocusAreas] = useState("");
   const [states, setStates] = useState<State[]>([]);
 
   useEffect(() => {
@@ -214,15 +211,6 @@ export default function Signup() {
                       <SelectItem value="trader">Trader</SelectItem>
                       <SelectItem value="policy_maker">Policy Maker</SelectItem>
                       <SelectItem value="agri_startup">Agri Startup</SelectItem>
-=======
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="farmer">Farmer</SelectItem>
-                      <SelectItem value="trader">Trader</SelectItem>
-                      <SelectItem value="policy_maker">Policy Maker</SelectItem>
-                      <SelectItem value="agri_startup">Agri Startup</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -265,7 +253,46 @@ export default function Signup() {
                       ))}
                     </SelectContent>
                   </Select>
->>>>>>> origin/faaris/express
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone (optional)</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="9876543210"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>State (optional)</Label>
+                  <Select value={stateName} onValueChange={handleStateChange}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select state" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {states.map((s) => (
+                        <SelectItem key={s.code} value={s.name}>
+                          {s.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label>District (optional)</Label>
+                  <Select value={district} onValueChange={setDistrict} disabled={!stateName || districts.length === 0}>
+                    <SelectTrigger>
+                      <SelectValue placeholder={districts.length === 0 ? "No districts available" : "Select district"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {districts.map((d) => (
+                        <SelectItem key={d._id} value={d.name}>
+                          {d.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
 
@@ -357,20 +384,7 @@ export default function Signup() {
                           onChange={(e) => setGstNumber(e.target.value)}
                           required
                         />
->>>>>>> origin/faaris/express
                       </div>
-                    )}
-                    <div className="space-y-2 md:col-span-2">
-                      <Label htmlFor="tradingStates">Trading States (comma separated)</Label>
-                      <Input
-                        id="gstNumber"
-                        type="text"
-                        placeholder="27ABCDE1234F1Z5"
-                        value={gstNumber}
-                        onChange={(e) => setGstNumber(e.target.value)}
-                        required
-                      />
-                    </div>
                     )}
                     <div className="space-y-2 md:col-span-2">
                       <Label htmlFor="tradingStates">Trading States (comma separated)</Label>
@@ -444,18 +458,6 @@ export default function Signup() {
                     </div>
                     <div className="space-y-2">
                       <Label>Startup Stage</Label>
-                      <Select value={startupStage} onValueChange={(v) => setStartupStage(v as "idea" | "mvp" | "early" | "growth" | "scale")}>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
-                        id="startupName"
-                        type="text"
-                        placeholder="FarmPulse"
-                        value={startupName}
-                        onChange={(e) => setStartupName(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Startup Stage</Label>
                       <Select
                         value={startupStage}
                         onValueChange={(v) => setStartupStage(v as "idea" | "mvp" | "early" | "growth" | "scale")}
@@ -463,7 +465,6 @@ export default function Signup() {
                         <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
->>>>>>> origin/faaris/express
                         <SelectContent>
                           <SelectItem value="idea">Idea</SelectItem>
                           <SelectItem value="mvp">MVP</SelectItem>

@@ -43,6 +43,7 @@ interface AgmarknetInputRecord {
   unit?: string;
   Arrival?: string;
   arrival?: string;
+  "Price Unit"?: string;
 }
 
 interface State {
@@ -120,7 +121,7 @@ function transformRecord(record: AgmarknetInputRecord): Price {
   
   return {
     cropName: record.Commodity || record.commodity || "Unknown",
-    mandiName: record.City || record.Market || record.market || "Unknown",
+    mandiName: record.City || record.Market || record.market || record.District || "Unknown",
     date: date,
     minPrice: parsePrice(
       record["Min Prize"] || record["Min Price"] || record.min_price
@@ -131,7 +132,7 @@ function transformRecord(record: AgmarknetInputRecord): Price {
     modalPrice: parsePrice(
       record["Model Prize"] || record["Modal Prize"] || record["Modal Price"] || record.modal_price
     ),
-    unit: record.Unit || record.unit || "Rs/Quintal",
+    unit: record.Unit || record.unit || record["Price Unit"] || "Rs/Quintal",
     arrival: parseArrival(record.Arrival || record.arrival),
     source: "agmarknet",
   };
@@ -185,12 +186,13 @@ async function parseData(inputData: string): Promise<Price[]> {
   return records.map(transformRecord);
 }
 
-function parseArgs(): { dataPath: string; date: string; dataArg?: string } {
+function parseArgs(): { dataPath: string; date: string; dataArg?: string; scrape?: boolean } {
   const args = process.argv.slice(2);
   const params = {
     dataPath: "../../seeder/data",
     date: getTodayDate(),
     dataArg: undefined as string | undefined,
+    scrape: false,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -202,25 +204,32 @@ function parseArgs(): { dataPath: string; date: string; dataArg?: string } {
       case "-d":
         params.date = args[++i];
         break;
+      case "--scrape":
+      case "-s":
+        params.scrape = true;
+        break;
       case "--help":
       case "-h":
         console.log(`
 Agmarknet Parser
-Parses scraped agmarknet data and outputs to PriceSchema format.
+Parses or scrapes agmarknet data and outputs to PriceSchema format.
 
 Usage:
   bun run scripts/agmarknet/index.ts [options] [data]
 
 Options:
-  --data PATH    Path to reference data (states, crops) [default: ../seeder/data]
+  --data PATH    Path to reference data (states, crops) [default: ../../seeder/data]
   --date, -d     Output date in YYYY-MM-DD format [default: today]
-  -h, --help    Show this help
+  --scrape, -s   Scrape data from agmarknet.gov.in
+  -h, --help     Show this help
 
 Arguments:
   data           JSON string or path to JSON file with scraped data [optional]
                  If not provided, will look for data/agmarknet/scraped.json
 
 Example:
+  bun run scripts/agmarknet/index.ts --scrape
+  bun run scripts/agmarknet/index.ts --scrape --date 2026-02-01
   bun run scripts/agmarknet/index.ts '[{"Commodity":"Potato","Market":"Delhi",...}]'
   bun run scripts/agmarknet/index.ts --date 2026-02-01 ./scraped-data.json
         `);
@@ -236,6 +245,123 @@ Example:
   return params;
 }
 
+async function scrapeAgmarknet(date: string): Promise<AgmarknetInputRecord[]> {
+  console.log(`Scraping agmarknet.gov.in for date: ${date}...`);
+  
+  const filtersUrl = "https://api.agmarknet.gov.in/v1/daily-price-arrival/filters";
+  const filtersResponse = await fetch(filtersUrl, {
+    method: "GET",
+    headers: {
+      "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0",
+      "Accept": "application/json, text/plain, */*",
+    },
+  });
+  
+  const filtersData = await filtersResponse.json();
+  const commodities = filtersData.data.cmdt_data;
+  console.log(`Found ${commodities.length} commodities`);
+  
+  const allRecords: AgmarknetInputRecord[] = [];
+  const [year, month, day] = date.split("-");
+  const dateFormatted = `${day}-${month}-${year}`;
+  
+  const processCommodity = async (commodity: { cmdt_id: number; cmdt_name: string }): Promise<AgmarknetInputRecord[]> => {
+    const commodityId = commodity.cmdt_id;
+    const commodityName = commodity.cmdt_name;
+    const recordsForCommodity: AgmarknetInputRecord[] = [];
+    
+    let page = 1;
+    const limit = 100;
+    let hasMore = true;
+    
+    while (hasMore) {
+      try {
+        const url = `https://api.agmarknet.gov.in/v1/daily-price-arrival/report?from_date=${date}&to_date=${date}&data_type=100006&group=1&commodity=${commodityId}&page=${page}&limit=${limit}`;
+        
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0",
+            "Accept": "application/json, text/plain, */*",
+          },
+        });
+        
+        if (response.status === 404 || response.status === 500 || response.status === 400) {
+          hasMore = false;
+          continue;
+        }
+        
+        if (!response.ok) {
+          hasMore = false;
+          continue;
+        }
+        
+        const data = await response.json();
+        
+        if (!data.status || !data.data.records || data.data.records.length === 0) {
+          hasMore = false;
+          continue;
+        }
+        
+        const record = data.data.records[0];
+        const records = record.data || [];
+        
+        if (records.length === 0) {
+          hasMore = false;
+          continue;
+        }
+        
+        for (const r of records) {
+          const arrivalDate = r.arrival_date;
+          if (arrivalDate === dateFormatted) {
+            recordsForCommodity.push({
+              Commodity: r.cmdt_name,
+              Market: r.market_name,
+              State: r.state_name,
+              District: r.district_name,
+              Variety: r.variety_name,
+              "Min Price": r.min_price,
+              "Max Price": r.max_price,
+              "Modal Price": r.model_price,
+              "Price Unit": r.unit_name_price || "Rs/Quintal",
+              Arrival: r.arrival_qty,
+              Date: date,
+            });
+          }
+        }
+        
+        const pagination = record.pagination?.[0] || {};
+        const totalPages = pagination.total_pages || 1;
+        
+        if (page >= totalPages) {
+          hasMore = false;
+        } else {
+          page++;
+        }
+      } catch (e) {
+        hasMore = false;
+      }
+    }
+    
+    return recordsForCommodity;
+  };
+  
+  const batchSize = 10;
+  for (let i = 0; i < commodities.length; i += batchSize) {
+    const batch = commodities.slice(i, i + batchSize);
+    const results = await Promise.all(batch.map(processCommodity));
+    
+    for (const records of results) {
+      allRecords.push(...records);
+    }
+    
+    console.log(`  Processed ${Math.min(i + batchSize, commodities.length)}/${commodities.length} commodities, total records: ${allRecords.length}`);
+  }
+  
+  console.log(`Total records fetched: ${allRecords.length}`);
+  return allRecords;
+}
+
 async function main() {
   const args = parseArgs();
   
@@ -243,16 +369,21 @@ async function main() {
   console.log(`Reference data path: ${args.dataPath}`);
 
   try {
-    const { states, crops } = await loadReferenceData(args.dataPath);
-    console.log(`  Loaded ${states.length} states and ${crops.length} crops`);
-
     let prices: Price[];
     
-    if (args.dataArg) {
-      prices = await parseData(args.dataArg);
+    if (args.scrape) {
+      const scrapedData = await scrapeAgmarknet(args.date);
+      prices = scrapedData.map(transformRecord);
     } else {
-      console.log("No input data provided. Use --help for usage information.");
-      process.exit(1);
+      const { states, crops } = await loadReferenceData(args.dataPath);
+      console.log(`  Loaded ${states.length} states and ${crops.length} crops`);
+      
+      if (args.dataArg) {
+        prices = await parseData(args.dataArg);
+      } else {
+        console.log("No input data provided. Use --help for usage information.");
+        process.exit(1);
+      }
     }
     
     const validatedPrices = prices.map((p) => PriceSchema.parse(p));

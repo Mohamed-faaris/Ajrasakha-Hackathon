@@ -1,0 +1,13 @@
+[
+  {
+    "cropName": "Potato",
+    "mandiName": "Delhi",
+    "date": "2026-02-28",
+    "minPrice": 1500,
+    "maxPrice": 2000,
+    "modalPrice": 1750,
+    "unit": "Rs/Quintal",
+    "arrival": 100,
+    "source": "agmarknet"
+  }
+]

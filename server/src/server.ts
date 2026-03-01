@@ -1,14 +1,27 @@
-import dotenv from 'dotenv';
-import app from './app';
+import createApp from './app';
 import connectDB from './config/db';
 import { env } from './config/env';
-
-dotenv.config();
+import mongoose from 'mongoose';
+import { createAuth } from './lib/auth';
+import { startScheduler } from './jobs/cron';
 
 const PORT = env.PORT;
 
-connectDB();
+const start = async () => {
+  await connectDB();
+  const db = mongoose.connection.db;
+  if (!db) {
+    throw new Error('Database connection failed');
+  }
+  
+  const auth = createAuth(db);
+  const app = createApp(auth);
+  
+  startScheduler();
+  
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+};
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+start();

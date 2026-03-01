@@ -1,0 +1,2418 @@
+{
+  "Kalna APMC": {
+    "mandiId": "wb-purba-bardhaman-kalna-apmc",
+    "stateId": "WB"
+  },
+  "Gevrai APMC": {
+    "mandiId": "mh-beed-gevrai-apmc",
+    "stateId": "MH"
+  },
+  "Jamkhed APMC": {
+    "mandiId": "mh-ahmednagar-jamkhed-apmc",
+    "stateId": "MH"
+  },
+  "Vankaner APMC": {
+    "mandiId": "gj-morbi-vankaner-apmc",
+    "stateId": "GJ"
+  },
+  "Chaksu APMC": {
+    "mandiId": "rj-jaipur-rural-chaksu-apmc",
+    "stateId": "RJ"
+  },
+  "Madanganj Kishangarh APMC": {
+    "mandiId": "rj-ajmer-madanganj-kishangarh-apmc",
+    "stateId": "RJ"
+  },
+  "Suratgarh APMC": {
+    "mandiId": "rj-ganganagar-suratgarh-apmc",
+    "stateId": "RJ"
+  },
+  "Kalamb (Dharashiv) APMC": {
+    "mandiId": "mh-dharashivusmanabad-kalamb-dharashiv-apmc",
+    "stateId": "MH"
+  },
+  "Kalol APMC": {
+    "mandiId": "gj-gandhinagar-kalol-apmc",
+    "stateId": "GJ"
+  },
+  "Sriganganagar (Grain) APMC": {
+    "mandiId": "rj-ganganagar-sriganganagar-grain-apmc",
+    "stateId": "RJ"
+  },
+  "Imphal APMC": {
+    "mandiId": "mn-imphal-west-imphal-apmc",
+    "stateId": "MN"
+  },
+  "Raisingh Nagar APMC": {
+    "mandiId": "rj-anupgarh-raisingh-nagar-apmc",
+    "stateId": "RJ"
+  },
+  "Pachora APMC": {
+    "mandiId": "mh-jalgaon-pachora-apmc",
+    "stateId": "MH"
+  },
+  "Jagtial APMC": {
+    "mandiId": "tg-karimnagar-jagtial-apmc",
+    "stateId": "TG"
+  },
+  "Satana APMC": {
+    "mandiId": "mh-nashik-satana-apmc",
+    "stateId": "MH"
+  },
+  "Tapa(Tapa Mandi) APMC": {
+    "mandiId": "pb-barnala-tapatapa-mandi-apmc",
+    "stateId": "PB"
+  },
+  "Pulgaon APMC": {
+    "mandiId": "mh-wardha-pulgaon-apmc",
+    "stateId": "MH"
+  },
+  "Jaunpur APMC": {
+    "mandiId": "up-jaunpur-jaunpur-apmc",
+    "stateId": "UP"
+  },
+  "Mahesh Krushi Utpanna Bazar, Digras APMC": {
+    "mandiId": "mh-yavatmal-mahesh-krushi-utpanna-bazar-digras-apmc",
+    "stateId": "MH"
+  },
+  "BSK Krishi Bazar Private Ltd APMC": {
+    "mandiId": "mh-buldhana-bsk-krishi-bazar-private-ltd-apmc",
+    "stateId": "MH"
+  },
+  "Kurdwadi(Modnimb) APMC": {
+    "mandiId": "mh-sholapur-kurdwadimodnimb-apmc",
+    "stateId": "MH"
+  },
+  "Vadvani APMC": {
+    "mandiId": "mh-beed-vadvani-apmc",
+    "stateId": "MH"
+  },
+  "Alwar APMC": {
+    "mandiId": "rj-alwar-alwar-apmc",
+    "stateId": "RJ"
+  },
+  "Mul APMC": {
+    "mandiId": "mh-chandrapur-mul-apmc",
+    "stateId": "MH"
+  },
+  "Kadi APMC": {
+    "mandiId": "gj-mehsana-kadi-apmc",
+    "stateId": "GJ"
+  },
+  "Barisadri APMC": {
+    "mandiId": "rj-chittorgarh-barisadri-apmc",
+    "stateId": "RJ"
+  },
+  "Mauda APMC": {
+    "mandiId": "mh-nagpur-mauda-apmc",
+    "stateId": "MH"
+  },
+  "Tarapur APMC": {
+    "mandiId": "gj-anand-tarapur-apmc",
+    "stateId": "GJ"
+  },
+  "Vadaseri APMC": {
+    "mandiId": "tn-nagercoil-kannyiakumari-vadaseri-apmc",
+    "stateId": "TN"
+  },
+  "Bhawani Mandi APMC": {
+    "mandiId": "rj-jhalawar-bhawani-mandi-apmc",
+    "stateId": "RJ"
+  },
+  "Chhibramau APMC": {
+    "mandiId": "up-kannuj-chhibramau-apmc",
+    "stateId": "UP"
+  },
+  "Jamnagar APMC": {
+    "mandiId": "gj-jamnagar-jamnagar-apmc",
+    "stateId": "GJ"
+  },
+  "Kottayam APMC": {
+    "mandiId": "kl-kottayam-kottayam-apmc",
+    "stateId": "KL"
+  },
+  "Kalvan APMC": {
+    "mandiId": "mh-nashik-kalvan-apmc",
+    "stateId": "MH"
+  },
+  "Vyra APMC": {
+    "mandiId": "gj-surat-vyra-apmc",
+    "stateId": "GJ"
+  },
+  "Choumahla APMC": {
+    "mandiId": "rj-jhalawar-choumahla-apmc",
+    "stateId": "RJ"
+  },
+  "Dehgam(Rekhiyal) APMC": {
+    "mandiId": "gj-gandhinagar-dehgamrekhiyal-apmc",
+    "stateId": "GJ"
+  },
+  "Sikanderabad APMC": {
+    "mandiId": "up-bulandshahar-sikanderabad-apmc",
+    "stateId": "UP"
+  },
+  "Gondiya APMC": {
+    "mandiId": "mh-gondiya-gondiya-apmc",
+    "stateId": "MH"
+  },
+  "Matar APMC": {
+    "mandiId": "gj-kheda-matar-apmc",
+    "stateId": "GJ"
+  },
+  "Tasgaon APMC": {
+    "mandiId": "mh-sangli-tasgaon-apmc",
+    "stateId": "MH"
+  },
+  "Dag APMC": {
+    "mandiId": "rj-jhalawar-dag-apmc",
+    "stateId": "RJ"
+  },
+  "Jaitsar APMC": {
+    "mandiId": "rj-anupgarh-jaitsar-apmc",
+    "stateId": "RJ"
+  },
+  "Mandawar APMC": {
+    "mandiId": "rj-dausa-mandawar-apmc",
+    "stateId": "RJ"
+  },
+  "Suryapeta APMC": {
+    "mandiId": "tg-nalgonda-suryapeta-apmc",
+    "stateId": "TG"
+  },
+  "Tiruttani APMC": {
+    "mandiId": "tn-kancheepuram-tiruttani-apmc",
+    "stateId": "TN"
+  },
+  "Nampur APMC": {
+    "mandiId": "mh-nashik-nampur-apmc",
+    "stateId": "MH"
+  },
+  "Thirukkalukundram APMC": {
+    "mandiId": "tn-kancheepuram-thirukkalukundram-apmc",
+    "stateId": "TN"
+  },
+  "Devariya APMC": {
+    "mandiId": "up-deoria-devariya-apmc",
+    "stateId": "UP"
+  },
+  "Kanchipuram APMC": {
+    "mandiId": "tn-kancheepuram-kanchipuram-apmc",
+    "stateId": "TN"
+  },
+  "Khliehriat APMC": {
+    "mandiId": "ml-east-jaintia-hills-khliehriat-apmc",
+    "stateId": "ML"
+  },
+  "Khandar APMC": {
+    "mandiId": "rj-swai-madhopur-khandar-apmc",
+    "stateId": "RJ"
+  },
+  "Banapura APMC": {
+    "mandiId": "mp-hoshangabad-banapura-apmc",
+    "stateId": "MP"
+  },
+  "Shahaswan APMC": {
+    "mandiId": "up-badaun-shahaswan-apmc",
+    "stateId": "UP"
+  },
+  "Meerut APMC": {
+    "mandiId": "up-meerut-meerut-apmc",
+    "stateId": "UP"
+  },
+  "Malpura APMC": {
+    "mandiId": "rj-tonk-malpura-apmc",
+    "stateId": "RJ"
+  },
+  "Karmala APMC": {
+    "mandiId": "mh-sholapur-karmala-apmc",
+    "stateId": "MH"
+  },
+  "Golagokarnath APMC": {
+    "mandiId": "up-lakhimpur-golagokarnath-apmc",
+    "stateId": "UP"
+  },
+  "Sira APMC": {
+    "mandiId": "ka-tumkur-sira-apmc",
+    "stateId": "KA"
+  },
+  "Karanjia APMC": {
+    "mandiId": "or-mayurbhanja-karanjia-apmc",
+    "stateId": "OR"
+  },
+  "Tumsar APMC": {
+    "mandiId": "mh-bhandara-tumsar-apmc",
+    "stateId": "MH"
+  },
+  "Lalgarh Jatan - Sri Ganganagar Grain APMC": {
+    "mandiId": "rj-ganganagar-lalgarh-jatan-sri-ganganagar-grain-apmc",
+    "stateId": "RJ"
+  },
+  "Ranaghat APMC": {
+    "mandiId": "wb-nadia-ranaghat-apmc",
+    "stateId": "WB"
+  },
+  "Karjat APMC": {
+    "mandiId": "mh-ahmednagar-karjat-apmc",
+    "stateId": "MH"
+  },
+  "Veppur APMC": {
+    "mandiId": "tn-cuddalore-veppur-apmc",
+    "stateId": "TN"
+  },
+  "Ramkrishanpur(Howrah) APMC": {
+    "mandiId": "wb-howrah-ramkrishanpurhowrah-apmc",
+    "stateId": "WB"
+  },
+  "Ahwa-Dang APMC": {
+    "mandiId": "gj-the-dangs-ahwa-dang-apmc",
+    "stateId": "GJ"
+  },
+  "Kasargod APMC": {
+    "mandiId": "kl-kasargod-kasargod-apmc",
+    "stateId": "KL"
+  },
+  "Shahjahanpur APMC": {
+    "mandiId": "up-shahjahanpur-shahjahanpur-apmc",
+    "stateId": "UP"
+  },
+  "Chikkamagalore APMC": {
+    "mandiId": "ka-chikmagalur-chikkamagalore-apmc",
+    "stateId": "KA"
+  },
+  "Noida APMC": {
+    "mandiId": "up-ghaziabad-noida-apmc",
+    "stateId": "UP"
+  },
+  "Hingoli APMC": {
+    "mandiId": "mh-hingoli-hingoli-apmc",
+    "stateId": "MH"
+  },
+  "Kaij APMC": {
+    "mandiId": "mh-beed-kaij-apmc",
+    "stateId": "MH"
+  },
+  "Lalganj APMC": {
+    "mandiId": "up-raebarelli-lalganj-apmc",
+    "stateId": "UP"
+  },
+  "Hansi APMC": {
+    "mandiId": "hr-hissar-hansi-apmc",
+    "stateId": "HR"
+  },
+  "Degana APMC": {
+    "mandiId": "rj-nagaur-degana-apmc",
+    "stateId": "RJ"
+  },
+  "Bhehjoi APMC": {
+    "mandiId": "up-sambhal-bhehjoi-apmc",
+    "stateId": "UP"
+  },
+  "Dei APMC": {
+    "mandiId": "rj-bundi-dei-apmc",
+    "stateId": "RJ"
+  },
+  "Orai APMC": {
+    "mandiId": "up-jalaun-orai-orai-apmc",
+    "stateId": "UP"
+  },
+  "Ammoor APMC": {
+    "mandiId": "tn-vellore-ammoor-apmc",
+    "stateId": "TN"
+  },
+  "Zalod(Sanjeli) APMC": {
+    "mandiId": "gj-dahod-zalodsanjeli-apmc",
+    "stateId": "GJ"
+  },
+  "Gopalpatti APMC": {
+    "mandiId": "tn-dindigul-gopalpatti-apmc",
+    "stateId": "TN"
+  },
+  "Sehjanwa APMC": {
+    "mandiId": "up-gorakhpur-sehjanwa-apmc",
+    "stateId": "UP"
+  },
+  "Palladam APMC": {
+    "mandiId": "tn-coimbatore-palladam-apmc",
+    "stateId": "TN"
+  },
+  "Wazirganj APMC": {
+    "mandiId": "up-badaun-wazirganj-apmc",
+    "stateId": "UP"
+  },
+  "Mugrabaadshahpur APMC": {
+    "mandiId": "up-jaunpur-mugrabaadshahpur-apmc",
+    "stateId": "UP"
+  },
+  "Kille Dharur APMC": {
+    "mandiId": "mh-beed-kille-dharur-apmc",
+    "stateId": "MH"
+  },
+  "Gharsana APMC": {
+    "mandiId": "rj-anupgarh-gharsana-apmc",
+    "stateId": "RJ"
+  },
+  "Yeola APMC": {
+    "mandiId": "mh-nashik-yeola-apmc",
+    "stateId": "MH"
+  },
+  "Goregaon APMC": {
+    "mandiId": "mh-gondiya-goregaon-apmc",
+    "stateId": "MH"
+  },
+  "Desur APMC": {
+    "mandiId": "tn-thiruvannamalai-desur-apmc",
+    "stateId": "TN"
+  },
+  "Cuddalore APMC": {
+    "mandiId": "tn-cuddalore-cuddalore-apmc",
+    "stateId": "TN"
+  },
+  "Kurnool APMC": {
+    "mandiId": "ap-kurnool-kurnool-apmc",
+    "stateId": "AP"
+  },
+  "Dehgam APMC": {
+    "mandiId": "gj-gandhinagar-dehgam-apmc",
+    "stateId": "GJ"
+  },
+  "Jhansi APMC": {
+    "mandiId": "up-jhansi-jhansi-apmc",
+    "stateId": "UP"
+  },
+  "Polur(Thiruvannamalai) APMC": {
+    "mandiId": "tn-thiruvannamalai-polurthiruvannamalai-apmc",
+    "stateId": "TN"
+  },
+  "Tanakpur APMC": {
+    "mandiId": "ut-champawat-tanakpur-apmc",
+    "stateId": "UT"
+  },
+  "Vaniyambadi APMC": {
+    "mandiId": "tn-vellore-vaniyambadi-apmc",
+    "stateId": "TN"
+  },
+  "Udala APMC": {
+    "mandiId": "or-mayurbhanja-udala-apmc",
+    "stateId": "OR"
+  },
+  "Bantwala APMC": {
+    "mandiId": "ka-mangaloredakshin-kannad-bantwala-apmc",
+    "stateId": "KA"
+  },
+  "Patan APMC": {
+    "mandiId": "ct-durg-patan-apmc",
+    "stateId": "CT"
+  },
+  "Vedaranyam APMC": {
+    "mandiId": "tn-nagapattinam-vedaranyam-apmc",
+    "stateId": "TN"
+  },
+  "Roha APMC": {
+    "mandiId": "mh-raigad-roha-apmc",
+    "stateId": "MH"
+  },
+  "Edappadi APMC": {
+    "mandiId": "tn-salem-edappadi-apmc",
+    "stateId": "TN"
+  },
+  "Nagapattinam APMC": {
+    "mandiId": "tn-nagapattinam-nagapattinam-apmc",
+    "stateId": "TN"
+  },
+  "Deesa APMC": {
+    "mandiId": "gj-banaskanth-deesa-apmc",
+    "stateId": "GJ"
+  },
+  "Murtizapur APMC": {
+    "mandiId": "mh-akola-murtizapur-apmc",
+    "stateId": "MH"
+  },
+  "Jasra APMC": {
+    "mandiId": "up-prayagraj-jasra-apmc",
+    "stateId": "UP"
+  },
+  "Delhi": {
+    "mandiId": "rj-bharatpur-bharatpur-apmc",
+    "stateId": "RJ"
+  },
+  "Gummidipoondy APMC": {
+    "mandiId": "tn-kancheepuram-gummidipoondy-apmc",
+    "stateId": "TN"
+  },
+  "Ujhani APMC": {
+    "mandiId": "up-badaun-ujhani-apmc",
+    "stateId": "UP"
+  },
+  "Jewar APMC": {
+    "mandiId": "mp-guna-kumbhraj-apmc",
+    "stateId": "MP"
+  },
+  "Tiruchengode APMC": {
+    "mandiId": "tn-namakkal-tiruchengode-apmc",
+    "stateId": "TN"
+  },
+  "Jhalarapatan APMC": {
+    "mandiId": "rj-jhalawar-jhalarapatan-apmc",
+    "stateId": "RJ"
+  },
+  "Loha APMC": {
+    "mandiId": "mh-nanded-loha-apmc",
+    "stateId": "MH"
+  },
+  "Paranda APMC": {
+    "mandiId": "mh-dharashivusmanabad-paranda-apmc",
+    "stateId": "MH"
+  },
+  "Ganj Dundwara APMC": {
+    "mandiId": "kl-kasargod-neeleswaram-apmc",
+    "stateId": "KL"
+  },
+  "Mahad APMC": {
+    "mandiId": "mh-raigad-mahad-apmc",
+    "stateId": "MH"
+  },
+  "Amgaon APMC": {
+    "mandiId": "mh-gondiya-amgaon-apmc",
+    "stateId": "MH"
+  },
+  "Dholpur APMC": {
+    "mandiId": "rj-dholpur-dholpur-apmc",
+    "stateId": "RJ"
+  },
+  "Uthukottai APMC": {
+    "mandiId": "tn-kancheepuram-uthukottai-apmc",
+    "stateId": "TN"
+  },
+  "Basti APMC": {
+    "mandiId": "up-basti-basti-apmc",
+    "stateId": "UP"
+  },
+  "Sehora APMC": {
+    "mandiId": "mp-jabalpur-sehora-apmc",
+    "stateId": "MP"
+  },
+  "Lalitpur APMC": {
+    "mandiId": "up-lalitpur-lalitpur-apmc",
+    "stateId": "UP"
+  },
+  "Rajapalayam APMC": {
+    "mandiId": "tn-virudhunagar-rajapalayam-apmc",
+    "stateId": "TN"
+  },
+  "Dasda APMC": {
+    "mandiId": "tr-north-tripura-dasda-apmc",
+    "stateId": "TR"
+  },
+  "Kuttulam APMC": {
+    "mandiId": "tn-nagapattinam-kuttulam-apmc",
+    "stateId": "TN"
+  },
+  "Pathari APMC": {
+    "mandiId": "mh-parbhani-pathari-apmc",
+    "stateId": "MH"
+  },
+  "Deesa(Bhildi) APMC": {
+    "mandiId": "gj-banaskanth-deesabhildi-apmc",
+    "stateId": "GJ"
+  },
+  "Sangarapuram APMC": {
+    "mandiId": "tn-villupuram-sangarapuram-apmc",
+    "stateId": "TN"
+  },
+  "Deoli APMC": {
+    "mandiId": "rj-tonk-deoli-apmc",
+    "stateId": "RJ"
+  },
+  "Dholka APMC": {
+    "mandiId": "gj-ahmedabad-dholka-apmc",
+    "stateId": "GJ"
+  },
+  "Choubepur APMC": {
+    "mandiId": "up-kanpur-choubepur-apmc",
+    "stateId": "UP"
+  },
+  "Muradabad APMC": {
+    "mandiId": "up-sambhal-muradabad-apmc",
+    "stateId": "UP"
+  },
+  "Uchhal APMC": {
+    "mandiId": "gj-surat-uchhal-apmc",
+    "stateId": "GJ"
+  },
+  "Hissar APMC": {
+    "mandiId": "hr-hissar-hissar-apmc",
+    "stateId": "HR"
+  },
+  "Bhadara APMC": {
+    "mandiId": "rj-hanumangarh-bhadara-apmc",
+    "stateId": "RJ"
+  },
+  "Seoni APMC": {
+    "mandiId": "mp-seoni-seoni-apmc",
+    "stateId": "MP"
+  },
+  "Hassan APMC": {
+    "mandiId": "ka-hassan-hassan-apmc",
+    "stateId": "KA"
+  },
+  "Tanda Akbarpur APMC": {
+    "mandiId": "up-ambedkarnagar-akbarpur-apmc",
+    "stateId": "UP"
+  },
+  "Dhadgaon APMC": {
+    "mandiId": "mh-nandurbar-dhadgaon-apmc",
+    "stateId": "MH"
+  },
+  "Auraiya APMC": {
+    "mandiId": "up-auraiya-auraiya-apmc",
+    "stateId": "UP"
+  },
+  "Sanad APMC": {
+    "mandiId": "gj-ahmedabad-sanad-apmc",
+    "stateId": "GJ"
+  },
+  "Kinathukadavu APMC": {
+    "mandiId": "tn-coimbatore-kinathukadavu-apmc",
+    "stateId": "TN"
+  },
+  "Ait APMC": {
+    "mandiId": "up-jalaun-orai-ait-apmc",
+    "stateId": "UP"
+  },
+  "Amreli APMC": {
+    "mandiId": "gj-amreli-amreli-apmc",
+    "stateId": "GJ"
+  },
+  "Bundi APMC": {
+    "mandiId": "rj-bundi-bundi-apmc",
+    "stateId": "RJ"
+  },
+  "Kurdwadi APMC": {
+    "mandiId": "mh-sholapur-kurdwadi-apmc",
+    "stateId": "MH"
+  },
+  "Obedullaganj APMC": {
+    "mandiId": "mp-raisen-obedullaganj-apmc",
+    "stateId": "MP"
+  },
+  "Talod APMC": {
+    "mandiId": "gj-sabarkantha-talod-apmc",
+    "stateId": "GJ"
+  },
+  "Fulmbri APMC": {
+    "mandiId": "mh-chattrapati-sambhajinagar-fulmbri-apmc",
+    "stateId": "MH"
+  },
+  "Hardoi APMC": {
+    "mandiId": "up-hardoi-hardoi-apmc",
+    "stateId": "UP"
+  },
+  "Atru APMC": {
+    "mandiId": "rj-baran-atru-apmc",
+    "stateId": "RJ"
+  },
+  "Hindoun APMC": {
+    "mandiId": "rj-karauli-hindoun-apmc",
+    "stateId": "RJ"
+  },
+  "Lakshar APMC": {
+    "mandiId": "ut-haridwar-lakshar-apmc",
+    "stateId": "UT"
+  },
+  "Kalugumalai APMC": {
+    "mandiId": "tn-tuticorin-kalugumalai-apmc",
+    "stateId": "TN"
+  },
+  "Dharangaon APMC": {
+    "mandiId": "mh-jalgaon-dharangaon-apmc",
+    "stateId": "MH"
+  },
+  "Hasanpur APMC": {
+    "mandiId": "up-amroha-hasanpur-apmc",
+    "stateId": "UP"
+  },
+  "Shivsiddha Govind Producer Company Limited Sanchal APMC": {
+    "mandiId": "mh-nashik-shivsiddha-govind-producer-company-limited-sanchal",
+    "stateId": "MH"
+  },
+  "Anupgarh APMC": {
+    "mandiId": "rj-anupgarh-anupgarh-apmc",
+    "stateId": "RJ"
+  },
+  "Jetpur(Dist.Rajkot) APMC": {
+    "mandiId": "gj-rajkot-jetpurdistrajkot-apmc",
+    "stateId": "GJ"
+  },
+  "Uniyara APMC": {
+    "mandiId": "rj-tonk-uniyara-apmc",
+    "stateId": "RJ"
+  },
+  "Arani APMC": {
+    "mandiId": "tn-thiruvannamalai-arani-apmc",
+    "stateId": "TN"
+  },
+  "Pune APMC": {
+    "mandiId": "mh-pune-pune-apmc",
+    "stateId": "MH"
+  },
+  "Chetpet APMC": {
+    "mandiId": "tn-thiruvannamalai-chetpet-apmc",
+    "stateId": "TN"
+  },
+  "Barshi(Vairag) APMC": {
+    "mandiId": "mh-sholapur-barshivairag-apmc",
+    "stateId": "MH"
+  },
+  "Partur APMC": {
+    "mandiId": "mh-jalana-partur-apmc",
+    "stateId": "MH"
+  },
+  "Konch APMC": {
+    "mandiId": "up-jalaun-orai-konch-apmc",
+    "stateId": "UP"
+  },
+  "Sitapur APMC": {
+    "mandiId": "up-sitapur-sitapur-apmc",
+    "stateId": "UP"
+  },
+  "Niwai APMC": {
+    "mandiId": "rj-tonk-niwai-apmc",
+    "stateId": "RJ"
+  },
+  "Sri Karanpur APMC": {
+    "mandiId": "rj-ganganagar-sri-karanpur-apmc",
+    "stateId": "RJ"
+  },
+  "Jalaun APMC": {
+    "mandiId": "up-jalaun-orai-jalaun-apmc",
+    "stateId": "UP"
+  },
+  "Barodamev APMC": {
+    "mandiId": "rj-alwar-barodamev-apmc",
+    "stateId": "RJ"
+  },
+  "Vaduj APMC": {
+    "mandiId": "mh-satara-vaduj-apmc",
+    "stateId": "MH"
+  },
+  "Chirgaon APMC": {
+    "mandiId": "up-jhansi-chirgaon-apmc",
+    "stateId": "UP"
+  },
+  "Diyodar APMC": {
+    "mandiId": "gj-banaskanth-diyodar-apmc",
+    "stateId": "GJ"
+  },
+  "Chandausi APMC": {
+    "mandiId": "up-sambhal-chandausi-apmc",
+    "stateId": "UP"
+  },
+  "Oddunchairum APMC": {
+    "mandiId": "tn-dindigul-oddunchairum-apmc",
+    "stateId": "TN"
+  },
+  "Fatehpur APMC": {
+    "mandiId": "up-fatehpur-fatehpur-apmc",
+    "stateId": "UP"
+  },
+  "Thenkasi APMC": {
+    "mandiId": "tn-thirunelveli-thenkasi-apmc",
+    "stateId": "TN"
+  },
+  "Atrauli APMC": {
+    "mandiId": "up-aligarh-atrauli-apmc",
+    "stateId": "UP"
+  },
+  "Alangulam APMC": {
+    "mandiId": "tn-tenkasi-alangulam-apmc",
+    "stateId": "TN"
+  },
+  "Mumbai APMC": {
+    "mandiId": "mh-mumbai-mumbai-apmc",
+    "stateId": "MH"
+  },
+  "Tiroda APMC": {
+    "mandiId": "mh-gondiya-tiroda-apmc",
+    "stateId": "MH"
+  },
+  "Datia APMC": {
+    "mandiId": "mp-datia-datia-apmc",
+    "stateId": "MP"
+  },
+  "Nagbhid APMC": {
+    "mandiId": "mh-chandrapur-nagbhid-apmc",
+    "stateId": "MH"
+  },
+  "Mohammdi APMC": {
+    "mandiId": "up-khiri-lakhimpur-mohammdi-apmc",
+    "stateId": "UP"
+  },
+  "Charra APMC": {
+    "mandiId": "up-aligarh-charra-apmc",
+    "stateId": "UP"
+  },
+  "Chhabra APMC": {
+    "mandiId": "rj-baran-chhabra-apmc",
+    "stateId": "RJ"
+  },
+  "Panruti APMC": {
+    "mandiId": "tn-cuddalore-panruti-apmc",
+    "stateId": "TN"
+  },
+  "Trichy APMC": {
+    "mandiId": "tn-thiruchirappalli-trichy-apmc",
+    "stateId": "TN"
+  },
+  "Mihipurwa APMC": {
+    "mandiId": "rj-dausa-mahuwa-apmc",
+    "stateId": "RJ"
+  },
+  "Botad APMC": {
+    "mandiId": "gj-botad-botad-apmc",
+    "stateId": "GJ"
+  },
+  "Akluj APMC": {
+    "mandiId": "mh-sholapur-akluj-apmc",
+    "stateId": "MH"
+  },
+  "Kumbakonam APMC": {
+    "mandiId": "tn-thanjavur-kumbakonam-apmc",
+    "stateId": "TN"
+  },
+  "Vadali APMC": {
+    "mandiId": "gj-sabarkantha-vadali-apmc",
+    "stateId": "GJ"
+  },
+  "Kallakurichi APMC": {
+    "mandiId": "tn-villupuram-kallakurichi-apmc",
+    "stateId": "TN"
+  },
+  "Osiyan Mathania APMC": {
+    "mandiId": "rj-jodhpur-rural-osiyan-mathania-apmc",
+    "stateId": "RJ"
+  },
+  "Deoulgaon Raja APMC": {
+    "mandiId": "mh-buldhana-deoulgaon-raja-apmc",
+    "stateId": "MH"
+  },
+  "Akola APMC": {
+    "mandiId": "mh-akola-akola-apmc",
+    "stateId": "MH"
+  },
+  "Kulithalai APMC": {
+    "mandiId": "tn-karur-kulithalai-apmc",
+    "stateId": "TN"
+  },
+  "Lasalgaon(Niphad) APMC": {
+    "mandiId": "mh-nashik-lasalgaonniphad-apmc",
+    "stateId": "MH"
+  },
+  "Madathukulam APMC": {
+    "mandiId": "tn-coimbatore-madathukulam-apmc",
+    "stateId": "TN"
+  },
+  "Sujangarh APMC": {
+    "mandiId": "rj-churu-sujangarh-apmc",
+    "stateId": "RJ"
+  },
+  "Pandavapura APMC": {
+    "mandiId": "ka-mandya-pandavapura-apmc",
+    "stateId": "KA"
+  },
+  "Panchpedwa APMC": {
+    "mandiId": "up-balrampur-panchpedwa-apmc",
+    "stateId": "UP"
+  },
+  "Barshi APMC": {
+    "mandiId": "mh-sholapur-barshi-apmc",
+    "stateId": "MH"
+  },
+  "Ramganjmandi APMC": {
+    "mandiId": "rj-kota-ramganjmandi-apmc",
+    "stateId": "RJ"
+  },
+  "Pilibanga APMC": {
+    "mandiId": "rj-hanumangarh-pilibanga-apmc",
+    "stateId": "RJ"
+  },
+  "Bahraich APMC": {
+    "mandiId": "up-bahraich-bahraich-apmc",
+    "stateId": "UP"
+  },
+  "Silachhari APMC": {
+    "mandiId": "tr-gomati-silachhari-apmc",
+    "stateId": "TR"
+  },
+  "Chattrapati Sambhajinagar APMC": {
+    "mandiId": "mh-chattrapati-sambhajinagar-chattrapati-sambhajinagar-apmc",
+    "stateId": "MH"
+  },
+  "Beawar APMC": {
+    "mandiId": "rj-beawar-beawar-apmc",
+    "stateId": "RJ"
+  },
+  "Gandchiroli APMC": {
+    "mandiId": "mh-gadchiroli-gandchiroli-apmc",
+    "stateId": "MH"
+  },
+  "Madagadipet APMC": {
+    "mandiId": "py-pondicherry-madagadipet-apmc",
+    "stateId": "PY"
+  },
+  "Kothagiri APMC": {
+    "mandiId": "tn-the-nilgiris-kothagiri-apmc",
+    "stateId": "TN"
+  },
+  "Tuljapur APMC": {
+    "mandiId": "mh-dharashivusmanabad-tuljapur-apmc",
+    "stateId": "MH"
+  },
+  "Jalalabad APMC": {
+    "mandiId": "up-shahjahanpur-jalalabad-apmc",
+    "stateId": "UP"
+  },
+  "Jam Jodhpur APMC": {
+    "mandiId": "gj-jamnagar-jam-jodhpur-apmc",
+    "stateId": "GJ"
+  },
+  "Amarawati APMC": {
+    "mandiId": "mh-amarawati-amarawati-apmc",
+    "stateId": "MH"
+  },
+  "Nanuta APMC": {
+    "mandiId": "tg-siddipet-nangunoor-apmc",
+    "stateId": "TG"
+  },
+  "Khairthal APMC": {
+    "mandiId": "rj-khairthal-tijara-khairthal-apmc",
+    "stateId": "RJ"
+  },
+  "Deeg APMC": {
+    "mandiId": "rj-deeg-deeg-apmc",
+    "stateId": "RJ"
+  },
+  "Tarikere APMC": {
+    "mandiId": "ka-chikmagalur-tarikere-apmc",
+    "stateId": "KA"
+  },
+  "Pavani APMC": {
+    "mandiId": "mh-bhandara-pavani-apmc",
+    "stateId": "MH"
+  },
+  "Porbandar APMC": {
+    "mandiId": "gj-porbandar-porbandar-apmc",
+    "stateId": "GJ"
+  },
+  "Khanpur APMC": {
+    "mandiId": "gj-panchmahals-khanpur-apmc",
+    "stateId": "GJ"
+  },
+  "Sindi(Selu) APMC": {
+    "mandiId": "mh-wardha-sindiselu-apmc",
+    "stateId": "MH"
+  },
+  "Kasganj APMC": {
+    "mandiId": "up-kasganj-kasganj-apmc",
+    "stateId": "UP"
+  },
+  "Rahuri(Vambori) APMC": {
+    "mandiId": "mh-ahmednagar-rahurivambori-apmc",
+    "stateId": "MH"
+  },
+  "Dhrol APMC": {
+    "mandiId": "gj-jamnagar-dhrol-apmc",
+    "stateId": "GJ"
+  },
+  "Agra APMC": {
+    "mandiId": "up-agra-agra-apmc",
+    "stateId": "UP"
+  },
+  "Ayodhya APMC": {
+    "mandiId": "up-ayodhya-ayodhya-apmc",
+    "stateId": "UP"
+  },
+  "Indore APMC": {
+    "mandiId": "mp-indore-indore-apmc",
+    "stateId": "MP"
+  },
+  "Raniwara APMC": {
+    "mandiId": "rj-sanchore-raniwara-apmc",
+    "stateId": "RJ"
+  },
+  "Rampurhat APMC": {
+    "mandiId": "wb-birbhum-rampurhat-apmc",
+    "stateId": "WB"
+  },
+  "Nanded APMC": {
+    "mandiId": "mh-nanded-nanded-apmc",
+    "stateId": "MH"
+  },
+  "Jahanabad APMC": {
+    "mandiId": "up-fatehpur-jahanabad-apmc",
+    "stateId": "UP"
+  },
+  "Dhamngaon-Railway APMC": {
+    "mandiId": "mh-amarawati-dhamngaon-railway-apmc",
+    "stateId": "MH"
+  },
+  "Manachanallur APMC": {
+    "mandiId": "tn-thiruchirappalli-manachanallur-apmc",
+    "stateId": "TN"
+  },
+  "Powayan APMC": {
+    "mandiId": "up-shahjahanpur-powayan-apmc",
+    "stateId": "UP"
+  },
+  "Madhoganj APMC": {
+    "mandiId": "up-hardoi-madhoganj-apmc",
+    "stateId": "UP"
+  },
+  "Balarampur APMC": {
+    "mandiId": "wb-puruliya-balarampur-apmc",
+    "stateId": "WB"
+  },
+  "Lakhani APMC": {
+    "mandiId": "mh-bhandara-lakhani-apmc",
+    "stateId": "MH"
+  },
+  "Kherli APMC": {
+    "mandiId": "rj-alwar-kherli-apmc",
+    "stateId": "RJ"
+  },
+  "Murud APMC": {
+    "mandiId": "mh-raigad-murud-apmc",
+    "stateId": "MH"
+  },
+  "Najafgarh APMC": {
+    "mandiId": "dl-delhi-najafgarh-apmc",
+    "stateId": "DL"
+  },
+  "Ponner APMC": {
+    "mandiId": "tn-kancheepuram-ponner-apmc",
+    "stateId": "TN"
+  },
+  "Thoothukudi APMC": {
+    "mandiId": "tn-tuticorin-thoothukudi-apmc",
+    "stateId": "TN"
+  },
+  "Phalodi APMC": {
+    "mandiId": "rj-phalodi-phalodi-apmc",
+    "stateId": "RJ"
+  },
+  "Babrala APMC": {
+    "mandiId": "up-badaun-babrala-apmc",
+    "stateId": "UP"
+  },
+  "Khambhat(Grain Market) APMC": {
+    "mandiId": "gj-anand-khambhatgrain-market-apmc",
+    "stateId": "GJ"
+  },
+  "Sumerganj APMC": {
+    "mandiId": "rj-bundi-sumerganj-apmc",
+    "stateId": "RJ"
+  },
+  "Mandla APMC": {
+    "mandiId": "mp-mandla-mandla-apmc",
+    "stateId": "MP"
+  },
+  "Shrirampur APMC": {
+    "mandiId": "mh-ahmednagar-shrirampur-apmc",
+    "stateId": "MH"
+  },
+  "Lamlong Bazaar APMC": {
+    "mandiId": "mn-imphal-east-lamlong-bazaar-apmc",
+    "stateId": "MN"
+  },
+  "Vellore APMC": {
+    "mandiId": "tn-vellore-vellore-apmc",
+    "stateId": "TN"
+  },
+  "Raath APMC": {
+    "mandiId": "up-hamirpur-raath-apmc",
+    "stateId": "UP"
+  },
+  "Bharuasumerpur APMC": {
+    "mandiId": "up-hamirpur-bharuasumerpur-apmc",
+    "stateId": "UP"
+  },
+  "Chalisgaon APMC": {
+    "mandiId": "mh-jalgaon-chalisgaon-apmc",
+    "stateId": "MH"
+  },
+  "Gangapur APMC": {
+    "mandiId": "rj-bhilwara-gangapur-apmc",
+    "stateId": "RJ"
+  },
+  "Bhandara APMC": {
+    "mandiId": "mh-bhandara-bhandara-apmc",
+    "stateId": "MH"
+  },
+  "Dindigul APMC": {
+    "mandiId": "tn-dindigul-dindigul-apmc",
+    "stateId": "TN"
+  },
+  "Nandgaon APMC": {
+    "mandiId": "mh-nashik-nandgaon-apmc",
+    "stateId": "MH"
+  },
+  "Todaraisingh - Malpura APMC": {
+    "mandiId": "rj-tonk-todaraisingh-malpura-apmc",
+    "stateId": "RJ"
+  },
+  "Bharwari APMC": {
+    "mandiId": "up-kaushambi-bharwari-apmc",
+    "stateId": "UP"
+  },
+  "Anta APMC": {
+    "mandiId": "rj-baran-anta-apmc",
+    "stateId": "RJ"
+  },
+  "Meghraj(Radlavada) APMC": {
+    "mandiId": "gj-sabarkantha-meghrajradlavada-apmc",
+    "stateId": "GJ"
+  },
+  "Farukh Nagar APMC": {
+    "mandiId": "hr-gurgaon-farukh-nagar-apmc",
+    "stateId": "HR"
+  },
+  "Shohratgarh APMC": {
+    "mandiId": "ct-raigarh-raigarh-apmc",
+    "stateId": "CT"
+  },
+  "Devala APMC": {
+    "mandiId": "mh-nashik-devala-apmc",
+    "stateId": "MH"
+  },
+  "Shevgaon APMC": {
+    "mandiId": "mh-ahmednagar-shevgaon-apmc",
+    "stateId": "MH"
+  },
+  "Mainpuri APMC": {
+    "mandiId": "up-mainpuri-mainpuri-apmc",
+    "stateId": "UP"
+  },
+  "Khamgaon APMC": {
+    "mandiId": "mh-buldhana-khamgaon-apmc",
+    "stateId": "MH"
+  },
+  "Ramanathapuram APMC": {
+    "mandiId": "tn-ramanathapuram-ramanathapuram-apmc",
+    "stateId": "TN"
+  },
+  "Birbhum APMC": {
+    "mandiId": "wb-birbhum-birbhum-apmc",
+    "stateId": "WB"
+  },
+  "Bagasara APMC": {
+    "mandiId": "gj-amreli-bagasara-apmc",
+    "stateId": "GJ"
+  },
+  "Etah APMC": {
+    "mandiId": "up-etah-etah-apmc",
+    "stateId": "UP"
+  },
+  "Sadulshahar APMC": {
+    "mandiId": "rj-ganganagar-sadulshahar-apmc",
+    "stateId": "RJ"
+  },
+  "Nasvadi APMC": {
+    "mandiId": "gj-vadodarabaroda-nasvadi-apmc",
+    "stateId": "GJ"
+  },
+  "Shegaon APMC": {
+    "mandiId": "mh-buldhana-shegaon-apmc",
+    "stateId": "MH"
+  },
+  "Thara APMC": {
+    "mandiId": "gj-banaskanth-thara-apmc",
+    "stateId": "GJ"
+  },
+  "Ambasamudram APMC": {
+    "mandiId": "tn-thirunelveli-ambasamudram-apmc",
+    "stateId": "TN"
+  },
+  "Ulundurpettai APMC": {
+    "mandiId": "tn-villupuram-ulundurpettai-apmc",
+    "stateId": "TN"
+  },
+  "Bijaynagar APMC": {
+    "mandiId": "rj-beawar-bijaynagar-apmc",
+    "stateId": "RJ"
+  },
+  "Solapur APMC": {
+    "mandiId": "mh-sholapur-solapur-apmc",
+    "stateId": "MH"
+  },
+  "Dhule APMC": {
+    "mandiId": "mh-dhule-dhule-apmc",
+    "stateId": "MH"
+  },
+  "Godhra(Timbaroad) APMC": {
+    "mandiId": "gj-panchmahals-godhratimbaroad-apmc",
+    "stateId": "GJ"
+  },
+  "Avalurpet APMC": {
+    "mandiId": "tn-villupuram-avalurpet-apmc",
+    "stateId": "TN"
+  },
+  "Badarwas APMC": {
+    "mandiId": "mp-shivpuri-badarwas-apmc",
+    "stateId": "MP"
+  },
+  "Lasalgaon APMC": {
+    "mandiId": "mh-nashik-lasalgaon-apmc",
+    "stateId": "MH"
+  },
+  "Wardha APMC": {
+    "mandiId": "mh-wardha-wardha-apmc",
+    "stateId": "MH"
+  },
+  "Nandyal APMC": {
+    "mandiId": "ap-kurnool-nandyal-apmc",
+    "stateId": "AP"
+  },
+  "Palani APMC": {
+    "mandiId": "tn-dindigul-palani-apmc",
+    "stateId": "TN"
+  },
+  "Kolhapur(Laxmipuri) APMC": {
+    "mandiId": "mh-kolhapur-kolhapurlaxmipuri-apmc",
+    "stateId": "MH"
+  },
+  "Palus APMC": {
+    "mandiId": "mh-sangli-palus-apmc",
+    "stateId": "MH"
+  },
+  "Jangipura APMC": {
+    "mandiId": "up-ghazipur-jangipura-apmc",
+    "stateId": "UP"
+  },
+  "Khalilabad APMC": {
+    "mandiId": "up-sant-kabir-nagar-khalilabad-apmc",
+    "stateId": "UP"
+  },
+  "Gajol APMC": {
+    "mandiId": "wb-malda-gajol-apmc",
+    "stateId": "WB"
+  },
+  "Bhokardan(Pimpalgaon Renu) APMC": {
+    "mandiId": "mh-jalana-bhokardanpimpalgaon-renu-apmc",
+    "stateId": "MH"
+  },
+  "Bhesan APMC": {
+    "mandiId": "gj-junagarh-bhesan-apmc",
+    "stateId": "GJ"
+  },
+  "Jagnair APMC": {
+    "mandiId": "up-agra-jagnair-apmc",
+    "stateId": "UP"
+  },
+  "Rahuri APMC": {
+    "mandiId": "mh-ahmednagar-rahuri-apmc",
+    "stateId": "MH"
+  },
+  "Chhindwara APMC": {
+    "mandiId": "mp-chhindwara-chhindwara-apmc",
+    "stateId": "MP"
+  },
+  "Babai APMC": {
+    "mandiId": "mp-hoshangabad-babai-apmc",
+    "stateId": "MP"
+  },
+  "Bhanvad APMC": {
+    "mandiId": "gj-devbhumi-dwarka-bhanvad-apmc",
+    "stateId": "GJ"
+  },
+  "Jhijhank APMC": {
+    "mandiId": "up-kanpur-dehat-jhijhank-apmc",
+    "stateId": "UP"
+  },
+  "Lasur Station APMC": {
+    "mandiId": "mh-chattrapati-sambhajinagar-lasur-station-apmc",
+    "stateId": "MH"
+  },
+  "Shirur APMC": {
+    "mandiId": "mh-pune-shirur-apmc",
+    "stateId": "MH"
+  },
+  "Dewas APMC": {
+    "mandiId": "mp-dewas-dewas-apmc",
+    "stateId": "MP"
+  },
+  "Bandikui APMC": {
+    "mandiId": "rj-dausa-bandikui-apmc",
+    "stateId": "RJ"
+  },
+  "Nahargarh APMC": {
+    "mandiId": "rj-baran-nahargarh-apmc",
+    "stateId": "RJ"
+  },
+  "Jalgaon(Masawat) APMC": {
+    "mandiId": "mh-jalgaon-jalgaonmasawat-apmc",
+    "stateId": "MH"
+  },
+  "Kayamganj APMC": {
+    "mandiId": "up-farukhabad-kayamganj-apmc",
+    "stateId": "UP"
+  },
+  "Morbi APMC": {
+    "mandiId": "gj-morbi-morbi-apmc",
+    "stateId": "GJ"
+  },
+  "Utraula APMC": {
+    "mandiId": "tn-krishnagiri-uthangarai-apmc",
+    "stateId": "TN"
+  },
+  "Dausa APMC": {
+    "mandiId": "rj-dausa-dausa-apmc",
+    "stateId": "RJ"
+  },
+  "Jayas APMC": {
+    "mandiId": "up-raebarelli-jayas-apmc",
+    "stateId": "UP"
+  },
+  "Kandhar APMC": {
+    "mandiId": "mh-nanded-kandhar-apmc",
+    "stateId": "MH"
+  },
+  "Lakhnadon APMC": {
+    "mandiId": "mp-seoni-lakhnadon-apmc",
+    "stateId": "MP"
+  },
+  "Dindori APMC": {
+    "mandiId": "mh-nashik-dindori-apmc",
+    "stateId": "MH"
+  },
+  "Nainpur APMC": {
+    "mandiId": "mp-mandla-nainpur-apmc",
+    "stateId": "MP"
+  },
+  "Maduranthagam APMC": {
+    "mandiId": "tn-kancheepuram-maduranthagam-apmc",
+    "stateId": "TN"
+  },
+  "Kekri APMC": {
+    "mandiId": "rj-kekri-kekri-apmc",
+    "stateId": "RJ"
+  },
+  "APMC HALVAD": {
+    "mandiId": "gj-morbi-apmc-halvad",
+    "stateId": "GJ"
+  },
+  "Kakching Market APMC": {
+    "mandiId": "mn-kakching-kakching-market-apmc",
+    "stateId": "MN"
+  },
+  "Khanina APMC": {
+    "mandiId": "hr-mahendragarh-narnaul-khanina-apmc",
+    "stateId": "HR"
+  },
+  "Rasipuram APMC": {
+    "mandiId": "tn-namakkal-rasipuram-apmc",
+    "stateId": "TN"
+  },
+  "Godhra Kakanpur APMC": {
+    "mandiId": "gj-panchmahals-godhra-kakanpur-apmc",
+    "stateId": "GJ"
+  },
+  "Brahmpuri APMC": {
+    "mandiId": "mh-chandrapur-brahmpuri-apmc",
+    "stateId": "MH"
+  },
+  "Palitana APMC": {
+    "mandiId": "gj-bhavnagar-palitana-apmc",
+    "stateId": "GJ"
+  },
+  "Mangal Wedha APMC": {
+    "mandiId": "mh-sholapur-mangal-wedha-apmc",
+    "stateId": "MH"
+  },
+  "Tundla APMC": {
+    "mandiId": "up-firozabad-tundla-apmc",
+    "stateId": "UP"
+  },
+  "Sangli APMC": {
+    "mandiId": "mh-sangli-sangli-apmc",
+    "stateId": "MH"
+  },
+  "Patoda APMC": {
+    "mandiId": "mh-beed-patoda-apmc",
+    "stateId": "MH"
+  },
+  "APMCKHEDBRAHMA": {
+    "mandiId": "gj-sabarkantha-apmckhedbrahma",
+    "stateId": "GJ"
+  },
+  "Karamadai APMC": {
+    "mandiId": "tn-coimbatore-karamadai-apmc",
+    "stateId": "TN"
+  },
+  "Begu APMC": {
+    "mandiId": "rj-chittorgarh-begu-apmc",
+    "stateId": "RJ"
+  },
+  "Kodinar APMC": {
+    "mandiId": "gj-gir-somnath-kodinar-apmc",
+    "stateId": "GJ"
+  },
+  "Chikali APMC": {
+    "mandiId": "mh-buldhana-chikali-apmc",
+    "stateId": "MH"
+  },
+  "Dhampur APMC": {
+    "mandiId": "tn-dharmapuri-dharampuri-apmc",
+    "stateId": "TN"
+  },
+  "Kama APMC": {
+    "mandiId": "rj-deeg-kama-apmc",
+    "stateId": "RJ"
+  },
+  "Betul APMC": {
+    "mandiId": "mp-betul-betul-apmc",
+    "stateId": "MP"
+  },
+  "Ateli APMC": {
+    "mandiId": "hr-mahendragarh-narnaul-ateli-apmc",
+    "stateId": "HR"
+  },
+  "Dataganj APMC": {
+    "mandiId": "up-badaun-dataganj-apmc",
+    "stateId": "UP"
+  },
+  "Ahmednagar APMC": {
+    "mandiId": "mh-ahmednagar-ahmednagar-apmc",
+    "stateId": "MH"
+  },
+  "Gunpur APMC": {
+    "mandiId": "or-rayagada-gunpur-apmc",
+    "stateId": "OR"
+  },
+  "Baramati APMC": {
+    "mandiId": "mh-pune-baramati-apmc",
+    "stateId": "MH"
+  },
+  "Ulhasnagar APMC": {
+    "mandiId": "mh-thane-ulhasnagar-apmc",
+    "stateId": "MH"
+  },
+  "Umariya APMC": {
+    "mandiId": "mp-umariya-umariya-apmc",
+    "stateId": "MP"
+  },
+  "Palari APMC": {
+    "mandiId": "mp-seoni-palari-apmc",
+    "stateId": "MP"
+  },
+  "Ghaziabad APMC": {
+    "mandiId": "up-ghaziabad-ghaziabad-apmc",
+    "stateId": "UP"
+  },
+  "Aliganj APMC": {
+    "mandiId": "up-etah-aliganj-apmc",
+    "stateId": "UP"
+  },
+  "Pukharayan APMC": {
+    "mandiId": "up-kanpur-dehat-pukharayan-apmc",
+    "stateId": "UP"
+  },
+  "Bindki APMC": {
+    "mandiId": "up-fatehpur-bindki-apmc",
+    "stateId": "UP"
+  },
+  "Laxmangarh - Barodamev  APMC": {
+    "mandiId": "rj-alwar-laxmangarh-barodamev-apmc",
+    "stateId": "RJ"
+  },
+  "Amalner APMC": {
+    "mandiId": "mh-jalgaon-amalner-apmc",
+    "stateId": "MH"
+  },
+  "Islam Nagar APMC": {
+    "mandiId": "up-badaun-islam-nagar-apmc",
+    "stateId": "UP"
+  },
+  "Majalgaon APMC": {
+    "mandiId": "mh-beed-majalgaon-apmc",
+    "stateId": "MH"
+  },
+  "Shrirampur(Belapur) APMC": {
+    "mandiId": "mh-ahmednagar-shrirampurbelapur-apmc",
+    "stateId": "MH"
+  },
+  "Kesarisinghpur APMC": {
+    "mandiId": "rj-ganganagar-kesarisinghpur-apmc",
+    "stateId": "RJ"
+  },
+  "Malkapur APMC": {
+    "mandiId": "mh-buldhana-malkapur-apmc",
+    "stateId": "MH"
+  },
+  "Andimadom APMC": {
+    "mandiId": "tn-ariyalur-andimadom-apmc",
+    "stateId": "TN"
+  },
+  "Yeotmal APMC": {
+    "mandiId": "mh-yavatmal-yeotmal-apmc",
+    "stateId": "MH"
+  },
+  "Pallipattu APMC": {
+    "mandiId": "tn-kancheepuram-pallipattu-apmc",
+    "stateId": "TN"
+  },
+  "Jalana APMC": {
+    "mandiId": "mh-jalana-jalana-apmc",
+    "stateId": "MH"
+  },
+  "Lonar APMC": {
+    "mandiId": "mh-buldhana-lonar-apmc",
+    "stateId": "MH"
+  },
+  "Tharad(Rah) APMC": {
+    "mandiId": "gj-banaskanth-tharadrah-apmc",
+    "stateId": "GJ"
+  },
+  "Kalapipal APMC": {
+    "mandiId": "mp-shajapur-kalapipal-apmc",
+    "stateId": "MP"
+  },
+  "Sonpeth APMC": {
+    "mandiId": "mh-parbhani-sonpeth-apmc",
+    "stateId": "MH"
+  },
+  "Murum APMC": {
+    "mandiId": "mh-dharashivusmanabad-murum-apmc",
+    "stateId": "MH"
+  },
+  "Dabra APMC": {
+    "mandiId": "mp-gwalior-dabra-apmc",
+    "stateId": "MP"
+  },
+  "Dahod APMC": {
+    "mandiId": "gj-dahod-dahod-apmc",
+    "stateId": "GJ"
+  },
+  "Mahuwa APMC": {
+    "mandiId": "rj-dausa-mahuwa-apmc",
+    "stateId": "RJ"
+  },
+  "Gadarpur APMC": {
+    "mandiId": "ut-udhamsinghnagar-gadarpur-apmc",
+    "stateId": "UT"
+  },
+  "Baheri APMC": {
+    "mandiId": "up-bareilly-baheri-apmc",
+    "stateId": "UP"
+  },
+  "Shahada APMC": {
+    "mandiId": "mh-nandurbar-shahada-apmc",
+    "stateId": "MH"
+  },
+  "Dondaicha APMC": {
+    "mandiId": "mh-dhule-dondaicha-apmc",
+    "stateId": "MH"
+  },
+  "Anajngaon APMC": {
+    "mandiId": "mh-amarawati-anajngaon-apmc",
+    "stateId": "MH"
+  },
+  "Visavadar APMC": {
+    "mandiId": "gj-junagarh-visavadar-apmc",
+    "stateId": "GJ"
+  },
+  "Lalsot APMC": {
+    "mandiId": "rj-dausa-lalsot-apmc",
+    "stateId": "RJ"
+  },
+  "Meghraj APMC": {
+    "mandiId": "gj-sabarkantha-meghraj-apmc",
+    "stateId": "GJ"
+  },
+  "Mehsana(Jornang) APMC": {
+    "mandiId": "gj-mehsana-mehsanajornang-apmc",
+    "stateId": "GJ"
+  },
+  "Unnao APMC": {
+    "mandiId": "up-unnao-unnao-apmc",
+    "stateId": "UP"
+  },
+  "Chomu (Grain) APMC": {
+    "mandiId": "rj-jaipur-rural-chomu-grain-apmc",
+    "stateId": "RJ"
+  },
+  "Magroni APMC": {
+    "mandiId": "mp-shivpuri-magroni-apmc",
+    "stateId": "MP"
+  },
+  "Nandgaon Khandeshwar APMC": {
+    "mandiId": "mh-amarawati-nandgaon-khandeshwar-apmc",
+    "stateId": "MH"
+  },
+  "Dhanera APMC": {
+    "mandiId": "gj-banaskanth-dhanera-apmc",
+    "stateId": "GJ"
+  },
+  "Taal APMC": {
+    "mandiId": "mp-ratlam-taal-apmc",
+    "stateId": "MP"
+  },
+  "Virudhunagar APMC": {
+    "mandiId": "tn-virudhunagar-virudhunagar-apmc",
+    "stateId": "TN"
+  },
+  "Purulia APMC": {
+    "mandiId": "wb-puruliya-purulia-apmc",
+    "stateId": "WB"
+  },
+  "Tirunelvali APMC": {
+    "mandiId": "tn-thirunelveli-tirunelvali-apmc",
+    "stateId": "TN"
+  },
+  "Sangamner APMC": {
+    "mandiId": "mh-ahmednagar-sangamner-apmc",
+    "stateId": "MH"
+  },
+  "Kasipur APMC": {
+    "mandiId": "wb-puruliya-kasipur-apmc",
+    "stateId": "WB"
+  },
+  "Bhilwara APMC": {
+    "mandiId": "rj-bhilwara-bhilwara-apmc",
+    "stateId": "RJ"
+  },
+  "Safdarganj APMC": {
+    "mandiId": "up-barabanki-safdarganj-apmc",
+    "stateId": "UP"
+  },
+  "Chandvad APMC": {
+    "mandiId": "mh-nashik-chandvad-apmc",
+    "stateId": "MH"
+  },
+  "Tumkur APMC": {
+    "mandiId": "ka-tumkur-tumkur-apmc",
+    "stateId": "KA"
+  },
+  "Dankaur APMC": {
+    "mandiId": "up-gautam-budh-nagar-dankaur-apmc",
+    "stateId": "UP"
+  },
+  "Lasalgaon(Vinchur) APMC": {
+    "mandiId": "mh-nashik-lasalgaonvinchur-apmc",
+    "stateId": "MH"
+  },
+  "Kannad APMC": {
+    "mandiId": "mh-chattrapati-sambhajinagar-kannad-apmc",
+    "stateId": "MH"
+  },
+  "Nimbahera APMC": {
+    "mandiId": "rj-chittorgarh-nimbahera-apmc",
+    "stateId": "RJ"
+  },
+  "Varud(Rajura Bazar) APMC": {
+    "mandiId": "mh-amarawati-varudrajura-bazar-apmc",
+    "stateId": "MH"
+  },
+  "Kovilpatti APMC": {
+    "mandiId": "tn-tuticorin-kovilpatti-apmc",
+    "stateId": "TN"
+  },
+  "Palghar APMC": {
+    "mandiId": "mh-thane-palghar-apmc",
+    "stateId": "MH"
+  },
+  "Sri Vijayanagar APMC": {
+    "mandiId": "rj-anupgarh-sri-vijayanagar-apmc",
+    "stateId": "RJ"
+  },
+  "Varud APMC": {
+    "mandiId": "mh-amarawati-varud-apmc",
+    "stateId": "MH"
+  },
+  "Barabanki APMC": {
+    "mandiId": "up-barabanki-barabanki-apmc",
+    "stateId": "UP"
+  },
+  "Haathras APMC": {
+    "mandiId": "up-hathras-haathras-apmc",
+    "stateId": "UP"
+  },
+  "Jaipur (Grain) APMC": {
+    "mandiId": "rj-jaipur-jaipur-grain-apmc",
+    "stateId": "RJ"
+  },
+  "Sembanarkoil APMC": {
+    "mandiId": "tn-nagapattinam-sembanarkoil-apmc",
+    "stateId": "TN"
+  },
+  "Kamlaganj APMC": {
+    "mandiId": "up-farukhabad-kamlaganj-apmc",
+    "stateId": "UP"
+  },
+  "Nagpur APMC": {
+    "mandiId": "mh-nagpur-nagpur-apmc",
+    "stateId": "MH"
+  },
+  "Anand APMC": {
+    "mandiId": "gj-anand-anand-apmc",
+    "stateId": "GJ"
+  },
+  "Kadaiyampatti APMC": {
+    "mandiId": "tn-salem-kadaiyampatti-apmc",
+    "stateId": "TN"
+  },
+  "Puranpur APMC": {
+    "mandiId": "up-pillibhit-puranpur-apmc",
+    "stateId": "UP"
+  },
+  "Ujjain APMC": {
+    "mandiId": "mp-ujjain-ujjain-apmc",
+    "stateId": "MP"
+  },
+  "Sirkali APMC": {
+    "mandiId": "tn-nagapattinam-sirkali-apmc",
+    "stateId": "TN"
+  },
+  "Sillod APMC": {
+    "mandiId": "mh-chattrapati-sambhajinagar-sillod-apmc",
+    "stateId": "MH"
+  },
+  "Sindevahi APMC": {
+    "mandiId": "mh-chandrapur-sindevahi-apmc",
+    "stateId": "MH"
+  },
+  "Armori(Desaiganj) APMC": {
+    "mandiId": "mh-gadchiroli-armoridesaiganj-apmc",
+    "stateId": "MH"
+  },
+  "Hargaon (Laharpur) APMC": {
+    "mandiId": "up-sitapur-hargaon-laharpur-apmc",
+    "stateId": "UP"
+  },
+  "Radhanpur APMC": {
+    "mandiId": "gj-patan-radhanpur-apmc",
+    "stateId": "GJ"
+  },
+  "Ambejaogai APMC": {
+    "mandiId": "mh-beed-ambejaogai-apmc",
+    "stateId": "MH"
+  },
+  "Vallam APMC": {
+    "mandiId": "tn-thanjavur-vallam-apmc",
+    "stateId": "TN"
+  },
+  "Sathankulam APMC": {
+    "mandiId": "tn-tuticorin-sathankulam-apmc",
+    "stateId": "TN"
+  },
+  "Kalyan APMC": {
+    "mandiId": "mh-thane-kalyan-apmc",
+    "stateId": "MH"
+  },
+  "Bareilly APMC": {
+    "mandiId": "up-bareilly-bareilly-apmc",
+    "stateId": "UP"
+  },
+  "Gangakhed APMC": {
+    "mandiId": "mh-parbhani-gangakhed-apmc",
+    "stateId": "MH"
+  },
+  "Gondpimpri APMC": {
+    "mandiId": "mh-chandrapur-gondpimpri-apmc",
+    "stateId": "MH"
+  },
+  "Gogamba APMC": {
+    "mandiId": "gj-panchmahals-gogamba-apmc",
+    "stateId": "GJ"
+  },
+  "Morshi APMC": {
+    "mandiId": "mh-amarawati-morshi-apmc",
+    "stateId": "MH"
+  },
+  "Parola APMC": {
+    "mandiId": "mh-jalgaon-parola-apmc",
+    "stateId": "MH"
+  },
+  "Sunguvarchatram APMC": {
+    "mandiId": "tn-kancheepuram-sunguvarchatram-apmc",
+    "stateId": "TN"
+  },
+  "Mandsaur APMC": {
+    "mandiId": "mp-mandsaur-mandsaur-apmc",
+    "stateId": "MP"
+  },
+  "Pulpally APMC": {
+    "mandiId": "kl-wayanad-pulpally-apmc",
+    "stateId": "KL"
+  },
+  "Shahabad(New Mandi) APMC": {
+    "mandiId": "up-hardoi-shahabadnew-mandi-apmc",
+    "stateId": "UP"
+  },
+  "Gokak APMC": {
+    "mandiId": "ka-belgaum-gokak-apmc",
+    "stateId": "KA"
+  },
+  "Siyana APMC": {
+    "mandiId": "up-bulandshahar-siyana-apmc",
+    "stateId": "UP"
+  },
+  "Vadgam APMC": {
+    "mandiId": "gj-banaskanth-vadgam-apmc",
+    "stateId": "GJ"
+  },
+  "Papanasam APMC": {
+    "mandiId": "tn-thanjavur-papanasam-apmc",
+    "stateId": "TN"
+  },
+  "Sawai Madhopur APMC": {
+    "mandiId": "rj-swai-madhopur-sawai-madhopur-apmc",
+    "stateId": "RJ"
+  },
+  "Om Chaitanya Multistate Agro Purpose CoOp Society  APMC": {
+    "mandiId": "mh-ahmednagar-om-chaitanya-multistate-agro-purpose-coop-society-",
+    "stateId": "MH"
+  },
+  "Tharad APMC": {
+    "mandiId": "gj-banaskanth-tharad-apmc",
+    "stateId": "GJ"
+  },
+  "Mantha APMC": {
+    "mandiId": "mh-jalana-mantha-apmc",
+    "stateId": "MH"
+  },
+  "Abohar APMC": {
+    "mandiId": "pb-fazilka-abohar-apmc",
+    "stateId": "PB"
+  },
+  "Rudauli APMC": {
+    "mandiId": "up-ayodhya-rudauli-apmc",
+    "stateId": "UP"
+  },
+  "Mansa APMC": {
+    "mandiId": "pb-mansa-mansa-apmc",
+    "stateId": "PB"
+  },
+  "Pusad APMC": {
+    "mandiId": "mh-yavatmal-pusad-apmc",
+    "stateId": "MH"
+  },
+  "Bilsi APMC": {
+    "mandiId": "up-badaun-bilsi-apmc",
+    "stateId": "UP"
+  },
+  "Savner APMC": {
+    "mandiId": "mh-nagpur-savner-apmc",
+    "stateId": "MH"
+  },
+  "Karjat(Rashin) APMC": {
+    "mandiId": "mh-ahmednagar-karjatrashin-apmc",
+    "stateId": "MH"
+  },
+  "Naanpara APMC": {
+    "mandiId": "up-bahraich-naanpara-apmc",
+    "stateId": "UP"
+  },
+  "Krushna Krishi Bazar  APMC": {
+    "mandiId": "mh-vashim-krushna-krishi-bazar-apmc",
+    "stateId": "MH"
+  },
+  "Gangapur City APMC": {
+    "mandiId": "rj-gangapur-city-gangapur-city-apmc",
+    "stateId": "RJ"
+  },
+  "Savali APMC": {
+    "mandiId": "mh-chandrapur-savali-apmc",
+    "stateId": "MH"
+  },
+  "Kishangarh Renwal APMC": {
+    "mandiId": "rj-jaipur-rural-kishangarh-renwal-apmc",
+    "stateId": "RJ"
+  },
+  "Hinganghat APMC": {
+    "mandiId": "mh-wardha-hinganghat-apmc",
+    "stateId": "MH"
+  },
+  "Firozabad APMC": {
+    "mandiId": "up-firozabad-firozabad-apmc",
+    "stateId": "UP"
+  },
+  "Ashoknagar APMC": {
+    "mandiId": "mp-ashoknagar-ashoknagar-apmc",
+    "stateId": "MP"
+  },
+  "Bilara APMC": {
+    "mandiId": "rj-jodhpur-rural-bilara-apmc",
+    "stateId": "RJ"
+  },
+  "Iklera APMC": {
+    "mandiId": "rj-jhalawar-iklera-apmc",
+    "stateId": "RJ"
+  },
+  "Kawai Salpura - Atru APMC": {
+    "mandiId": "rj-baran-kawai-salpura-atru-apmc",
+    "stateId": "RJ"
+  },
+  "Kotma APMC": {
+    "mandiId": "mp-anupur-kotma-apmc",
+    "stateId": "MP"
+  },
+  "Cheyyar APMC": {
+    "mandiId": "tn-thiruvannamalai-cheyyar-apmc",
+    "stateId": "TN"
+  },
+  "Purwa APMC": {
+    "mandiId": "up-unnao-purwa-apmc",
+    "stateId": "UP"
+  },
+  "Mandvi APMC": {
+    "mandiId": "gj-surat-mandvi-apmc",
+    "stateId": "GJ"
+  },
+  "Bayana APMC": {
+    "mandiId": "rj-bharatpur-bayana-apmc",
+    "stateId": "RJ"
+  },
+  "Karjat(Raigad) APMC": {
+    "mandiId": "mh-raigad-karjatraigad-apmc",
+    "stateId": "MH"
+  },
+  "Madurai APMC": {
+    "mandiId": "tn-madurai-madurai-apmc",
+    "stateId": "TN"
+  },
+  "Chamorshi APMC": {
+    "mandiId": "mh-gadchiroli-chamorshi-apmc",
+    "stateId": "MH"
+  },
+  "Bichhiya APMC": {
+    "mandiId": "mp-mandla-bichhiya-apmc",
+    "stateId": "MP"
+  },
+  "Amirgadh APMC": {
+    "mandiId": "gj-banaskanth-amirgadh-apmc",
+    "stateId": "GJ"
+  },
+  "Sidhauli APMC": {
+    "mandiId": "ap-cuddapah-siddout-apmc",
+    "stateId": "AP"
+  },
+  "Bhagat Ki Kothi APMC": {
+    "mandiId": "rj-jodhpur-bhagat-ki-kothi-apmc",
+    "stateId": "RJ"
+  },
+  "Itawa APMC": {
+    "mandiId": "rj-kota-itawa-apmc",
+    "stateId": "RJ"
+  },
+  "Thara(Shihori) APMC": {
+    "mandiId": "gj-banaskanth-tharashihori-apmc",
+    "stateId": "GJ"
+  },
+  "Divai APMC": {
+    "mandiId": "up-bulandshahar-divai-apmc",
+    "stateId": "UP"
+  },
+  "Malegaon APMC": {
+    "mandiId": "mh-nashik-malegaon-apmc",
+    "stateId": "MH"
+  },
+  "Sheopurkalan APMC": {
+    "mandiId": "mp-sheopur-sheopurkalan-apmc",
+    "stateId": "MP"
+  },
+  "Keshoraipatan APMC": {
+    "mandiId": "rj-bundi-keshoraipatan-apmc",
+    "stateId": "RJ"
+  },
+  "Sardar Shahar APMC": {
+    "mandiId": "rj-churu-sardar-shahar-apmc",
+    "stateId": "RJ"
+  },
+  "Krishnagiri APMC": {
+    "mandiId": "tn-krishnagiri-krishnagiri-apmc",
+    "stateId": "TN"
+  },
+  "Udaipur (Grain) APMC": {
+    "mandiId": "rj-udaipur-udaipur-grain-apmc",
+    "stateId": "RJ"
+  },
+  "Tiruvellore APMC": {
+    "mandiId": "tn-thiruvellore-tiruvellore-apmc",
+    "stateId": "TN"
+  },
+  "Jaitaran APMC": {
+    "mandiId": "rj-beawar-jaitaran-apmc",
+    "stateId": "RJ"
+  },
+  "Jafrabad APMC": {
+    "mandiId": "mh-jalana-jafrabad-apmc",
+    "stateId": "MH"
+  },
+  "Beldanga APMC": {
+    "mandiId": "wb-murshidabad-beldanga-apmc",
+    "stateId": "WB"
+  },
+  "Gautampura APMC": {
+    "mandiId": "mp-indore-gautampura-apmc",
+    "stateId": "MP"
+  },
+  "Charkhari APMC": {
+    "mandiId": "up-mahoba-charkhari-apmc",
+    "stateId": "UP"
+  },
+  "Buland Shahr APMC": {
+    "mandiId": "up-bulandshahar-buland-shahr-apmc",
+    "stateId": "UP"
+  },
+  "Sathyamangalam APMC": {
+    "mandiId": "tn-erode-sathyamangalam-apmc",
+    "stateId": "TN"
+  },
+  "Nagaur APMC": {
+    "mandiId": "rj-nagaur-nagaur-apmc",
+    "stateId": "RJ"
+  },
+  "Rura APMC": {
+    "mandiId": "up-kanpur-dehat-rura-apmc",
+    "stateId": "UP"
+  },
+  "Shirpur APMC": {
+    "mandiId": "mh-dhule-shirpur-apmc",
+    "stateId": "MH"
+  },
+  "Palanpur APMC": {
+    "mandiId": "gj-banaskanth-palanpur-apmc",
+    "stateId": "GJ"
+  },
+  "Baran APMC": {
+    "mandiId": "rj-baran-baran-apmc",
+    "stateId": "RJ"
+  },
+  "Kilvelur APMC": {
+    "mandiId": "tn-nagapattinam-kilvelur-apmc",
+    "stateId": "TN"
+  },
+  "Bagru APMC": {
+    "mandiId": "rj-jaipur-rural-bagru-apmc",
+    "stateId": "RJ"
+  },
+  "Chopada APMC": {
+    "mandiId": "mh-jalgaon-chopada-apmc",
+    "stateId": "MH"
+  },
+  "Umared APMC": {
+    "mandiId": "mh-nagpur-umared-apmc",
+    "stateId": "MH"
+  },
+  "Sahiyapur APMC": {
+    "mandiId": "up-siddharth-nagar-sahiyapur-apmc",
+    "stateId": "UP"
+  },
+  "Karanja APMC": {
+    "mandiId": "mh-vashim-karanja-apmc",
+    "stateId": "MH"
+  },
+  "Mangaon APMC": {
+    "mandiId": "mh-raigad-mangaon-apmc",
+    "stateId": "MH"
+  },
+  "Pilibhit APMC": {
+    "mandiId": "up-pillibhit-pilibhit-apmc",
+    "stateId": "UP"
+  },
+  "Shevgaon(Bodhegaon) APMC": {
+    "mandiId": "mh-ahmednagar-shevgaonbodhegaon-apmc",
+    "stateId": "MH"
+  },
+  "Bishenpur APMC": {
+    "mandiId": "mn-bishnupur-bishenpur-apmc",
+    "stateId": "MN"
+  },
+  "Thattanchavady APMC": {
+    "mandiId": "py-pondicherry-thattanchavady-apmc",
+    "stateId": "PY"
+  },
+  "Bassi APMC": {
+    "mandiId": "rj-jaipur-rural-bassi-apmc",
+    "stateId": "RJ"
+  },
+  "Bhokardan APMC": {
+    "mandiId": "mh-jalana-bhokardan-apmc",
+    "stateId": "MH"
+  },
+  "Thirupathur APMC": {
+    "mandiId": "tn-vellore-thirupathur-apmc",
+    "stateId": "TN"
+  },
+  "Devakottai APMC": {
+    "mandiId": "tn-sivaganga-devakottai-apmc",
+    "stateId": "TN"
+  },
+  "Katol APMC": {
+    "mandiId": "mh-nagpur-katol-apmc",
+    "stateId": "MH"
+  },
+  "Dudhani APMC": {
+    "mandiId": "mh-sholapur-dudhani-apmc",
+    "stateId": "MH"
+  },
+  "Mandawari APMC": {
+    "mandiId": "rj-dausa-mandawari-apmc",
+    "stateId": "RJ"
+  },
+  "Gingee APMC": {
+    "mandiId": "tn-villupuram-gingee-apmc",
+    "stateId": "TN"
+  },
+  "Thanjavur APMC": {
+    "mandiId": "tn-thanjavur-thanjavur-apmc",
+    "stateId": "TN"
+  },
+  "Buldhana(Dhad) APMC": {
+    "mandiId": "mh-buldhana-buldhanadhad-apmc",
+    "stateId": "MH"
+  },
+  "Mauranipur APMC": {
+    "mandiId": "up-jhansi-mauranipur-apmc",
+    "stateId": "UP"
+  },
+  "Lucknow APMC": {
+    "mandiId": "up-lucknow-lucknow-apmc",
+    "stateId": "UP"
+  },
+  "Armori APMC": {
+    "mandiId": "mh-gadchiroli-armori-apmc",
+    "stateId": "MH"
+  },
+  "Sinner APMC": {
+    "mandiId": "mh-nashik-sinner-apmc",
+    "stateId": "MH"
+  },
+  "Hanumangarh APMC": {
+    "mandiId": "rj-hanumangarh-hanumangarh-apmc",
+    "stateId": "RJ"
+  },
+  "Goluwala APMC": {
+    "mandiId": "rj-hanumangarh-goluwala-apmc",
+    "stateId": "RJ"
+  },
+  "Guna APMC": {
+    "mandiId": "mp-guna-guna-apmc",
+    "stateId": "MP"
+  },
+  "Raver APMC": {
+    "mandiId": "mh-jalgaon-raver-apmc",
+    "stateId": "MH"
+  },
+  "Gudhagorji APMC": {
+    "mandiId": "rj-jhunjhunu-gudhagorji-apmc",
+    "stateId": "RJ"
+  },
+  "Nadwai APMC": {
+    "mandiId": "rj-bharatpur-nadwai-apmc",
+    "stateId": "RJ"
+  },
+  "Yawal APMC": {
+    "mandiId": "mh-jalgaon-yawal-apmc",
+    "stateId": "MH"
+  },
+  "Thirunavalur APMC": {
+    "mandiId": "tn-kallakuruchi-thirunavalur-apmc",
+    "stateId": "TN"
+  },
+  "Gulabpura APMC": {
+    "mandiId": "rj-bhilwara-gulabpura-apmc",
+    "stateId": "RJ"
+  },
+  "Jangipur APMC": {
+    "mandiId": "wb-murshidabad-jangipur-apmc",
+    "stateId": "WB"
+  },
+  "Ahirora APMC": {
+    "mandiId": "up-mirzapur-ahirora-apmc",
+    "stateId": "UP"
+  },
+  "Padampur APMC": {
+    "mandiId": "or-bargarh-padampur-apmc",
+    "stateId": "OR"
+  },
+  "Nandurbar APMC": {
+    "mandiId": "mh-nandurbar-nandurbar-apmc",
+    "stateId": "MH"
+  },
+  "HanumangarhTown APMC": {
+    "mandiId": "rj-hanumangarh-hanumangarhtown-apmc",
+    "stateId": "RJ"
+  },
+  "Pathardi APMC": {
+    "mandiId": "mh-ahmednagar-pathardi-apmc",
+    "stateId": "MH"
+  },
+  "Manmad APMC": {
+    "mandiId": "mh-nashik-manmad-apmc",
+    "stateId": "MH"
+  },
+  "Pombhurni APMC": {
+    "mandiId": "mh-chandrapur-pombhurni-apmc",
+    "stateId": "MH"
+  },
+  "Veraval APMC": {
+    "mandiId": "gj-gir-somnath-veraval-apmc",
+    "stateId": "GJ"
+  },
+  "Muzzafarnagar APMC": {
+    "mandiId": "up-muzaffarnagar-muzzafarnagar-apmc",
+    "stateId": "UP"
+  },
+  "Kopargaon APMC": {
+    "mandiId": "mh-ahmednagar-kopargaon-apmc",
+    "stateId": "MH"
+  },
+  "Rajula APMC": {
+    "mandiId": "gj-amreli-rajula-apmc",
+    "stateId": "GJ"
+  },
+  "Ganjbasoda APMC": {
+    "mandiId": "mp-vidisha-ganjbasoda-apmc",
+    "stateId": "MP"
+  },
+  "Kota APMC": {
+    "mandiId": "ct-bilaspur-kota-apmc",
+    "stateId": "CT"
+  },
+  "Bhander APMC": {
+    "mandiId": "mp-datia-bhander-apmc",
+    "stateId": "MP"
+  },
+  "Achalda APMC": {
+    "mandiId": "up-auraiya-achalda-apmc",
+    "stateId": "UP"
+  },
+  "Bhiwapur APMC": {
+    "mandiId": "mh-nagpur-bhiwapur-apmc",
+    "stateId": "MH"
+  },
+  "Chimur APMC": {
+    "mandiId": "mh-chandrapur-chimur-apmc",
+    "stateId": "MH"
+  },
+  "Ahmedpur APMC": {
+    "mandiId": "mh-latur-ahmedpur-apmc",
+    "stateId": "MH"
+  },
+  "Visnagar APMC": {
+    "mandiId": "gj-mehsana-visnagar-apmc",
+    "stateId": "GJ"
+  },
+  "Mehekar APMC": {
+    "mandiId": "mh-buldhana-mehekar-apmc",
+    "stateId": "MH"
+  },
+  "Godhra APMC": {
+    "mandiId": "gj-panchmahals-godhra-apmc",
+    "stateId": "GJ"
+  },
+  "Kanpur(Grain) APMC": {
+    "mandiId": "up-kanpur-kanpurgrain-apmc",
+    "stateId": "UP"
+  },
+  "Samraniyan APMC": {
+    "mandiId": "rj-baran-samraniyan-apmc",
+    "stateId": "RJ"
+  },
+  "Banda APMC": {
+    "mandiId": "up-banda-banda-apmc",
+    "stateId": "UP"
+  },
+  "Thoubal APMC": {
+    "mandiId": "mn-thoubal-thoubal-apmc",
+    "stateId": "MN"
+  },
+  "Thirukovilur APMC": {
+    "mandiId": "tn-villupuram-thirukovilur-apmc",
+    "stateId": "TN"
+  },
+  "Alibagh APMC": {
+    "mandiId": "mh-raigad-alibagh-apmc",
+    "stateId": "MH"
+  },
+  "Lalbagh APMC": {
+    "mandiId": "wb-murshidabad-lalbagh-apmc",
+    "stateId": "WB"
+  },
+  "Mysore (Bandipalya) APMC": {
+    "mandiId": "ka-mysore-mysore-bandipalya-apmc",
+    "stateId": "KA"
+  },
+  "Jalgaon APMC": {
+    "mandiId": "mh-jalgaon-jalgaon-apmc",
+    "stateId": "MH"
+  },
+  "Kadayanallur APMC": {
+    "mandiId": "tn-tenkasi-kadayanallur-apmc",
+    "stateId": "TN"
+  },
+  "Sankarankovil APMC": {
+    "mandiId": "tn-thirunelveli-sankarankovil-apmc",
+    "stateId": "TN"
+  },
+  "Maddur APMC": {
+    "mandiId": "ka-mandya-maddur-apmc",
+    "stateId": "KA"
+  },
+  "Jhalod APMC": {
+    "mandiId": "gj-dahod-jhalod-apmc",
+    "stateId": "GJ"
+  },
+  "Begamganj APMC": {
+    "mandiId": "mp-raisen-begamganj-apmc",
+    "stateId": "MP"
+  },
+  "Paithan APMC": {
+    "mandiId": "mh-chattrapati-sambhajinagar-paithan-apmc",
+    "stateId": "MH"
+  },
+  "Bharatpur APMC": {
+    "mandiId": "rj-bharatpur-bharatpur-apmc",
+    "stateId": "RJ"
+  },
+  "Chandur Bazar APMC": {
+    "mandiId": "mh-amarawati-chandur-bazar-apmc",
+    "stateId": "MH"
+  },
+  "Sillod(Bharadi) APMC": {
+    "mandiId": "mh-chattrapati-sambhajinagar-sillodbharadi-apmc",
+    "stateId": "MH"
+  },
+  "Chirawa APMC": {
+    "mandiId": "rj-jhunjhunu-chirawa-apmc",
+    "stateId": "RJ"
+  },
+  "Sikandraraau APMC": {
+    "mandiId": "up-hathras-sikandraraau-apmc",
+    "stateId": "UP"
+  },
+  "Jodhpur (Grain) APMC": {
+    "mandiId": "rj-jodhpur-jodhpur-grain-apmc",
+    "stateId": "RJ"
+  },
+  "Nandura APMC": {
+    "mandiId": "mh-buldhana-nandura-apmc",
+    "stateId": "MH"
+  },
+  "Shahpura(Jabalpur) APMC": {
+    "mandiId": "mp-jabalpur-shahpurajabalpur-apmc",
+    "stateId": "MP"
+  },
+  "Achalpur APMC": {
+    "mandiId": "mh-amarawati-achalpur-apmc",
+    "stateId": "MH"
+  },
+  "Limkheda APMC": {
+    "mandiId": "gj-dahod-limkheda-apmc",
+    "stateId": "GJ"
+  },
+  "Bhiloda APMC": {
+    "mandiId": "gj-sabarkantha-bhiloda-apmc",
+    "stateId": "GJ"
+  },
+  "Mangrulpeer APMC": {
+    "mandiId": "mh-vashim-mangrulpeer-apmc",
+    "stateId": "MH"
+  },
+  "Borsad APMC": {
+    "mandiId": "gj-anand-borsad-apmc",
+    "stateId": "GJ"
+  },
+  "Beed APMC": {
+    "mandiId": "mh-beed-beed-apmc",
+    "stateId": "MH"
+  },
+  "Varanasi APMC": {
+    "mandiId": "up-varanasi-varanasi-apmc",
+    "stateId": "UP"
+  },
+  "Pratapgarh APMC": {
+    "mandiId": "up-pratapgarh-pratapgarh-apmc",
+    "stateId": "UP"
+  },
+  "Bikaner (Grain) APMC": {
+    "mandiId": "rj-bikaner-bikaner-grain-apmc",
+    "stateId": "RJ"
+  },
+  "Viramgam APMC": {
+    "mandiId": "gj-ahmedabad-viramgam-apmc",
+    "stateId": "GJ"
+  },
+  "Uluberia APMC": {
+    "mandiId": "wb-howrah-uluberia-apmc",
+    "stateId": "WB"
+  },
+  "Khurja APMC": {
+    "mandiId": "up-bulandshahar-khurja-apmc",
+    "stateId": "UP"
+  },
+  "Sridungargarh APMC": {
+    "mandiId": "rj-bikaner-sridungargarh-apmc",
+    "stateId": "RJ"
+  },
+  "Vijapur(Gojjariya) APMC": {
+    "mandiId": "gj-mehsana-vijapurgojjariya-apmc",
+    "stateId": "GJ"
+  },
+  "Dound APMC": {
+    "mandiId": "mh-pune-dound-apmc",
+    "stateId": "MH"
+  },
+  "Kalawad APMC": {
+    "mandiId": "gj-jamnagar-kalawad-apmc",
+    "stateId": "GJ"
+  },
+  "Rahata APMC": {
+    "mandiId": "mh-ahmednagar-rahata-apmc",
+    "stateId": "MH"
+  },
+  "Farukhabad APMC": {
+    "mandiId": "up-farukhabad-farukhabad-apmc",
+    "stateId": "UP"
+  },
+  "Aligarh APMC": {
+    "mandiId": "up-aligarh-aligarh-apmc",
+    "stateId": "UP"
+  },
+  "Sangriya APMC": {
+    "mandiId": "rj-hanumangarh-sangriya-apmc",
+    "stateId": "RJ"
+  },
+  "Manora APMC": {
+    "mandiId": "mh-vashim-manora-apmc",
+    "stateId": "MH"
+  },
+  "Tilhar APMC": {
+    "mandiId": "up-shahjahanpur-tilhar-apmc",
+    "stateId": "UP"
+  },
+  "Parali Vaijyanath APMC": {
+    "mandiId": "mh-beed-parali-vaijyanath-apmc",
+    "stateId": "MH"
+  },
+  "Banthara APMC": {
+    "mandiId": "up-lucknow-banthara-apmc",
+    "stateId": "UP"
+  },
+  "Manohararthana APMC": {
+    "mandiId": "rj-kota-manohararthana-apmc",
+    "stateId": "RJ"
+  },
+  "Kapadvanj APMC": {
+    "mandiId": "gj-kheda-kapadvanj-apmc",
+    "stateId": "GJ"
+  },
+  "Ettayapuram APMC": {
+    "mandiId": "tn-tuticorin-ettayapuram-apmc",
+    "stateId": "TN"
+  },
+  "Gajsinghpur APMC": {
+    "mandiId": "rj-ganganagar-gajsinghpur-apmc",
+    "stateId": "RJ"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "parser",
+  "version": "1.0.0",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "parse:agmarknet": "bun run scripts/agmarknet.ts",
+    "fetch:agmarknet": "bun run scripts/fetchAgmarknet.ts"
+  },
+  "dependencies": {
+    "@types/node": "^25.3.3",
+    "playwright": "^1.58.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.9"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

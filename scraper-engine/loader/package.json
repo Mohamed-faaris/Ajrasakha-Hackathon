@@ -1,0 +1,13 @@
+{
+  "name": "price-loader",
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "load": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "mongodb": "^6.12.0",
+    "zod": "^3.24.1"
+  }
+}

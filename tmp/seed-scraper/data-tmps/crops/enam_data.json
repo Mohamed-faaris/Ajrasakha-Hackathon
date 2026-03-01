@@ -1,0 +1,5608 @@
+[
+  {
+    "state_id": "37",
+    "state_name": "ANDAMAN AND NICOBAR ISLANDS",
+    "apmcs": [
+      {
+        "apmc_id": "5038",
+        "apmc_name": "ANDAMAN HI TECH KISAN MANDI"
+      }
+    ]
+  },
+  {
+    "state_id": "276",
+    "state_name": "ANDHRA PRADESH",
+    "apmcs": [
+      {
+        "apmc_id": "316",
+        "apmc_name": "ADONI"
+      },
+      {
+        "apmc_id": "314",
+        "apmc_name": "ANAKAPALLI"
+      },
+      {
+        "apmc_id": "289",
+        "apmc_name": "ANANTHAPURAMU"
+      },
+      {
+        "apmc_id": "792",
+        "apmc_name": "BOBBILI APMC"
+      },
+      {
+        "apmc_id": "793",
+        "apmc_name": "CHILAKALURIPET APMC"
+      },
+      {
+        "apmc_id": "291",
+        "apmc_name": "DENDULURU"
+      },
+      {
+        "apmc_id": "312",
+        "apmc_name": "DUGGIRALA"
+      },
+      {
+        "apmc_id": "311",
+        "apmc_name": "ELURU"
+      },
+      {
+        "apmc_id": "282",
+        "apmc_name": "GOPALAPURAM"
+      },
+      {
+        "apmc_id": "313",
+        "apmc_name": "GUNTUR"
+      },
+      {
+        "apmc_id": "293",
+        "apmc_name": "GURRAMKONDA"
+      },
+      {
+        "apmc_id": "318",
+        "apmc_name": "HINDUPUR"
+      },
+      {
+        "apmc_id": "794",
+        "apmc_name": "ICHAPURAM APMC"
+      },
+      {
+        "apmc_id": "795",
+        "apmc_name": "JAGGAYYAPET APMC"
+      },
+      {
+        "apmc_id": "320",
+        "apmc_name": "KADAPA"
+      },
+      {
+        "apmc_id": "292",
+        "apmc_name": "KALIKIRI"
+      },
+      {
+        "apmc_id": "319",
+        "apmc_name": "Kalyandurg"
+      },
+      {
+        "apmc_id": "315",
+        "apmc_name": "KURNOOL"
+      },
+      {
+        "apmc_id": "288",
+        "apmc_name": "MADANAPALLE"
+      },
+      {
+        "apmc_id": "290",
+        "apmc_name": "PALAMANER"
+      },
+      {
+        "apmc_id": "796",
+        "apmc_name": "PARCHUR APMC"
+      },
+      {
+        "apmc_id": "287",
+        "apmc_name": "PATTIKONDA"
+      },
+      {
+        "apmc_id": "284",
+        "apmc_name": "PIDUGURALLA"
+      },
+      {
+        "apmc_id": "286",
+        "apmc_name": "PUNGANUR"
+      },
+      {
+        "apmc_id": "285",
+        "apmc_name": "RAPUR"
+      },
+      {
+        "apmc_id": "1200",
+        "apmc_name": "RAVULAPALEM APMC"
+      },
+      {
+        "apmc_id": "798",
+        "apmc_name": "RAYADURG APMC"
+      },
+      {
+        "apmc_id": "799",
+        "apmc_name": "SATTENAPALLE APMC"
+      },
+      {
+        "apmc_id": "800",
+        "apmc_name": "TADIKONDA APMC"
+      },
+      {
+        "apmc_id": "283",
+        "apmc_name": "TENALI"
+      },
+      {
+        "apmc_id": "784",
+        "apmc_name": "VEMURU BHATTIPROLU"
+      },
+      {
+        "apmc_id": "801",
+        "apmc_name": "VIZIANAGARAM APMC"
+      },
+      {
+        "apmc_id": "317",
+        "apmc_name": "YEMMIGANUR"
+      }
+    ]
+  },
+  {
+    "state_id": "38",
+    "state_name": "ASSAM",
+    "apmcs": [
+      {
+        "apmc_id": "5039",
+        "apmc_name": "DHING"
+      },
+      {
+        "apmc_id": "5040",
+        "apmc_name": "GAURIPUR"
+      },
+      {
+        "apmc_id": "5041",
+        "apmc_name": "KHARUPETIA"
+      }
+    ]
+  },
+  {
+    "state_id": "33",
+    "state_name": "BIHAR",
+    "apmcs": [
+      {
+        "apmc_id": "4036",
+        "apmc_name": "ARA"
+      },
+      {
+        "apmc_id": "4037",
+        "apmc_name": "BEGUSARAI"
+      },
+      {
+        "apmc_id": "4038",
+        "apmc_name": "BIHARSHARIF"
+      },
+      {
+        "apmc_id": "4039",
+        "apmc_name": "BUXAR"
+      },
+      {
+        "apmc_id": "4052",
+        "apmc_name": "CHHAPRA"
+      },
+      {
+        "apmc_id": "4040",
+        "apmc_name": "DARBHANGA"
+      },
+      {
+        "apmc_id": "4041",
+        "apmc_name": "DAUDNAGAR"
+      },
+      {
+        "apmc_id": "4042",
+        "apmc_name": "FORBESGANJ"
+      },
+      {
+        "apmc_id": "4043",
+        "apmc_name": "GAYA"
+      },
+      {
+        "apmc_id": "4044",
+        "apmc_name": "GULABBAGH"
+      },
+      {
+        "apmc_id": "4045",
+        "apmc_name": "HAJIPUR"
+      },
+      {
+        "apmc_id": "4046",
+        "apmc_name": "KATIHAR"
+      },
+      {
+        "apmc_id": "4047",
+        "apmc_name": "MOHANIYA"
+      },
+      {
+        "apmc_id": "4048",
+        "apmc_name": "MOTIHARI"
+      },
+      {
+        "apmc_id": "4049",
+        "apmc_name": "MUSALLAHPUR"
+      },
+      {
+        "apmc_id": "4050",
+        "apmc_name": "MUZAFFARPUR"
+      },
+      {
+        "apmc_id": "4051",
+        "apmc_name": "SAMASTIPUR"
+      },
+      {
+        "apmc_id": "4053",
+        "apmc_name": "SASARAM"
+      },
+      {
+        "apmc_id": "4054",
+        "apmc_name": "SINGHESWAR"
+      },
+      {
+        "apmc_id": "4055",
+        "apmc_name": "SITAMARHI"
+      }
+    ]
+  },
+  {
+    "state_id": "526",
+    "state_name": "CHANDIGARH",
+    "apmcs": [
+      {
+        "apmc_id": "525",
+        "apmc_name": "CHANDIGARH SECTOR-26"
+      }
+    ]
+  },
+  {
+    "state_id": "100",
+    "state_name": "CHHATTISGARH",
+    "apmcs": [
+      {
+        "apmc_id": "341",
+        "apmc_name": "BALOD"
+      },
+      {
+        "apmc_id": "105",
+        "apmc_name": "BHATAPARA"
+      },
+      {
+        "apmc_id": "339",
+        "apmc_name": "BILASPUR"
+      },
+      {
+        "apmc_id": "338",
+        "apmc_name": "DHAMTARI"
+      },
+      {
+        "apmc_id": "336",
+        "apmc_name": "DURG"
+      },
+      {
+        "apmc_id": "340",
+        "apmc_name": "JAGDALPUR"
+      },
+      {
+        "apmc_id": "103",
+        "apmc_name": "KAWARADHA"
+      },
+      {
+        "apmc_id": "104",
+        "apmc_name": "KURUD"
+      },
+      {
+        "apmc_id": "343",
+        "apmc_name": "MUNGELI"
+      },
+      {
+        "apmc_id": "101",
+        "apmc_name": "NAVAPARA"
+      },
+      {
+        "apmc_id": "344",
+        "apmc_name": "PATELPALI RAIGARH"
+      },
+      {
+        "apmc_id": "337",
+        "apmc_name": "RAIPUR"
+      },
+      {
+        "apmc_id": "342",
+        "apmc_name": "RAJIM"
+      },
+      {
+        "apmc_id": "102",
+        "apmc_name": "RAJNANDGAON"
+      },
+      {
+        "apmc_id": "4978",
+        "apmc_name": "KANKER"
+      },
+      {
+        "apmc_id": "4979",
+        "apmc_name": "SARAIPALI"
+      },
+      {
+        "apmc_id": "4980",
+        "apmc_name": "BEMETARA"
+      },
+      {
+        "apmc_id": "4981",
+        "apmc_name": "KATGHORA"
+      },
+      {
+        "apmc_id": "4982",
+        "apmc_name": "AMBIKAPUR"
+      },
+      {
+        "apmc_id": "4983",
+        "apmc_name": "JASHPUR"
+      }
+    ]
+  },
+  {
+    "state_id": "34",
+    "state_name": "GOA",
+    "apmcs": [
+      {
+        "apmc_id": "3907",
+        "apmc_name": "CANACONA MARKET YARD"
+      },
+      {
+        "apmc_id": "3906",
+        "apmc_name": "CURCHOREM MARKET YARD"
+      },
+      {
+        "apmc_id": "3904",
+        "apmc_name": "MAPUSA MARKET YARD"
+      },
+      {
+        "apmc_id": "3903",
+        "apmc_name": "MARGAO MAIN MARKET YARD"
+      },
+      {
+        "apmc_id": "3908",
+        "apmc_name": "PONDA MARKET YARD"
+      },
+      {
+        "apmc_id": "3902",
+        "apmc_name": "SANQUELIM MARKET YARD"
+      },
+      {
+        "apmc_id": "3901",
+        "apmc_name": "VALPOI MARKET YARD"
+      }
+    ]
+  },
+  {
+    "state_id": "22",
+    "state_name": "GUJARAT",
+    "apmcs": [
+      {
+        "apmc_id": "232",
+        "apmc_name": "AHMEDABAD"
+      },
+      {
+        "apmc_id": "553",
+        "apmc_name": "AMRELI"
+      },
+      {
+        "apmc_id": "541",
+        "apmc_name": "ANAND"
+      },
+      {
+        "apmc_id": "665",
+        "apmc_name": "ANJAR"
+      },
+      {
+        "apmc_id": "542",
+        "apmc_name": "BABRA"
+      },
+      {
+        "apmc_id": "650",
+        "apmc_name": "BAGASARA"
+      },
+      {
+        "apmc_id": "812",
+        "apmc_name": "BARDOLI APMC"
+      },
+      {
+        "apmc_id": "803",
+        "apmc_name": "BAVLA APMC"
+      },
+      {
+        "apmc_id": "834",
+        "apmc_name": "BAYAD APMC"
+      },
+      {
+        "apmc_id": "233",
+        "apmc_name": "BHABHAR"
+      },
+      {
+        "apmc_id": "656",
+        "apmc_name": "BHARUCH"
+      },
+      {
+        "apmc_id": "543",
+        "apmc_name": "BHAVNAGAR"
+      },
+      {
+        "apmc_id": "234",
+        "apmc_name": "BHESAN"
+      },
+      {
+        "apmc_id": "235",
+        "apmc_name": "BHILODA"
+      },
+      {
+        "apmc_id": "554",
+        "apmc_name": "BHUJ"
+      },
+      {
+        "apmc_id": "236",
+        "apmc_name": "BILIMORA"
+      },
+      {
+        "apmc_id": "555",
+        "apmc_name": "BODELI"
+      },
+      {
+        "apmc_id": "652",
+        "apmc_name": "BORSAD"
+      },
+      {
+        "apmc_id": "40",
+        "apmc_name": "BOTAD"
+      },
+      {
+        "apmc_id": "835",
+        "apmc_name": "CHIKHLI APMC"
+      },
+      {
+        "apmc_id": "825",
+        "apmc_name": "CHOTILA APMC"
+      },
+      {
+        "apmc_id": "815",
+        "apmc_name": "DABHOI APMC"
+      },
+      {
+        "apmc_id": "237",
+        "apmc_name": "DAHOD"
+      },
+      {
+        "apmc_id": "828",
+        "apmc_name": "DEDIYAPADA APMC"
+      },
+      {
+        "apmc_id": "238",
+        "apmc_name": "DEESA"
+      },
+      {
+        "apmc_id": "556",
+        "apmc_name": "DEHGAM"
+      },
+      {
+        "apmc_id": "830",
+        "apmc_name": "DEVGADHBARIA APMC"
+      },
+      {
+        "apmc_id": "802",
+        "apmc_name": "DHANDHUKA APMC"
+      },
+      {
+        "apmc_id": "239",
+        "apmc_name": "DHANERA"
+      },
+      {
+        "apmc_id": "651",
+        "apmc_name": "DHARI"
+      },
+      {
+        "apmc_id": "240",
+        "apmc_name": "DHOALKA"
+      },
+      {
+        "apmc_id": "544",
+        "apmc_name": "DHORAJI"
+      },
+      {
+        "apmc_id": "241",
+        "apmc_name": "DHROL"
+      },
+      {
+        "apmc_id": "831",
+        "apmc_name": "FATEHPURA APMC"
+      },
+      {
+        "apmc_id": "658",
+        "apmc_name": "GADHADA"
+      },
+      {
+        "apmc_id": "808",
+        "apmc_name": "GANDHINAGAR APMC"
+      },
+      {
+        "apmc_id": "806",
+        "apmc_name": "GARIYADHAR APMC"
+      },
+      {
+        "apmc_id": "242",
+        "apmc_name": "GODHRA"
+      },
+      {
+        "apmc_id": "669",
+        "apmc_name": "GONDAL"
+      },
+      {
+        "apmc_id": "243",
+        "apmc_name": "HALVAD"
+      },
+      {
+        "apmc_id": "24",
+        "apmc_name": "HIMMATNAGAR"
+      },
+      {
+        "apmc_id": "836",
+        "apmc_name": "IDAR APMC"
+      },
+      {
+        "apmc_id": "244",
+        "apmc_name": "JAM JODHPUR"
+      },
+      {
+        "apmc_id": "557",
+        "apmc_name": "JAMKANDORNA"
+      },
+      {
+        "apmc_id": "245",
+        "apmc_name": "JAMKHAMBHALIYA"
+      },
+      {
+        "apmc_id": "246",
+        "apmc_name": "JAMNAGAR"
+      },
+      {
+        "apmc_id": "247",
+        "apmc_name": "JASDAN"
+      },
+      {
+        "apmc_id": "545",
+        "apmc_name": "JETPUR"
+      },
+      {
+        "apmc_id": "804",
+        "apmc_name": "JHAGADIYA APMC"
+      },
+      {
+        "apmc_id": "268",
+        "apmc_name": "JHALOD"
+      },
+      {
+        "apmc_id": "248",
+        "apmc_name": "JUNAGADH"
+      },
+      {
+        "apmc_id": "811",
+        "apmc_name": "KADI APMC"
+      },
+      {
+        "apmc_id": "661",
+        "apmc_name": "KALAVAD"
+      },
+      {
+        "apmc_id": "558",
+        "apmc_name": "KALOL"
+      },
+      {
+        "apmc_id": "546",
+        "apmc_name": "KAPADWANJ"
+      },
+      {
+        "apmc_id": "547",
+        "apmc_name": "KARJAN"
+      },
+      {
+        "apmc_id": "821",
+        "apmc_name": "KATHLAL APMC"
+      },
+      {
+        "apmc_id": "663",
+        "apmc_name": "KESHOD"
+      },
+      {
+        "apmc_id": "653",
+        "apmc_name": "KHAMBHAT"
+      },
+      {
+        "apmc_id": "249",
+        "apmc_name": "KODINAR"
+      },
+      {
+        "apmc_id": "820",
+        "apmc_name": "KOSAMBA APMC"
+      },
+      {
+        "apmc_id": "559",
+        "apmc_name": "LALPUR"
+      },
+      {
+        "apmc_id": "833",
+        "apmc_name": "LIMKHEDA APMC"
+      },
+      {
+        "apmc_id": "837",
+        "apmc_name": "LUNAWADA APMC"
+      },
+      {
+        "apmc_id": "664",
+        "apmc_name": "MAHEMDAVAD"
+      },
+      {
+        "apmc_id": "162",
+        "apmc_name": "MAHUVA"
+      },
+      {
+        "apmc_id": "813",
+        "apmc_name": "MAHUVA APMC GJ"
+      },
+      {
+        "apmc_id": "819",
+        "apmc_name": "MANADAL APMC"
+      },
+      {
+        "apmc_id": "809",
+        "apmc_name": "MANDVI APMC"
+      },
+      {
+        "apmc_id": "816",
+        "apmc_name": "MATAR APMC"
+      },
+      {
+        "apmc_id": "548",
+        "apmc_name": "MEHSANA"
+      },
+      {
+        "apmc_id": "565",
+        "apmc_name": "MODASA"
+      },
+      {
+        "apmc_id": "560",
+        "apmc_name": "MORBI"
+      },
+      {
+        "apmc_id": "549",
+        "apmc_name": "NADIAD"
+      },
+      {
+        "apmc_id": "838",
+        "apmc_name": "NAVSARI APMC"
+      },
+      {
+        "apmc_id": "251",
+        "apmc_name": "NIZAR"
+      },
+      {
+        "apmc_id": "673",
+        "apmc_name": "PADARA"
+      },
+      {
+        "apmc_id": "561",
+        "apmc_name": "PALANPUR"
+      },
+      {
+        "apmc_id": "805",
+        "apmc_name": "PALITANA APMC"
+      },
+      {
+        "apmc_id": "655",
+        "apmc_name": "PANTHAWADA"
+      },
+      {
+        "apmc_id": "45",
+        "apmc_name": "PATAN"
+      },
+      {
+        "apmc_id": "822",
+        "apmc_name": "PATDI APMC"
+      },
+      {
+        "apmc_id": "252",
+        "apmc_name": "PAVI-JETPUR"
+      },
+      {
+        "apmc_id": "253",
+        "apmc_name": "PETALAD"
+      },
+      {
+        "apmc_id": "254",
+        "apmc_name": "PORBANDAR"
+      },
+      {
+        "apmc_id": "824",
+        "apmc_name": "PRANTIJ APMC"
+      },
+      {
+        "apmc_id": "839",
+        "apmc_name": "RADHANPUR APMC"
+      },
+      {
+        "apmc_id": "255",
+        "apmc_name": "RAJKOT"
+      },
+      {
+        "apmc_id": "827",
+        "apmc_name": "RAJPIPLA APMC"
+      },
+      {
+        "apmc_id": "550",
+        "apmc_name": "RAJULA"
+      },
+      {
+        "apmc_id": "666",
+        "apmc_name": "RAPAR"
+      },
+      {
+        "apmc_id": "256",
+        "apmc_name": "SANAND"
+      },
+      {
+        "apmc_id": "832",
+        "apmc_name": "SANJELI APMC"
+      },
+      {
+        "apmc_id": "257",
+        "apmc_name": "SAVARKUNDLA"
+      },
+      {
+        "apmc_id": "258",
+        "apmc_name": "SAVLI"
+      },
+      {
+        "apmc_id": "826",
+        "apmc_name": "SELAMBA APMC"
+      },
+      {
+        "apmc_id": "551",
+        "apmc_name": "SIDDHPUR"
+      },
+      {
+        "apmc_id": "818",
+        "apmc_name": "SIHOR APMC"
+      },
+      {
+        "apmc_id": "814",
+        "apmc_name": "SONGADH APMC"
+      },
+      {
+        "apmc_id": "840",
+        "apmc_name": "TALAJA APMC"
+      },
+      {
+        "apmc_id": "259",
+        "apmc_name": "TALOD"
+      },
+      {
+        "apmc_id": "552",
+        "apmc_name": "TARAPUR"
+      },
+      {
+        "apmc_id": "260",
+        "apmc_name": "THARA"
+      },
+      {
+        "apmc_id": "261",
+        "apmc_name": "THARAD"
+      },
+      {
+        "apmc_id": "823",
+        "apmc_name": "THASRA APMC"
+      },
+      {
+        "apmc_id": "829",
+        "apmc_name": "TILAKWADA APMC"
+      },
+      {
+        "apmc_id": "807",
+        "apmc_name": "UMRALA APMC"
+      },
+      {
+        "apmc_id": "841",
+        "apmc_name": "UNA APMC"
+      },
+      {
+        "apmc_id": "810",
+        "apmc_name": "UNAVA APMC"
+      },
+      {
+        "apmc_id": "562",
+        "apmc_name": "UPLETA"
+      },
+      {
+        "apmc_id": "842",
+        "apmc_name": "VADALI APMC"
+      },
+      {
+        "apmc_id": "262",
+        "apmc_name": "VADHVAN"
+      },
+      {
+        "apmc_id": "263",
+        "apmc_name": "VADODARA"
+      },
+      {
+        "apmc_id": "817",
+        "apmc_name": "VALABHIPUR APMC"
+      },
+      {
+        "apmc_id": "843",
+        "apmc_name": "VALIA APMC"
+      },
+      {
+        "apmc_id": "264",
+        "apmc_name": "VALSAD"
+      },
+      {
+        "apmc_id": "265",
+        "apmc_name": "VIJAPUR"
+      },
+      {
+        "apmc_id": "563",
+        "apmc_name": "VINCHHIYA"
+      },
+      {
+        "apmc_id": "266",
+        "apmc_name": "VISAVADAR"
+      },
+      {
+        "apmc_id": "267",
+        "apmc_name": "VISNAGAR"
+      },
+      {
+        "apmc_id": "564",
+        "apmc_name": "VYARA"
+      },
+      {
+        "apmc_id": "844",
+        "apmc_name": "WANKANER APMC"
+      },
+      {
+        "apmc_id": "5053",
+        "apmc_name": "AHWA"
+      },
+      {
+        "apmc_id": "5054",
+        "apmc_name": "DESAR"
+      },
+      {
+        "apmc_id": "5055",
+        "apmc_name": "DHANGADRA"
+      },
+      {
+        "apmc_id": "5056",
+        "apmc_name": "KAPRADA"
+      },
+      {
+        "apmc_id": "5057",
+        "apmc_name": "KUKARMUDA"
+      },
+      {
+        "apmc_id": "5058",
+        "apmc_name": "MANDVI"
+      },
+      {
+        "apmc_id": "5059",
+        "apmc_name": "PARDI"
+      },
+      {
+        "apmc_id": "5060",
+        "apmc_name": "UNCHAL"
+      },
+      {
+        "apmc_id": "5061",
+        "apmc_name": "VASDA"
+      },
+      {
+        "apmc_id": "5064",
+        "apmc_name": "VERAVAL"
+      },
+      {
+        "apmc_id": "5093",
+        "apmc_name": "TALALAGIR"
+      },
+      {
+        "apmc_id": "5094",
+        "apmc_name": "BHANVAD"
+      },
+      {
+        "apmc_id": "5095",
+        "apmc_name": "LAKHANI"
+      },
+      {
+        "apmc_id": "5096",
+        "apmc_name": "MAANSA"
+      },
+      {
+        "apmc_id": "5097",
+        "apmc_name": "MALPUR"
+      },
+      {
+        "apmc_id": "5098",
+        "apmc_name": "VIRAMGAM"
+      },
+      {
+        "apmc_id": "5128",
+        "apmc_name": "CHANASMA "
+      },
+      {
+        "apmc_id": "5129",
+        "apmc_name": "DEODAR"
+      },
+      {
+        "apmc_id": "5130",
+        "apmc_name": "SURAT"
+      },
+      {
+        "apmc_id": "5131",
+        "apmc_name": "UNJHA"
+      },
+      {
+        "apmc_id": "5132",
+        "apmc_name": "VALOD"
+      },
+      {
+        "apmc_id": "5133",
+        "apmc_name": "VIRPUR"
+      }
+    ]
+  },
+  {
+    "state_id": "32",
+    "state_name": "HARYANA",
+    "apmcs": [
+      {
+        "apmc_id": "132",
+        "apmc_name": "ADAMPUR"
+      },
+      {
+        "apmc_id": "3931",
+        "apmc_name": "ALEWA"
+      },
+      {
+        "apmc_id": "59",
+        "apmc_name": "AMBALA"
+      },
+      {
+        "apmc_id": "995",
+        "apmc_name": "AMBALA CANTT. APMC"
+      },
+      {
+        "apmc_id": "277",
+        "apmc_name": "ASANDH"
+      },
+      {
+        "apmc_id": "996",
+        "apmc_name": "ATELI APMC"
+      },
+      {
+        "apmc_id": "3932",
+        "apmc_name": "BABAIN"
+      },
+      {
+        "apmc_id": "3933",
+        "apmc_name": "BAHADURGARH"
+      },
+      {
+        "apmc_id": "3935",
+        "apmc_name": "BALLABGARH"
+      },
+      {
+        "apmc_id": "3936",
+        "apmc_name": "BAPOLI"
+      },
+      {
+        "apmc_id": "3937",
+        "apmc_name": "BARARA"
+      },
+      {
+        "apmc_id": "364",
+        "apmc_name": "BARWALA HISAR"
+      },
+      {
+        "apmc_id": "997",
+        "apmc_name": "BARWALA PANCHKULA APMC"
+      },
+      {
+        "apmc_id": "3938",
+        "apmc_name": "BASS"
+      },
+      {
+        "apmc_id": "3939",
+        "apmc_name": "BEHAL"
+      },
+      {
+        "apmc_id": "3940",
+        "apmc_name": "BERI"
+      },
+      {
+        "apmc_id": "998",
+        "apmc_name": "BHATTU KALAN APMC"
+      },
+      {
+        "apmc_id": "368",
+        "apmc_name": "BHIWANI"
+      },
+      {
+        "apmc_id": "3941",
+        "apmc_name": "BHUNA"
+      },
+      {
+        "apmc_id": "112",
+        "apmc_name": "CH DADRI"
+      },
+      {
+        "apmc_id": "356",
+        "apmc_name": "CHEEKA"
+      },
+      {
+        "apmc_id": "369",
+        "apmc_name": "CHHACHHRAULI"
+      },
+      {
+        "apmc_id": "125",
+        "apmc_name": "DABWALI"
+      },
+      {
+        "apmc_id": "367",
+        "apmc_name": "DHAND"
+      },
+      {
+        "apmc_id": "3942",
+        "apmc_name": "DING"
+      },
+      {
+        "apmc_id": "54",
+        "apmc_name": "ELLANABAD"
+      },
+      {
+        "apmc_id": "359",
+        "apmc_name": "FARIDABAD"
+      },
+      {
+        "apmc_id": "3944",
+        "apmc_name": "FARRUKHNAGAR"
+      },
+      {
+        "apmc_id": "357",
+        "apmc_name": "FATEHABAD"
+      },
+      {
+        "apmc_id": "999",
+        "apmc_name": "FEROZPUR JHIRKA APMC"
+      },
+      {
+        "apmc_id": "129",
+        "apmc_name": "GANAUR"
+      },
+      {
+        "apmc_id": "110",
+        "apmc_name": "GHARAUNDA"
+      },
+      {
+        "apmc_id": "128",
+        "apmc_name": "GOHANA"
+      },
+      {
+        "apmc_id": "360",
+        "apmc_name": "GURGAON"
+      },
+      {
+        "apmc_id": "131",
+        "apmc_name": "HANSI"
+      },
+      {
+        "apmc_id": "3945",
+        "apmc_name": "HASSANPUR"
+      },
+      {
+        "apmc_id": "3946",
+        "apmc_name": "HATHIN"
+      },
+      {
+        "apmc_id": "1000",
+        "apmc_name": "HISAR APMC"
+      },
+      {
+        "apmc_id": "363",
+        "apmc_name": "HODAL"
+      },
+      {
+        "apmc_id": "295",
+        "apmc_name": "INDRI"
+      },
+      {
+        "apmc_id": "124",
+        "apmc_name": "ISMAILABAD"
+      },
+      {
+        "apmc_id": "1001",
+        "apmc_name": "ISRANA APMC"
+      },
+      {
+        "apmc_id": "1002",
+        "apmc_name": "JAGADHRI APMC"
+      },
+      {
+        "apmc_id": "433",
+        "apmc_name": "JAKHAL"
+      },
+      {
+        "apmc_id": "361",
+        "apmc_name": "JHAJJAR"
+      },
+      {
+        "apmc_id": "120",
+        "apmc_name": "JIND"
+      },
+      {
+        "apmc_id": "3947",
+        "apmc_name": "JUI"
+      },
+      {
+        "apmc_id": "114",
+        "apmc_name": "JULANA"
+      },
+      {
+        "apmc_id": "3948",
+        "apmc_name": "JUNDLA"
+      },
+      {
+        "apmc_id": "108",
+        "apmc_name": "KAITHAL"
+      },
+      {
+        "apmc_id": "123",
+        "apmc_name": "KALANWALI"
+      },
+      {
+        "apmc_id": "365",
+        "apmc_name": "KALAYAT"
+      },
+      {
+        "apmc_id": "1003",
+        "apmc_name": "KANINA APMC"
+      },
+      {
+        "apmc_id": "53",
+        "apmc_name": "KARNAL"
+      },
+      {
+        "apmc_id": "3951",
+        "apmc_name": "KHARKHODA"
+      },
+      {
+        "apmc_id": "1004",
+        "apmc_name": "KOSLI APMC"
+      },
+      {
+        "apmc_id": "122",
+        "apmc_name": "LADWA"
+      },
+      {
+        "apmc_id": "3952",
+        "apmc_name": "LOHARU"
+      },
+      {
+        "apmc_id": "117",
+        "apmc_name": "MADLAUDA"
+      },
+      {
+        "apmc_id": "1005",
+        "apmc_name": "MEHAM APMC"
+      },
+      {
+        "apmc_id": "1006",
+        "apmc_name": "MOHINDERGARH APMC"
+      },
+      {
+        "apmc_id": "3953",
+        "apmc_name": "MOHNA"
+      },
+      {
+        "apmc_id": "106",
+        "apmc_name": "MULLANA"
+      },
+      {
+        "apmc_id": "3954",
+        "apmc_name": "MUSTAFABAD"
+      },
+      {
+        "apmc_id": "1007",
+        "apmc_name": "NARAINGARH APMC"
+      },
+      {
+        "apmc_id": "1008",
+        "apmc_name": "NARNAUL APMC"
+      },
+      {
+        "apmc_id": "370",
+        "apmc_name": "NARNAUND"
+      },
+      {
+        "apmc_id": "118",
+        "apmc_name": "NARWANA"
+      },
+      {
+        "apmc_id": "1009",
+        "apmc_name": "NIGDHU APMC"
+      },
+      {
+        "apmc_id": "1010",
+        "apmc_name": "NILOKHERI APMC"
+      },
+      {
+        "apmc_id": "111",
+        "apmc_name": "NISSING"
+      },
+      {
+        "apmc_id": "1011",
+        "apmc_name": "NUH APMC"
+      },
+      {
+        "apmc_id": "1012",
+        "apmc_name": "PAI APMC"
+      },
+      {
+        "apmc_id": "366",
+        "apmc_name": "PALWAL"
+      },
+      {
+        "apmc_id": "1013",
+        "apmc_name": "PANCHKULA APMC"
+      },
+      {
+        "apmc_id": "113",
+        "apmc_name": "PANIPAT"
+      },
+      {
+        "apmc_id": "3955",
+        "apmc_name": "PATAUDI"
+      },
+      {
+        "apmc_id": "121",
+        "apmc_name": "PEHOWA"
+      },
+      {
+        "apmc_id": "362",
+        "apmc_name": "PILLUKHERA"
+      },
+      {
+        "apmc_id": "1014",
+        "apmc_name": "PIPLI APMC"
+      },
+      {
+        "apmc_id": "278",
+        "apmc_name": "PUNDRI"
+      },
+      {
+        "apmc_id": "1015",
+        "apmc_name": "PUNHANA APMC"
+      },
+      {
+        "apmc_id": "3956",
+        "apmc_name": "RADAUR"
+      },
+      {
+        "apmc_id": "1016",
+        "apmc_name": "RAIPUR RANI APMC"
+      },
+      {
+        "apmc_id": "279",
+        "apmc_name": "RANIA"
+      },
+      {
+        "apmc_id": "130",
+        "apmc_name": "RATIA"
+      },
+      {
+        "apmc_id": "109",
+        "apmc_name": "REWARI"
+      },
+      {
+        "apmc_id": "107",
+        "apmc_name": "ROHTAK"
+      },
+      {
+        "apmc_id": "1017",
+        "apmc_name": "SADHAURA APMC"
+      },
+      {
+        "apmc_id": "116",
+        "apmc_name": "SAFIDON"
+      },
+      {
+        "apmc_id": "115",
+        "apmc_name": "SAMALKHA"
+      },
+      {
+        "apmc_id": "3957",
+        "apmc_name": "SAMPLA"
+      },
+      {
+        "apmc_id": "60",
+        "apmc_name": "SHAHBAD"
+      },
+      {
+        "apmc_id": "1018",
+        "apmc_name": "SHAHZADPUR APMC"
+      },
+      {
+        "apmc_id": "280",
+        "apmc_name": "SIRSA"
+      },
+      {
+        "apmc_id": "3958",
+        "apmc_name": "SIWAN"
+      },
+      {
+        "apmc_id": "371",
+        "apmc_name": "SIWANI"
+      },
+      {
+        "apmc_id": "3959",
+        "apmc_name": "SOHNA"
+      },
+      {
+        "apmc_id": "126",
+        "apmc_name": "SONEPAT"
+      },
+      {
+        "apmc_id": "127",
+        "apmc_name": "TARAORI"
+      },
+      {
+        "apmc_id": "1019",
+        "apmc_name": "TAURU APMC"
+      },
+      {
+        "apmc_id": "119",
+        "apmc_name": "THANESAR"
+      },
+      {
+        "apmc_id": "3960",
+        "apmc_name": "TIGAON"
+      },
+      {
+        "apmc_id": "281",
+        "apmc_name": "TOHANA"
+      },
+      {
+        "apmc_id": "3961",
+        "apmc_name": "TOSHAM"
+      },
+      {
+        "apmc_id": "358",
+        "apmc_name": "UCHANA"
+      },
+      {
+        "apmc_id": "1020",
+        "apmc_name": "UKLANA APMC"
+      },
+      {
+        "apmc_id": "1021",
+        "apmc_name": "YAMUNA NAGAR APMC"
+      }
+    ]
+  },
+  {
+    "state_id": "43",
+    "state_name": "HIMACHAL PRADESH",
+    "apmcs": [
+      {
+        "apmc_id": "3896",
+        "apmc_name": "BAIJNATH"
+      },
+      {
+        "apmc_id": "375",
+        "apmc_name": "BANDROL"
+      },
+      {
+        "apmc_id": "273",
+        "apmc_name": "BHATTAKUFAR DHALLI"
+      },
+      {
+        "apmc_id": "269",
+        "apmc_name": "BHUNTAR"
+      },
+      {
+        "apmc_id": "3892",
+        "apmc_name": "CHAILCHOWK"
+      },
+      {
+        "apmc_id": "383",
+        "apmc_name": "CHAMBA"
+      },
+      {
+        "apmc_id": "44",
+        "apmc_name": "DHALLI SHIMLA"
+      },
+      {
+        "apmc_id": "3894",
+        "apmc_name": "DHANOTU"
+      },
+      {
+        "apmc_id": "3895",
+        "apmc_name": "DHARAMSHALA"
+      },
+      {
+        "apmc_id": "42",
+        "apmc_name": "FRUIT MANDI SOLAN"
+      },
+      {
+        "apmc_id": "380",
+        "apmc_name": "HAMIRPUR"
+      },
+      {
+        "apmc_id": "377",
+        "apmc_name": "KANGRA"
+      },
+      {
+        "apmc_id": "272",
+        "apmc_name": "KANGRA JASSOUR"
+      },
+      {
+        "apmc_id": "3893",
+        "apmc_name": "KHARAPATHAR"
+      },
+      {
+        "apmc_id": "379",
+        "apmc_name": "MANDI"
+      },
+      {
+        "apmc_id": "3889",
+        "apmc_name": "MEHANDLI"
+      },
+      {
+        "apmc_id": "378",
+        "apmc_name": "PALAMPUR"
+      },
+      {
+        "apmc_id": "374",
+        "apmc_name": "PAONTA SAHIB"
+      },
+      {
+        "apmc_id": "373",
+        "apmc_name": "PARALA"
+      },
+      {
+        "apmc_id": "376",
+        "apmc_name": "PATIKUHAL"
+      },
+      {
+        "apmc_id": "372",
+        "apmc_name": "ROHRU"
+      },
+      {
+        "apmc_id": "382",
+        "apmc_name": "SANTOSHGARH"
+      },
+      {
+        "apmc_id": "270",
+        "apmc_name": "SOLAN PARWANOO"
+      },
+      {
+        "apmc_id": "271",
+        "apmc_name": "TAKOLI"
+      },
+      {
+        "apmc_id": "3891",
+        "apmc_name": "TAPRI"
+      },
+      {
+        "apmc_id": "381",
+        "apmc_name": "UNA"
+      },
+      {
+        "apmc_id": "5017",
+        "apmc_name": "SMY NERWA "
+      },
+      {
+        "apmc_id": "5018",
+        "apmc_name": "SMY NADAUN "
+      },
+      {
+        "apmc_id": "5019",
+        "apmc_name": "SMY KULLU"
+      },
+      {
+        "apmc_id": "5020",
+        "apmc_name": "SMY SHAAT"
+      },
+      {
+        "apmc_id": "5021",
+        "apmc_name": "SMY CHOURIBIHAL"
+      },
+      {
+        "apmc_id": "5026",
+        "apmc_name": "SMY WAKHNAGHAT"
+      },
+      {
+        "apmc_id": "5031",
+        "apmc_name": "SMY DHARAMPUR"
+      },
+      {
+        "apmc_id": "5032",
+        "apmc_name": "SMY NAGROTA BAGWAN"
+      },
+      {
+        "apmc_id": "5033",
+        "apmc_name": "SMY TAKARLA"
+      },
+      {
+        "apmc_id": "5034",
+        "apmc_name": "PMY NAHAN"
+      },
+      {
+        "apmc_id": "5035",
+        "apmc_name": "SMY RAJGARH"
+      },
+      {
+        "apmc_id": "5037",
+        "apmc_name": "PMY BILASPUR"
+      }
+    ]
+  },
+  {
+    "state_id": "696",
+    "state_name": "JAMMU AND KASHMIR",
+    "apmcs": [
+      {
+        "apmc_id": "3875",
+        "apmc_name": "ANANTNAG"
+      },
+      {
+        "apmc_id": "3876",
+        "apmc_name": "CHARARISHARIEF"
+      },
+      {
+        "apmc_id": "3877",
+        "apmc_name": "HANDWARA"
+      },
+      {
+        "apmc_id": "3878",
+        "apmc_name": "KATHUA"
+      },
+      {
+        "apmc_id": "3879",
+        "apmc_name": "KULGAM"
+      },
+      {
+        "apmc_id": "1371",
+        "apmc_name": "NARWAL"
+      },
+      {
+        "apmc_id": "1372",
+        "apmc_name": "PARIMPORA SGR"
+      },
+      {
+        "apmc_id": "3880",
+        "apmc_name": "PULWAMA"
+      },
+      {
+        "apmc_id": "3881",
+        "apmc_name": "SHOPIAN"
+      },
+      {
+        "apmc_id": "3882",
+        "apmc_name": "SOPORE"
+      },
+      {
+        "apmc_id": "3883",
+        "apmc_name": "UDHAMPUR"
+      }
+    ]
+  },
+  {
+    "state_id": "47",
+    "state_name": "JHARKHAND",
+    "apmcs": [
+      {
+        "apmc_id": "348",
+        "apmc_name": "BOKARO"
+      },
+      {
+        "apmc_id": "152",
+        "apmc_name": "CHAIBASA"
+      },
+      {
+        "apmc_id": "350",
+        "apmc_name": "CHAKULIA"
+      },
+      {
+        "apmc_id": "153",
+        "apmc_name": "DALTENGANJ"
+      },
+      {
+        "apmc_id": "354",
+        "apmc_name": "DEOGHAR"
+      },
+      {
+        "apmc_id": "154",
+        "apmc_name": "DHANBAD"
+      },
+      {
+        "apmc_id": "355",
+        "apmc_name": "DUMKA"
+      },
+      {
+        "apmc_id": "349",
+        "apmc_name": "GARHWA"
+      },
+      {
+        "apmc_id": "351",
+        "apmc_name": "GRIDIH"
+      },
+      {
+        "apmc_id": "155",
+        "apmc_name": "GUMLA"
+      },
+      {
+        "apmc_id": "346",
+        "apmc_name": "HAZARIBAGH"
+      },
+      {
+        "apmc_id": "156",
+        "apmc_name": "JAMSHEDPUR"
+      },
+      {
+        "apmc_id": "353",
+        "apmc_name": "KODERMA"
+      },
+      {
+        "apmc_id": "157",
+        "apmc_name": "LOHARDAGA"
+      },
+      {
+        "apmc_id": "352",
+        "apmc_name": "PAKUR"
+      },
+      {
+        "apmc_id": "52",
+        "apmc_name": "PANDRA RANCHI"
+      },
+      {
+        "apmc_id": "345",
+        "apmc_name": "Ramgarh"
+      },
+      {
+        "apmc_id": "347",
+        "apmc_name": "SAHEBGANJ"
+      },
+      {
+        "apmc_id": "159",
+        "apmc_name": "SIMDEGA"
+      }
+    ]
+  },
+  {
+    "state_id": "695",
+    "state_name": "KARNATAKA",
+    "apmcs": [
+      {
+        "apmc_id": "1368",
+        "apmc_name": "APMC CHINCHOLI"
+      },
+      {
+        "apmc_id": "1366",
+        "apmc_name": "APMC KALBURGI"
+      },
+      {
+        "apmc_id": "5012",
+        "apmc_name": "CHANNAGIRI "
+      },
+      {
+        "apmc_id": "5014",
+        "apmc_name": "APMC YARD SAUNDATTI"
+      },
+      {
+        "apmc_id": "5015",
+        "apmc_name": "APMC TIPTUR"
+      }
+    ]
+  },
+  {
+    "state_id": "694",
+    "state_name": "KERALA",
+    "apmcs": [
+      {
+        "apmc_id": "1357",
+        "apmc_name": "ARWM MUVATTUPUZHA"
+      },
+      {
+        "apmc_id": "1362",
+        "apmc_name": "ARWM NEDUMANGAD"
+      },
+      {
+        "apmc_id": "1361",
+        "apmc_name": "ARWM SULTAN BARTHERY"
+      },
+      {
+        "apmc_id": "1359",
+        "apmc_name": "AUWM ANAYARA"
+      },
+      {
+        "apmc_id": "1358",
+        "apmc_name": "AUWM MARADU"
+      },
+      {
+        "apmc_id": "1360",
+        "apmc_name": "AUWM VENGERI"
+      }
+    ]
+  },
+  {
+    "state_id": "20",
+    "state_name": "MADHYA PRADESH",
+    "apmcs": [
+      {
+        "apmc_id": "406",
+        "apmc_name": "AGAR"
+      },
+      {
+        "apmc_id": "4063",
+        "apmc_name": "ALIRAJPUR"
+      },
+      {
+        "apmc_id": "3912",
+        "apmc_name": "AMARPATAN"
+      },
+      {
+        "apmc_id": "4165",
+        "apmc_name": "ANUPPUR"
+      },
+      {
+        "apmc_id": "4057",
+        "apmc_name": "ARON"
+      },
+      {
+        "apmc_id": "133",
+        "apmc_name": "ASHOKNAGAR"
+      },
+      {
+        "apmc_id": "334",
+        "apmc_name": "ASHTA"
+      },
+      {
+        "apmc_id": "3928",
+        "apmc_name": "BADA MALHERA"
+      },
+      {
+        "apmc_id": "4058",
+        "apmc_name": "BADARWAS"
+      },
+      {
+        "apmc_id": "400",
+        "apmc_name": "BADNAGAR"
+      },
+      {
+        "apmc_id": "396",
+        "apmc_name": "BADNAWAR"
+      },
+      {
+        "apmc_id": "3914",
+        "apmc_name": "BAIKUNTHPUR"
+      },
+      {
+        "apmc_id": "466",
+        "apmc_name": "BALAGHAT"
+      },
+      {
+        "apmc_id": "4085",
+        "apmc_name": "BANKHEDI"
+      },
+      {
+        "apmc_id": "387",
+        "apmc_name": "BARELI"
+      },
+      {
+        "apmc_id": "3915",
+        "apmc_name": "BARWANI"
+      },
+      {
+        "apmc_id": "4064",
+        "apmc_name": "BEOHARI"
+      },
+      {
+        "apmc_id": "386",
+        "apmc_name": "BERASIA"
+      },
+      {
+        "apmc_id": "134",
+        "apmc_name": "BETUL"
+      },
+      {
+        "apmc_id": "4065",
+        "apmc_name": "BHIND"
+      },
+      {
+        "apmc_id": "390",
+        "apmc_name": "BIAORA"
+      },
+      {
+        "apmc_id": "411",
+        "apmc_name": "BINA"
+      },
+      {
+        "apmc_id": "399",
+        "apmc_name": "BURHANPUR"
+      },
+      {
+        "apmc_id": "4164",
+        "apmc_name": "CHAKGHAT"
+      },
+      {
+        "apmc_id": "4091",
+        "apmc_name": "CHAURAI"
+      },
+      {
+        "apmc_id": "3916",
+        "apmc_name": "CHHAPARA"
+      },
+      {
+        "apmc_id": "465",
+        "apmc_name": "CHHATARPUR"
+      },
+      {
+        "apmc_id": "135",
+        "apmc_name": "CHHINDWARA"
+      },
+      {
+        "apmc_id": "407",
+        "apmc_name": "DABRA"
+      },
+      {
+        "apmc_id": "4079",
+        "apmc_name": "DALAUDA"
+      },
+      {
+        "apmc_id": "136",
+        "apmc_name": "DAMOH"
+      },
+      {
+        "apmc_id": "418",
+        "apmc_name": "DATIA"
+      },
+      {
+        "apmc_id": "4086",
+        "apmc_name": "DEORI"
+      },
+      {
+        "apmc_id": "137",
+        "apmc_name": "DEWAS"
+      },
+      {
+        "apmc_id": "395",
+        "apmc_name": "DHAR"
+      },
+      {
+        "apmc_id": "468",
+        "apmc_name": "GADARWARA"
+      },
+      {
+        "apmc_id": "389",
+        "apmc_name": "GANJ BASODA"
+      },
+      {
+        "apmc_id": "4087",
+        "apmc_name": "GARHAKOTA"
+      },
+      {
+        "apmc_id": "3929",
+        "apmc_name": "GAUTAMPURA"
+      },
+      {
+        "apmc_id": "4166",
+        "apmc_name": "GOTEGAON"
+      },
+      {
+        "apmc_id": "409",
+        "apmc_name": "GUNA"
+      },
+      {
+        "apmc_id": "4096",
+        "apmc_name": "HANUMANA"
+      },
+      {
+        "apmc_id": "138",
+        "apmc_name": "HARDA"
+      },
+      {
+        "apmc_id": "3930",
+        "apmc_name": "HARPALPUR"
+      },
+      {
+        "apmc_id": "3917",
+        "apmc_name": "HARSUD"
+      },
+      {
+        "apmc_id": "139",
+        "apmc_name": "INDORE"
+      },
+      {
+        "apmc_id": "393",
+        "apmc_name": "ITARSI"
+      },
+      {
+        "apmc_id": "140",
+        "apmc_name": "JABALPUR"
+      },
+      {
+        "apmc_id": "4075",
+        "apmc_name": "JABERA"
+      },
+      {
+        "apmc_id": "141",
+        "apmc_name": "JAORA"
+      },
+      {
+        "apmc_id": "4059",
+        "apmc_name": "JHABUA"
+      },
+      {
+        "apmc_id": "3920",
+        "apmc_name": "JOBAT"
+      },
+      {
+        "apmc_id": "3921",
+        "apmc_name": "KARERA"
+      },
+      {
+        "apmc_id": "21",
+        "apmc_name": "KAROND"
+      },
+      {
+        "apmc_id": "3922",
+        "apmc_name": "KASRAWAD"
+      },
+      {
+        "apmc_id": "3923",
+        "apmc_name": "KATANGI"
+      },
+      {
+        "apmc_id": "415",
+        "apmc_name": "KATNI"
+      },
+      {
+        "apmc_id": "398",
+        "apmc_name": "KHANDWA"
+      },
+      {
+        "apmc_id": "397",
+        "apmc_name": "KHARGONE"
+      },
+      {
+        "apmc_id": "403",
+        "apmc_name": "KHATEGAON"
+      },
+      {
+        "apmc_id": "4060",
+        "apmc_name": "KHETIYA"
+      },
+      {
+        "apmc_id": "392",
+        "apmc_name": "KHIRKIYA"
+      },
+      {
+        "apmc_id": "4097",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI PATAN"
+      },
+      {
+        "apmc_id": "854",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-ANJAD"
+      },
+      {
+        "apmc_id": "849",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-BADWAHA"
+      },
+      {
+        "apmc_id": "848",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-BANAPURA"
+      },
+      {
+        "apmc_id": "852",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-BHIKANGAON"
+      },
+      {
+        "apmc_id": "869",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-DHAMNOD"
+      },
+      {
+        "apmc_id": "856",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-GANDHWANI"
+      },
+      {
+        "apmc_id": "860",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-KARELI"
+      },
+      {
+        "apmc_id": "853",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-KARHI"
+      },
+      {
+        "apmc_id": "863",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-KHURAI"
+      },
+      {
+        "apmc_id": "866",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-KOLARAS"
+      },
+      {
+        "apmc_id": "857",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-KUKSHI"
+      },
+      {
+        "apmc_id": "864",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-KUMBHRAJ"
+      },
+      {
+        "apmc_id": "865",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-LASHKAR"
+      },
+      {
+        "apmc_id": "867",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-NAGOD"
+      },
+      {
+        "apmc_id": "845",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-NASRULLAGANJ"
+      },
+      {
+        "apmc_id": "862",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-PANDHURNA"
+      },
+      {
+        "apmc_id": "847",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-RAISEN"
+      },
+      {
+        "apmc_id": "851",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-SANAWAD"
+      },
+      {
+        "apmc_id": "861",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-SAUNSAR"
+      },
+      {
+        "apmc_id": "855",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-SHIVPURI"
+      },
+      {
+        "apmc_id": "868",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-SINGRAULI"
+      },
+      {
+        "apmc_id": "846",
+        "apmc_name": "KRISHI UPAJ MANDI SAMITI-UDAIPURA"
+      },
+      {
+        "apmc_id": "3924",
+        "apmc_name": "KURAWAR"
+      },
+      {
+        "apmc_id": "4078",
+        "apmc_name": "LAVKUSHNAGAR"
+      },
+      {
+        "apmc_id": "402",
+        "apmc_name": "MAHIDPUR"
+      },
+      {
+        "apmc_id": "4088",
+        "apmc_name": "MAIHAR"
+      },
+      {
+        "apmc_id": "469",
+        "apmc_name": "MANDLA"
+      },
+      {
+        "apmc_id": "142",
+        "apmc_name": "MANDSAUR"
+      },
+      {
+        "apmc_id": "417",
+        "apmc_name": "MHOW"
+      },
+      {
+        "apmc_id": "463",
+        "apmc_name": "MORENA"
+      },
+      {
+        "apmc_id": "4098",
+        "apmc_name": "MUNGAOLI"
+      },
+      {
+        "apmc_id": "3925",
+        "apmc_name": "NARSINGHGARH"
+      },
+      {
+        "apmc_id": "143",
+        "apmc_name": "NEEMUCH"
+      },
+      {
+        "apmc_id": "4066",
+        "apmc_name": "NIWARI"
+      },
+      {
+        "apmc_id": "388",
+        "apmc_name": "OBAIDULLAGANJ"
+      },
+      {
+        "apmc_id": "4061",
+        "apmc_name": "PACHORE"
+      },
+      {
+        "apmc_id": "4156",
+        "apmc_name": "PALARI"
+      },
+      {
+        "apmc_id": "4083",
+        "apmc_name": "PANNA"
+      },
+      {
+        "apmc_id": "4074",
+        "apmc_name": "PATHARIA"
+      },
+      {
+        "apmc_id": "4067",
+        "apmc_name": "PETLAWAD"
+      },
+      {
+        "apmc_id": "4068",
+        "apmc_name": "PIPALIYA"
+      },
+      {
+        "apmc_id": "144",
+        "apmc_name": "PIPARIYA"
+      },
+      {
+        "apmc_id": "4072",
+        "apmc_name": "RAHATGARH"
+      },
+      {
+        "apmc_id": "3927",
+        "apmc_name": "RAJGARH"
+      },
+      {
+        "apmc_id": "4062",
+        "apmc_name": "RAJNAGAR"
+      },
+      {
+        "apmc_id": "145",
+        "apmc_name": "RATLAM"
+      },
+      {
+        "apmc_id": "4092",
+        "apmc_name": "REHLI"
+      },
+      {
+        "apmc_id": "146",
+        "apmc_name": "REWA"
+      },
+      {
+        "apmc_id": "147",
+        "apmc_name": "SAGAR"
+      },
+      {
+        "apmc_id": "394",
+        "apmc_name": "SANWER"
+      },
+      {
+        "apmc_id": "148",
+        "apmc_name": "SATNA"
+      },
+      {
+        "apmc_id": "4069",
+        "apmc_name": "SEGAON"
+      },
+      {
+        "apmc_id": "412",
+        "apmc_name": "SEHORA"
+      },
+      {
+        "apmc_id": "149",
+        "apmc_name": "SEHORE"
+      },
+      {
+        "apmc_id": "3911",
+        "apmc_name": "SEMRI HARCHAND"
+      },
+      {
+        "apmc_id": "462",
+        "apmc_name": "SENDHWA"
+      },
+      {
+        "apmc_id": "467",
+        "apmc_name": "SEONI"
+      },
+      {
+        "apmc_id": "4093",
+        "apmc_name": "SHAHDOL"
+      },
+      {
+        "apmc_id": "413",
+        "apmc_name": "SHAHPURA BHITONI"
+      },
+      {
+        "apmc_id": "420",
+        "apmc_name": "SHAJAPUR"
+      },
+      {
+        "apmc_id": "464",
+        "apmc_name": "SHEOPURKALAN"
+      },
+      {
+        "apmc_id": "404",
+        "apmc_name": "SHUJALPUR"
+      },
+      {
+        "apmc_id": "4094",
+        "apmc_name": "SIDHI"
+      },
+      {
+        "apmc_id": "4082",
+        "apmc_name": "SILWANI"
+      },
+      {
+        "apmc_id": "3910",
+        "apmc_name": "SIRALI"
+      },
+      {
+        "apmc_id": "4071",
+        "apmc_name": "SIRONJ"
+      },
+      {
+        "apmc_id": "4070",
+        "apmc_name": "SONKATCH"
+      },
+      {
+        "apmc_id": "4155",
+        "apmc_name": "THANDLA"
+      },
+      {
+        "apmc_id": "335",
+        "apmc_name": "TIKAMGARH"
+      },
+      {
+        "apmc_id": "391",
+        "apmc_name": "TIMARNI"
+      },
+      {
+        "apmc_id": "150",
+        "apmc_name": "UJJAIN"
+      },
+      {
+        "apmc_id": "4095",
+        "apmc_name": "UMARIA"
+      },
+      {
+        "apmc_id": "151",
+        "apmc_name": "VIDISHA"
+      }
+    ]
+  },
+  {
+    "state_id": "296",
+    "state_name": "MAHARASHTRA",
+    "apmcs": [
+      {
+        "apmc_id": "1022",
+        "apmc_name": "AAMGAON"
+      },
+      {
+        "apmc_id": "308",
+        "apmc_name": "AATPADI"
+      },
+      {
+        "apmc_id": "471",
+        "apmc_name": "ACHALPUR"
+      },
+      {
+        "apmc_id": "459",
+        "apmc_name": "AHERI"
+      },
+      {
+        "apmc_id": "401",
+        "apmc_name": "AHMEDNAGAR"
+      },
+      {
+        "apmc_id": "299",
+        "apmc_name": "AKOLA"
+      },
+      {
+        "apmc_id": "1023",
+        "apmc_name": "AKOT"
+      },
+      {
+        "apmc_id": "566",
+        "apmc_name": "AMALNER"
+      },
+      {
+        "apmc_id": "405",
+        "apmc_name": "AMARAVATHI"
+      },
+      {
+        "apmc_id": "1024",
+        "apmc_name": "AMBEJOGAI"
+      },
+      {
+        "apmc_id": "567",
+        "apmc_name": "ANJANGAON SURJI"
+      },
+      {
+        "apmc_id": "460",
+        "apmc_name": "ARJUNI MORGOAN"
+      },
+      {
+        "apmc_id": "1025",
+        "apmc_name": "ARVI"
+      },
+      {
+        "apmc_id": "303",
+        "apmc_name": "AURANGABAD"
+      },
+      {
+        "apmc_id": "1026",
+        "apmc_name": "AUSA"
+      },
+      {
+        "apmc_id": "1027",
+        "apmc_name": "BARAMATI"
+      },
+      {
+        "apmc_id": "461",
+        "apmc_name": "BARSHI"
+      },
+      {
+        "apmc_id": "470",
+        "apmc_name": "Basmat"
+      },
+      {
+        "apmc_id": "408",
+        "apmc_name": "BEED"
+      },
+      {
+        "apmc_id": "1028",
+        "apmc_name": "BHIWAPUR"
+      },
+      {
+        "apmc_id": "456",
+        "apmc_name": "BHOKAR"
+      },
+      {
+        "apmc_id": "1029",
+        "apmc_name": "CHALISGAON"
+      },
+      {
+        "apmc_id": "1030",
+        "apmc_name": "CHAMORSHI"
+      },
+      {
+        "apmc_id": "568",
+        "apmc_name": "CHANDRAPUR"
+      },
+      {
+        "apmc_id": "1031",
+        "apmc_name": "CHANDUR BAZAR"
+      },
+      {
+        "apmc_id": "1032",
+        "apmc_name": "CHANDVAD"
+      },
+      {
+        "apmc_id": "1033",
+        "apmc_name": "CHIKHALI"
+      },
+      {
+        "apmc_id": "587",
+        "apmc_name": "CHOPADA"
+      },
+      {
+        "apmc_id": "588",
+        "apmc_name": "DARYAPUR"
+      },
+      {
+        "apmc_id": "1034",
+        "apmc_name": "DEVALA"
+      },
+      {
+        "apmc_id": "1035",
+        "apmc_name": "DHAMANGAON RAILWAY"
+      },
+      {
+        "apmc_id": "457",
+        "apmc_name": "DHULE"
+      },
+      {
+        "apmc_id": "1036",
+        "apmc_name": "DIGRAS"
+      },
+      {
+        "apmc_id": "1037",
+        "apmc_name": "DINDORI"
+      },
+      {
+        "apmc_id": "410",
+        "apmc_name": "DONDAICHA"
+      },
+      {
+        "apmc_id": "451",
+        "apmc_name": "DOUND"
+      },
+      {
+        "apmc_id": "1038",
+        "apmc_name": "GANGAPUR-MH"
+      },
+      {
+        "apmc_id": "455",
+        "apmc_name": "GEVRAI"
+      },
+      {
+        "apmc_id": "589",
+        "apmc_name": "GONDIYA"
+      },
+      {
+        "apmc_id": "1039",
+        "apmc_name": "HINGANGHAT"
+      },
+      {
+        "apmc_id": "414",
+        "apmc_name": "HINGOLI"
+      },
+      {
+        "apmc_id": "1040",
+        "apmc_name": "INDAPUR"
+      },
+      {
+        "apmc_id": "1041",
+        "apmc_name": "JALGAON"
+      },
+      {
+        "apmc_id": "1042",
+        "apmc_name": "JALNA"
+      },
+      {
+        "apmc_id": "1043",
+        "apmc_name": "JINTUR"
+      },
+      {
+        "apmc_id": "416",
+        "apmc_name": "JUNNAR"
+      },
+      {
+        "apmc_id": "1044",
+        "apmc_name": "KALAMB"
+      },
+      {
+        "apmc_id": "1045",
+        "apmc_name": "KANNAD"
+      },
+      {
+        "apmc_id": "421",
+        "apmc_name": "KARAD"
+      },
+      {
+        "apmc_id": "1046",
+        "apmc_name": "KARANJA"
+      },
+      {
+        "apmc_id": "1047",
+        "apmc_name": "KARMALA"
+      },
+      {
+        "apmc_id": "590",
+        "apmc_name": "KATOL"
+      },
+      {
+        "apmc_id": "419",
+        "apmc_name": "KHAMGAON"
+      },
+      {
+        "apmc_id": "591",
+        "apmc_name": "KHED"
+      },
+      {
+        "apmc_id": "297",
+        "apmc_name": "KOLHAPUR"
+      },
+      {
+        "apmc_id": "1048",
+        "apmc_name": "LASALGAON"
+      },
+      {
+        "apmc_id": "1049",
+        "apmc_name": "LASUR STATION"
+      },
+      {
+        "apmc_id": "300",
+        "apmc_name": "LATUR"
+      },
+      {
+        "apmc_id": "473",
+        "apmc_name": "LONAND"
+      },
+      {
+        "apmc_id": "592",
+        "apmc_name": "LONAR"
+      },
+      {
+        "apmc_id": "1050",
+        "apmc_name": "MAJALGAON"
+      },
+      {
+        "apmc_id": "474",
+        "apmc_name": "MALEGOAN"
+      },
+      {
+        "apmc_id": "472",
+        "apmc_name": "Malkapur"
+      },
+      {
+        "apmc_id": "1051",
+        "apmc_name": "MANGALWEDHA"
+      },
+      {
+        "apmc_id": "422",
+        "apmc_name": "MANGRULPEER"
+      },
+      {
+        "apmc_id": "1052",
+        "apmc_name": "MANORA"
+      },
+      {
+        "apmc_id": "1053",
+        "apmc_name": "MORSHI"
+      },
+      {
+        "apmc_id": "1054",
+        "apmc_name": "MUL"
+      },
+      {
+        "apmc_id": "424",
+        "apmc_name": "MUMBAI"
+      },
+      {
+        "apmc_id": "593",
+        "apmc_name": "MURTIZAPUR"
+      },
+      {
+        "apmc_id": "1055",
+        "apmc_name": "MURUM"
+      },
+      {
+        "apmc_id": "1056",
+        "apmc_name": "NAGBHID"
+      },
+      {
+        "apmc_id": "305",
+        "apmc_name": "NAGPUR"
+      },
+      {
+        "apmc_id": "1057",
+        "apmc_name": "NAMPUR"
+      },
+      {
+        "apmc_id": "1058",
+        "apmc_name": "NANDED"
+      },
+      {
+        "apmc_id": "1059",
+        "apmc_name": "NANDGAON"
+      },
+      {
+        "apmc_id": "458",
+        "apmc_name": "NANDURBAR"
+      },
+      {
+        "apmc_id": "425",
+        "apmc_name": "NASIK"
+      },
+      {
+        "apmc_id": "1060",
+        "apmc_name": "NER PARASOPANT"
+      },
+      {
+        "apmc_id": "307",
+        "apmc_name": "NEWASA"
+      },
+      {
+        "apmc_id": "1061",
+        "apmc_name": "PANDHARPUR"
+      },
+      {
+        "apmc_id": "304",
+        "apmc_name": "PARBHANI"
+      },
+      {
+        "apmc_id": "1062",
+        "apmc_name": "Parli Vaijyanath"
+      },
+      {
+        "apmc_id": "1063",
+        "apmc_name": "PARTUR"
+      },
+      {
+        "apmc_id": "1064",
+        "apmc_name": "PHALTAN"
+      },
+      {
+        "apmc_id": "426",
+        "apmc_name": "PIMPALGAON BASWANT"
+      },
+      {
+        "apmc_id": "427",
+        "apmc_name": "PUNE"
+      },
+      {
+        "apmc_id": "1065",
+        "apmc_name": "RAHATA"
+      },
+      {
+        "apmc_id": "428",
+        "apmc_name": "RAHURI"
+      },
+      {
+        "apmc_id": "1066",
+        "apmc_name": "RISOD"
+      },
+      {
+        "apmc_id": "1067",
+        "apmc_name": "SANGAMNER"
+      },
+      {
+        "apmc_id": "298",
+        "apmc_name": "SANGLI"
+      },
+      {
+        "apmc_id": "1068",
+        "apmc_name": "SANGOLA"
+      },
+      {
+        "apmc_id": "1069",
+        "apmc_name": "SATANA"
+      },
+      {
+        "apmc_id": "1070",
+        "apmc_name": "SAVNER"
+      },
+      {
+        "apmc_id": "453",
+        "apmc_name": "SELU"
+      },
+      {
+        "apmc_id": "594",
+        "apmc_name": "SENGOAN"
+      },
+      {
+        "apmc_id": "595",
+        "apmc_name": "SHAHADA"
+      },
+      {
+        "apmc_id": "596",
+        "apmc_name": "SHEGAON"
+      },
+      {
+        "apmc_id": "597",
+        "apmc_name": "SHIRPUR"
+      },
+      {
+        "apmc_id": "306",
+        "apmc_name": "SHIRUR"
+      },
+      {
+        "apmc_id": "1071",
+        "apmc_name": "SHRIRAMPUR"
+      },
+      {
+        "apmc_id": "1072",
+        "apmc_name": "Sindevahi"
+      },
+      {
+        "apmc_id": "1073",
+        "apmc_name": "SINDI"
+      },
+      {
+        "apmc_id": "1074",
+        "apmc_name": "SINNER"
+      },
+      {
+        "apmc_id": "429",
+        "apmc_name": "SOLAPUR"
+      },
+      {
+        "apmc_id": "1075",
+        "apmc_name": "TIRODA"
+      },
+      {
+        "apmc_id": "301",
+        "apmc_name": "TUMSAR"
+      },
+      {
+        "apmc_id": "598",
+        "apmc_name": "UDGIR"
+      },
+      {
+        "apmc_id": "1076",
+        "apmc_name": "UMRANE"
+      },
+      {
+        "apmc_id": "1077",
+        "apmc_name": "VAI"
+      },
+      {
+        "apmc_id": "430",
+        "apmc_name": "VAIJAPUR"
+      },
+      {
+        "apmc_id": "452",
+        "apmc_name": "VANI"
+      },
+      {
+        "apmc_id": "431",
+        "apmc_name": "VARORA"
+      },
+      {
+        "apmc_id": "432",
+        "apmc_name": "WARDHA"
+      },
+      {
+        "apmc_id": "1078",
+        "apmc_name": "WASHIM"
+      },
+      {
+        "apmc_id": "1079",
+        "apmc_name": "YAVATMAL"
+      },
+      {
+        "apmc_id": "302",
+        "apmc_name": "YEOLA"
+      }
+    ]
+  },
+  {
+    "state_id": "35",
+    "state_name": "NAGALAND",
+    "apmcs": [
+      {
+        "apmc_id": "3849",
+        "apmc_name": "DIMAPUR APMC"
+      },
+      {
+        "apmc_id": "3848",
+        "apmc_name": "KOHIMA APMC"
+      },
+      {
+        "apmc_id": "3847",
+        "apmc_name": "MOKOKCHUNG APMC"
+      },
+      {
+        "apmc_id": "3846",
+        "apmc_name": "MON APMC"
+      },
+      {
+        "apmc_id": "3845",
+        "apmc_name": "PFUTSERO APMC"
+      },
+      {
+        "apmc_id": "3844",
+        "apmc_name": "WOKHA APMC"
+      },
+      {
+        "apmc_id": "3843",
+        "apmc_name": "ZUNHEBOTO APMC"
+      },
+      {
+        "apmc_id": "4926",
+        "apmc_name": "BAGHTY APMC"
+      },
+      {
+        "apmc_id": "4927",
+        "apmc_name": "GHATASHI"
+      },
+      {
+        "apmc_id": "4928",
+        "apmc_name": "JALUKIE"
+      },
+      {
+        "apmc_id": "4929",
+        "apmc_name": "TULI"
+      },
+      {
+        "apmc_id": "4930",
+        "apmc_name": "KIPHIRE"
+      },
+      {
+        "apmc_id": "4931",
+        "apmc_name": "LONGLENG"
+      },
+      {
+        "apmc_id": "4932",
+        "apmc_name": "NIULAND"
+      },
+      {
+        "apmc_id": "4933",
+        "apmc_name": "PHEK"
+      },
+      {
+        "apmc_id": "4934",
+        "apmc_name": "TENNING"
+      },
+      {
+        "apmc_id": "4936",
+        "apmc_name": "TSEMENYU"
+      },
+      {
+        "apmc_id": "4937",
+        "apmc_name": "TUENSANG"
+      },
+      {
+        "apmc_id": "4938",
+        "apmc_name": "MANGKOLEMBA"
+      }
+    ]
+  },
+  {
+    "state_id": "384",
+    "state_name": "ODISHA",
+    "apmcs": [
+      {
+        "apmc_id": "888",
+        "apmc_name": "ANANDAPUR"
+      },
+      {
+        "apmc_id": "870",
+        "apmc_name": "ANGUL"
+      },
+      {
+        "apmc_id": "3867",
+        "apmc_name": "ATHMALLIK"
+      },
+      {
+        "apmc_id": "873",
+        "apmc_name": "ATTABIRA"
+      },
+      {
+        "apmc_id": "445",
+        "apmc_name": "BAHADAJHOLA"
+      },
+      {
+        "apmc_id": "871",
+        "apmc_name": "BALASORE"
+      },
+      {
+        "apmc_id": "889",
+        "apmc_name": "BALUGAON"
+      },
+      {
+        "apmc_id": "3871",
+        "apmc_name": "BANKI"
+      },
+      {
+        "apmc_id": "874",
+        "apmc_name": "BARGARH"
+      },
+      {
+        "apmc_id": "893",
+        "apmc_name": "BARIPADA"
+      },
+      {
+        "apmc_id": "894",
+        "apmc_name": "BETNOTI"
+      },
+      {
+        "apmc_id": "876",
+        "apmc_name": "BHADRAK"
+      },
+      {
+        "apmc_id": "3850",
+        "apmc_name": "BHANJANAGAR"
+      },
+      {
+        "apmc_id": "884",
+        "apmc_name": "BHAWANIPATNA"
+      },
+      {
+        "apmc_id": "899",
+        "apmc_name": "BONAI"
+      },
+      {
+        "apmc_id": "3853",
+        "apmc_name": "BOUDH"
+      },
+      {
+        "apmc_id": "877",
+        "apmc_name": "CHANDBALI"
+      },
+      {
+        "apmc_id": "878",
+        "apmc_name": "DEOGARH"
+      },
+      {
+        "apmc_id": "3870",
+        "apmc_name": "DHENKANAL"
+      },
+      {
+        "apmc_id": "880",
+        "apmc_name": "DIGAPAHANDI"
+      },
+      {
+        "apmc_id": "898",
+        "apmc_name": "DUNGURIPALI"
+      },
+      {
+        "apmc_id": "897",
+        "apmc_name": "GUNUPUR"
+      },
+      {
+        "apmc_id": "879",
+        "apmc_name": "HINDOL"
+      },
+      {
+        "apmc_id": "3856",
+        "apmc_name": "HINJILICUT"
+      },
+      {
+        "apmc_id": "881",
+        "apmc_name": "JAGATSINGHPUR"
+      },
+      {
+        "apmc_id": "883",
+        "apmc_name": "JAJPUR"
+      },
+      {
+        "apmc_id": "872",
+        "apmc_name": "JALESWAR"
+      },
+      {
+        "apmc_id": "890",
+        "apmc_name": "JATNI"
+      },
+      {
+        "apmc_id": "891",
+        "apmc_name": "JEYPORE"
+      },
+      {
+        "apmc_id": "3857",
+        "apmc_name": "JHARSUGUDA"
+      },
+      {
+        "apmc_id": "3861",
+        "apmc_name": "KAMAKHYANAGAR"
+      },
+      {
+        "apmc_id": "886",
+        "apmc_name": "KANDHAMAL"
+      },
+      {
+        "apmc_id": "440",
+        "apmc_name": "KANTABANJI"
+      },
+      {
+        "apmc_id": "3862",
+        "apmc_name": "KARANJIA"
+      },
+      {
+        "apmc_id": "887",
+        "apmc_name": "KENDRAPARA"
+      },
+      {
+        "apmc_id": "446",
+        "apmc_name": "KENDUPATNA"
+      },
+      {
+        "apmc_id": "885",
+        "apmc_name": "KESINGA"
+      },
+      {
+        "apmc_id": "439",
+        "apmc_name": "KORAPUT"
+      },
+      {
+        "apmc_id": "443",
+        "apmc_name": "KUCHINDA"
+      },
+      {
+        "apmc_id": "892",
+        "apmc_name": "MALKANGIRI"
+      },
+      {
+        "apmc_id": "442",
+        "apmc_name": "NABARANGPUR"
+      },
+      {
+        "apmc_id": "3863",
+        "apmc_name": "NARSINGHPUR"
+      },
+      {
+        "apmc_id": "896",
+        "apmc_name": "NIMAPARA"
+      },
+      {
+        "apmc_id": "875",
+        "apmc_name": "PADAMPUR OD"
+      },
+      {
+        "apmc_id": "3897",
+        "apmc_name": "PALLAHARA"
+      },
+      {
+        "apmc_id": "900",
+        "apmc_name": "PANPOSH"
+      },
+      {
+        "apmc_id": "441",
+        "apmc_name": "PARALAKHEMUNDI"
+      },
+      {
+        "apmc_id": "882",
+        "apmc_name": "RAHAMA"
+      },
+      {
+        "apmc_id": "447",
+        "apmc_name": "RAYAGADA"
+      },
+      {
+        "apmc_id": "448",
+        "apmc_name": "SAKHIGOPAL"
+      },
+      {
+        "apmc_id": "3864",
+        "apmc_name": "SAMBALPUR"
+      },
+      {
+        "apmc_id": "3865",
+        "apmc_name": "TALCHER"
+      },
+      {
+        "apmc_id": "444",
+        "apmc_name": "TIKABALI"
+      },
+      {
+        "apmc_id": "895",
+        "apmc_name": "UDALA"
+      },
+      {
+        "apmc_id": "4940",
+        "apmc_name": "BIRAMAHARAJPUR"
+      },
+      {
+        "apmc_id": "4941",
+        "apmc_name": "BALANGIR"
+      },
+      {
+        "apmc_id": "4942",
+        "apmc_name": "CHAMPUA"
+      },
+      {
+        "apmc_id": "4943",
+        "apmc_name": "JUNAGARH"
+      },
+      {
+        "apmc_id": "4944",
+        "apmc_name": "KEONJHAR"
+      },
+      {
+        "apmc_id": "4945",
+        "apmc_name": "KHARIAR ROAD"
+      },
+      {
+        "apmc_id": "4946",
+        "apmc_name": "MUKHIGUDA"
+      },
+      {
+        "apmc_id": "4947",
+        "apmc_name": "NILGIRI"
+      },
+      {
+        "apmc_id": "4948",
+        "apmc_name": "PATNAGARH"
+      },
+      {
+        "apmc_id": "4949",
+        "apmc_name": "RAIRAKHOL"
+      },
+      {
+        "apmc_id": "4950",
+        "apmc_name": "RAIRANGPUR"
+      },
+      {
+        "apmc_id": "4951",
+        "apmc_name": "SARGIPALI"
+      }
+    ]
+  },
+  {
+    "state_id": "599",
+    "state_name": "PUDUCHERRY",
+    "apmcs": [
+      {
+        "apmc_id": "601",
+        "apmc_name": "KARAIKAL"
+      },
+      {
+        "apmc_id": "600",
+        "apmc_name": "THATTANCHAVADY"
+      }
+    ]
+  },
+  {
+    "state_id": "602",
+    "state_name": "PUNJAB",
+    "apmcs": [
+      {
+        "apmc_id": "603",
+        "apmc_name": "ABOHAR"
+      },
+      {
+        "apmc_id": "4100",
+        "apmc_name": "AJNALA"
+      },
+      {
+        "apmc_id": "917",
+        "apmc_name": "AMLOH APMC"
+      },
+      {
+        "apmc_id": "604",
+        "apmc_name": "AMRITSAR"
+      },
+      {
+        "apmc_id": "4101",
+        "apmc_name": "ATTARI"
+      },
+      {
+        "apmc_id": "4102",
+        "apmc_name": "BALACHAUR"
+      },
+      {
+        "apmc_id": "4105",
+        "apmc_name": "BANGA"
+      },
+      {
+        "apmc_id": "4103",
+        "apmc_name": "BARETA"
+      },
+      {
+        "apmc_id": "605",
+        "apmc_name": "BARNALA"
+      },
+      {
+        "apmc_id": "4106",
+        "apmc_name": "BATALA"
+      },
+      {
+        "apmc_id": "606",
+        "apmc_name": "BHATINDA"
+      },
+      {
+        "apmc_id": "915",
+        "apmc_name": "BHIKHI APMC"
+      },
+      {
+        "apmc_id": "4109",
+        "apmc_name": "BHIKHIWIND"
+      },
+      {
+        "apmc_id": "4110",
+        "apmc_name": "BHOGPUR"
+      },
+      {
+        "apmc_id": "901",
+        "apmc_name": "BHUCHO MANDI APMC"
+      },
+      {
+        "apmc_id": "902",
+        "apmc_name": "BUDHLADA APMC"
+      },
+      {
+        "apmc_id": "4111",
+        "apmc_name": "DERA BABA NANAK"
+      },
+      {
+        "apmc_id": "4112",
+        "apmc_name": "DHURI"
+      },
+      {
+        "apmc_id": "4159",
+        "apmc_name": "DINANAGAR"
+      },
+      {
+        "apmc_id": "4113",
+        "apmc_name": "DUDAN SADHAN"
+      },
+      {
+        "apmc_id": "903",
+        "apmc_name": "FARIDKOT APMC"
+      },
+      {
+        "apmc_id": "4114",
+        "apmc_name": "FATEHGARH CHURIAN"
+      },
+      {
+        "apmc_id": "609",
+        "apmc_name": "FATHEGARH SAHIB"
+      },
+      {
+        "apmc_id": "611",
+        "apmc_name": "FAZILKA"
+      },
+      {
+        "apmc_id": "4115",
+        "apmc_name": "FEROZEPUR CANTT"
+      },
+      {
+        "apmc_id": "904",
+        "apmc_name": "FEROZEPUR CITY APMC"
+      },
+      {
+        "apmc_id": "613",
+        "apmc_name": "GIDDERBAHA"
+      },
+      {
+        "apmc_id": "614",
+        "apmc_name": "GONIANA"
+      },
+      {
+        "apmc_id": "905",
+        "apmc_name": "GURDASPUR APMC"
+      },
+      {
+        "apmc_id": "4116",
+        "apmc_name": "GURUHARSAHAI"
+      },
+      {
+        "apmc_id": "616",
+        "apmc_name": "HOSHIYARPUR"
+      },
+      {
+        "apmc_id": "4157",
+        "apmc_name": "JAGRAON"
+      },
+      {
+        "apmc_id": "4117",
+        "apmc_name": "JAITO"
+      },
+      {
+        "apmc_id": "4118",
+        "apmc_name": "JALALBAD"
+      },
+      {
+        "apmc_id": "617",
+        "apmc_name": "JALANDHAR"
+      },
+      {
+        "apmc_id": "4120",
+        "apmc_name": "JANDIALA GURU GEHRI"
+      },
+      {
+        "apmc_id": "4121",
+        "apmc_name": "KALANAUR"
+      },
+      {
+        "apmc_id": "906",
+        "apmc_name": "KAPURTHALA APMC"
+      },
+      {
+        "apmc_id": "4122",
+        "apmc_name": "KHANAURI"
+      },
+      {
+        "apmc_id": "918",
+        "apmc_name": "KHANNA APMC"
+      },
+      {
+        "apmc_id": "907",
+        "apmc_name": "KHARAR APMC"
+      },
+      {
+        "apmc_id": "4123",
+        "apmc_name": "KHEMKARAN"
+      },
+      {
+        "apmc_id": "908",
+        "apmc_name": "KOTKAPURA APMC"
+      },
+      {
+        "apmc_id": "4124",
+        "apmc_name": "LEHRAGAGA"
+      },
+      {
+        "apmc_id": "909",
+        "apmc_name": "LUDHIANA APMC"
+      },
+      {
+        "apmc_id": "4160",
+        "apmc_name": "MACHHIWARA SAHIB"
+      },
+      {
+        "apmc_id": "4158",
+        "apmc_name": "MAKHU"
+      },
+      {
+        "apmc_id": "4162",
+        "apmc_name": "MALERKOTLA"
+      },
+      {
+        "apmc_id": "910",
+        "apmc_name": "MALOUT APMC"
+      },
+      {
+        "apmc_id": "621",
+        "apmc_name": "MANSA"
+      },
+      {
+        "apmc_id": "620",
+        "apmc_name": "MAUR"
+      },
+      {
+        "apmc_id": "4163",
+        "apmc_name": "MEHTA"
+      },
+      {
+        "apmc_id": "911",
+        "apmc_name": "MOGA APMC"
+      },
+      {
+        "apmc_id": "4126",
+        "apmc_name": "MOONAK"
+      },
+      {
+        "apmc_id": "622",
+        "apmc_name": "MUKTSAR"
+      },
+      {
+        "apmc_id": "4141",
+        "apmc_name": "NABHA"
+      },
+      {
+        "apmc_id": "4161",
+        "apmc_name": "NAKODAR"
+      },
+      {
+        "apmc_id": "4127",
+        "apmc_name": "NAUSHEHARA PANNUAN"
+      },
+      {
+        "apmc_id": "912",
+        "apmc_name": "NAWANSHAHR MARKET"
+      },
+      {
+        "apmc_id": "624",
+        "apmc_name": "PATHANKOT"
+      },
+      {
+        "apmc_id": "625",
+        "apmc_name": "PATIALA"
+      },
+      {
+        "apmc_id": "4128",
+        "apmc_name": "PATRAN"
+      },
+      {
+        "apmc_id": "4129",
+        "apmc_name": "PATTI"
+      },
+      {
+        "apmc_id": "4130",
+        "apmc_name": "PHAGWARA"
+      },
+      {
+        "apmc_id": "4131",
+        "apmc_name": "RAJPURA"
+      },
+      {
+        "apmc_id": "913",
+        "apmc_name": "RAMAN APMC"
+      },
+      {
+        "apmc_id": "626",
+        "apmc_name": "RAMPURA PHUL"
+      },
+      {
+        "apmc_id": "4132",
+        "apmc_name": "RAYYA"
+      },
+      {
+        "apmc_id": "627",
+        "apmc_name": "ROPAR"
+      },
+      {
+        "apmc_id": "4133",
+        "apmc_name": "SADIQ"
+      },
+      {
+        "apmc_id": "4134",
+        "apmc_name": "SAMANA"
+      },
+      {
+        "apmc_id": "631",
+        "apmc_name": "SANGRUR"
+      },
+      {
+        "apmc_id": "914",
+        "apmc_name": "SARDULGARH APMC"
+      },
+      {
+        "apmc_id": "4135",
+        "apmc_name": "SHAHKOT"
+      },
+      {
+        "apmc_id": "4137",
+        "apmc_name": "SULTANPUR LODHI"
+      },
+      {
+        "apmc_id": "4138",
+        "apmc_name": "SUNAM"
+      },
+      {
+        "apmc_id": "4139",
+        "apmc_name": "TALWANDI BHAI"
+      },
+      {
+        "apmc_id": "632",
+        "apmc_name": "TAPPA"
+      },
+      {
+        "apmc_id": "916",
+        "apmc_name": "TARN TARAN APMC"
+      }
+    ]
+  },
+  {
+    "state_id": "26",
+    "state_name": "RAJASTHAN",
+    "apmcs": [
+      {
+        "apmc_id": "1080",
+        "apmc_name": "AABU ROAD"
+      },
+      {
+        "apmc_id": "1082",
+        "apmc_name": "AJMER F AND V"
+      },
+      {
+        "apmc_id": "1081",
+        "apmc_name": "AJMER GRAIN"
+      },
+      {
+        "apmc_id": "1083",
+        "apmc_name": "ALWAR"
+      },
+      {
+        "apmc_id": "1084",
+        "apmc_name": "ANOOPGARH"
+      },
+      {
+        "apmc_id": "1085",
+        "apmc_name": "ANTA"
+      },
+      {
+        "apmc_id": "163",
+        "apmc_name": "ATRU"
+      },
+      {
+        "apmc_id": "1086",
+        "apmc_name": "BAJJU"
+      },
+      {
+        "apmc_id": "1087",
+        "apmc_name": "BALOTRA"
+      },
+      {
+        "apmc_id": "323",
+        "apmc_name": "BANDIKUI"
+      },
+      {
+        "apmc_id": "1088",
+        "apmc_name": "BANSWARA"
+      },
+      {
+        "apmc_id": "164",
+        "apmc_name": "BARAN"
+      },
+      {
+        "apmc_id": "1090",
+        "apmc_name": "BARISADRI"
+      },
+      {
+        "apmc_id": "1091",
+        "apmc_name": "BARMER"
+      },
+      {
+        "apmc_id": "1092",
+        "apmc_name": "BARODAMEV"
+      },
+      {
+        "apmc_id": "1093",
+        "apmc_name": "BASSI"
+      },
+      {
+        "apmc_id": "1094",
+        "apmc_name": "BAYANA"
+      },
+      {
+        "apmc_id": "1095",
+        "apmc_name": "BEAWAR"
+      },
+      {
+        "apmc_id": "1096",
+        "apmc_name": "BEGU"
+      },
+      {
+        "apmc_id": "1097",
+        "apmc_name": "BHADRA"
+      },
+      {
+        "apmc_id": "1098",
+        "apmc_name": "BHAGAT KI KOTHI"
+      },
+      {
+        "apmc_id": "1099",
+        "apmc_name": "BHARATPUR"
+      },
+      {
+        "apmc_id": "1100",
+        "apmc_name": "BHAWANI MANDI"
+      },
+      {
+        "apmc_id": "1101",
+        "apmc_name": "BHILWARA"
+      },
+      {
+        "apmc_id": "1102",
+        "apmc_name": "BHINMAL"
+      },
+      {
+        "apmc_id": "1103",
+        "apmc_name": "BIJAY NAGAR"
+      },
+      {
+        "apmc_id": "1104",
+        "apmc_name": "BIJOLIYA"
+      },
+      {
+        "apmc_id": "1105",
+        "apmc_name": "BIKANER F AND V"
+      },
+      {
+        "apmc_id": "333",
+        "apmc_name": "BIKANER GRAIN"
+      },
+      {
+        "apmc_id": "1106",
+        "apmc_name": "BILARA"
+      },
+      {
+        "apmc_id": "165",
+        "apmc_name": "BUNDI"
+      },
+      {
+        "apmc_id": "1107",
+        "apmc_name": "CHABRA"
+      },
+      {
+        "apmc_id": "1108",
+        "apmc_name": "CHAKSU"
+      },
+      {
+        "apmc_id": "1109",
+        "apmc_name": "CHIRAWA"
+      },
+      {
+        "apmc_id": "1110",
+        "apmc_name": "CHITTORGARH"
+      },
+      {
+        "apmc_id": "1111",
+        "apmc_name": "CHOMEHLA"
+      },
+      {
+        "apmc_id": "1113",
+        "apmc_name": "CHOMU F AND V"
+      },
+      {
+        "apmc_id": "1112",
+        "apmc_name": "CHOMU GRAIN"
+      },
+      {
+        "apmc_id": "1114",
+        "apmc_name": "CHOTTISADRI"
+      },
+      {
+        "apmc_id": "1115",
+        "apmc_name": "CHURU"
+      },
+      {
+        "apmc_id": "1116",
+        "apmc_name": "DAUSA"
+      },
+      {
+        "apmc_id": "1117",
+        "apmc_name": "DEEDWANA"
+      },
+      {
+        "apmc_id": "1118",
+        "apmc_name": "DEEG"
+      },
+      {
+        "apmc_id": "1119",
+        "apmc_name": "DEGANA"
+      },
+      {
+        "apmc_id": "1120",
+        "apmc_name": "DEI"
+      },
+      {
+        "apmc_id": "324",
+        "apmc_name": "DEOLI"
+      },
+      {
+        "apmc_id": "1121",
+        "apmc_name": "DHOLPUR"
+      },
+      {
+        "apmc_id": "1122",
+        "apmc_name": "DOONI"
+      },
+      {
+        "apmc_id": "1123",
+        "apmc_name": "DUNGARPUR"
+      },
+      {
+        "apmc_id": "169",
+        "apmc_name": "FATEHNAGAR"
+      },
+      {
+        "apmc_id": "1124",
+        "apmc_name": "FATEHPUR"
+      },
+      {
+        "apmc_id": "1125",
+        "apmc_name": "GAJSINGHPUR"
+      },
+      {
+        "apmc_id": "166",
+        "apmc_name": "GANGAPUR CITY"
+      },
+      {
+        "apmc_id": "1126",
+        "apmc_name": "GANGAPUR-RJ"
+      },
+      {
+        "apmc_id": "1127",
+        "apmc_name": "GHARSANA"
+      },
+      {
+        "apmc_id": "1128",
+        "apmc_name": "GOLUWALA"
+      },
+      {
+        "apmc_id": "1129",
+        "apmc_name": "GUDA GODJI"
+      },
+      {
+        "apmc_id": "1130",
+        "apmc_name": "HANUMANGARH"
+      },
+      {
+        "apmc_id": "3842",
+        "apmc_name": "HANUMANGARH TOWN"
+      },
+      {
+        "apmc_id": "167",
+        "apmc_name": "HINDOUN"
+      },
+      {
+        "apmc_id": "1131",
+        "apmc_name": "IKLERA"
+      },
+      {
+        "apmc_id": "1132",
+        "apmc_name": "ITAWA"
+      },
+      {
+        "apmc_id": "1133",
+        "apmc_name": "JAIPUR F AND V MUHANA"
+      },
+      {
+        "apmc_id": "1134",
+        "apmc_name": "JAIPUR GRAIN"
+      },
+      {
+        "apmc_id": "1135",
+        "apmc_name": "JAISALMER"
+      },
+      {
+        "apmc_id": "1136",
+        "apmc_name": "JAITARAN"
+      },
+      {
+        "apmc_id": "1137",
+        "apmc_name": "JAITSAR"
+      },
+      {
+        "apmc_id": "1138",
+        "apmc_name": "JALORE"
+      },
+      {
+        "apmc_id": "1139",
+        "apmc_name": "JHALRAPATAN"
+      },
+      {
+        "apmc_id": "1140",
+        "apmc_name": "JHUNJHUNU"
+      },
+      {
+        "apmc_id": "1141",
+        "apmc_name": "JODHPUR F AND V"
+      },
+      {
+        "apmc_id": "322",
+        "apmc_name": "JODHPUR GRAIN"
+      },
+      {
+        "apmc_id": "326",
+        "apmc_name": "KAMAN"
+      },
+      {
+        "apmc_id": "1142",
+        "apmc_name": "KAPASAN"
+      },
+      {
+        "apmc_id": "1143",
+        "apmc_name": "KEKRI"
+      },
+      {
+        "apmc_id": "332",
+        "apmc_name": "KESHORAIPATAN"
+      },
+      {
+        "apmc_id": "1144",
+        "apmc_name": "KESRISINGHPUR"
+      },
+      {
+        "apmc_id": "1145",
+        "apmc_name": "KHAIRTHAL"
+      },
+      {
+        "apmc_id": "1146",
+        "apmc_name": "KHAJUWALA"
+      },
+      {
+        "apmc_id": "1147",
+        "apmc_name": "KHANPUR"
+      },
+      {
+        "apmc_id": "1148",
+        "apmc_name": "KHERLI"
+      },
+      {
+        "apmc_id": "1149",
+        "apmc_name": "KISHANGARH RENWAL"
+      },
+      {
+        "apmc_id": "168",
+        "apmc_name": "KOTA"
+      },
+      {
+        "apmc_id": "1150",
+        "apmc_name": "KOTA F AND V"
+      },
+      {
+        "apmc_id": "1151",
+        "apmc_name": "KOTPUTLI"
+      },
+      {
+        "apmc_id": "1152",
+        "apmc_name": "KUCHAMANCITY"
+      },
+      {
+        "apmc_id": "1154",
+        "apmc_name": "LALSOT"
+      },
+      {
+        "apmc_id": "1155",
+        "apmc_name": "LOONKARANSAR"
+      },
+      {
+        "apmc_id": "1156",
+        "apmc_name": "M. KISHANGARH"
+      },
+      {
+        "apmc_id": "1159",
+        "apmc_name": "MAHUWA MANDAWAR"
+      },
+      {
+        "apmc_id": "1157",
+        "apmc_name": "MAHUWA RJ"
+      },
+      {
+        "apmc_id": "1089",
+        "apmc_name": "MALPURA"
+      },
+      {
+        "apmc_id": "1158",
+        "apmc_name": "MANDALGARH"
+      },
+      {
+        "apmc_id": "327",
+        "apmc_name": "MANDAWARI"
+      },
+      {
+        "apmc_id": "170",
+        "apmc_name": "MERTA CITY"
+      },
+      {
+        "apmc_id": "328",
+        "apmc_name": "NADBAI"
+      },
+      {
+        "apmc_id": "423",
+        "apmc_name": "NAGAR"
+      },
+      {
+        "apmc_id": "230",
+        "apmc_name": "NAGOUR"
+      },
+      {
+        "apmc_id": "1160",
+        "apmc_name": "NAWALGARH"
+      },
+      {
+        "apmc_id": "1161",
+        "apmc_name": "NEEM KA THANA"
+      },
+      {
+        "apmc_id": "1162",
+        "apmc_name": "NIMBAHERA"
+      },
+      {
+        "apmc_id": "321",
+        "apmc_name": "NIWAI"
+      },
+      {
+        "apmc_id": "1163",
+        "apmc_name": "NOHAR"
+      },
+      {
+        "apmc_id": "329",
+        "apmc_name": "NOKHA"
+      },
+      {
+        "apmc_id": "171",
+        "apmc_name": "PADAMPUR"
+      },
+      {
+        "apmc_id": "1164",
+        "apmc_name": "PALI"
+      },
+      {
+        "apmc_id": "1165",
+        "apmc_name": "PALSANA"
+      },
+      {
+        "apmc_id": "1166",
+        "apmc_name": "PHALODI"
+      },
+      {
+        "apmc_id": "1167",
+        "apmc_name": "PILIBANGA"
+      },
+      {
+        "apmc_id": "1168",
+        "apmc_name": "PIPARCITY"
+      },
+      {
+        "apmc_id": "1169",
+        "apmc_name": "PRATAPGARH RJ"
+      },
+      {
+        "apmc_id": "1170",
+        "apmc_name": "RAISINGHNAGAR"
+      },
+      {
+        "apmc_id": "1153",
+        "apmc_name": "RAJDHANI MANDI KUKARKHERA"
+      },
+      {
+        "apmc_id": "1171",
+        "apmc_name": "RAJSAMAND"
+      },
+      {
+        "apmc_id": "27",
+        "apmc_name": "RAMGANJ MANDI"
+      },
+      {
+        "apmc_id": "1172",
+        "apmc_name": "RANI"
+      },
+      {
+        "apmc_id": "1173",
+        "apmc_name": "RANIWARA"
+      },
+      {
+        "apmc_id": "1174",
+        "apmc_name": "RATANGARH"
+      },
+      {
+        "apmc_id": "1175",
+        "apmc_name": "RAWATSAR"
+      },
+      {
+        "apmc_id": "1176",
+        "apmc_name": "RAWLA"
+      },
+      {
+        "apmc_id": "1177",
+        "apmc_name": "RIDMALSAR"
+      },
+      {
+        "apmc_id": "1178",
+        "apmc_name": "SADULPUR"
+      },
+      {
+        "apmc_id": "1179",
+        "apmc_name": "SADULSHAHAR"
+      },
+      {
+        "apmc_id": "1180",
+        "apmc_name": "SANCHORE"
+      },
+      {
+        "apmc_id": "1181",
+        "apmc_name": "SANGARIYA"
+      },
+      {
+        "apmc_id": "1182",
+        "apmc_name": "SARDAR SHAHAR"
+      },
+      {
+        "apmc_id": "1183",
+        "apmc_name": "SAWAI MADHOPUR"
+      },
+      {
+        "apmc_id": "1184",
+        "apmc_name": "SHAHPURA"
+      },
+      {
+        "apmc_id": "1185",
+        "apmc_name": "SIKAR"
+      },
+      {
+        "apmc_id": "1186",
+        "apmc_name": "SOJAT ROAD"
+      },
+      {
+        "apmc_id": "1187",
+        "apmc_name": "SRI DUNGARGARH"
+      },
+      {
+        "apmc_id": "325",
+        "apmc_name": "SRI GANGANAGAR GRAIN"
+      },
+      {
+        "apmc_id": "330",
+        "apmc_name": "SRI MADHOPUR"
+      },
+      {
+        "apmc_id": "1190",
+        "apmc_name": "SRI VIJAYNAGAR"
+      },
+      {
+        "apmc_id": "1188",
+        "apmc_name": "SRIGANGANAGAR F AND V"
+      },
+      {
+        "apmc_id": "1189",
+        "apmc_name": "SRIKARANPUR"
+      },
+      {
+        "apmc_id": "1191",
+        "apmc_name": "SUJANGARH"
+      },
+      {
+        "apmc_id": "1192",
+        "apmc_name": "SUMERGANJ"
+      },
+      {
+        "apmc_id": "331",
+        "apmc_name": "SUMERPUR"
+      },
+      {
+        "apmc_id": "1193",
+        "apmc_name": "SURAJGARH"
+      },
+      {
+        "apmc_id": "1194",
+        "apmc_name": "SURATGARH"
+      },
+      {
+        "apmc_id": "1195",
+        "apmc_name": "TONK"
+      },
+      {
+        "apmc_id": "1196",
+        "apmc_name": "UDAIPUR F AND V"
+      },
+      {
+        "apmc_id": "1197",
+        "apmc_name": "UDAIPUR GRAIN"
+      },
+      {
+        "apmc_id": "1198",
+        "apmc_name": "UNIYARA"
+      }
+    ]
+  },
+  {
+    "state_id": "509",
+    "state_name": "TAMIL NADU",
+    "apmcs": [
+      {
+        "apmc_id": "3962",
+        "apmc_name": "ALANGUDI"
+      },
+      {
+        "apmc_id": "3964",
+        "apmc_name": "AMBASAMUTHIRAM"
+      },
+      {
+        "apmc_id": "520",
+        "apmc_name": "AMMOOR"
+      },
+      {
+        "apmc_id": "682",
+        "apmc_name": "ANAIMALAI"
+      },
+      {
+        "apmc_id": "510",
+        "apmc_name": "ANNUR"
+      },
+      {
+        "apmc_id": "514",
+        "apmc_name": "ANTHIYUR"
+      },
+      {
+        "apmc_id": "920",
+        "apmc_name": "ARANI"
+      },
+      {
+        "apmc_id": "3965",
+        "apmc_name": "ARANTHANGI"
+      },
+      {
+        "apmc_id": "3966",
+        "apmc_name": "ARCOT"
+      },
+      {
+        "apmc_id": "3967",
+        "apmc_name": "ATTHUR"
+      },
+      {
+        "apmc_id": "3968",
+        "apmc_name": "AVALPOONDURAI"
+      },
+      {
+        "apmc_id": "952",
+        "apmc_name": "AVALURPET"
+      },
+      {
+        "apmc_id": "3969",
+        "apmc_name": "BATLAGUNDU"
+      },
+      {
+        "apmc_id": "3970",
+        "apmc_name": "BODINAYAKANUR"
+      },
+      {
+        "apmc_id": "3971",
+        "apmc_name": "BOOTHAPADI"
+      },
+      {
+        "apmc_id": "3972",
+        "apmc_name": "BUDALUR"
+      },
+      {
+        "apmc_id": "924",
+        "apmc_name": "CHETPET"
+      },
+      {
+        "apmc_id": "919",
+        "apmc_name": "CHEYYAR"
+      },
+      {
+        "apmc_id": "3973",
+        "apmc_name": "CHINNAMANUR"
+      },
+      {
+        "apmc_id": "3974",
+        "apmc_name": "CHINNASALEM"
+      },
+      {
+        "apmc_id": "3975",
+        "apmc_name": "CUDDALORE OT"
+      },
+      {
+        "apmc_id": "516",
+        "apmc_name": "CUMBUM"
+      },
+      {
+        "apmc_id": "921",
+        "apmc_name": "DESUR"
+      },
+      {
+        "apmc_id": "3976",
+        "apmc_name": "DEVAKOTTAI"
+      },
+      {
+        "apmc_id": "511",
+        "apmc_name": "DINDIGUL"
+      },
+      {
+        "apmc_id": "3977",
+        "apmc_name": "EDAPPADI"
+      },
+      {
+        "apmc_id": "3978",
+        "apmc_name": "ELUMATHUR"
+      },
+      {
+        "apmc_id": "927",
+        "apmc_name": "ERODE"
+      },
+      {
+        "apmc_id": "3979",
+        "apmc_name": "GANGAVALLI"
+      },
+      {
+        "apmc_id": "524",
+        "apmc_name": "GINGEE"
+      },
+      {
+        "apmc_id": "512",
+        "apmc_name": "GOBICHETTIPALAYAM"
+      },
+      {
+        "apmc_id": "3980",
+        "apmc_name": "GOPAL PATTI"
+      },
+      {
+        "apmc_id": "938",
+        "apmc_name": "GUDIYATHAM"
+      },
+      {
+        "apmc_id": "958",
+        "apmc_name": "HARUR"
+      },
+      {
+        "apmc_id": "3981",
+        "apmc_name": "JEYANKONDAM"
+      },
+      {
+        "apmc_id": "3982",
+        "apmc_name": "KADAYANALLUR"
+      },
+      {
+        "apmc_id": "521",
+        "apmc_name": "KALAVAI"
+      },
+      {
+        "apmc_id": "679",
+        "apmc_name": "KALLAKURICHI"
+      },
+      {
+        "apmc_id": "950",
+        "apmc_name": "KAMUTHI"
+      },
+      {
+        "apmc_id": "945",
+        "apmc_name": "KANCHEEPURAM"
+      },
+      {
+        "apmc_id": "3983",
+        "apmc_name": "KANGEYAM"
+      },
+      {
+        "apmc_id": "3984",
+        "apmc_name": "KARIKUDI"
+      },
+      {
+        "apmc_id": "3985",
+        "apmc_name": "KATTUMANNARKOIL"
+      },
+      {
+        "apmc_id": "956",
+        "apmc_name": "KILPENNATHUR"
+      },
+      {
+        "apmc_id": "3989",
+        "apmc_name": "KODUMUDI"
+      },
+      {
+        "apmc_id": "3990",
+        "apmc_name": "KONGANAPURAM"
+      },
+      {
+        "apmc_id": "3991",
+        "apmc_name": "KUDAVASAL"
+      },
+      {
+        "apmc_id": "3992",
+        "apmc_name": "KULASEKHARAM"
+      },
+      {
+        "apmc_id": "3993",
+        "apmc_name": "KUMBAKONAM"
+      },
+      {
+        "apmc_id": "3994",
+        "apmc_name": "KURUNJIPADY"
+      },
+      {
+        "apmc_id": "940",
+        "apmc_name": "KUTHALAM"
+      },
+      {
+        "apmc_id": "687",
+        "apmc_name": "LALGUDI"
+      },
+      {
+        "apmc_id": "3996",
+        "apmc_name": "MADATHUKULAM"
+      },
+      {
+        "apmc_id": "688",
+        "apmc_name": "MADURAI"
+      },
+      {
+        "apmc_id": "944",
+        "apmc_name": "MADURANATHANGAM"
+      },
+      {
+        "apmc_id": "3997",
+        "apmc_name": "MANALURPET"
+      },
+      {
+        "apmc_id": "3998",
+        "apmc_name": "MANAMADURAI"
+      },
+      {
+        "apmc_id": "4000",
+        "apmc_name": "MANNARKUDI"
+      },
+      {
+        "apmc_id": "941",
+        "apmc_name": "MAYILADUTHURAI"
+      },
+      {
+        "apmc_id": "4001",
+        "apmc_name": "MECHERI"
+      },
+      {
+        "apmc_id": "4002",
+        "apmc_name": "MELUR"
+      },
+      {
+        "apmc_id": "934",
+        "apmc_name": "MOOLANUR"
+      },
+      {
+        "apmc_id": "949",
+        "apmc_name": "MUDHUKALATHUR"
+      },
+      {
+        "apmc_id": "4003",
+        "apmc_name": "NAMAGIRIPETTAI"
+      },
+      {
+        "apmc_id": "929",
+        "apmc_name": "NATHAM"
+      },
+      {
+        "apmc_id": "933",
+        "apmc_name": "NEGAMAM"
+      },
+      {
+        "apmc_id": "931",
+        "apmc_name": "ODDANCHATRAM"
+      },
+      {
+        "apmc_id": "4004",
+        "apmc_name": "ORATHANADU"
+      },
+      {
+        "apmc_id": "930",
+        "apmc_name": "PALANI"
+      },
+      {
+        "apmc_id": "928",
+        "apmc_name": "PANRUTI"
+      },
+      {
+        "apmc_id": "4005",
+        "apmc_name": "PAPANASAM"
+      },
+      {
+        "apmc_id": "515",
+        "apmc_name": "PARAMAKUDI"
+      },
+      {
+        "apmc_id": "686",
+        "apmc_name": "PARAMATHI VELUR"
+      },
+      {
+        "apmc_id": "4006",
+        "apmc_name": "PATTUKKOTTAI"
+      },
+      {
+        "apmc_id": "4007",
+        "apmc_name": "PAVOORCHATRAM"
+      },
+      {
+        "apmc_id": "684",
+        "apmc_name": "PERUNDURAI"
+      },
+      {
+        "apmc_id": "519",
+        "apmc_name": "PETHAPPAMPATTI"
+      },
+      {
+        "apmc_id": "4008",
+        "apmc_name": "POCHAMPALLI"
+      },
+      {
+        "apmc_id": "932",
+        "apmc_name": "POLLACHI"
+      },
+      {
+        "apmc_id": "923",
+        "apmc_name": "POLUR"
+      },
+      {
+        "apmc_id": "4009",
+        "apmc_name": "PONGALUR"
+      },
+      {
+        "apmc_id": "4010",
+        "apmc_name": "PUNJAI PULIAMPADDI"
+      },
+      {
+        "apmc_id": "947",
+        "apmc_name": "RAJAPALAYAM"
+      },
+      {
+        "apmc_id": "951",
+        "apmc_name": "RAJASINGAMANGALAM"
+      },
+      {
+        "apmc_id": "4011",
+        "apmc_name": "RAMANATHAPURAM"
+      },
+      {
+        "apmc_id": "4012",
+        "apmc_name": "REDHILLS"
+      },
+      {
+        "apmc_id": "4013",
+        "apmc_name": "SALEM"
+      },
+      {
+        "apmc_id": "4014",
+        "apmc_name": "SANKARANKOVIL"
+      },
+      {
+        "apmc_id": "925",
+        "apmc_name": "SANKARAPURAM"
+      },
+      {
+        "apmc_id": "513",
+        "apmc_name": "SATHYAMANGALAM"
+      },
+      {
+        "apmc_id": "942",
+        "apmc_name": "SEMBANARKOIL"
+      },
+      {
+        "apmc_id": "4015",
+        "apmc_name": "SETHIATHOPE"
+      },
+      {
+        "apmc_id": "4016",
+        "apmc_name": "SINGAMPUNERI"
+      },
+      {
+        "apmc_id": "943",
+        "apmc_name": "SIRKALI"
+      },
+      {
+        "apmc_id": "4017",
+        "apmc_name": "SIVAGANGAI"
+      },
+      {
+        "apmc_id": "4018",
+        "apmc_name": "SIVAGIRI"
+      },
+      {
+        "apmc_id": "4020",
+        "apmc_name": "SRIMUSHNAM"
+      },
+      {
+        "apmc_id": "4021",
+        "apmc_name": "SRIVAIKUNDAM"
+      },
+      {
+        "apmc_id": "4022",
+        "apmc_name": "T VADIPATTI"
+      },
+      {
+        "apmc_id": "4024",
+        "apmc_name": "TENKASI"
+      },
+      {
+        "apmc_id": "4025",
+        "apmc_name": "THANJAVUR"
+      },
+      {
+        "apmc_id": "946",
+        "apmc_name": "THENI"
+      },
+      {
+        "apmc_id": "523",
+        "apmc_name": "THIRUKOVILUR"
+      },
+      {
+        "apmc_id": "936",
+        "apmc_name": "THIRUPATHUR"
+      },
+      {
+        "apmc_id": "4026",
+        "apmc_name": "THIRUPOONDI"
+      },
+      {
+        "apmc_id": "517",
+        "apmc_name": "THIRUPPUR"
+      },
+      {
+        "apmc_id": "4027",
+        "apmc_name": "THIRUVADANAI"
+      },
+      {
+        "apmc_id": "926",
+        "apmc_name": "THIYAGADURGAM"
+      },
+      {
+        "apmc_id": "4028",
+        "apmc_name": "THUVARANKURICHY"
+      },
+      {
+        "apmc_id": "953",
+        "apmc_name": "TINDIVANAM"
+      },
+      {
+        "apmc_id": "4029",
+        "apmc_name": "TIRUNELVELI"
+      },
+      {
+        "apmc_id": "4030",
+        "apmc_name": "TIRUVARUR"
+      },
+      {
+        "apmc_id": "518",
+        "apmc_name": "UDUMALPET"
+      },
+      {
+        "apmc_id": "522",
+        "apmc_name": "ULUNDURPETTAI"
+      },
+      {
+        "apmc_id": "939",
+        "apmc_name": "USILAMPATTI"
+      },
+      {
+        "apmc_id": "4031",
+        "apmc_name": "VALANGAIMAN"
+      },
+      {
+        "apmc_id": "3963",
+        "apmc_name": "VALLIOOR"
+      },
+      {
+        "apmc_id": "957",
+        "apmc_name": "VANDAVASI"
+      },
+      {
+        "apmc_id": "937",
+        "apmc_name": "VANIYAMBADI"
+      },
+      {
+        "apmc_id": "4032",
+        "apmc_name": "VAZHAPPADI"
+      },
+      {
+        "apmc_id": "685",
+        "apmc_name": "VELLAKOIL"
+      },
+      {
+        "apmc_id": "935",
+        "apmc_name": "VELLORE"
+      },
+      {
+        "apmc_id": "922",
+        "apmc_name": "VETTAVALAM"
+      },
+      {
+        "apmc_id": "955",
+        "apmc_name": "VIKIRAVANDI"
+      },
+      {
+        "apmc_id": "954",
+        "apmc_name": "VILLUPURAM"
+      },
+      {
+        "apmc_id": "683",
+        "apmc_name": "VIRUDHACHALAM"
+      },
+      {
+        "apmc_id": "948",
+        "apmc_name": "VIRUDHUNAGAR"
+      },
+      {
+        "apmc_id": "4956",
+        "apmc_name": "MARAKKANAM"
+      },
+      {
+        "apmc_id": "4957",
+        "apmc_name": "VALATHI"
+      },
+      {
+        "apmc_id": "4960",
+        "apmc_name": "SATTUR"
+      },
+      {
+        "apmc_id": "4961",
+        "apmc_name": "ARUPPUKOTTAI"
+      },
+      {
+        "apmc_id": "4962",
+        "apmc_name": "BHAVANI"
+      },
+      {
+        "apmc_id": "4963",
+        "apmc_name": "THALAVADI"
+      },
+      {
+        "apmc_id": "4964",
+        "apmc_name": "VELLANKOIL"
+      },
+      {
+        "apmc_id": "4965",
+        "apmc_name": "SEVUR"
+      },
+      {
+        "apmc_id": "4966",
+        "apmc_name": "TIRUCHIRAPALLI"
+      },
+      {
+        "apmc_id": "4967",
+        "apmc_name": "MANAPPARAI"
+      },
+      {
+        "apmc_id": "4968",
+        "apmc_name": "THAMMAMPATTI"
+      },
+      {
+        "apmc_id": "4969",
+        "apmc_name": "KARUMANDURAI"
+      },
+      {
+        "apmc_id": "4970",
+        "apmc_name": "OMALUR"
+      },
+      {
+        "apmc_id": "4971",
+        "apmc_name": "THIRUMANGALAM"
+      },
+      {
+        "apmc_id": "4972",
+        "apmc_name": "ILUPPUR"
+      },
+      {
+        "apmc_id": "4973",
+        "apmc_name": "PERUMBALUR"
+      },
+      {
+        "apmc_id": "4974",
+        "apmc_name": "SENJERI MALAIYADIPALAYAM"
+      },
+      {
+        "apmc_id": "4975",
+        "apmc_name": "THONDAMUTHUR"
+      },
+      {
+        "apmc_id": "4976",
+        "apmc_name": "COIMBATORE"
+      },
+      {
+        "apmc_id": "4977",
+        "apmc_name": "SULUR"
+      },
+      {
+        "apmc_id": "4990",
+        "apmc_name": "VADAMADURAI"
+      },
+      {
+        "apmc_id": "4991",
+        "apmc_name": "THIRUVALLUR"
+      },
+      {
+        "apmc_id": "4992",
+        "apmc_name": "UTHIRAMERUR"
+      },
+      {
+        "apmc_id": "4993",
+        "apmc_name": "TIRUTTANI"
+      },
+      {
+        "apmc_id": "4994",
+        "apmc_name": "PALACODE"
+      },
+      {
+        "apmc_id": "4996",
+        "apmc_name": "KRISHNAGIRI"
+      },
+      {
+        "apmc_id": "5005",
+        "apmc_name": "DHARMAPURI"
+      },
+      {
+        "apmc_id": "5006",
+        "apmc_name": "HOSUR"
+      },
+      {
+        "apmc_id": "5007",
+        "apmc_name": "THURAIYUR"
+      },
+      {
+        "apmc_id": "5008",
+        "apmc_name": "KINATHUKADAVU"
+      }
+    ]
+  },
+  {
+    "state_id": "28",
+    "state_name": "TELANGANA",
+    "apmcs": [
+      {
+        "apmc_id": "87",
+        "apmc_name": "ACHAMPET"
+      },
+      {
+        "apmc_id": "62",
+        "apmc_name": "ADILABAD"
+      },
+      {
+        "apmc_id": "98",
+        "apmc_name": "ATMAKUR"
+      },
+      {
+        "apmc_id": "31",
+        "apmc_name": "BADEPALLY"
+      },
+      {
+        "apmc_id": "63",
+        "apmc_name": "BHAINSA"
+      },
+      {
+        "apmc_id": "962",
+        "apmc_name": "BOWENPALLY"
+      },
+      {
+        "apmc_id": "83",
+        "apmc_name": "CHOPPADANDI"
+      },
+      {
+        "apmc_id": "99",
+        "apmc_name": "DEVARAKADRA"
+      },
+      {
+        "apmc_id": "71",
+        "apmc_name": "DEVARAKONDA"
+      },
+      {
+        "apmc_id": "959",
+        "apmc_name": "ECHODA"
+      },
+      {
+        "apmc_id": "960",
+        "apmc_name": "ENKOOR"
+      },
+      {
+        "apmc_id": "961",
+        "apmc_name": "GADDIANNARAM"
+      },
+      {
+        "apmc_id": "73",
+        "apmc_name": "GADWAL"
+      },
+      {
+        "apmc_id": "79",
+        "apmc_name": "GAJWEL"
+      },
+      {
+        "apmc_id": "88",
+        "apmc_name": "GANGADHARA"
+      },
+      {
+        "apmc_id": "94",
+        "apmc_name": "GOLLAPALLY"
+      },
+      {
+        "apmc_id": "963",
+        "apmc_name": "GUDIMALKAPUR"
+      },
+      {
+        "apmc_id": "964",
+        "apmc_name": "HUSNABAD"
+      },
+      {
+        "apmc_id": "49",
+        "apmc_name": "HYDERABAD"
+      },
+      {
+        "apmc_id": "84",
+        "apmc_name": "JAGTIAL"
+      },
+      {
+        "apmc_id": "65",
+        "apmc_name": "JAMMIKUNTA"
+      },
+      {
+        "apmc_id": "75",
+        "apmc_name": "JANGAON"
+      },
+      {
+        "apmc_id": "92",
+        "apmc_name": "JOGIPET"
+      },
+      {
+        "apmc_id": "85",
+        "apmc_name": "KALWAKURTHY"
+      },
+      {
+        "apmc_id": "80",
+        "apmc_name": "KAMAREDDY"
+      },
+      {
+        "apmc_id": "64",
+        "apmc_name": "KARIMNAGAR"
+      },
+      {
+        "apmc_id": "76",
+        "apmc_name": "KESAMUDRAM"
+      },
+      {
+        "apmc_id": "61",
+        "apmc_name": "KHAMMAM"
+      },
+      {
+        "apmc_id": "966",
+        "apmc_name": "MADNOOR"
+      },
+      {
+        "apmc_id": "535",
+        "apmc_name": "MAHABUBABAD"
+      },
+      {
+        "apmc_id": "77",
+        "apmc_name": "MAHBUBNAGAR"
+      },
+      {
+        "apmc_id": "90",
+        "apmc_name": "MAKTHAL"
+      },
+      {
+        "apmc_id": "97",
+        "apmc_name": "METPALLY"
+      },
+      {
+        "apmc_id": "67",
+        "apmc_name": "MIRYALAGUDA"
+      },
+      {
+        "apmc_id": "78",
+        "apmc_name": "NAGARKURNOOL"
+      },
+      {
+        "apmc_id": "89",
+        "apmc_name": "NAKREKAL"
+      },
+      {
+        "apmc_id": "967",
+        "apmc_name": "NALGONDA"
+      },
+      {
+        "apmc_id": "93",
+        "apmc_name": "NARAYANPET"
+      },
+      {
+        "apmc_id": "68",
+        "apmc_name": "NARSAMPET"
+      },
+      {
+        "apmc_id": "540",
+        "apmc_name": "NAWABPET"
+      },
+      {
+        "apmc_id": "30",
+        "apmc_name": "NIZAMABAD"
+      },
+      {
+        "apmc_id": "968",
+        "apmc_name": "PARGI"
+      },
+      {
+        "apmc_id": "969",
+        "apmc_name": "PARKAL"
+      },
+      {
+        "apmc_id": "74",
+        "apmc_name": "PEDDAPALLI"
+      },
+      {
+        "apmc_id": "66",
+        "apmc_name": "SADASIVPET"
+      },
+      {
+        "apmc_id": "69",
+        "apmc_name": "SHADNAGAR"
+      },
+      {
+        "apmc_id": "96",
+        "apmc_name": "SHANKARAPALLY"
+      },
+      {
+        "apmc_id": "70",
+        "apmc_name": "SIDDIPET"
+      },
+      {
+        "apmc_id": "72",
+        "apmc_name": "SURYAPETA"
+      },
+      {
+        "apmc_id": "82",
+        "apmc_name": "TANDUR"
+      },
+      {
+        "apmc_id": "48",
+        "apmc_name": "TIRUMALGIRI"
+      },
+      {
+        "apmc_id": "539",
+        "apmc_name": "VATPALLY"
+      },
+      {
+        "apmc_id": "91",
+        "apmc_name": "VIKARABAD"
+      },
+      {
+        "apmc_id": "95",
+        "apmc_name": "WANAPARTHY ROAD"
+      },
+      {
+        "apmc_id": "86",
+        "apmc_name": "WANAPARTHY TOWN"
+      },
+      {
+        "apmc_id": "29",
+        "apmc_name": "WARANGAL"
+      },
+      {
+        "apmc_id": "81",
+        "apmc_name": "ZAHEERABAD"
+      }
+    ]
+  },
+  {
+    "state_id": "36",
+    "state_name": "TRIPURA",
+    "apmcs": [
+      {
+        "apmc_id": "4168",
+        "apmc_name": "KULAI"
+      },
+      {
+        "apmc_id": "4148",
+        "apmc_name": "MOHANPUR"
+      },
+      {
+        "apmc_id": "4167",
+        "apmc_name": "PABIACHERRA"
+      },
+      {
+        "apmc_id": "4149",
+        "apmc_name": "PANISAGAR"
+      },
+      {
+        "apmc_id": "4150",
+        "apmc_name": "SANTIRBAZAR"
+      },
+      {
+        "apmc_id": "4151",
+        "apmc_name": "SONAMURA"
+      },
+      {
+        "apmc_id": "4152",
+        "apmc_name": "TELIAMURA"
+      }
+    ]
+  },
+  {
+    "state_id": "46",
+    "state_name": "UTTAR PRADESH",
+    "apmcs": [
+      {
+        "apmc_id": "970",
+        "apmc_name": "ACHHALDA APMC"
+      },
+      {
+        "apmc_id": "475",
+        "apmc_name": "ACHNERA"
+      },
+      {
+        "apmc_id": "183",
+        "apmc_name": "AGRA"
+      },
+      {
+        "apmc_id": "476",
+        "apmc_name": "AJUHA"
+      },
+      {
+        "apmc_id": "186",
+        "apmc_name": "AKBARPUR"
+      },
+      {
+        "apmc_id": "195",
+        "apmc_name": "ALIGARH"
+      },
+      {
+        "apmc_id": "971",
+        "apmc_name": "AMROHA APMC"
+      },
+      {
+        "apmc_id": "972",
+        "apmc_name": "ANAND NAGAR APMC"
+      },
+      {
+        "apmc_id": "973",
+        "apmc_name": "ATARRA APMC"
+      },
+      {
+        "apmc_id": "211",
+        "apmc_name": "AURAIYA"
+      },
+      {
+        "apmc_id": "192",
+        "apmc_name": "AYODHYA"
+      },
+      {
+        "apmc_id": "205",
+        "apmc_name": "AZAMGARH"
+      },
+      {
+        "apmc_id": "212",
+        "apmc_name": "BADAUN"
+      },
+      {
+        "apmc_id": "58",
+        "apmc_name": "BAHRAICH"
+      },
+      {
+        "apmc_id": "477",
+        "apmc_name": "BALLIA"
+      },
+      {
+        "apmc_id": "974",
+        "apmc_name": "BALRAMPUR APMC"
+      },
+      {
+        "apmc_id": "478",
+        "apmc_name": "BANDA"
+      },
+      {
+        "apmc_id": "161",
+        "apmc_name": "BANGARMAU"
+      },
+      {
+        "apmc_id": "206",
+        "apmc_name": "BARABANKI"
+      },
+      {
+        "apmc_id": "207",
+        "apmc_name": "BAREILLY"
+      },
+      {
+        "apmc_id": "208",
+        "apmc_name": "BASTI"
+      },
+      {
+        "apmc_id": "479",
+        "apmc_name": "BHARTHANA"
+      },
+      {
+        "apmc_id": "480",
+        "apmc_name": "BHARUASUMERPUR"
+      },
+      {
+        "apmc_id": "482",
+        "apmc_name": "BILSI"
+      },
+      {
+        "apmc_id": "483",
+        "apmc_name": "BINDIKI"
+      },
+      {
+        "apmc_id": "213",
+        "apmc_name": "BISALPUR"
+      },
+      {
+        "apmc_id": "310",
+        "apmc_name": "BULANDSHAHAR"
+      },
+      {
+        "apmc_id": "172",
+        "apmc_name": "CHANDAULI"
+      },
+      {
+        "apmc_id": "209",
+        "apmc_name": "CHANDAUSI"
+      },
+      {
+        "apmc_id": "484",
+        "apmc_name": "CHARRA"
+      },
+      {
+        "apmc_id": "184",
+        "apmc_name": "CHAUBEPUR"
+      },
+      {
+        "apmc_id": "188",
+        "apmc_name": "CHIBRAMAU"
+      },
+      {
+        "apmc_id": "485",
+        "apmc_name": "DADRI UP"
+      },
+      {
+        "apmc_id": "214",
+        "apmc_name": "DEORIA"
+      },
+      {
+        "apmc_id": "191",
+        "apmc_name": "ETAH"
+      },
+      {
+        "apmc_id": "215",
+        "apmc_name": "ETAWAH"
+      },
+      {
+        "apmc_id": "486",
+        "apmc_name": "FARRUKHABAD"
+      },
+      {
+        "apmc_id": "975",
+        "apmc_name": "FATEHPUR APMC"
+      },
+      {
+        "apmc_id": "487",
+        "apmc_name": "FATEHPUR SIKRI"
+      },
+      {
+        "apmc_id": "976",
+        "apmc_name": "FIROZABAD APMC"
+      },
+      {
+        "apmc_id": "193",
+        "apmc_name": "GHAZIABAD"
+      },
+      {
+        "apmc_id": "488",
+        "apmc_name": "GHIROR"
+      },
+      {
+        "apmc_id": "216",
+        "apmc_name": "GOLAGOKARNATH"
+      },
+      {
+        "apmc_id": "194",
+        "apmc_name": "GONDA"
+      },
+      {
+        "apmc_id": "196",
+        "apmc_name": "GORAKHPUR"
+      },
+      {
+        "apmc_id": "217",
+        "apmc_name": "HAPUR"
+      },
+      {
+        "apmc_id": "200",
+        "apmc_name": "HARDOI"
+      },
+      {
+        "apmc_id": "977",
+        "apmc_name": "HASANPUR APMC"
+      },
+      {
+        "apmc_id": "203",
+        "apmc_name": "HATHRAS"
+      },
+      {
+        "apmc_id": "204",
+        "apmc_name": "JAHANGIRABAD"
+      },
+      {
+        "apmc_id": "218",
+        "apmc_name": "JAIS"
+      },
+      {
+        "apmc_id": "978",
+        "apmc_name": "JALALABAD APMC"
+      },
+      {
+        "apmc_id": "489",
+        "apmc_name": "JALAUN"
+      },
+      {
+        "apmc_id": "490",
+        "apmc_name": "JANGIPURA"
+      },
+      {
+        "apmc_id": "979",
+        "apmc_name": "JAUNPUR APMC"
+      },
+      {
+        "apmc_id": "219",
+        "apmc_name": "JHANSI"
+      },
+      {
+        "apmc_id": "174",
+        "apmc_name": "KAIMGANJ"
+      },
+      {
+        "apmc_id": "173",
+        "apmc_name": "KANNAUJ"
+      },
+      {
+        "apmc_id": "175",
+        "apmc_name": "KANPUR"
+      },
+      {
+        "apmc_id": "980",
+        "apmc_name": "KARWI APMC"
+      },
+      {
+        "apmc_id": "176",
+        "apmc_name": "KASGANJ"
+      },
+      {
+        "apmc_id": "177",
+        "apmc_name": "KHAIR"
+      },
+      {
+        "apmc_id": "492",
+        "apmc_name": "KHALILABAD"
+      },
+      {
+        "apmc_id": "493",
+        "apmc_name": "KHURJA"
+      },
+      {
+        "apmc_id": "220",
+        "apmc_name": "KONCH"
+      },
+      {
+        "apmc_id": "494",
+        "apmc_name": "KOPAGANJ"
+      },
+      {
+        "apmc_id": "495",
+        "apmc_name": "KOSIKALAN"
+      },
+      {
+        "apmc_id": "56",
+        "apmc_name": "LAKHIMPUR"
+      },
+      {
+        "apmc_id": "57",
+        "apmc_name": "LALITPUR"
+      },
+      {
+        "apmc_id": "221",
+        "apmc_name": "LUCKNOW"
+      },
+      {
+        "apmc_id": "222",
+        "apmc_name": "MADHOGANJ"
+      },
+      {
+        "apmc_id": "178",
+        "apmc_name": "MAHMUDABAD"
+      },
+      {
+        "apmc_id": "179",
+        "apmc_name": "MAHOBA"
+      },
+      {
+        "apmc_id": "181",
+        "apmc_name": "MAINPURI"
+      },
+      {
+        "apmc_id": "51",
+        "apmc_name": "MATHURA"
+      },
+      {
+        "apmc_id": "496",
+        "apmc_name": "MAURANIPUR"
+      },
+      {
+        "apmc_id": "182",
+        "apmc_name": "MEERUT"
+      },
+      {
+        "apmc_id": "497",
+        "apmc_name": "MILAK"
+      },
+      {
+        "apmc_id": "498",
+        "apmc_name": "MIRZAPUR"
+      },
+      {
+        "apmc_id": "981",
+        "apmc_name": "MOHAMADABAD APMC"
+      },
+      {
+        "apmc_id": "185",
+        "apmc_name": "MORADABAD"
+      },
+      {
+        "apmc_id": "499",
+        "apmc_name": "MUSKERA"
+      },
+      {
+        "apmc_id": "187",
+        "apmc_name": "MUZZAFFARNAGAR"
+      },
+      {
+        "apmc_id": "500",
+        "apmc_name": "NAANPARA"
+      },
+      {
+        "apmc_id": "982",
+        "apmc_name": "NAJIBABAD APMC"
+      },
+      {
+        "apmc_id": "983",
+        "apmc_name": "NAUGARH APMC"
+      },
+      {
+        "apmc_id": "984",
+        "apmc_name": "NAUTANWA APMC"
+      },
+      {
+        "apmc_id": "985",
+        "apmc_name": "NAWABGANJ APMC"
+      },
+      {
+        "apmc_id": "986",
+        "apmc_name": "NOIDA APMC"
+      },
+      {
+        "apmc_id": "502",
+        "apmc_name": "PALIA KALAN"
+      },
+      {
+        "apmc_id": "190",
+        "apmc_name": "PARTAWAL"
+      },
+      {
+        "apmc_id": "223",
+        "apmc_name": "PILIBHIT"
+      },
+      {
+        "apmc_id": "224",
+        "apmc_name": "POWAYAN"
+      },
+      {
+        "apmc_id": "180",
+        "apmc_name": "PRATAPGARH"
+      },
+      {
+        "apmc_id": "210",
+        "apmc_name": "PRAYAGRAJ"
+      },
+      {
+        "apmc_id": "225",
+        "apmc_name": "PURANPUR"
+      },
+      {
+        "apmc_id": "226",
+        "apmc_name": "RAE BARELI"
+      },
+      {
+        "apmc_id": "160",
+        "apmc_name": "RAMPUR"
+      },
+      {
+        "apmc_id": "481",
+        "apmc_name": "RAMPUR BILASPUR"
+      },
+      {
+        "apmc_id": "987",
+        "apmc_name": "RASRA APMC"
+      },
+      {
+        "apmc_id": "197",
+        "apmc_name": "RATH"
+      },
+      {
+        "apmc_id": "198",
+        "apmc_name": "ROBERTSGANJ"
+      },
+      {
+        "apmc_id": "988",
+        "apmc_name": "SADABAD APMC"
+      },
+      {
+        "apmc_id": "199",
+        "apmc_name": "SAFDARGANJ"
+      },
+      {
+        "apmc_id": "50",
+        "apmc_name": "SAHARANPUR"
+      },
+      {
+        "apmc_id": "227",
+        "apmc_name": "SAHIYAPUR"
+      },
+      {
+        "apmc_id": "989",
+        "apmc_name": "SAHJANWA APMC"
+      },
+      {
+        "apmc_id": "990",
+        "apmc_name": "SAMBHAL APMC"
+      },
+      {
+        "apmc_id": "991",
+        "apmc_name": "SANDILA APMC"
+      },
+      {
+        "apmc_id": "491",
+        "apmc_name": "SHAGANJ"
+      },
+      {
+        "apmc_id": "503",
+        "apmc_name": "SHAHBAD HARDOI"
+      },
+      {
+        "apmc_id": "228",
+        "apmc_name": "SHAHJAHANPUR"
+      },
+      {
+        "apmc_id": "504",
+        "apmc_name": "SHAMLI"
+      },
+      {
+        "apmc_id": "505",
+        "apmc_name": "SHIKOHABAD"
+      },
+      {
+        "apmc_id": "229",
+        "apmc_name": "SIRSAGANJ"
+      },
+      {
+        "apmc_id": "201",
+        "apmc_name": "SITAPUR"
+      },
+      {
+        "apmc_id": "55",
+        "apmc_name": "SULTANPUR"
+      },
+      {
+        "apmc_id": "506",
+        "apmc_name": "TIKUNIYA"
+      },
+      {
+        "apmc_id": "992",
+        "apmc_name": "TULSIPUR APMC"
+      },
+      {
+        "apmc_id": "507",
+        "apmc_name": "TUNDLA"
+      },
+      {
+        "apmc_id": "508",
+        "apmc_name": "UJHANI"
+      },
+      {
+        "apmc_id": "993",
+        "apmc_name": "UNNAO APMC"
+      },
+      {
+        "apmc_id": "501",
+        "apmc_name": "URAI"
+      },
+      {
+        "apmc_id": "202",
+        "apmc_name": "VARANASI"
+      },
+      {
+        "apmc_id": "994",
+        "apmc_name": "WAZIRGANJ APMC"
+      }
+    ]
+  },
+  {
+    "state_id": "385",
+    "state_name": "UTTARAKHAND",
+    "apmcs": [
+      {
+        "apmc_id": "648",
+        "apmc_name": "BAZPUR"
+      },
+      {
+        "apmc_id": "639",
+        "apmc_name": "DEHRADUN"
+      },
+      {
+        "apmc_id": "435",
+        "apmc_name": "GADARPUR"
+      },
+      {
+        "apmc_id": "643",
+        "apmc_name": "HALDWANI"
+      },
+      {
+        "apmc_id": "438",
+        "apmc_name": "HARIDWAR"
+      },
+      {
+        "apmc_id": "649",
+        "apmc_name": "JASPUR"
+      },
+      {
+        "apmc_id": "434",
+        "apmc_name": "KASHIPUR"
+      },
+      {
+        "apmc_id": "645",
+        "apmc_name": "KHATIMA"
+      },
+      {
+        "apmc_id": "436",
+        "apmc_name": "KICHHA"
+      },
+      {
+        "apmc_id": "647",
+        "apmc_name": "NANAKMATTA"
+      },
+      {
+        "apmc_id": "644",
+        "apmc_name": "RAMNAGAR"
+      },
+      {
+        "apmc_id": "641",
+        "apmc_name": "RISHIKESH"
+      },
+      {
+        "apmc_id": "642",
+        "apmc_name": "ROORKEE"
+      },
+      {
+        "apmc_id": "646",
+        "apmc_name": "RUDRAPUR"
+      },
+      {
+        "apmc_id": "437",
+        "apmc_name": "SITARGANJ"
+      },
+      {
+        "apmc_id": "640",
+        "apmc_name": "VIKASNAGAR"
+      }
+    ]
+  },
+  {
+    "state_id": "569",
+    "state_name": "WEST BENGAL",
+    "apmcs": [
+      {
+        "apmc_id": "586",
+        "apmc_name": "BAGDA KRISHAK BAZAR"
+      },
+      {
+        "apmc_id": "572",
+        "apmc_name": "BETHUADAHARI PRINCIPAL MARKET YARD"
+      },
+      {
+        "apmc_id": "580",
+        "apmc_name": "BISHNUPUR"
+      },
+      {
+        "apmc_id": "575",
+        "apmc_name": "DHUPGURI PRINCIPAL MARKET YARD"
+      },
+      {
+        "apmc_id": "585",
+        "apmc_name": "FALAKATA"
+      },
+      {
+        "apmc_id": "583",
+        "apmc_name": "GANGARAMPUR"
+      },
+      {
+        "apmc_id": "574",
+        "apmc_name": "ISLAMPUR PRINCIPAL MARKET YARD"
+      },
+      {
+        "apmc_id": "576",
+        "apmc_name": "JIYAGANJ KRISHAK BAZAR"
+      },
+      {
+        "apmc_id": "579",
+        "apmc_name": "KALNA SUB MARKET YARD"
+      },
+      {
+        "apmc_id": "571",
+        "apmc_name": "KARIMPUR SUBMARKET YARD"
+      },
+      {
+        "apmc_id": "570",
+        "apmc_name": "MOHAMAD BAZAR KRISHAK BAZAR"
+      },
+      {
+        "apmc_id": "573",
+        "apmc_name": "NAKASHIPARA KRISHAK BAZAR"
+      },
+      {
+        "apmc_id": "578",
+        "apmc_name": "PANSKURA I KRISHAK BAZAR"
+      },
+      {
+        "apmc_id": "577",
+        "apmc_name": "SAMSHERGANJ KRISHAK BAZAR"
+      },
+      {
+        "apmc_id": "1199",
+        "apmc_name": "SAMSI SUB MARKET YARD"
+      },
+      {
+        "apmc_id": "584",
+        "apmc_name": "SHEORAPHULI"
+      },
+      {
+        "apmc_id": "581",
+        "apmc_name": "SILIGURI REGULATED MARKET COMM"
+      },
+      {
+        "apmc_id": "582",
+        "apmc_name": "SIMLAPAL"
+      }
+    ]
+  }
+]

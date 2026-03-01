@@ -1,0 +1,30 @@
+{
+    "list": [
+        {
+            "name": "agmarknet",
+            "url": "https://agmarknet.gov.in",
+            "meta":{
+                "state": "all",
+                "description": "Agmarknet is a government portal that provides real-time data on agricultural commodity prices, arrivals, and market trends across various markets in India. It serves as a valuable resource for farmers, traders, and policymakers to make informed decisions regarding agricultural commodities."
+            },
+            "stage":{
+                "name":"parsing",
+                "status":"pending",
+                "data":{}
+            }
+        },
+        {
+            "name":"krishimaratavahini",
+            "url": "https://krama.karnataka.gov.in/",
+            "meta": {
+                "state": "karnataka",
+                "description": "Krishimaratavahini is a Karnataka government portal that provides information and resources related to agricultural practices, market prices, and farming techniques specific to the state of Karnataka."
+            },
+            "stage":{
+                "name":"parsing",
+                "status":"pending",
+                "data":{}
+            }
+        }
+    ]
+}

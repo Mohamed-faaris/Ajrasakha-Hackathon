@@ -1,5 +1,5 @@
 import cron from 'node-cron';
-import { Price, TopMover, Mandi, Coverage, MandiPrice } from '../models';
+import { Price, TopMover, Mandi, Coverage, MandiPrice, Prediction } from '../models';
 
 export const startScheduler = () => {
   cron.schedule('0 1 * * *', computeTopMovers, {
@@ -11,6 +11,11 @@ export const startScheduler = () => {
   });
 
   cron.schedule('0 * * * *', computeCoverage, {
+    timezone: 'Asia/Kolkata'
+  });
+
+  // Clean up expired predictions daily at 3 AM
+  cron.schedule('0 3 * * *', cleanupExpiredPredictions, {
     timezone: 'Asia/Kolkata'
   });
 
@@ -221,5 +226,29 @@ export const computeCoverage = async () => {
     console.log(`[Cron] Coverage: ${coveredApmcs}/${totalApmcs} APMCs (${coveragePercent}%), ${statesCovered} states`);
   } catch (error) {
     console.error('[Cron] Error computing coverage:', error);
+  }
+};
+
+export const cleanupExpiredPredictions = async () => {
+  console.log('[Cron] Cleaning up expired predictions...');
+  try {
+    const result = await Prediction.deleteMany({
+      expiresAt: { $lt: new Date() }
+    });
+    console.log(`[Cron] Deleted ${result.deletedCount} expired predictions`);
+  } catch (error) {
+    console.error('[Cron] Error cleaning up predictions:', error);
+  }
+};
+
+export const cleanupExpiredPredictions = async () => {
+  console.log('[Cron] Cleaning up expired predictions...');
+  try {
+    const result = await Prediction.deleteMany({
+      expiresAt: { $lt: new Date() }
+    });
+    console.log(`[Cron] Deleted ${result.deletedCount} expired predictions`);
+  } catch (error) {
+    console.error('[Cron] Error cleaning up predictions:', error);
   }
 };

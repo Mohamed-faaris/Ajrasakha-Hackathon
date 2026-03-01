@@ -624,3 +624,53 @@ mandiPriceSchema.index({ mandiId: 1, cropId: 1, date: -1 });
 mandiPriceSchema.index({ computedAt: 1 }, { expireAfterSeconds: 86400 });
 
 export const MandiPrice = mongoose.model("MandiPrice", mandiPriceSchema);
+
+// 11. Prediction Schema (for ML price predictions)
+const predictionSchema = new mongoose.Schema(
+  {
+    cropId: {
+      type: String,
+      required: true,
+      ref: "Crop",
+      index: true,
+    },
+    mandiId: {
+      type: String,
+      required: true,
+      ref: "Mandi",
+      index: true,
+    },
+    predictions: [
+      {
+        date: { type: Date, required: true },
+        predictedPrice: { type: Number, required: true },
+        confidence: { type: Number, required: true, min: 0, max: 100 },
+      },
+    ],
+    trend: {
+      type: String,
+      required: true,
+      enum: ["Bullish", "Bearish", "Neutral"],
+    },
+    generatedAt: {
+      type: Date,
+      default: Date.now,
+    },
+    expiresAt: {
+      type: Date,
+      required: true,
+      index: true,
+    },
+  },
+  {
+    timestamps: true,
+    collection: "predictions",
+  }
+);
+
+// TTL index: auto-delete documents 24 hours after expiresAt
+predictionSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+// Compound index for quick lookups
+predictionSchema.index({ cropId: 1, mandiId: 1, expiresAt: -1 });
+
+export const Prediction = mongoose.model("Prediction", predictionSchema);

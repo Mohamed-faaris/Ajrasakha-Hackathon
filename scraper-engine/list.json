@@ -9,8 +9,12 @@
             },
             "stage":{
                 "name":"parsing",
-                "status":"pending",
-                "data":{}
+                "status":"completed",
+                "data":{
+                    "parser_script": "parser/scripts/agmarknet.py",
+                    "output_path": "parser/data/agmarknet/",
+                    "implementation_date": "2026-02-28"
+                }
             }
         },
         {
@@ -22,8 +26,12 @@
             },
             "stage":{
                 "name":"parsing",
-                "status":"pending",
-                "data":{}
+                "status":"completed",
+                "data":{
+                    "parser_script": "parser/scripts/krishimaratavahini.py",
+                    "output_path": "parser/data/krishimaratavahini/",
+                    "implementation_date": "2026-02-28"
+                }
             }
         }
     ]

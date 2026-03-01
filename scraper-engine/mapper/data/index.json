@@ -1,0 +1,224 @@
+{
+  "crops": {
+    "wheat": {
+      "id": "wheat",
+      "name": "Wheat",
+      "aliases": [
+        "Wheat",
+        "Gehun",
+        "Triticum"
+      ],
+      "embedding": null
+    },
+    "rice": {
+      "id": "rice",
+      "name": "Rice",
+      "aliases": [
+        "Oryza",
+        "Dhan",
+        "Rice",
+        "Paddy"
+      ],
+      "embedding": null
+    },
+    "corn": {
+      "id": "corn",
+      "name": "Corn",
+      "aliases": [
+        "Makai",
+        "Zea mays",
+        "Corn",
+        "Maize"
+      ],
+      "embedding": null
+    },
+    "barley": {
+      "id": "barley",
+      "name": "Barley",
+      "aliases": [
+        "Jau",
+        "Barley"
+      ],
+      "embedding": null
+    },
+    "sorghum": {
+      "id": "sorghum",
+      "name": "Sorghum",
+      "aliases": [
+        "Great millet",
+        "Sorghum",
+        "Jowar"
+      ],
+      "embedding": null
+    },
+    "pearl_millet": {
+      "id": "pearl_millet",
+      "name": "Pearl millet",
+      "aliases": [
+        "Pearl millet",
+        "Bajra",
+        "Bajri"
+      ],
+      "embedding": null
+    },
+    "cotton": {
+      "id": "cotton",
+      "name": "Cotton",
+      "aliases": [
+        "Kapas",
+        "Cotton"
+      ],
+      "embedding": null
+    },
+    "sugarcane": {
+      "id": "sugarcane",
+      "name": "Sugarcane",
+      "aliases": [
+        "Sugarcane",
+        "Ganna"
+      ],
+      "embedding": null
+    },
+    "soybean": {
+      "id": "soybean",
+      "name": "Soybean",
+      "aliases": [
+        "Soya",
+        "Soybean"
+      ],
+      "embedding": null
+    },
+    "groundnut": {
+      "id": "groundnut",
+      "name": "Groundnut",
+      "aliases": [
+        "Groundnut",
+        "Moongfali",
+        "Peanut"
+      ],
+      "embedding": null
+    },
+    "mustard": {
+      "id": "mustard",
+      "name": "Mustard",
+      "aliases": [
+        "Sarson",
+        "Rapeseed",
+        "Mustard"
+      ],
+      "embedding": null
+    },
+    "sesame": {
+      "id": "sesame",
+      "name": "Sesame",
+      "aliases": [
+        "Sesame",
+        "Til"
+      ],
+      "embedding": null
+    },
+    "potato": {
+      "id": "potato",
+      "name": "Potato",
+      "aliases": [
+        "Aloo",
+        "Potato"
+      ],
+      "embedding": null
+    },
+    "onion": {
+      "id": "onion",
+      "name": "Onion",
+      "aliases": [
+        "Pyaj",
+        "Onion"
+      ],
+      "embedding": null
+    },
+    "tomato": {
+      "id": "tomato",
+      "name": "Tomato",
+      "aliases": [
+        "Tamatar",
+        "Tomato"
+      ],
+      "embedding": null
+    },
+    "brinjal": {
+      "id": "brinjal",
+      "name": "Brinjal",
+      "aliases": [
+        "Brinjal",
+        "Eggplant",
+        "Baingan"
+      ],
+      "embedding": null
+    },
+    "okra": {
+      "id": "okra",
+      "name": "Okra",
+      "aliases": [
+        "Okra",
+        "Lady finger",
+        "Bhindi"
+      ],
+      "embedding": null
+    },
+    "chili": {
+      "id": "chili",
+      "name": "Chili",
+      "aliases": [
+        "Mirch",
+        "Chili",
+        "Chilli"
+      ],
+      "embedding": null
+    },
+    "banana": {
+      "id": "banana",
+      "name": "Banana",
+      "aliases": [
+        "Kela",
+        "Banana"
+      ],
+      "embedding": null
+    },
+    "mango": {
+      "id": "mango",
+      "name": "Mango",
+      "aliases": [
+        "Aam",
+        "Mango"
+      ],
+      "embedding": null
+    },
+    "apple": {
+      "id": "apple",
+      "name": "Apple",
+      "aliases": [
+        "Seb",
+        "Apple"
+      ],
+      "embedding": null
+    },
+    "orange": {
+      "id": "orange",
+      "name": "Orange",
+      "aliases": [
+        "Santra",
+        "Orange",
+        "Narangi"
+      ],
+      "embedding": null
+    },
+    "grape": {
+      "id": "grape",
+      "name": "Grape",
+      "aliases": [
+        "Angoor",
+        "Grape"
+      ],
+      "embedding": null
+    }
+  }
+}

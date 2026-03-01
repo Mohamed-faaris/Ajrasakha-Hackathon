@@ -1387,6 +1387,17 @@
   },
   {
     "cropName": "Rice",
+    "mandiName": "Silachhari APMC",
+    "date": "2026-02-28",
+    "minPrice": 3600,
+    "maxPrice": 3800,
+    "modalPrice": 3700,
+    "unit": "Rs./Quintal",
+    "arrival": 0.1,
+    "source": "agmarknet"
+  },
+  {
+    "cropName": "Rice",
     "mandiName": "Jhijhank APMC",
     "date": "2026-02-28",
     "minPrice": 2550,

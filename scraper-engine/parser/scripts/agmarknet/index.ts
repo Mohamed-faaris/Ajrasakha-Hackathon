@@ -186,58 +186,59 @@ async function parseData(inputData: string): Promise<Price[]> {
   return records.map(transformRecord);
 }
 
-function parseArgs(): { dataPath: string; date: string; dataArg?: string; scrape?: boolean } {
+function parseArgs(): { dataPath: string; date: string; dataArg?: string } {
   const args = process.argv.slice(2);
   const params = {
     dataPath: "../../seeder/data",
     date: getTodayDate(),
     dataArg: undefined as string | undefined,
-    scrape: false,
   };
 
+  const consumedArgs = new Set<number>();
+  
   for (let i = 0; i < args.length; i++) {
+    if (consumedArgs.has(i)) continue;
+    
     switch (args[i]) {
       case "--data":
         params.dataPath = args[++i];
+        consumedArgs.add(i);
+        consumedArgs.add(i - 1);
         break;
       case "--date":
       case "-d":
         params.date = args[++i];
-        break;
-      case "--scrape":
-      case "-s":
-        params.scrape = true;
+        consumedArgs.add(i);
+        consumedArgs.add(i - 1);
         break;
       case "--help":
       case "-h":
         console.log(`
 Agmarknet Parser
-Parses or scrapes agmarknet data and outputs to PriceSchema format.
+Scrapes agmarknet.gov.in and outputs to PriceSchema format.
 
 Usage:
   bun run scripts/agmarknet/index.ts [options] [data]
 
 Options:
   --data PATH    Path to reference data (states, crops) [default: ../../seeder/data]
-  --date, -d     Output date in YYYY-MM-DD format [default: today]
-  --scrape, -s   Scrape data from agmarknet.gov.in
+  --date, -d     Date in YYYY-MM-DD format [default: today]
   -h, --help     Show this help
 
 Arguments:
-  data           JSON string or path to JSON file with scraped data [optional]
-                 If not provided, will look for data/agmarknet/scraped.json
+  data           JSON string or path to JSON file with data to parse
+                 If provided, will parse this data instead of scraping
 
 Example:
-  bun run scripts/agmarknet/index.ts --scrape
-  bun run scripts/agmarknet/index.ts --scrape --date 2026-02-01
+  bun run scripts/agmarknet/index.ts
+  bun run scripts/agmarknet/index.ts --date 2026-02-01
   bun run scripts/agmarknet/index.ts '[{"Commodity":"Potato","Market":"Delhi",...}]'
-  bun run scripts/agmarknet/index.ts --date 2026-02-01 ./scraped-data.json
         `);
         process.exit(0);
     }
   }
 
-  const remainingArgs = args.filter(a => !a.startsWith("--") && !a.startsWith("-"));
+  const remainingArgs = args.filter((_, idx) => !consumedArgs.has(idx));
   if (remainingArgs.length > 0) {
     params.dataArg = remainingArgs[0];
   }
@@ -371,19 +372,13 @@ async function main() {
   try {
     let prices: Price[];
     
-    if (args.scrape) {
-      const scrapedData = await scrapeAgmarknet(args.date);
-      prices = scrapedData.map(transformRecord);
-    } else {
+    if (args.dataArg) {
       const { states, crops } = await loadReferenceData(args.dataPath);
       console.log(`  Loaded ${states.length} states and ${crops.length} crops`);
-      
-      if (args.dataArg) {
-        prices = await parseData(args.dataArg);
-      } else {
-        console.log("No input data provided. Use --help for usage information.");
-        process.exit(1);
-      }
+      prices = await parseData(args.dataArg);
+    } else {
+      const scrapedData = await scrapeAgmarknet(args.date);
+      prices = scrapedData.map(transformRecord);
     }
     
     const validatedPrices = prices.map((p) => PriceSchema.parse(p));

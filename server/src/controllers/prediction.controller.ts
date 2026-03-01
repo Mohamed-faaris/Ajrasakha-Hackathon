@@ -29,7 +29,7 @@ export const getPrediction = async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({
         error: 'Invalid parameters',
-        details: error.errors
+        details: error.issues
       });
     }
     console.error('Error in getPrediction:', error);
@@ -59,7 +59,7 @@ export const refreshPrediction = async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({
         error: 'Invalid parameters',
-        details: error.errors
+        details: error.issues
       });
     }
     console.error('Error in refreshPrediction:', error);
@@ -88,7 +88,7 @@ export const checkPredictionStatus = async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({
         error: 'Invalid parameters',
-        details: error.errors
+        details: error.issues
       });
     }
     console.error('Error in checkPredictionStatus:', error);

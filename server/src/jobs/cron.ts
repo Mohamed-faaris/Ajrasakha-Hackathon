@@ -240,15 +240,3 @@ export const cleanupExpiredPredictions = async () => {
     console.error('[Cron] Error cleaning up predictions:', error);
   }
 };
-
-export const cleanupExpiredPredictions = async () => {
-  console.log('[Cron] Cleaning up expired predictions...');
-  try {
-    const result = await Prediction.deleteMany({
-      expiresAt: { $lt: new Date() }
-    });
-    console.log(`[Cron] Deleted ${result.deletedCount} expired predictions`);
-  } catch (error) {
-    console.error('[Cron] Error cleaning up predictions:', error);
-  }
-};

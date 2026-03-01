@@ -10,5 +10,17 @@
       "name": "parsing",
       "status": "pending"
     }
+  },
+  {
+    "name": "krishisamadhan",
+    "url": "https://krama.karnataka.gov.in/reports/Main_Rep",
+    "meta": {
+      "state": "Karnataka",
+      "description": "Krishi Samadhan is a platform that offers comprehensive agricultural data, including crop production, market prices, and weather information specific to the state of Karnataka."
+    },
+    "stage": {
+      "name": "parsing",
+      "status": "pending"
+    }
   }
 ]

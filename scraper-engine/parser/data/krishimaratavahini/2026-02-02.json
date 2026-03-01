@@ -1,0 +1,24 @@
+[
+  {
+    "cropName": "Rice",
+    "mandiName": "Hassan APMC",
+    "date": "2026-02-02",
+    "minPrice": 2470,
+    "maxPrice": 5485,
+    "modalPrice": 2500,
+    "unit": "Rs./Quintal",
+    "arrival": 49.5,
+    "source": "krishimaratavahini"
+  },
+  {
+    "cropName": "Rice",
+    "mandiName": "Bantwala APMC",
+    "date": "2026-02-02",
+    "minPrice": 2200,
+    "maxPrice": 2800,
+    "modalPrice": 2300,
+    "unit": "Rs./Quintal",
+    "arrival": 9,
+    "source": "krishimaratavahini"
+  }
+]

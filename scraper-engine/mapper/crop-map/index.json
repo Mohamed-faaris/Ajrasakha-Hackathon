@@ -3256,5 +3256,89 @@
     "name": "Vadang",
     "commodityGroup": "Medicinal & Aromatic",
     "sourceId": 365
+  },
+  "sorgumjawar": {
+    "id": "sorgumjawar",
+    "name": "Sorgum(Jawar)",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "ambadi-deccan-hemp": {
+    "id": "ambadi-deccan-hemp",
+    "name": "Ambadi (Deccan Hemp)",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "shevga": {
+    "id": "shevga",
+    "name": "Shevga",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "wal-papdi": {
+    "id": "wal-papdi",
+    "name": "Wal Papdi",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "bullock-heart": {
+    "id": "bullock-heart",
+    "name": "Bullock Heart",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "zendu": {
+    "id": "zendu",
+    "name": "Zendu",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "nolkol": {
+    "id": "nolkol",
+    "name": "Nolkol",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "bor": {
+    "id": "bor",
+    "name": "Bor",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "tatus": {
+    "id": "tatus",
+    "name": "Tatus",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "pavtta": {
+    "id": "pavtta",
+    "name": "Pavtta",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "shepu": {
+    "id": "shepu",
+    "name": "Shepu",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "gipsy": {
+    "id": "gipsy",
+    "name": "Gipsy",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "iceburg": {
+    "id": "iceburg",
+    "name": "Iceburg",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
+  },
+  "ghosalibhaji": {
+    "id": "ghosalibhaji",
+    "name": "Ghosali(Bhaji)",
+    "commodityGroup": "Unknown",
+    "sourceId": "new"
   }
 }

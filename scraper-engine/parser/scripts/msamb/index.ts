@@ -333,6 +333,17 @@ async function scrapeAll(date: string): Promise<Price[]> {
   }
   
   console.log(`Total records: ${allPrices.length}`);
+  
+  const dates = [...new Set(allPrices.map(p => p.date))];
+  console.log(`Found ${dates.length} dates: ${dates.join(", ")}`);
+  
+  for (const d of dates) {
+    const dateRecords = allPrices.filter(p => p.date === d);
+    const outputPath = `./data/msamb/${d}.json`;
+    await Bun.write(outputPath, JSON.stringify(dateRecords, null, 2));
+    console.log(`Saved ${dateRecords.length} records to ${outputPath}`);
+  }
+  
   return allPrices;
 }
 
@@ -353,6 +364,14 @@ async function main() {
       const apmc = APMC_LIST.find(a => a.code === args.apmc);
       prices = await fetchAPMC(args.apmc, apmc?.name || args.apmc);
       prices = prices.map(p => PriceSchema.parse(p));
+      
+      const dates = [...new Set(prices.map(p => p.date))];
+      for (const d of dates) {
+        const dateRecords = prices.filter(p => p.date === d);
+        const outputPath = `./data/msamb/${d}.json`;
+        await Bun.write(outputPath, JSON.stringify(dateRecords, null, 2));
+        console.log(`Saved ${dateRecords.length} records to ${outputPath}`);
+      }
     } else {
       console.log("APMC List (first 10):");
       console.log(APMC_LIST.slice(0, 10));
@@ -360,10 +379,6 @@ async function main() {
       console.log("\nUsage: bun run scripts/msamb/index.ts -a 022 -d 28/02/2026");
       return;
     }
-    
-    const outputPath = `./data/msamb/${args.date.replace(/\//g, "-")}.json`;
-    await Bun.write(outputPath, JSON.stringify(prices, null, 2));
-    console.log(`Saved ${prices.length} records to ${outputPath}`);
   } catch (error) {
     console.error("Error:", error);
     process.exit(1);

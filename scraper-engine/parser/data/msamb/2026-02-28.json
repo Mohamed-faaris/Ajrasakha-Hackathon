@@ -1,0 +1,189 @@
+[
+  {
+    "cropName": "BAJRI",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 477,
+    "maxPrice": 3800,
+    "modalPrice": 4000,
+    "unit": "QUINTAL",
+    "arrival": 3900,
+    "source": "msamb"
+  },
+  {
+    "cropName": "BLACK GRAM (Udid)",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 4,
+    "maxPrice": 8600,
+    "modalPrice": 9800,
+    "unit": "QUINTAL",
+    "arrival": 9200,
+    "source": "msamb"
+  },
+  {
+    "cropName": "CORIANDER (DRY)",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 4,
+    "maxPrice": 9000,
+    "modalPrice": 14000,
+    "unit": "QUINTAL",
+    "arrival": 11500,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GR.NUT KERNELS",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 802,
+    "maxPrice": 11500,
+    "modalPrice": 12100,
+    "unit": "QUINTAL",
+    "arrival": 11800,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GRAM",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 40,
+    "maxPrice": 6500,
+    "modalPrice": 7000,
+    "unit": "QUINTAL",
+    "arrival": 6750,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GREEN GRAM (Mug)",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 38,
+    "maxPrice": 8900,
+    "modalPrice": 9500,
+    "unit": "QUINTAL",
+    "arrival": 9200,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GREEN PEAS (DRY)",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 42,
+    "maxPrice": 8900,
+    "modalPrice": 11300,
+    "unit": "QUINTAL",
+    "arrival": 10300,
+    "source": "msamb"
+  },
+  {
+    "cropName": "JAGGERY",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 402,
+    "maxPrice": 4275,
+    "modalPrice": 4415,
+    "unit": "QUINTAL",
+    "arrival": 4345,
+    "source": "msamb"
+  },
+  {
+    "cropName": "JAGGERY",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 240,
+    "maxPrice": 4015,
+    "modalPrice": 4251,
+    "unit": "QUINTAL",
+    "arrival": 4133,
+    "source": "msamb"
+  },
+  {
+    "cropName": "LENTIL",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 39,
+    "maxPrice": 6800,
+    "modalPrice": 7000,
+    "unit": "QUINTAL",
+    "arrival": 6900,
+    "source": "msamb"
+  },
+  {
+    "cropName": "MAIZE",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 1,
+    "maxPrice": 2400,
+    "modalPrice": 2600,
+    "unit": "QUINTAL",
+    "arrival": 2500,
+    "source": "msamb"
+  },
+  {
+    "cropName": "NACHANI/ NAGALI",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 3,
+    "maxPrice": 4900,
+    "modalPrice": 5500,
+    "unit": "QUINTAL",
+    "arrival": 5200,
+    "source": "msamb"
+  },
+  {
+    "cropName": "RICE(PADDY-HUS)",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 49,
+    "maxPrice": 7800,
+    "modalPrice": 11000,
+    "unit": "QUINTAL",
+    "arrival": 9400,
+    "source": "msamb"
+  },
+  {
+    "cropName": "RICE(PADDY-HUS)",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 528,
+    "maxPrice": 4000,
+    "modalPrice": 6500,
+    "unit": "QUINTAL",
+    "arrival": 5250,
+    "source": "msamb"
+  },
+  {
+    "cropName": "RICE(PADDY-HUS)",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 440,
+    "maxPrice": 3100,
+    "modalPrice": 3300,
+    "unit": "QUINTAL",
+    "arrival": 3200,
+    "source": "msamb"
+  },
+  {
+    "cropName": "SORGUM(JAWAR)",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 703,
+    "maxPrice": 5600,
+    "modalPrice": 6400,
+    "unit": "QUINTAL",
+    "arrival": 6000,
+    "source": "msamb"
+  },
+  {
+    "cropName": "WHEAT(HUSKED)",
+    "mandiName": "PUNE",
+    "date": "2026-02-28",
+    "minPrice": 489,
+    "maxPrice": 4500,
+    "modalPrice": 5500,
+    "unit": "QUINTAL",
+    "arrival": 5000,
+    "source": "msamb"
+  }
+]

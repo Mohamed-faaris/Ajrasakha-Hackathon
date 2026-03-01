@@ -3,6 +3,7 @@ import { Crop } from '../models';
 export const getAllCrops = async () => {
   const crops = await Crop.find().sort({ name: 1 }).lean();
   return crops.map(crop => ({
+    id: crop._id,
     name: crop.name,
     category: crop.commodityGroup || 'Others',
   }));

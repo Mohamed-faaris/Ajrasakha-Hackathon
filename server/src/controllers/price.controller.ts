@@ -1,5 +1,6 @@
 import { type Request, type Response } from 'express';
 import * as priceService from '../services/price.service';
+import * as predictionService from '../services/prediction.service';
 import { validateQuery, validateParams } from '../middlewares/validate.middleware';
 import { GetPricesQuerySchema, GetLatestPricesQuerySchema, GetPriceTrendsQuerySchema, GetByMandiAndCropParamsSchema, PricesByMandiAndCropQuerySchema } from '@shared/schemas';
 
@@ -37,3 +38,25 @@ export const getPricesByMandiAndCrop = [
     res.json(prices);
   },
 ];
+
+export const getPricePrediction = async (req: Request, res: Response) => {
+  const { cropId, mandiId, days, lookback } = req.query as Record<string, string>;
+
+  if (!cropId || !mandiId) {
+    res.status(400).json({ error: 'cropId and mandiId query params are required' });
+    return;
+  }
+
+  try {
+    const result = await predictionService.predictPrice(
+      cropId,
+      mandiId,
+      days ? parseInt(days, 10) : 7,
+      lookback ? parseInt(lookback, 10) : 90
+    );
+    res.json(result);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Prediction failed';
+    res.status(404).json({ error: message });
+  }
+};

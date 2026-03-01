@@ -8,5 +8,11 @@
     "hackathon",
     "Hackathon",
     "Mandi"
+  ],
+  "python.analysis.extraPaths": [
+    "./scraper"
+  ],
+  "python.autoComplete.extraPaths": [
+    "./scraper"
   ]
 }

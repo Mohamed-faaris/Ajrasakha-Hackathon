@@ -6,6 +6,7 @@ const router = Router();
 router.get('/', priceController.getPrices);
 router.get('/latest', ...priceController.getLatestPrices);
 router.get('/trends', ...priceController.getPriceTrends);
+router.get('/predict', priceController.getPricePrediction);
 router.get('/mandi/:mandiId/crop/:cropId', ...priceController.getPricesByMandiAndCrop);
 
 export default router;

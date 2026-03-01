@@ -27,6 +27,11 @@ def create_mandi_lookup(mandis):
     return lookup
 
 
+def generate_mandi_id(name, state_id=None):
+    name_slug = name.lower().replace(" ", "-").replace(",", "")
+    return f"unknown-{state_id.lower() if state_id else 'xx'}-{name_slug}-apmc"
+
+
 def get_sources():
     sources = set()
     if not PARSER_DIR.exists():
@@ -38,7 +43,7 @@ def get_sources():
 
 
 def get_mandis_by_source(source):
-    mandis_by_source = defaultdict(set)
+    mandis_by_source = set()
     source_dir = PARSER_DIR / source
     if not source_dir.exists():
         return mandis_by_source
@@ -51,22 +56,35 @@ def get_mandis_by_source(source):
                     if isinstance(data, list):
                         for item in data:
                             if "mandiName" in item:
-                                name = item["mandiName"]
-                                mandis_by_source[source].add(name)
-                                mandis_by_source[source].add(name.lower())
+                                mandis_by_source.add(item["mandiName"])
             except Exception as e:
                 print(f"Error reading {file}: {e}")
     return mandis_by_source
 
 
-def create_source_map(mandi_lookup, mandis_by_source):
+def create_source_map(mandi_lookup, mandi_names):
     source_map = {}
-    for source, mandi_names in mandis_by_source.items():
-        source_map[source] = {}
-        for name in mandi_names:
-            if name in mandi_lookup:
-                source_map[source][name] = mandi_lookup[name]
-    return source_map
+    matched = 0
+    new_entries = 0
+    
+    for name in mandi_names:
+        if name in mandi_lookup:
+            source_map[name] = mandi_lookup[name]
+            matched += 1
+        elif name.lower() in mandi_lookup:
+            source_map[name] = mandi_lookup[name.lower()]
+            matched += 1
+        else:
+            state_id = "XX"
+            mandi_id = generate_mandi_id(name, state_id)
+            source_map[name] = {
+                "mandiId": mandi_id,
+                "stateId": state_id,
+                "new": True
+            }
+            new_entries += 1
+    
+    return source_map, matched, new_entries
 
 
 def main():
@@ -84,20 +102,20 @@ def main():
     print("Collecting mandis by source...")
     all_mandis_by_source = {}
     for source in sources:
-        mandis_by_source = get_mandis_by_source(source)
-        all_mandis_by_source[source] = mandis_by_source[source] if source in mandis_by_source else set()
-        print(f"  {source}: {len(all_mandis_by_source[source])} unique mandi names")
+        mandi_names = get_mandis_by_source(source)
+        all_mandis_by_source[source] = mandi_names
+        print(f"  {source}: {len(mandi_names)} unique mandi names")
 
     print("Creating source maps...")
-    source_map = create_source_map(mandi_lookup, all_mandis_by_source)
-
     MAPPER_DIR.mkdir(parents=True, exist_ok=True)
     
-    for source, mappings in source_map.items():
+    for source, mandi_names in all_mandis_by_source.items():
+        source_map, matched, new_entries = create_source_map(mandi_lookup, mandi_names)
+        
         output_file = MAPPER_DIR / f"{source}.json"
         with open(output_file, "w") as f:
-            json.dump(mappings, f, indent=2)
-        print(f"Saved {source}.json with {len(mappings)} mappings")
+            json.dump(source_map, f, indent=2)
+        print(f"Saved {source}.json with {len(source_map)} mappings ({matched} matched, {new_entries} new)")
 
     print("\nDone!")
 

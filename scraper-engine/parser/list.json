@@ -7,8 +7,8 @@
       "description": "Agmarknet is a government portal that provides real-time data on agricultural commodity prices, arrivals, and market trends across various markets in India."
     },
     "stage": {
-      "name": "parsing",
-      "status": "pending"
+      "name": "loader",
+      "status": "ready"
     }
   },
   {
@@ -21,6 +21,18 @@
     "stage": {
       "name": "parsing",
       "status": "pending"
+    }
+  },
+  {
+      "name": "Maharashtra State Agricultural Marketing Board (MSAMB)",
+      "url": "https://www.msamb.com/",
+      "meta": {
+        "state": "Maharashtra",
+        "description": "MSAMB provides detailed information on agricultural markets, including commodity prices, market arrivals, and trends specific to the state of Maharashtra."
+      },
+      "stage": {
+        "name": "parsing",
+        "status": "pending" 
     }
   }
 ]

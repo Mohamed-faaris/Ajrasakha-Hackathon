@@ -1,0 +1,14 @@
+[
+  {
+    "name": "agmarknet",
+    "url": "https://agmarknet.gov.in",
+    "meta": {
+      "state": "all",
+      "description": "Agmarknet is a government portal that provides real-time data on agricultural commodity prices, arrivals, and market trends across various markets in India."
+    },
+    "stage": {
+      "name": "parsing",
+      "status": "pending"
+    }
+  }
+]

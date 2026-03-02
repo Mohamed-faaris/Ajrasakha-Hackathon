@@ -25,6 +25,8 @@ const Dashboard = () => {
   const { data: prices = [], isLoading: pricesLoading, isError: pricesError } = usePrices(filters);
   const { data: allCrops = [] } = useCrops();
   const { data: allStates = [] } = useStates();
+  const { data: sessionData } = useSession();
+  const role = sessionData?.user?.role as UserRole | undefined;
 
   const filtered = useMemo(() => {
     let d = [...(prices || [])];

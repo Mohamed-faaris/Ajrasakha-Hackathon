@@ -3,19 +3,17 @@ import { getMessaging, Messaging } from "firebase/messaging";
 import { getAnalytics, Analytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD1hg6i8bJDMP2Q5dx2F_2EPLwI-l9DZt4",
-  authDomain: "mandi-insights.firebaseapp.com",
-  projectId: "mandi-insights",
-  storageBucket: "mandi-insights.firebasestorage.app",
-  messagingSenderId: "705013637720",
-  appId: "1:705013637720:web:5c6df09621188786c7202d",
-  measurementId: "G-WLT1BXNFFN"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // VAPID Key for Web Push Notifications
-// Get this from Firebase Console > Project Settings > Cloud Messaging > Web Push certificates
-// Example: "BFCZJ..."
-export const VAPID_KEY = "YOUR_VAPID_KEY_HERE";
+export const VAPID_KEY = import.meta.env.VITE_FIREBASE_VAPID_KEY || "";
 
 let app: FirebaseApp;
 let messaging: Messaging | null = null;

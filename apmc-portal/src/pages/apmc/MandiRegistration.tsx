@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Wheat, CheckCircle2, AlertCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { APMC_ROUTES } from "@/lib/routes";
 
 const states = [
   "Andhra Pradesh", "Bihar", "Chhattisgarh", "Delhi", "Gujarat", "Haryana",
@@ -29,7 +27,6 @@ const dataSourceOptions = [
 ];
 
 export default function MandiRegistration() {
-  const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
@@ -192,9 +189,6 @@ export default function MandiRegistration() {
 
               <div className="flex items-center gap-3">
                 <Button type="submit">Submit Registration</Button>
-                <Button type="button" variant="outline" onClick={() => navigate(APMC_ROUTES.root)}>
-                  Back to Portal
-                </Button>
               </div>
             </form>
           </CardContent>

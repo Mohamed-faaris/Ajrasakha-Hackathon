@@ -16,6 +16,22 @@ import {
   predictionRoutes
 } from './routes';
 
+// Health check helper for prediction engine
+async function checkPredictionEngine(): Promise<{ status: string; latency?: number; error?: string }> {
+  const start = Date.now();
+  try {
+    const response = await fetch('http://localhost:8000/health', { 
+      signal: AbortSignal.timeout(5000) 
+    });
+    if (response.ok) {
+      return { status: 'up', latency: Date.now() - start };
+    }
+    return { status: 'down', error: `HTTP ${response.status}` };
+  } catch (error) {
+    return { status: 'down', error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
 const createApp = (auth: Auth) => {
   const app = express();
 
@@ -42,8 +58,19 @@ const createApp = (auth: Auth) => {
   app.use('/api/admin', adminRoutes);
   app.use('/api/predictions', predictionRoutes);
 
-  app.get('/api/health', (_req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  app.get('/api/health', async (_req, res) => {
+    const predictionEngine = await checkPredictionEngine();
+    
+    const overallStatus = predictionEngine.status === 'up' ? 'healthy' : 'degraded';
+    
+    res.json({ 
+      status: overallStatus,
+      timestamp: new Date().toISOString(),
+      services: {
+        server: { status: 'up' },
+        predictionEngine
+      }
+    });
   });
 
   app.use((_req, res) => {

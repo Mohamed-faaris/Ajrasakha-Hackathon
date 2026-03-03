@@ -121,11 +121,6 @@ export default function Signup() {
           state: stateName || undefined,
           district: district || undefined,
           preferredCrops: parseCsv(preferredCrops),
-          classification: {
-            method: "self_declared",
-            confidence: 1,
-            evaluatedAt: new Date().toISOString(),
-          },
           farmerDetails: role === "farmer" ? {
             isFarmer: true,
             farmSize: Number(farmSize),

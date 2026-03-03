@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { StatusBadge } from "@/components/apmc/StatusBadge";
 import { useIntegrationSettings } from "@/hooks/useAPMCHooks";
 
 export default function IntegrationSettings() {
@@ -105,13 +104,9 @@ export default function IntegrationSettings() {
 
         <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-base font-heading">Integration Status</CardTitle>
+            <CardTitle className="text-base font-heading">Verification Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">Status</span>
-              <StatusBadge status={settings.integrationStatus} />
-            </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Last Verified</span>
               <span className="text-sm font-medium">

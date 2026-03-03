@@ -1,5 +1,4 @@
 import {
-  Activity,
   CalendarDays,
   Database,
   HeartPulse,
@@ -30,13 +29,6 @@ export default function APMCDashboard() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <StatCard
-          title="Integration Status"
-          value={stats.integrationStatus}
-          icon={Activity}
-          accentColor="success"
-          description="System connected & operational"
-        />
         <StatCard
           title="Last Submission"
           value={stats.lastSubmission}

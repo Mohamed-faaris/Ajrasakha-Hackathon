@@ -18,7 +18,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { StatusBadge } from "@/components/apmc/StatusBadge";
 import { useSubmissionHistory } from "@/hooks/useAPMCHooks";
 
 const crops = ["All", "Wheat", "Rice", "Soybean", "Cotton", "Maize", "Chickpea", "Mustard"];
@@ -82,7 +81,6 @@ export default function SubmissionHistory() {
                   <TableHead className="text-right">Min (₹)</TableHead>
                   <TableHead className="text-right">Max (₹)</TableHead>
                   <TableHead className="text-right">Modal (₹)</TableHead>
-                  <TableHead>Status</TableHead>
                   <TableHead>Source</TableHead>
                 </TableRow>
               </TableHeader>
@@ -94,13 +92,12 @@ export default function SubmissionHistory() {
                     <TableCell className="text-right">{r.minPrice.toLocaleString()}</TableCell>
                     <TableCell className="text-right">{r.maxPrice.toLocaleString()}</TableCell>
                     <TableCell className="text-right">{r.modalPrice.toLocaleString()}</TableCell>
-                    <TableCell><StatusBadge status={r.status} /></TableCell>
                     <TableCell className="text-muted-foreground text-sm">{r.source}</TableCell>
                   </TableRow>
                 ))}
                 {filtered.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
+                    <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
                       No records found.
                     </TableCell>
                   </TableRow>

@@ -1,140 +1,179 @@
 # Ajrasakha Hackathon
-https://vicharanashala.github.io/ajrasakha-hackathon/docs/problem-statements/pb1/
 
-A full-stack application with a React frontend and Node.js/Express server using TypeScript, MongoDB, and authentication.
+Problem statement: https://vicharanashala.github.io/ajrasakha-hackathon/docs/problem-statements/pb1/
 
-## Project Structure
+Ajrasakha is a multi-service mandi/APMC platform with:
 
+- data ingestion and normalization (scraper engine),
+- analytics and API backend (Node.js + Express),
+- price forecasting (FastAPI prediction engine),
+- two frontend apps (consumer and APMC portals).
+
+## Current Implementation Snapshot
+
+- `server/`: main backend API, auth, cron-driven aggregations, prediction proxy.
+- `consumer-portal/`: production-facing React UI for analytics, alerts, trends, map insights.
+- `apmc-portal/`: React UI for APMC workflows; several data hooks are currently mock/placeholder.
+- `pridiction-engine/`: Python FastAPI service for ARIMA-based price prediction.
+- `scraper-engine/endpoint-discovery/`: AI-assisted source discovery + scraping pipeline.
+- `shared/`: shared frontend schemas/types.
+
+Detailed workflow is documented in `PROJECT_WORKFLOW.md`.
+
+## Repository Structure
+
+```text
+Ajrasakha-Hackathon/
+|- apmc-portal/
+|- consumer-portal/
+|- server/
+|- scraper-engine/
+|  |- endpoint-discovery/
+|  |- loader/
+|  |- parser/
+|  |- mapper/
+|  '- mapper-apmc/
+|- pridiction-engine/
+|- seeder/
+|- shared/
+|- docs/
+|- PROJECT_WORKFLOW.md
+'- README.md
 ```
-├── frontend/        # React + Vite frontend
-├── server/          # Node.js + Express backend
-├── shared/          # Shared types/utilities
-└── README.md        # This file
-```
+
+## Tech Stack
+
+- Frontend: React, TypeScript, Vite, TanStack Query, Tailwind, shadcn/ui
+- Backend: Node.js, Express, TypeScript, Mongoose, Better Auth
+- Data/ML: Python FastAPI, pandas, statsmodels (ARIMA), MongoDB
+- Scraping: Playwright, httpx, BeautifulSoup, LangChain-based discovery/mapping
 
 ## Prerequisites
 
-- Node.js (v18+)
-- pnpm (`npm install -g pnpm`)
-- MongoDB
+- Node.js 18+
+- pnpm 10+
+- Python 3.11+ (3.12 also works)
+- MongoDB (local or Atlas)
+- Chromium install for Playwright (scraper only)
+- Bun (optional, for `scraper-engine/loader` and parser utilities)
 
-### MongoDB Setup with Docker
+## Environment Configuration
 
-```bash
-docker run -d -p 27017:27017 --name mongodb \
-  -e MONGO_INITDB_ROOT_USERNAME=admin \
-  -e MONGO_INITDB_ROOT_PASSWORD=password \
-  mongo:latest
-```
+### Server (`server/.env`)
 
-Stop: `docker stop mongodb`  
-Start: `docker start mongodb`  
-Remove: `docker rm mongodb`
+Start from `server/.env.example`.
 
-Example connection string:
-
-- `mongodb://admin:password@localhost:27017/ajrasakha`
-
-## Installation
-
-Install dependencies for both frontend and server:
-
-```bash
-pnpm install
-```
-
-Or install separately:
-
-```bash
-pnpm run install:frontend  # Install frontend dependencies
-pnpm run install:server  # Install server dependencies
-```
-
-## Development
-
-Start both frontend and server in development mode:
-
-```bash
-pnpm run dev
-```
-
-This runs the frontend on `http://localhost:5173` and server on `http://localhost:5000`.
-
-Or run separately:
-
-```bash
-pnpm run dev:frontend  # Start frontend only
-pnpm run dev:server  # Start server only
-```
-
-## Testing
-
-Run frontend tests:
-
-```bash
-pnpm run test:frontend
-```
-
-Watch mode:
-
-```bash
-pnpm run test:frontend:watch
-```
-
-## Production
-
-```bash
-pnpm run prod
-```
-
-This builds both frontend and server, then starts the server.
-
-## Environment Variables
-
-Server (`server/.env`):
+Required keys:
 
 ```env
 PORT=5000
-MONGO_URI=mongodb://admin:password@localhost:27017/ajrasakha
-JWT_SECRET=your_jwt_secret_here
+MONGO_URI=<your_mongodb_uri>
+BETTER_AUTH_SECRET=<min_32_chars_secret>
+BETTER_AUTH_URL=http://localhost:5000
+BETTER_AUTH_TRUSTED_ORIGINS=http://localhost:8080,http://localhost:3000
 ```
 
-Frontend: no required env vars for basic setup.
+### Prediction Engine (`pridiction-engine/.env`)
 
-## API Endpoints
+Start from `pridiction-engine/.env.example`.
 
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login
-- `GET /api/auth/profile` - Get user profile (requires Bearer token)
+```env
+MONGO_URI=<your_mongodb_uri>
+PORT=8000
+```
 
-## Scripts
+### Scraper Engine (`scraper-engine/endpoint-discovery/.env`)
 
-- `pnpm run install` - Install all dependencies
-- `pnpm run dev` - Start development servers
-- `pnpm run build` - Build for production
-- `pnpm run prod` - Build and start production server
-- `pnpm run dev:frontend` - Start frontend dev server
-- `pnpm run dev:server` - Start server dev server
-- `pnpm run build:frontend` - Build frontend
-- `pnpm run build:server` - Build server
-- `pnpm run start:server` - Start production server
+Start from `.env.example` in that folder.
 
-## Technologies
+Minimum required for practical runs:
 
-### Frontend
+```env
+MONGO_URI=<your_mongodb_uri>
+DB_NAME=mandi_insights
+LLM_PROVIDER=google
+GOOGLE_API_KEY=<your_google_key>
+AGENT_MODE=discover_and_scrape
+```
 
-- React
-- TypeScript
-- Vite
-- Vitest
+## Local Development
 
-### Server
+Run each service in a separate terminal.
 
-- Node.js
-- Express
-- TypeScript
-- MongoDB with Mongoose
-- JWT authentication
+### 1) API Server (port `5000`)
+
+```bash
+cd server
+pnpm install
+pnpm dev
+```
+
+### 2) Consumer Portal (port `3000`)
+
+```bash
+cd consumer-portal
+pnpm install
+pnpm dev
+```
+
+### 3) APMC Portal (port `8080`)
+
+```bash
+cd apmc-portal
+pnpm install
+pnpm dev
+```
+
+### 4) Prediction Engine (port `8000`)
+
+```bash
+cd pridiction-engine
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# macOS/Linux:
+# source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### 5) Scraper Engine (optional, ingestion pipeline)
+
+```bash
+cd scraper-engine/endpoint-discovery
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# macOS/Linux:
+# source .venv/bin/activate
+pip install -r requirements.txt
+playwright install chromium
+python main.py
+```
+
+## Current Ports and Integration
+
+- `server`: `http://localhost:5000`
+- `consumer-portal`: `http://localhost:3000` (dev proxy to server for `/api`)
+- `apmc-portal`: `http://localhost:8080`
+- `pridiction-engine`: `http://localhost:8000`
+
+Server prediction integration defaults to `http://localhost:8000` (`PREDICTION_ENGINE_URL` in server service code).
+
+## Tests
+
+```bash
+cd consumer-portal && pnpm test
+cd apmc-portal && pnpm test
+```
+
+Server and Python services currently do not have a full automated test suite configured in this repo.
+
+## Important Notes
+
+- Root-level `package.json` scripts are legacy and do not fully reflect the current folder names/services.
+- Prefer running install/dev/build commands from each service directory.
+- APMC portal includes UI flows that still use mock hooks in `apmc-portal/src/hooks/useAPMCHooks.ts`.
 
 ## License
 

@@ -9,14 +9,15 @@ import {
   Wheat,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { APMC_ROUTES } from "@/lib/routes";
 
 const navItems = [
-  { title: "Dashboard", path: "/apmc", icon: LayoutDashboard },
-  { title: "Submit Price", path: "/apmc/submit-price", icon: FileText },
-  { title: "Bulk Upload", path: "/apmc/bulk-upload", icon: Upload },
-  { title: "History", path: "/apmc/history", icon: History },
-  { title: "Profile", path: "/apmc/profile", icon: Building2 },
-  { title: "Settings", path: "/apmc/settings", icon: Settings },
+  { title: "Dashboard", path: APMC_ROUTES.dashboard, icon: LayoutDashboard },
+  { title: "Submit Price", path: APMC_ROUTES.submitPrice, icon: FileText },
+  { title: "Bulk Upload", path: APMC_ROUTES.bulkUpload, icon: Upload },
+  { title: "History", path: APMC_ROUTES.history, icon: History },
+  { title: "Profile", path: APMC_ROUTES.profile, icon: Building2 },
+  { title: "Settings", path: APMC_ROUTES.settings, icon: Settings },
 ];
 
 interface APMCSidebarProps {
@@ -58,8 +59,8 @@ export function APMCSidebar({ open, onClose }: APMCSidebarProps) {
         <nav className="flex-1 space-y-1 px-3 py-4">
           {navItems.map((item) => {
             const isActive =
-              item.path === "/apmc"
-                ? location.pathname === "/apmc"
+              item.path === APMC_ROUTES.dashboard
+                ? location.pathname === APMC_ROUTES.dashboard || location.pathname === `${APMC_ROUTES.dashboard}/`
                 : location.pathname.startsWith(item.path);
 
             return (

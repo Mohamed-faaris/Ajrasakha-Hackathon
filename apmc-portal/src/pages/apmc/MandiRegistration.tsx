@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { APMC_ROUTES } from "@/lib/routes";
 
 const states = [
   "Andhra Pradesh", "Bihar", "Chhattisgarh", "Delhi", "Gujarat", "Haryana",
@@ -191,7 +192,7 @@ export default function MandiRegistration() {
 
               <div className="flex items-center gap-3">
                 <Button type="submit">Submit Registration</Button>
-                <Button type="button" variant="outline" onClick={() => navigate("/apmc")}>
+                <Button type="button" variant="outline" onClick={() => navigate(APMC_ROUTES.root)}>
                   Back to Portal
                 </Button>
               </div>

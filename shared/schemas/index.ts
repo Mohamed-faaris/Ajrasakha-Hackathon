@@ -5,6 +5,8 @@ export const DataSourceSchema = z.enum(['eNAM', 'Agmarknet', 'State Portal']);
 export const SortDirectionSchema = z.enum(['asc', 'desc']);
 export const PriceSortBySchema = z.enum(['date', 'crop', 'state', 'mandi', 'modalPrice']);
 export const AlertDirectionSchema = z.enum(['above', 'below']);
+export const AlertTypeSchema = z.enum(['price', 'trend', 'both']);
+export const TrendDirectionSchema = z.enum(['increase', 'decrease']);
 export const TopMoverDirectionSchema = z.enum(['up', 'down']);
 export const LanguageSchema = z.enum(['en', 'hi', 'mr', 'te', 'ta', 'kn', 'gu', 'pa']);
 export const UserRoleSchema = z.enum(['farmer', 'trader', 'policy_maker', 'agri_startup']);
@@ -298,20 +300,67 @@ export const PricesByMandiAndCropQuerySchema = z.object({
 });
 
 export const CreateAlertBodySchema = z.object({
+  alertType: AlertTypeSchema.default('price'),
   cropId: z.string().min(1),
   mandiId: z.string().optional(),
-  thresholdPrice: z.number().min(0),
-  direction: AlertDirectionSchema,
+  thresholdPrice: z.number().min(0).optional(),
+  priceDirection: AlertDirectionSchema.optional(),
+  percentage: z.number().min(0).optional(),
+  days: z.number().int().min(1).optional(),
+  trendDirection: TrendDirectionSchema.optional(),
+  cooldownHours: z.number().int().min(0).default(24),
+}).refine(
+  (data) => {
+    if (data.alertType === 'price' || data.alertType === 'both') {
+      return data.thresholdPrice !== undefined;
+    }
+    return true;
+  },
+  {
+    message: 'thresholdPrice is required for price alerts',
+    path: ['thresholdPrice'],
+  }
+).refine(
+  (data) => {
+    if (data.alertType === 'trend' || data.alertType === 'both') {
+      return data.percentage !== undefined && data.days !== undefined;
+    }
+    return true;
+  },
+  {
+    message: 'percentage and days are required for trend alerts',
+    path: ['percentage'],
+  }
+);
+
+export const ToggleAlertBodySchema = z.object({
+  isActive: z.boolean(),
 });
 
 export const UpdateAlertBodySchema = z.object({
   thresholdPrice: z.number().min(0).optional(),
-  direction: AlertDirectionSchema.optional(),
+  priceDirection: AlertDirectionSchema.optional(),
+  percentage: z.number().min(0).optional(),
+  days: z.number().int().min(1).optional(),
+  trendDirection: TrendDirectionSchema.optional(),
+  cooldownHours: z.number().int().min(0).optional(),
   isActive: z.boolean().optional(),
 });
 
-export const ToggleAlertBodySchema = z.object({
-  isActive: z.boolean(),
+export const RegisterFCMTokenSchema = z.object({
+  token: z.string().min(1),
+  device: z.string().optional(),
+});
+
+export const ProcessAlertResultSchema = z.object({
+  alertId: z.string(),
+  triggered: z.boolean(),
+  triggeredAt: z.string().optional(),
+  message: z.string().optional(),
+  priceAtTrigger: z.number().optional(),
+  previousPrice: z.number().optional(),
+  changePercent: z.number().optional(),
+  triggeredBy: z.enum(['price', 'trend']).optional(),
 });
 
 export const UpdateUserProfileBodySchema = z.object({

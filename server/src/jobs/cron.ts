@@ -1,5 +1,6 @@
 import cron from 'node-cron';
 import { Price, TopMover, Mandi, Coverage, MandiPrice, Prediction } from '../models';
+import { processAlertsJob as processAlerts } from './alert.processor';
 
 export const startScheduler = () => {
   cron.schedule('0 1 * * *', computeTopMovers, {
@@ -16,6 +17,11 @@ export const startScheduler = () => {
 
   // Clean up expired predictions daily at 3 AM
   cron.schedule('0 3 * * *', cleanupExpiredPredictions, {
+    timezone: 'Asia/Kolkata'
+  });
+
+  // Process alerts every hour - more frequent than daily jobs since price changes can happen anytime
+  cron.schedule('0 * * * *', processAlerts, {
     timezone: 'Asia/Kolkata'
   });
 

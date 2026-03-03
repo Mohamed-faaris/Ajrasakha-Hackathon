@@ -51,6 +51,23 @@ const userProfileSchema = new mongoose.Schema({
       priceAlerts: { type: Boolean, default: true },
     },
   },
+  fcmTokens: [{
+    token: {
+      type: String,
+      required: true,
+    },
+    device: {
+      type: String,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    lastUsedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  }],
   language: {
     type: String,
     default: 'en',
@@ -119,7 +136,6 @@ const userProfileSchema = new mongoose.Schema({
   collection: 'userprofiles',
 });
 
-userProfileSchema.index({ userId: 1 });
 userProfileSchema.index({ state: 1 });
 userProfileSchema.index({ 'farmerDetails.farmLocation': '2dsphere' });
 

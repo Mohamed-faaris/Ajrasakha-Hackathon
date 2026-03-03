@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 // 1. Crop Schema
 const cropSchema = new mongoose.Schema(
@@ -405,15 +405,38 @@ const alertSchema = new mongoose.Schema(
       type: String,
       uppercase: true,
     },
+    alertType: {
+      type: String,
+      enum: ["price", "trend", "both"],
+      default: "price",
+    },
     thresholdPrice: {
       type: Number,
-      required: true,
       min: 0,
     },
     direction: {
       type: String,
-      required: true,
       enum: ["above", "below"],
+    },
+    percentage: {
+      type: Number,
+      min: 0,
+    },
+    days: {
+      type: Number,
+      min: 1,
+    },
+    trendDirection: {
+      type: String,
+      enum: ["increase", "decrease"],
+    },
+    cooldownHours: {
+      type: Number,
+      default: 24,
+      min: 0,
+    },
+    lastNotifiedAt: {
+      type: Date,
     },
     isActive: {
       type: Boolean,
@@ -438,6 +461,27 @@ alertSchema.index({ cropId: 1, isActive: 1 });
 alertSchema.index({ mandiId: 1, isActive: 1 });
 
 export const Alert = mongoose.model("Alert", alertSchema);
+
+// Alert Interface for TypeScript
+export interface IAlert {
+  id: string;
+  userId: Types.ObjectId;
+  cropId: string;
+  cropName: string;
+  mandiId?: string;
+  mandiName?: string;
+  alertType: "price" | "trend" | "both";
+  thresholdPrice?: number;
+  direction?: "above" | "below";
+  percentage?: number;
+  days?: number;
+  trendDirection?: "increase" | "decrease";
+  cooldownHours?: number;
+  lastNotifiedAt?: Date;
+  isActive?: boolean;
+  triggeredAt?: Date;
+  message?: string;
+}
 
 // 7. TopMover Schema (Cached)
 const topMoverSchema = new mongoose.Schema(
@@ -668,8 +712,6 @@ const predictionSchema = new mongoose.Schema(
   }
 );
 
-// TTL index: auto-delete documents 24 hours after expiresAt
-predictionSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 // Compound index for quick lookups
 predictionSchema.index({ cropId: 1, mandiId: 1, expiresAt: -1 });
 

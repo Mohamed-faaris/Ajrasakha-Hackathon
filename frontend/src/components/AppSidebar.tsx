@@ -25,7 +25,7 @@ const navItems = [
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
   { title: "Map Insights", url: "/map", icon: Map },
   { title: "Arbitrage", url: "/arbitrage", icon: ArrowLeftRight },
-  { title: "Price Alerts", url: "/alerts", icon: Bell },
+  { title: "Price Alerts", url: "/price-alerts", icon: Bell },
   { title: "Reports", url: "/reports", icon: FileText },
   { title: "Profile", url: "/profile", icon: UserRound },
 ];

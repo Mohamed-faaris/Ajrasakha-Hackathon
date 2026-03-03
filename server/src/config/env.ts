@@ -2,8 +2,10 @@ import { z } from 'zod';
 import dotenv from 'dotenv';
 import path from 'path';
 
+// Load from root .env file (single source of truth)
+const rootDir = path.resolve(__dirname, '../../../');
 dotenv.config({
-  path: path.resolve(__dirname, '../../.env'),
+  path: path.join(rootDir, '.env'),
 });
 
 const envSchema = z.object({

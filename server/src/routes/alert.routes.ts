@@ -14,6 +14,10 @@ const createAlertRoutes = (auth: Auth) => {
   router.delete('/:alertId', authMiddleware, ...alertController.deleteAlert);
   router.patch('/:alertId/toggle', authMiddleware, ...alertController.toggleAlert);
 
+  // FCM Token routes
+  router.post('/fcm-token', authMiddleware, alertController.registerFCMToken);
+  router.delete('/fcm-token', authMiddleware, alertController.unregisterFCMToken);
+
   return router;
 };
 

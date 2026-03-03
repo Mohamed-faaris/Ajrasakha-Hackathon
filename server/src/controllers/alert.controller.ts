@@ -1,14 +1,21 @@
 import { type Request, type Response } from 'express';
 import * as alertService from '../services/alert.service';
+import * as firebaseService from '../services/firebase.service';
 import { validateParams, validateBody } from '../middlewares/validate.middleware';
 import { Types } from 'mongoose';
-import { AlertIdParamsSchema, CreateAlertBodySchema, UpdateAlertBodySchema, ToggleAlertBodySchema } from '@shared/schemas';
+import {
+  AlertIdParamsSchema,
+  CreateAlertBodySchema,
+  UpdateAlertBodySchema,
+  ToggleAlertBodySchema,
+  RegisterFCMTokenSchema,
+} from '@shared/schemas';
 
 export const createAlert = [
   validateBody(CreateAlertBodySchema),
   async (req: Request, res: Response) => {
     const userId = req.user?.id;
-    
+
     if (!userId) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
@@ -30,7 +37,7 @@ export const createAlert = [
 
 export const getUserAlerts = async (req: Request, res: Response) => {
   const userId = req.user?.id;
-  
+
   if (!userId) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
@@ -42,7 +49,7 @@ export const getUserAlerts = async (req: Request, res: Response) => {
 
 export const getActiveAlerts = async (req: Request, res: Response) => {
   const userId = req.user?.id;
-  
+
   if (!userId) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
@@ -58,7 +65,7 @@ export const updateAlert = [
   async (req: Request, res: Response) => {
     const userId = req.user?.id;
     const params = AlertIdParamsSchema.parse(req.params);
-    
+
     if (!userId) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
@@ -81,7 +88,7 @@ export const deleteAlert = [
   async (req: Request, res: Response) => {
     const userId = req.user?.id;
     const params = AlertIdParamsSchema.parse(req.params);
-    
+
     if (!userId) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
@@ -105,7 +112,7 @@ export const toggleAlert = [
     const userId = req.user?.id;
     const params = AlertIdParamsSchema.parse(req.params);
     const body = ToggleAlertBodySchema.parse(req.body);
-    
+
     if (!userId) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
@@ -119,5 +126,57 @@ export const toggleAlert = [
     }
 
     res.json(alert);
+  },
+];
+
+export const registerFCMToken = [
+  validateBody(RegisterFCMTokenSchema),
+  async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
+    try {
+      const { token, device } = RegisterFCMTokenSchema.parse(req.body);
+      const success = await firebaseService.registerFCMToken(userId, token, device);
+
+      if (success) {
+        res.json({ message: 'FCM token registered successfully' });
+      } else {
+        res.status(500).json({ error: 'Failed to register FCM token' });
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to register FCM token';
+      res.status(400).json({ error: message });
+    }
+  },
+];
+
+export const unregisterFCMToken = [
+  validateBody(RegisterFCMTokenSchema.pick({ token: true })),
+  async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
+    try {
+      const { token } = req.body;
+      const success = await firebaseService.removeInvalidToken(userId, token);
+
+      if (success) {
+        res.json({ message: 'FCM token unregistered successfully' });
+      } else {
+        res.status(404).json({ error: 'Token not found' });
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to unregister FCM token';
+      res.status(400).json({ error: message });
+    }
   },
 ];

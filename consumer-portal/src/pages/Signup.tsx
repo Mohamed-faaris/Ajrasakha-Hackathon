@@ -151,7 +151,7 @@ export default function Signup() {
       } catch {
         // Non-blocking: user can still continue and complete profile later.
       }
-      toast({ title: "Account created", description: "Welcome to Mandi-Insights." });
+      toast({ title: "Account created", description: "Welcome to mandi-insights." });
       navigate("/dashboard");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Registration failed.";
@@ -168,7 +168,7 @@ export default function Signup() {
           <div className="h-14 w-14 rounded-xl bg-primary flex items-center justify-center">
             <TrendingUp className="h-7 w-7 text-primary-foreground" />
           </div>
-          <h1 className="font-display text-2xl font-bold text-foreground">Mandi-Insights</h1>
+          <h1 className="font-display text-2xl font-bold text-foreground">mandi-insights</h1>
           <p className="text-sm text-muted-foreground">Create your account</p>
         </div>
 

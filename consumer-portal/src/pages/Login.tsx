@@ -57,7 +57,7 @@ export default function Login() {
             <TrendingUp className="h-7 w-7 text-primary-foreground" />
           </div>
           <h1 className="font-display text-2xl font-bold text-foreground">
-            Mandi-Insights
+            mandi-insights
           </h1>
           <p className="text-sm text-muted-foreground">
             Agricultural Market Intelligence

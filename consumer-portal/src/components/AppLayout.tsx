@@ -11,7 +11,7 @@ export function AppLayout({ children }: { children?: React.ReactNode }) {
           <header className="h-14 flex items-center gap-3 border-b border-border px-4 bg-card shrink-0">
             <SidebarTrigger />
             <div className="flex items-center gap-2">
-              <span className="text-xs font-medium text-muted-foreground">Mandi-Insights</span>
+              <span className="text-xs font-medium text-muted-foreground">mandi-insights</span>
               <span className="text-xs text-muted-foreground/50">|</span>
               <span className="text-xs text-muted-foreground/70">Agricultural Market Intelligence</span>
             </div>

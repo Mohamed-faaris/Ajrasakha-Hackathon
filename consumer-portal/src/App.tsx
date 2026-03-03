@@ -83,6 +83,14 @@ const App = () => (
               path="/reports"
               element={<Reports />}
             />
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+            <Route
+              path="/profile/:role"
+              element={<Profile />}
+            />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

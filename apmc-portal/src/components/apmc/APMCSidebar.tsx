@@ -50,7 +50,7 @@ export function APMCSidebar({ open, onClose }: APMCSidebarProps) {
             <Wheat className="h-5 w-5" />
           </div>
           <div>
-            <h1 className="text-sm font-bold font-heading text-sidebar-foreground">APMC Portal</h1>
+            <h1 className="text-sm font-bold font-heading text-sidebar-foreground">mandi-insights</h1>
             <p className="text-[10px] text-sidebar-foreground/60">Integration Hub</p>
           </div>
         </div>

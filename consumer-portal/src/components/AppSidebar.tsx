@@ -60,7 +60,7 @@ export function AppSidebar() {
         {!collapsed && (
           <div>
             <h1 className="font-display text-lg font-bold text-sidebar-foreground leading-tight">
-              Mandi-Insights
+              mandi-insights
             </h1>
             <p className="text-[10px] text-sidebar-foreground/60 leading-none">
               Unified APMC Data Hub

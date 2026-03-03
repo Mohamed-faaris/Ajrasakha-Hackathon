@@ -4,26 +4,27 @@
   "description": "Ajrasakha Hackathon project with frontend and server",
   "main": "index.js",
   "scripts": {
-    "install:frontend": "cd frontend && pnpm install",
-    "install:server": "cd server && pnpm install",
-    "install": "pnpm run install:frontend && pnpm run install:server",
-    "dev:frontend": "cd frontend && pnpm dev",
-    "dev:server": "cd server && pnpm dev",
-    "dev": "concurrently \"pnpm run dev:frontend\" \"pnpm run dev:server\"",
-    "build:frontend": "cd frontend && pnpm build",
-    "build:server": "cd server && pnpm build",
-    "build": "pnpm run build:client && pnpm run build:server",
-    "start:server": "cd server && pnpm start",
-    "prod": "pnpm run build && pnpm run start:server"
+    "install:frontend": "cd frontend && bun install",
+    "install:server": "cd server && bun install",
+    "install:seeder": "cd seeder && bun install",
+    "install:loader": "cd scraper-engine/loader && bun install",
+    "install:prediction": "cd pridiction-engine && pip install -r requirements.txt",
+    "install:all": "bun install && bun run install:frontend && bun run install:server && bun run install:seeder && bun run install:loader && bun run install:prediction",
+    "dev:frontend": "cd frontend && bun dev",
+    "dev:server": "cd server && bun dev",
+    "dev:prediction": "cd pridiction-engine && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload",
+    "dev": "concurrently \"bun run dev:frontend\" \"bun run dev:server\" \"bun run dev:prediction\"",
+    "build:frontend": "cd frontend && bun run build",
+    "build:server": "cd server && bun run build",
+    "build": "bun run build:frontend && bun run build:server",
+    "start:server": "cd server && bun start",
+    "start:prediction": "cd pridiction-engine && uvicorn app.main:app --host 0.0.0.0 --port 8000",
+    "prod": "bun run build && bun run start:server"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@10.28.2",
   "devDependencies": {
     "concurrently": "^9.2.1"
-  },
-  "dependencies": {
-    "zod": "^4.3.6"
   }
 }

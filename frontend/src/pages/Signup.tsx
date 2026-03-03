@@ -254,46 +254,6 @@ export default function Signup() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone (optional)</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="9876543210"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>State (optional)</Label>
-                  <Select value={stateName} onValueChange={handleStateChange}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select state" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {states.map((s) => (
-                        <SelectItem key={s.code} value={s.name}>
-                          {s.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label>District (optional)</Label>
-                  <Select value={district} onValueChange={setDistrict} disabled={!stateName || districts.length === 0}>
-                    <SelectTrigger>
-                      <SelectValue placeholder={districts.length === 0 ? "No districts available" : "Select district"} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {districts.map((d) => (
-                        <SelectItem key={d._id} value={d.name}>
-                          {d.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
               </div>
 
               <div className="space-y-2">

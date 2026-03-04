@@ -13,7 +13,7 @@
     "dev:consumer-portal": "cd consumer-portal && bun dev",
     "dev:server": "cd server && bun dev",
     "dev:prediction": "cd pridiction-engine && source .venv/bin/activate && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload",
-    "dev": "concurrently \"bun run dev:consumer-portal\" \"bun run dev:server\" \"bun run dev:prediction"",
+    "dev": "concurrently \"bun run dev:consumer-portal\" \"bun run dev:server\" \"bun run dev:prediction\"",
     "build:consumer-portal": "cd consumer-portal && bun run build",
     "build:server": "cd server && bun run build",
     "build": "bun run build:consumer-portal && bun run build:server",

@@ -115,6 +115,9 @@ function initializeFirebase(): void {
  * Check if Firebase is properly configured and initialized
  */
 export function isFirebaseReady(): boolean {
+  if (!initializationAttempted) {
+    initializeFirebase();
+  }
   return isFirebaseConfigured && app !== null && messaging !== null;
 }
 
@@ -123,6 +126,9 @@ export function isFirebaseReady(): boolean {
  * @returns Firebase App instance or null if not configured
  */
 export function getFirebaseApp(): App | null {
+  if (!initializationAttempted) {
+    initializeFirebase();
+  }
   return app;
 }
 
@@ -131,6 +137,9 @@ export function getFirebaseApp(): App | null {
  * @returns Firebase Messaging instance or null if not configured
  */
 export function getFirebaseMessaging(): Messaging | null {
+  if (!initializationAttempted) {
+    initializeFirebase();
+  }
   return messaging;
 }
 

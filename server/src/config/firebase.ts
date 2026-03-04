@@ -1,6 +1,11 @@
 import { initializeApp, cert, ServiceAccount, App } from 'firebase-admin/app';
 import { getMessaging, Messaging } from 'firebase-admin/messaging';
 import { z } from 'zod';
+import dotenv from 'dotenv';
+import path from 'path';
+
+// Load env vars from root .env before Firebase initializes
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 /**
  * Firebase Admin SDK Configuration

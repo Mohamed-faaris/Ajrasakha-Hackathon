@@ -13,11 +13,11 @@ const start = async () => {
   if (!db) {
     throw new Error('Database connection failed');
   }
-  
+
   const auth = createAuth(db);
   const app = createApp(auth);
   
-  startScheduler();
+  // startScheduler(); moved to python prediction service
   
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

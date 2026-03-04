@@ -115,7 +115,67 @@ Services involved: `server` + `pridiction-engine`
 - Read endpoint returns only non-expired prediction documents.
 - If none exists, caller must trigger generation.
 
-## 7) Frontend Workflow
+## 7) Alert Notification Workflow
+
+Services involved: `consumer-portal` + `server` + Firebase Cloud Messaging
+
+### Alert Creation
+
+1. User creates alert via `PriceAlerts.tsx` page in consumer-portal
+2. Alert types supported:
+   - **Price Alert**: Triggered when price goes above/below threshold
+   - **Trend Alert**: Triggered when price changes by X% over N days  
+   - **Both**: Combines both conditions
+3. Frontend calls `POST /api/alerts` via `useAlerts` hook
+4. Server validates and stores alert in MongoDB `alerts` collection
+
+### Push Notification Setup
+
+1. User enables push notifications in browser
+2. Browser requests FCM token from Firebase
+3. Frontend registers token via `POST /api/alerts/fcm-token`
+4. Server stores token in `UserProfile.fcmTokens` array
+
+### Alert Processing (Cron Job)
+
+Location: `server/src/jobs/alert.processor.ts`
+
+Schedule: **Every hour** (`0 * * * *`)
+
+```
+1. Fetch all active alerts from MongoDB
+2. Group alerts by (cropId, mandiId) for efficient processing
+3. For each group:
+   - Get latest price from `prices` collection
+   - Check price alerts: current price vs threshold (above/below)
+   - Check trend alerts: % change over N days vs historical data
+   - Skip if in cooldown period (default 24h between notifications)
+4. For triggered alerts:
+   - Send push notification via Firebase
+   - Update `lastNotifiedAt` timestamp
+   - Log trigger in alert document
+```
+
+### Notification Delivery
+
+Location: `server/src/services/firebase.service.ts`
+
+- Loads user's FCM tokens from `UserProfile`
+- Sends multicast notification via `messaging.sendEachForMulticast()`
+- Handles invalid token cleanup automatically
+- Payload includes deep links: `ajrasakha://price/{cropId}/{mandiId}`
+
+### Alert Management
+
+User can:
+- View all alerts: `GET /api/alerts`
+- Toggle on/off: `PATCH /api/alerts/:id/toggle`
+- Update settings: `PATCH /api/alerts/:id`
+- Delete: `DELETE /api/alerts/:id`
+
+Frontend uses optimistic updates (UI updates immediately before server confirms).
+
+## 8) Frontend Workflow
 
 ### Consumer Portal (`consumer-portal`)
 
@@ -129,7 +189,7 @@ Services involved: `server` + `pridiction-engine`
 - Current hooks in `src/hooks/useAPMCHooks.ts` are placeholders using mock data.
 - UI workflow is implemented; production API integration is still pending for several flows.
 
-## 8) Operational Workflow (Local Dev)
+## 9) Operational Workflow (Local Dev)
 
 Recommended startup order:
 
@@ -140,7 +200,7 @@ Recommended startup order:
 5. `apmc-portal` (port `8080`)
 6. `scraper-engine/endpoint-discovery` (as needed for data ingestion)
 
-## 9) Collections and Ownership
+## 10) Collections and Ownership
 
 - `sources`: discovered source configurations (scraper-owned).
 - `prices`: normalized historical mandi prices (scraper-owned, server-read).
@@ -149,8 +209,10 @@ Recommended startup order:
 - `coverage`: aggregate national/state coverage stats (server cron).
 - `mandiprices`/`mandi_prices`: latest map-friendly prices (server cron).
 - `predictions`: generated forecasts with expiry (prediction service + server cleanup).
+- `alerts`: user-configured price/trend alerts (server-owned, processed by cron).
+- `userprofiles`/`user_profiles`: user data including FCM tokens for push notifications.
 
-## 10) Current Gaps and Practical Notes
+## 11) Current Gaps and Practical Notes
 
 - Root `package.json` scripts are not the source of truth for all services; run commands from each service folder.
 - APMC portal is not fully wired to backend APIs yet (mock hook layer still present).

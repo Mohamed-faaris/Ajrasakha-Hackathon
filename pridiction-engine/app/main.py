@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from app.routers import predictions
+from app.routers import predictions, admin
 from app.config import get_settings
 from app.scheduler import start_scheduler, stop_scheduler, get_scheduler_status
 
@@ -31,6 +31,7 @@ app.add_middleware(
 )
 
 app.include_router(predictions.router)
+app.include_router(admin.router)
 
 @app.get("/")
 async def root():
@@ -39,10 +40,6 @@ async def root():
 @app.get("/health")
 async def health():
     return {"status": "healthy"}
-
-@app.get("/scheduler/status")
-async def scheduler_status():
-    return get_scheduler_status()
 
 if __name__ == "__main__":
     import uvicorn

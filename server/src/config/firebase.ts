@@ -1,11 +1,6 @@
 import { initializeApp, cert, ServiceAccount, App } from 'firebase-admin/app';
 import { getMessaging, Messaging } from 'firebase-admin/messaging';
 import { z } from 'zod';
-import dotenv from 'dotenv';
-import path from 'path';
-
-// Load env vars from root .env before Firebase initializes
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 /**
  * Firebase Admin SDK Configuration
@@ -51,8 +46,15 @@ const configResult = firebaseConfigSchema.safeParse(process.env);
 let app: App | null = null;
 let messaging: Messaging | null = null;
 let isFirebaseConfigured = false;
+let initializationAttempted = false;
 
 function initializeFirebase(): void {
+  if (initializationAttempted) return;
+  initializationAttempted = true;
+
+  // Re-read env vars at initialization time (after dotenv has loaded)
+  const configResult = firebaseConfigSchema.safeParse(process.env);
+  
   if (!configResult.success) {
     console.warn('[Firebase] Environment validation failed:', configResult.error.issues);
     return;
@@ -108,9 +110,6 @@ function initializeFirebase(): void {
     isFirebaseConfigured = false;
   }
 }
-
-// Initialize Firebase on module load
-initializeFirebase();
 
 /**
  * Check if Firebase is properly configured and initialized

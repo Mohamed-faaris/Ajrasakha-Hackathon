@@ -1,9 +1,9 @@
+// Import env first to load dotenv before any other modules
+import { env } from './config/env';
 import createApp from './app';
 import connectDB from './config/db';
-import { env } from './config/env';
 import mongoose from 'mongoose';
 import { createAuth } from './lib/auth';
-import { startScheduler } from './jobs/cron';
 
 const PORT = env.PORT;
 

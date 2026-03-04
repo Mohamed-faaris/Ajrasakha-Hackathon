@@ -1,7 +1,29 @@
 import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
+import { phoneNumber } from 'better-auth/plugins';
+import { magicLink } from 'better-auth/plugins';
 import mongoose from 'mongoose';
 import { env } from '../config/env';
+
+const sendEmail = async (to: string, subject: string, text: string) => {
+  const nodemailer = await import('nodemailer');
+  const transporter = nodemailer.createTransport({
+    host: env.SMTP_HOST,
+    port: Number(env.SMTP_PORT),
+    secure: true,
+    auth: {
+      user: env.SMTP_USER,
+      pass: env.SMTP_PASS,
+    },
+  });
+
+  await transporter.sendMail({
+    from: env.EMAIL_FROM,
+    to,
+    subject,
+    text,
+  });
+};
 
 export const createAuth = (db: mongoose.mongo.Db) => {
   return betterAuth({
@@ -12,6 +34,22 @@ export const createAuth = (db: mongoose.mongo.Db) => {
     emailAndPassword: {
       enabled: true,
     },
+    plugins: [
+      phoneNumber({
+        sendOTP: async ({ phoneNumber, code }) => {
+          console.log(`[OTP] Phone: ${phoneNumber}, Code: ${code}`);
+        },
+      }),
+      magicLink({
+        sendMagicLink: async ({ email, url }) => {
+          await sendEmail(
+            email,
+            'Your Magic Sign-In Link',
+            `Click the following link to sign in: ${url}`
+          );
+        },
+      }),
+    ],
   });
 };
 

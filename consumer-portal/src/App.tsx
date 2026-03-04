@@ -53,6 +53,14 @@ const App = () => (
             }
           />
           <Route
+            path="/magic-auth"
+            element={
+              <PublicOnlyRoute>
+                <Login />
+              </PublicOnlyRoute>
+            }
+          />
+          <Route
             element={
               <ProtectedRoute>
                 <AppLayout />

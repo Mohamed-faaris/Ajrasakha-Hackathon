@@ -20,6 +20,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { AlertTriangle } from "lucide-react";
 
 const ROLE_LABELS: Record<UserRole, string> = {
   farmer: "Farmer",
@@ -64,6 +73,8 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [states, setStates] = useState<State[]>([]);
+  const [showRoleChangeDialog, setShowRoleChangeDialog] = useState(false);
+  const [pendingRole, setPendingRole] = useState<UserRole | null>(null);
 
   const [role, setRole] = useState<UserRole>("farmer");
   const [phone, setPhone] = useState("");
@@ -131,6 +142,27 @@ export default function Profile() {
     }
   }, [requestedRole]);
 
+  const handleRoleChange = (newRole: UserRole) => {
+    if (newRole !== role && profile?.role) {
+      setPendingRole(newRole);
+      setShowRoleChangeDialog(true);
+    } else {
+      setRole(newRole);
+    }
+  };
+
+  const confirmRoleChange = () => {
+    if (pendingRole) {
+      setRole(pendingRole);
+      setShowRoleChangeDialog(false);
+      setPendingRole(null);
+      toast({
+        title: "Role Changed",
+        description: `Your role has been changed to ${ROLE_LABELS[role]}. Please fill in the required details below.`,
+      });
+    }
+  };
+
   const classificationBadge = useMemo(() => {
     if (!profile?.classification) return null;
     const confidence = Math.round(profile.classification.confidence * 100);
@@ -174,10 +206,11 @@ export default function Profile() {
       setProfile(updated);
       updateStoredUser({ role });
       toast({ title: "Profile updated", description: "Your profile was saved successfully." });
-    } catch (error: any) {
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to update profile.";
       toast({
         title: "Error",
-        description: error?.message || "Failed to update profile.",
+        description: message,
         variant: "destructive",
       });
     } finally {
@@ -207,7 +240,7 @@ export default function Profile() {
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>User Role</Label>
-              <Select value={role} onValueChange={(v) => setRole(v as UserRole)}>
+              <Select value={role} onValueChange={(v) => handleRoleChange(v as UserRole)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="farmer">Farmer</SelectItem>
@@ -331,6 +364,34 @@ export default function Profile() {
           {saving ? "Saving..." : `Save ${ROLE_LABELS[role]} Profile`}
         </Button>
       </div>
+
+      <Dialog open={showRoleChangeDialog} onOpenChange={setShowRoleChangeDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-amber-500" />
+              Change User Role?
+            </DialogTitle>
+            <DialogDescription>
+              You are about to change your role from <strong>{ROLE_LABELS[profile?.role || "farmer"]}</strong> to <strong>{pendingRole ? ROLE_LABELS[pendingRole] : ""}</strong>.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <p className="text-sm text-muted-foreground">
+              This will change your access permissions and the features available to you. 
+              You may need to update role-specific details after saving.
+            </p>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowRoleChangeDialog(false)}>
+              Cancel
+            </Button>
+            <Button onClick={confirmRoleChange}>
+              Confirm Change
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

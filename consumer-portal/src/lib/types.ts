@@ -14,8 +14,9 @@ export {
   type NotificationSettings,
   type FarmerDetails,
   type TraderDetails,
-  type PolicyMakerDetails,
-  type AgriStartupDetails,
+  type DeveloperDetails,
+  type AdminDetails,
+  type APMCDetails,
   type UserProfile,
   type UpdateUserProfileBody,
 } from "@shared/types";
@@ -41,7 +42,7 @@ export interface TopMover extends Partial<SharedTopMover> {
   direction: "up" | "down";
 }
 
-export type UserRole = "farmer" | "trader" | "policy_maker" | "agri_startup";
+export type UserRole = "farmer" | "trader" | "developer" | "admin" | "apmc";
 
 export interface FarmerProfileDetails {
   isFarmer?: boolean;
@@ -56,16 +57,21 @@ export interface TraderProfileDetails {
   tradingStates?: string[];
 }
 
-export interface PolicyMakerProfileDetails {
-  organization?: string;
-  designation?: string;
-  policyFocusAreas?: string[];
+export interface DeveloperProfileDetails {
+  companyName?: string;
+  intendedApiKey?: string;
+  useCase?: string;
 }
 
-export interface AgriStartupProfileDetails {
-  startupName?: string;
-  stage?: "idea" | "mvp" | "early" | "growth" | "scale";
-  focusAreas?: string[];
+export interface AdminProfileDetails {
+  employeeId?: string;
+  department?: string;
+}
+
+export interface APMCProfileDetails {
+  mandiName?: string;
+  licenseNumber?: string;
+  state?: string;
 }
 
 export interface UserProfile {
@@ -81,8 +87,9 @@ export interface UserProfile {
   avatar?: string;
   farmerDetails?: FarmerProfileDetails;
   traderDetails?: TraderProfileDetails;
-  policyMakerDetails?: PolicyMakerProfileDetails;
-  agriStartupDetails?: AgriStartupProfileDetails;
+  developerDetails?: DeveloperProfileDetails;
+  adminDetails?: AdminProfileDetails;
+  apmcDetails?: APMCProfileDetails;
   classification?: {
     method: "self_declared" | "rule_based";
     confidence: number;

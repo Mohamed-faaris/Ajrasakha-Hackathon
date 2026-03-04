@@ -7,7 +7,7 @@ export type PriceSortBy = 'date' | 'crop' | 'state' | 'mandi' | 'modalPrice';
 export type AlertDirection = 'above' | 'below';
 export type TopMoverDirection = 'up' | 'down';
 export type Language = 'en' | 'hi' | 'mr' | 'te' | 'ta' | 'kn' | 'gu' | 'pa';
-export type UserRole = 'farmer' | 'trader' | 'policy_maker' | 'agri_startup';
+export type UserRole = 'farmer' | 'trader' | 'developer' | 'admin' | 'apmc';
 
 export interface Filters {
   cropId?: string;
@@ -183,16 +183,21 @@ export interface TraderDetails {
   tradingStates?: string[] | null;
 }
 
-export interface PolicyMakerDetails {
-  organization?: string | null;
-  designation?: string | null;
-  policyFocusAreas?: string[] | null;
+export interface DeveloperDetails {
+  companyName?: string | null;
+  intendedApiKey?: string | null;
+  useCase?: string | null;
 }
 
-export interface AgriStartupDetails {
-  startupName?: string | null;
-  stage?: 'idea' | 'mvp' | 'early' | 'growth' | 'scale' | null;
-  focusAreas?: string[] | null;
+export interface AdminDetails {
+  employeeId?: string | null;
+  department?: string | null;
+}
+
+export interface APMCDetails {
+  mandiName?: string | null;
+  licenseNumber?: string | null;
+  state?: string | null;
 }
 
 export interface UserProfile {
@@ -209,8 +214,9 @@ export interface UserProfile {
   avatar?: string | null;
   farmerDetails?: FarmerDetails | null;
   traderDetails?: TraderDetails | null;
-  policyMakerDetails?: PolicyMakerDetails | null;
-  agriStartupDetails?: AgriStartupDetails | null;
+  developerDetails?: DeveloperDetails | null;
+  adminDetails?: AdminDetails | null;
+  apmcDetails?: APMCDetails | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -325,8 +331,9 @@ export interface UpdateUserProfileBody {
   avatar?: string;
   farmerDetails?: Partial<FarmerDetails>;
   traderDetails?: Partial<TraderDetails>;
-  policyMakerDetails?: Partial<PolicyMakerDetails>;
-  agriStartupDetails?: Partial<AgriStartupDetails>;
+  developerDetails?: Partial<DeveloperDetails>;
+  adminDetails?: Partial<AdminDetails>;
+  apmcDetails?: Partial<APMCDetails>;
 }
 
 export interface GeoBounds {

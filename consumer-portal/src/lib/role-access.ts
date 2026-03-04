@@ -18,7 +18,15 @@ export type RoleCapability =
   | "api_access"
   | "bulk_historical_data_access"
   | "data_visualization_tools"
-  | "data_quality_indicators";
+  | "data_quality_indicators"
+  | "admin_dashboard"
+  | "user_management"
+  | "system_settings"
+  | "data_export"
+  | "apmc_submission"
+  | "price_submission"
+  | "mandi_management"
+  | "market_analytics";
 
 export interface RoleAccess {
   capabilities: RoleCapability[];
@@ -60,32 +68,55 @@ export const ROLE_ACCESS: Record<UserRole, RoleAccess> = {
     ],
     allowedRoutes: ["/", "/dashboard", "/analytics", "/map", "/arbitrage", "/alerts", "/reports", "/profile"],
   },
-  policy_maker: {
-    capabilities: [
-      "coverage_gap_visualization",
-      "state_level_analytics",
-      "price_anomaly_detection",
-      "predictive_insights",
-      "policy_reports",
-    ],
-    restrictions: [
-      "No data editing",
-      "No scraping controls",
-    ],
-    allowedRoutes: ["/", "/dashboard", "/analytics", "/map", "/reports", "/profile"],
-  },
-  agri_startup: {
+  developer: {
     capabilities: [
       "api_access",
       "bulk_historical_data_access",
       "data_visualization_tools",
       "data_quality_indicators",
+      "realtime_price_dashboard",
+      "price_trend_analytics",
     ],
     restrictions: [
       "No platform scraping",
       "Rate-limited API usage",
     ],
-    allowedRoutes: ["/", "/dashboard", "/analytics", "/map", "/reports", "/profile"],
+    allowedRoutes: ["/", "/dashboard", "/analytics", "/map", "/reports", "/profile", "/api-docs"],
+  },
+  admin: {
+    capabilities: [
+      "admin_dashboard",
+      "user_management",
+      "system_settings",
+      "data_export",
+      "realtime_price_dashboard",
+      "price_trend_analytics",
+      "geographic_comparison",
+      "smart_alerts",
+      "simple_reports",
+      "bulk_export",
+      "coverage_gap_visualization",
+      "state_level_analytics",
+      "price_anomaly_detection",
+      "predictive_insights",
+    ],
+    restrictions: [],
+    allowedRoutes: ["/", "/dashboard", "/analytics", "/map", "/alerts", "/reports", "/profile", "/admin"],
+  },
+  apmc: {
+    capabilities: [
+      "apmc_submission",
+      "price_submission",
+      "mandi_management",
+      "market_analytics",
+      "realtime_price_dashboard",
+      "simple_reports",
+    ],
+    restrictions: [
+      "Cannot access consumer features",
+      "Limited to mandi-specific data",
+    ],
+    allowedRoutes: ["/", "/dashboard", "/submissions", "/mandi", "/profile"],
   },
 };
 
@@ -119,4 +150,12 @@ export const CAPABILITY_LABELS: Record<RoleCapability, string> = {
   bulk_historical_data_access: "Bulk historical data access",
   data_visualization_tools: "Data visualization tools",
   data_quality_indicators: "Data quality indicators",
+  admin_dashboard: "Admin dashboard",
+  user_management: "User management",
+  system_settings: "System settings",
+  data_export: "Data export",
+  apmc_submission: "APMC submission",
+  price_submission: "Price submission",
+  mandi_management: "Mandi management",
+  market_analytics: "Market analytics",
 };

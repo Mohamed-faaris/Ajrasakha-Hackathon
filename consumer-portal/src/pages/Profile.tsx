@@ -33,15 +33,17 @@ import { AlertTriangle } from "lucide-react";
 const ROLE_LABELS: Record<UserRole, string> = {
   farmer: "Farmer",
   trader: "Trader",
-  policy_maker: "Policy Maker",
-  agri_startup: "Agri Startup",
+  developer: "Developer",
+  admin: "Admin",
+  apmc: "APMC",
 };
 
 const ROUTE_ROLE_TO_VALUE: Record<string, UserRole> = {
   farmer: "farmer",
   trader: "trader",
-  "policy-maker": "policy_maker",
-  "agri-startup": "agri_startup",
+  developer: "developer",
+  admin: "admin",
+  apmc: "apmc",
 };
 
 const getInitials = (name?: string | null) => {
@@ -245,8 +247,9 @@ export default function Profile() {
                 <SelectContent>
                   <SelectItem value="farmer">Farmer</SelectItem>
                   <SelectItem value="trader">Trader</SelectItem>
-                  <SelectItem value="policy_maker">Policy Maker</SelectItem>
-                  <SelectItem value="agri_startup">Agri Startup</SelectItem>
+                  <SelectItem value="developer">Developer</SelectItem>
+                  <SelectItem value="admin">Admin</SelectItem>
+                  <SelectItem value="apmc">APMC</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -16,8 +16,9 @@ import { CAPABILITY_LABELS, ROLE_ACCESS } from "@/lib/role-access";
 const ROLE_LABELS: Record<UserRole, string> = {
   farmer: "Farmer",
   trader: "Trader",
-  policy_maker: "Policy Maker",
-  agri_startup: "Agri Startup",
+  developer: "Developer",
+  admin: "Admin",
+  apmc: "APMC",
 };
 
 const parseCsv = (value: string) =>
@@ -58,6 +59,18 @@ export default function Signup() {
   const [startupName, setStartupName] = useState("");
   const [startupStage, setStartupStage] = useState<"idea" | "mvp" | "early" | "growth" | "scale">("idea");
   const [startupFocusAreas, setStartupFocusAreas] = useState("");
+
+  const [developerCompanyName, setDeveloperCompanyName] = useState("");
+  const [developerApiKey, setDeveloperApiKey] = useState("");
+  const [developerUseCase, setDeveloperUseCase] = useState("");
+
+  const [adminEmployeeId, setAdminEmployeeId] = useState("");
+  const [adminDepartment, setAdminDepartment] = useState("");
+
+  const [apmcMandiName, setApmcMandiName] = useState("");
+  const [apmcLicenseNumber, setApmcLicenseNumber] = useState("");
+  const [apmcState, setApmcState] = useState("");
+
   const [states, setStates] = useState<State[]>([]);
 
   useEffect(() => {
@@ -88,11 +101,14 @@ export default function Signup() {
     if (role === "trader" && hasGst === "yes" && !gstNumber.trim()) {
       return "GST number is required when GST is marked as available.";
     }
-    if (role === "policy_maker" && (!organization.trim() || !designation.trim() || !policyFocusAreas.trim())) {
-      return "Organization, designation, and policy focus areas are required for policy makers.";
+    if (role === "developer" && (!developerCompanyName.trim() || !developerApiKey.trim())) {
+      return "Company name and intended API use are required for developers.";
     }
-    if (role === "agri_startup" && (!startupName.trim() || !startupFocusAreas.trim())) {
-      return "Startup name and focus areas are required for agri startups.";
+    if (role === "admin" && (!adminEmployeeId.trim())) {
+      return "Employee ID is required for admin accounts.";
+    }
+    if (role === "apmc" && (!apmcMandiName.trim() || !apmcLicenseNumber.trim())) {
+      return "Mandi name and license number are required for APMC.";
     }
     return null;
   };
@@ -132,15 +148,19 @@ export default function Signup() {
             gstNumber: hasGst === "yes" ? gstNumber || undefined : undefined,
             tradingStates: parseCsv(tradingStates),
           } : undefined,
-          policyMakerDetails: role === "policy_maker" ? {
-            organization: organization || undefined,
-            designation: designation || undefined,
-            policyFocusAreas: parseCsv(policyFocusAreas),
+          developerDetails: role === "developer" ? {
+            companyName: developerCompanyName || undefined,
+            intendedApiKey: developerApiKey || undefined,
+            useCase: developerUseCase || undefined,
           } : undefined,
-          agriStartupDetails: role === "agri_startup" ? {
-            startupName: startupName || undefined,
-            stage: startupStage || undefined,
-            focusAreas: parseCsv(startupFocusAreas),
+          adminDetails: role === "admin" ? {
+            employeeId: adminEmployeeId || undefined,
+            department: adminDepartment || undefined,
+          } : undefined,
+          apmcDetails: role === "apmc" ? {
+            mandiName: apmcMandiName || undefined,
+            licenseNumber: apmcLicenseNumber || undefined,
+            state: apmcState || undefined,
           } : undefined,
         });
       } catch {
@@ -204,8 +224,9 @@ export default function Signup() {
                     <SelectContent>
                       <SelectItem value="farmer">Farmer</SelectItem>
                       <SelectItem value="trader">Trader</SelectItem>
-                      <SelectItem value="policy_maker">Policy Maker</SelectItem>
-                      <SelectItem value="agri_startup">Agri Startup</SelectItem>
+                      <SelectItem value="developer">Developer</SelectItem>
+                      <SelectItem value="admin">Admin</SelectItem>
+                      <SelectItem value="apmc">APMC</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -356,88 +377,114 @@ export default function Signup() {
                 </div>
               )}
 
-              {role === "policy_maker" && (
+              {role === "developer" && (
                 <div className="rounded-md border p-4 space-y-4">
-                  <p className="text-sm font-semibold">Policy Maker Details</p>
+                  <p className="text-sm font-semibold">Developer Details</p>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="organization">Organization</Label>
+                      <Label htmlFor="developerCompanyName">Company / Organization Name</Label>
                       <Input
-                        id="organization"
+                        id="developerCompanyName"
                         type="text"
-                        placeholder="State Agriculture Department"
-                        value={organization}
-                        onChange={(e) => setOrganization(e.target.value)}
+                        placeholder="Tech Solutions Pvt Ltd"
+                        value={developerCompanyName}
+                        onChange={(e) => setDeveloperCompanyName(e.target.value)}
                         required
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="designation">Designation</Label>
+                      <Label htmlFor="developerUseCase">Intended API Use</Label>
                       <Input
-                        id="designation"
+                        id="developerUseCase"
                         type="text"
-                        placeholder="Deputy Director"
-                        value={designation}
-                        onChange={(e) => setDesignation(e.target.value)}
+                        placeholder="Mobile app, Dashboard, Analytics"
+                        value={developerApiKey}
+                        onChange={(e) => setDeveloperApiKey(e.target.value)}
                         required
                       />
                     </div>
                     <div className="space-y-2 md:col-span-2">
-                      <Label htmlFor="policyFocusAreas">Policy Focus Areas (comma separated)</Label>
+                      <Label htmlFor="developerUseCaseDesc">Use Case Description</Label>
                       <Textarea
-                        id="policyFocusAreas"
-                        placeholder="Market integration, transparency, anomaly monitoring"
-                        value={policyFocusAreas}
-                        onChange={(e) => setPolicyFocusAreas(e.target.value)}
-                        required
+                        id="developerUseCaseDesc"
+                        placeholder="Describe how you plan to use the API..."
+                        value={developerUseCase}
+                        onChange={(e) => setDeveloperUseCase(e.target.value)}
                       />
                     </div>
                   </div>
                 </div>
               )}
 
-              {role === "agri_startup" && (
+              {role === "admin" && (
                 <div className="rounded-md border p-4 space-y-4">
-                  <p className="text-sm font-semibold">Agri Startup Details</p>
+                  <p className="text-sm font-semibold">Admin Details</p>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="startupName">Startup Name</Label>
+                      <Label htmlFor="adminEmployeeId">Employee ID</Label>
                       <Input
-                        id="startupName"
+                        id="adminEmployeeId"
                         type="text"
-                        placeholder="FarmPulse"
-                        value={startupName}
-                        onChange={(e) => setStartupName(e.target.value)}
+                        placeholder="ADM001"
+                        value={adminEmployeeId}
+                        onChange={(e) => setAdminEmployeeId(e.target.value)}
                         required
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label>Startup Stage</Label>
-                      <Select
-                        value={startupStage}
-                        onValueChange={(v) => setStartupStage(v as "idea" | "mvp" | "early" | "growth" | "scale")}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="idea">Idea</SelectItem>
-                          <SelectItem value="mvp">MVP</SelectItem>
-                          <SelectItem value="early">Early</SelectItem>
-                          <SelectItem value="growth">Growth</SelectItem>
-                          <SelectItem value="scale">Scale</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Label htmlFor="adminDepartment">Department</Label>
+                      <Input
+                        id="adminDepartment"
+                        type="text"
+                        placeholder="IT, Operations, Management"
+                        value={adminDepartment}
+                        onChange={(e) => setAdminDepartment(e.target.value)}
+                      />
                     </div>
-                    <div className="space-y-2 md:col-span-2">
-                      <Label htmlFor="startupFocusAreas">Focus Areas (comma separated)</Label>
-                      <Textarea
-                        id="startupFocusAreas"
-                        placeholder="Analytics APIs, trend forecasting, embedded charts"
-                        value={startupFocusAreas}
-                        onChange={(e) => setStartupFocusAreas(e.target.value)}
+                  </div>
+                </div>
+              )}
+
+              {role === "apmc" && (
+                <div className="rounded-md border p-4 space-y-4">
+                  <p className="text-sm font-semibold">APMC Details</p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="apmcMandiName">Mandi Name</Label>
+                      <Input
+                        id="apmcMandiName"
+                        type="text"
+                        placeholder="Lasalgaon APMC"
+                        value={apmcMandiName}
+                        onChange={(e) => setApmcMandiName(e.target.value)}
                         required
                       />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="apmcLicenseNumber">License Number</Label>
+                      <Input
+                        id="apmcLicenseNumber"
+                        type="text"
+                        placeholder="APMC/LIC/2024/001"
+                        value={apmcLicenseNumber}
+                        onChange={(e) => setApmcLicenseNumber(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2 md:col-span-2">
+                      <Label>State</Label>
+                      <Select value={apmcState} onValueChange={setApmcState}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select state" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {states.map((s) => (
+                            <SelectItem key={s.code} value={s.name}>
+                              {s.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
                 </div>

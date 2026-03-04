@@ -33,9 +33,9 @@ JWT_SECRET=your_jwt_secret_here
 
 ## API
 
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `GET /api/auth/profile`
+- `POST /api/consumer-portal/auth/register`
+- `POST /api/consumer-portal/auth/login`
+- `GET /api/consumer-portal/auth/profile`
 
 ## technologies
 - Node.js

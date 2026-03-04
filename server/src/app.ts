@@ -16,7 +16,6 @@ import {
   predictionRoutes
 } from './routes';
 
-// Health check helper for prediction engine
 async function checkPredictionEngine(): Promise<{ status: string; latency?: number; error?: string }> {
   const start = Date.now();
   try {
@@ -32,6 +31,30 @@ async function checkPredictionEngine(): Promise<{ status: string; latency?: numb
   }
 }
 
+const createConsumerPortalRouter = (auth: Auth) => {
+  const router = express.Router();
+
+  router.all('/auth/{*any}', (req, res) => {
+    return toNodeHandler(auth)(req, res);
+  });
+
+  router.use(express.json());
+
+  router.use('/crops', cropRoutes);
+  router.use('/states', stateRoutes);
+  router.use('/mandis', mandiRoutes);
+  router.use('/prices', priceRoutes);
+  router.use('/alerts', createAlertRoutes(auth));
+  router.use('/coverage', coverageRoutes);
+  router.use('/top-movers', topMoverRoutes);
+  router.use('/mandi-prices', mandiPriceRoutes);
+  router.use('/profile', createUserProfileRoutes(auth));
+  router.use('/admin', adminRoutes);
+  router.use('/predictions', predictionRoutes);
+
+  return router;
+};
+
 const createApp = (auth: Auth) => {
   const app = express();
 
@@ -39,24 +62,6 @@ const createApp = (auth: Auth) => {
     origin: ['http://localhost:5173', 'http://localhost:3000'],
     credentials: true
   }));
-
-  app.all('/api/auth/{*any}', (req, res) => {
-    return toNodeHandler(auth)(req, res);
-  });
-
-  app.use(express.json());
-
-  app.use('/api/crops', cropRoutes);
-  app.use('/api/states', stateRoutes);
-  app.use('/api/mandis', mandiRoutes);
-  app.use('/api/prices', priceRoutes);
-  app.use('/api/alerts', createAlertRoutes(auth));
-  app.use('/api/coverage', coverageRoutes);
-  app.use('/api/top-movers', topMoverRoutes);
-  app.use('/api/mandi-prices', mandiPriceRoutes);
-  app.use('/api/profile', createUserProfileRoutes(auth));
-  app.use('/api/admin', adminRoutes);
-  app.use('/api/predictions', predictionRoutes);
 
   app.get('/api/health', async (_req, res) => {
     const predictionEngine = await checkPredictionEngine();
@@ -72,6 +77,8 @@ const createApp = (auth: Auth) => {
       }
     });
   });
+
+  app.use('/api/consumer-portal', createConsumerPortalRouter(auth));
 
   app.use((_req, res) => {
     res.status(404).json({ error: 'Not found' });

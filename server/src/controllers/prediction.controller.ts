@@ -8,7 +8,7 @@ const PredictionParamsSchema = z.object({
 });
 
 /**
- * GET /api/predictions/:cropId/:mandiId
+ * GET /api/consumer-portal/predictions/:cropId/:mandiId
  * Get prediction for a crop/mandi pair (cached or generate new)
  */
 export const getPrediction = async (req: Request, res: Response) => {
@@ -38,7 +38,7 @@ export const getPrediction = async (req: Request, res: Response) => {
 };
 
 /**
- * POST /api/predictions/:cropId/:mandiId/refresh
+ * POST /api/consumer-portal/predictions/:cropId/:mandiId/refresh
  * Force refresh prediction (admin only)
  */
 export const refreshPrediction = async (req: Request, res: Response) => {
@@ -68,7 +68,7 @@ export const refreshPrediction = async (req: Request, res: Response) => {
 };
 
 /**
- * GET /api/predictions/:cropId/:mandiId/status
+ * GET /api/consumer-portal/predictions/:cropId/:mandiId/status
  * Check if valid prediction exists
  */
 export const checkPredictionStatus = async (req: Request, res: Response) => {

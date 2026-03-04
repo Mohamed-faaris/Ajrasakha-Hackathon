@@ -187,3 +187,42 @@ export const verifyEmailTransport = async (): Promise<boolean> => {
     return false;
   }
 };
+
+export const sendMagicLinkEmail = async (to: string, url: string): Promise<EmailResult> => {
+  const subject = 'Your Magic Sign-In Link';
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #2c5f2d;">Sign In to Mandi Insights</h2>
+      <p>Hello,</p>
+      <p>Click the button below to sign in to your account:</p>
+      <div style="margin: 30px 0;">
+        <a href="${url}" style="background: #2c5f2d; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">Sign In</a>
+      </div>
+      <p>Or copy and paste this link: <a href="${url}">${url}</a></p>
+      <p style="color: #666; font-size: 12px; margin-top: 30px;">
+        This link will expire in 24 hours. If you didn't request this, please ignore this email.
+      </p>
+    </div>
+  `;
+  const text = `Sign in to Mandi Insights: ${url}`;
+  return sendEmail({ to, subject, text, html });
+};
+
+export const sendOtpEmail = async (to: string, otp: string): Promise<EmailResult> => {
+  const subject = 'Your Verification Code';
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #2c5f2d;">Verification Code</h2>
+      <p>Hello,</p>
+      <p>Your verification code is:</p>
+      <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
+        <span style="font-size: 32px; font-weight: bold; letter-spacing: 8px;">${otp}</span>
+      </div>
+      <p style="color: #666; font-size: 12px;">
+        This code will expire in 10 minutes.
+      </p>
+    </div>
+  `;
+  const text = `Your verification code is: ${otp}`;
+  return sendEmail({ to, subject, text, html });
+};

@@ -60,7 +60,7 @@ def setup_jobs():
 
     scheduler.add_job(
         log_job_execution("cleanup_old_logs", run_cleanup),
-        CronTrigger(day_of_week="sunday", hour=2, minute=0),
+        CronTrigger(day_of_week="sun", hour=2, minute=0),
         id="cleanup_old_logs",
         name="Cleanup Old Logs",
         replace_existing=True

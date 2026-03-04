@@ -15,6 +15,9 @@ import {
   adminRoutes,
   predictionRoutes
 } from './routes';
+import createDevPriceRoutes from './routes/dev.price.routes';
+import devCropRoutes from './routes/dev.crop.routes';
+import devStateRoutes from './routes/dev.state.routes';
 
 async function checkPredictionEngine(): Promise<{ status: string; latency?: number; error?: string }> {
   const start = Date.now();
@@ -79,6 +82,9 @@ const createApp = (auth: Auth) => {
   });
 
   app.use('/api/consumer-portal', createConsumerPortalRouter(auth));
+  app.use('/api/dev/prices', createDevPriceRoutes(auth));
+  app.use('/api/dev/crops', devCropRoutes);
+  app.use('/api/dev/states', devStateRoutes);
 
   app.use((_req, res) => {
     res.status(404).json({ error: 'Not found' });

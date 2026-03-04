@@ -2,6 +2,7 @@ import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { phoneNumber } from 'better-auth/plugins';
 import { magicLink } from 'better-auth/plugins';
+import { apiKey } from '@better-auth/api-key';
 import mongoose from 'mongoose';
 import { env } from '../config/env';
 import { sendMagicLinkEmail } from '../services/mail.service';
@@ -24,6 +25,17 @@ export const createAuth = (db: mongoose.mongo.Db) => {
       magicLink({
         sendMagicLink: async ({ email, url }) => {
           await sendMagicLinkEmail(email, url);
+        },
+      }),
+      apiKey({
+        apiKeyHeaders: 'x-api-key',
+        enableSessionForAPIKeys: true,
+        permissions: {
+          defaultPermissions: {
+            prices: ['read'],
+            crops: ['read'],
+            states: ['read'],
+          },
         },
       }),
     ],

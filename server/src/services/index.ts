@@ -8,3 +8,4 @@ export * from './topMover.service';
 export * from './mandiPrice.service';
 export * from './userProfile.service';
 export * from './firebase.service';
+export * from './mail.service';

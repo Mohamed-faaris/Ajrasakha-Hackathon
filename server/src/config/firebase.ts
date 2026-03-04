@@ -40,9 +40,6 @@ const firebaseConfigSchema = z.object({
   FIREBASE_CLIENT_EMAIL: z.string().optional(),
 });
 
-// Parse and validate environment variables
-const configResult = firebaseConfigSchema.safeParse(process.env);
-
 let app: App | null = null;
 let messaging: Messaging | null = null;
 let isFirebaseConfigured = false;

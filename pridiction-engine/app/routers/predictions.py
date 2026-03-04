@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from datetime import datetime, timedelta
 from typing import List
-from app.database import get_prices_collection, get_predictions_collection
+from app.database import get_prices_collection, get_predictions_collection, get_topmovers_collection
 from app.models import PricePredictor
 
 router = APIRouter(prefix="/predictions", tags=["predictions"])
@@ -121,3 +121,87 @@ async def get_prediction(crop_id: str, mandi_id: str):
 @router.get("/health")
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.now()}
+
+
+class TopMoverResponse(BaseModel):
+    cropId: str
+    cropName: str
+    latestPrice: float
+    previousPrice: float
+    changePct: float
+    direction: str
+
+
+@router.get("/top-movers", response_model=List[TopMoverResponse])
+async def get_top_movers():
+    prices_collection = get_prices_collection()
+    topmovers_collection = get_topmovers_collection()
+
+    cached = topmovers_collection.find_one({"computedAt": {"$gte": datetime.now() - timedelta(hours=24)}})
+    if cached:
+        return [TopMoverResponse(**m) for m in cached.get("movers", [])]
+
+    latest_data = list(prices_collection.aggregate([
+        {"$sort": {"date": -1}},
+        {"$limit": 1}
+    ]))
+
+    if not latest_data:
+        return []
+
+    latest_date = latest_data[0]["date"]
+    today_start = datetime.combine(latest_date.date(), datetime.min.time())
+
+    latest_prices = list(prices_collection.aggregate([
+        {"$match": {"date": {"$gte": today_start}}},
+        {"$sort": {"date": -1}},
+        {"$group": {
+            "_id": {"cropId": "$cropId", "mandiId": "$mandiId"},
+            "cropId": {"$first": "$cropId"},
+            "cropName": {"$first": "$cropName"},
+            "mandiId": {"$first": "$mandiId"},
+            "modalPrice": {"$first": "$modalPrice"},
+            "date": {"$first": "$date"}
+        }}
+    ]))
+
+    yesterday_start = today_start - timedelta(days=1)
+    previous_prices = list(prices_collection.aggregate([
+        {"$match": {"date": {"$lt": today_start, "$gte": yesterday_start}}},
+        {"$sort": {"date": -1}},
+        {"$group": {
+            "_id": {"cropId": "$cropId", "mandiId": "$mandiId"},
+            "modalPrice": {"$first": "$modalPrice"}
+        }}
+    ]))
+
+    previous_map = {f"{p['_id']['cropId']}:{p['_id']['mandiId']}": p["modalPrice"] for p in previous_prices}
+
+    movers = []
+    for latest in latest_prices:
+        key = f"{latest['cropId']}:{latest['mandiId']}"
+        prev_price = previous_map.get(key)
+        
+        if prev_price and prev_price > 0:
+            change_pct = ((latest["modalPrice"] - prev_price) / prev_price) * 100
+            movers.append({
+                "cropId": latest["cropId"],
+                "cropName": latest["cropName"],
+                "latestPrice": latest["modalPrice"],
+                "previousPrice": prev_price,
+                "changePct": round(change_pct, 2),
+                "direction": "up" if change_pct >= 0 else "down"
+            })
+
+    top_gainers = sorted([m for m in movers if m["direction"] == "up"], key=lambda x: x["changePct"], reverse=True)[:10]
+    top_losers = sorted([m for m in movers if m["direction"] == "down"], key=lambda x: x["changePct"])[:10]
+
+    result = top_gainers + top_losers
+
+    topmovers_collection.update_one(
+        {"_id": "current"},
+        {"$set": {"movers": result, "computedAt": datetime.now()}},
+        upsert=True
+    )
+
+    return [TopMoverResponse(**m) for m in result]

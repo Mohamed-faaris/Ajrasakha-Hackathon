@@ -12,5 +12,11 @@ def get_prices_collection() -> Collection:
 def get_predictions_collection() -> Collection:
     return _db["predictions"]
 
+def get_logs_collection() -> Collection:
+    return _db["logs"]
+
+def get_topmovers_collection() -> Collection:
+    return _db["topmovers"]
+
 def close_db():
     _client.close()

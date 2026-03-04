@@ -1,11 +1,22 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from app.routers import predictions
 from app.config import get_settings
+from app.scheduler import start_scheduler, stop_scheduler, get_scheduler_status
 
 settings = get_settings()
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    start_scheduler()
+    yield
+    stop_scheduler()
+
+
 app = FastAPI(
+    lifespan=lifespan,
     title="Mandi Insights Price Prediction Engine",
     description="ARIMA/EMA-based price forecasting for agricultural commodities",
     version="1.0.0"
@@ -28,6 +39,10 @@ async def root():
 @app.get("/health")
 async def health():
     return {"status": "healthy"}
+
+@app.get("/scheduler/status")
+async def scheduler_status():
+    return get_scheduler_status()
 
 if __name__ == "__main__":
     import uvicorn

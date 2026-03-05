@@ -16940,6 +16940,72 @@
     "source": "msamb"
   },
   {
+    "cropName": "BLACK GRAM (Udid)",
+    "mandiName": "VAIJAPUR- SHIUR",
+    "date": "2026-02-27",
+    "minPrice": 1,
+    "maxPrice": 3800,
+    "modalPrice": 3800,
+    "unit": "QUINTAL",
+    "arrival": 3800,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GRAM",
+    "mandiName": "VAIJAPUR- SHIUR",
+    "date": "2026-02-27",
+    "minPrice": 1,
+    "maxPrice": 3800,
+    "modalPrice": 3800,
+    "unit": "QUINTAL",
+    "arrival": 3800,
+    "source": "msamb"
+  },
+  {
+    "cropName": "MAIZE",
+    "mandiName": "VAIJAPUR- SHIUR",
+    "date": "2026-02-27",
+    "minPrice": 387,
+    "maxPrice": 1399,
+    "modalPrice": 1633,
+    "unit": "QUINTAL",
+    "arrival": 1497,
+    "source": "msamb"
+  },
+  {
+    "cropName": "PIGEON PEA (Tur)",
+    "mandiName": "VAIJAPUR- SHIUR",
+    "date": "2026-02-27",
+    "minPrice": 26,
+    "maxPrice": 4200,
+    "modalPrice": 7999,
+    "unit": "QUINTAL",
+    "arrival": 7434,
+    "source": "msamb"
+  },
+  {
+    "cropName": "SORGUM(JAWAR)",
+    "mandiName": "VAIJAPUR- SHIUR",
+    "date": "2026-02-27",
+    "minPrice": 3,
+    "maxPrice": 1000,
+    "modalPrice": 2850,
+    "unit": "QUINTAL",
+    "arrival": 2652,
+    "source": "msamb"
+  },
+  {
+    "cropName": "WHEAT(HUSKED)",
+    "mandiName": "VAIJAPUR- SHIUR",
+    "date": "2026-02-27",
+    "minPrice": 79,
+    "maxPrice": 2100,
+    "modalPrice": 2273,
+    "unit": "QUINTAL",
+    "arrival": 2234,
+    "source": "msamb"
+  },
+  {
     "cropName": "COTTON",
     "mandiName": "VANI",
     "date": "2026-02-27",

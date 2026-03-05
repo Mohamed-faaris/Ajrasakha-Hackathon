@@ -1122,6 +1122,17 @@
     "source": "msamb"
   },
   {
+    "cropName": "PIGEON PEA (Tur)",
+    "mandiName": "BORI ARAB",
+    "date": "2026-03-04",
+    "minPrice": 7,
+    "maxPrice": 7260,
+    "modalPrice": 7260,
+    "unit": "QUINTAL",
+    "arrival": 7260,
+    "source": "msamb"
+  },
+  {
     "cropName": "GRAM",
     "mandiName": "CHANDRAPUR",
     "date": "2026-03-04",
@@ -6080,6 +6091,61 @@
     "modalPrice": 2412,
     "unit": "QUINTAL",
     "arrival": 2251,
+    "source": "msamb"
+  },
+  {
+    "cropName": "CORIANDAR",
+    "mandiName": "MANCHAR",
+    "date": "2026-03-04",
+    "minPrice": 8100,
+    "maxPrice": 601,
+    "modalPrice": 1925,
+    "unit": "NAG",
+    "arrival": 1265,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GINGER (FRESH)",
+    "mandiName": "MANCHAR",
+    "date": "2026-03-04",
+    "minPrice": 14,
+    "maxPrice": 3500,
+    "modalPrice": 5500,
+    "unit": "QUINTAL",
+    "arrival": 4550,
+    "source": "msamb"
+  },
+  {
+    "cropName": "METHI (BHAJI)",
+    "mandiName": "MANCHAR",
+    "date": "2026-03-04",
+    "minPrice": 6060,
+    "maxPrice": 851,
+    "modalPrice": 1251,
+    "unit": "NAG",
+    "arrival": 1055,
+    "source": "msamb"
+  },
+  {
+    "cropName": "SHEPU",
+    "mandiName": "MANCHAR",
+    "date": "2026-03-04",
+    "minPrice": 300,
+    "maxPrice": 401,
+    "modalPrice": 401,
+    "unit": "NAG",
+    "arrival": 401,
+    "source": "msamb"
+  },
+  {
+    "cropName": "ONION",
+    "mandiName": "MANCHAR- LONI",
+    "date": "2026-03-04",
+    "minPrice": 811,
+    "maxPrice": 700,
+    "modalPrice": 1200,
+    "unit": "QUINTAL",
+    "arrival": 955,
     "source": "msamb"
   },
   {

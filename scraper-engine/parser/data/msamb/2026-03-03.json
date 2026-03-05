@@ -2080,6 +2080,50 @@
   },
   {
     "cropName": "BITTER GOURD",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-03",
+    "minPrice": 1,
+    "maxPrice": 5060,
+    "modalPrice": 5560,
+    "unit": "QUINTAL",
+    "arrival": 5310,
+    "source": "msamb"
+  },
+  {
+    "cropName": "CORIANDAR",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-03",
+    "minPrice": 9,
+    "maxPrice": 2060,
+    "modalPrice": 2560,
+    "unit": "QUINTAL",
+    "arrival": 2310,
+    "source": "msamb"
+  },
+  {
+    "cropName": "CUCUMBER",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-03",
+    "minPrice": 10,
+    "maxPrice": 2040,
+    "modalPrice": 2540,
+    "unit": "QUINTAL",
+    "arrival": 2290,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GINGER (FRESH)",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-03",
+    "minPrice": 13,
+    "maxPrice": 5020,
+    "modalPrice": 6020,
+    "unit": "QUINTAL",
+    "arrival": 5520,
+    "source": "msamb"
+  },
+  {
+    "cropName": "BITTER GOURD",
     "mandiName": "KARAD",
     "date": "2026-03-03",
     "minPrice": 6,

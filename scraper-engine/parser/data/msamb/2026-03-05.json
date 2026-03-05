@@ -44,6 +44,17 @@
     "source": "msamb"
   },
   {
+    "cropName": "CAPSICUM",
+    "mandiName": "AKLUJ",
+    "date": "2026-03-05",
+    "minPrice": 13,
+    "maxPrice": 3000,
+    "modalPrice": 3500,
+    "unit": "QUINTAL",
+    "arrival": 3200,
+    "source": "msamb"
+  },
+  {
     "cropName": "CARROT",
     "mandiName": "AKLUJ",
     "date": "2026-03-05",
@@ -85,6 +96,17 @@
     "modalPrice": 8,
     "unit": "NAG",
     "arrival": 7,
+    "source": "msamb"
+  },
+  {
+    "cropName": "CUCUMBER",
+    "mandiName": "AKLUJ",
+    "date": "2026-03-05",
+    "minPrice": 25,
+    "maxPrice": 1000,
+    "modalPrice": 1500,
+    "unit": "QUINTAL",
+    "arrival": 1300,
     "source": "msamb"
   },
   {
@@ -140,6 +162,17 @@
     "modalPrice": 6000,
     "unit": "QUINTAL",
     "arrival": 5000,
+    "source": "msamb"
+  },
+  {
+    "cropName": "KARDAI",
+    "mandiName": "AKLUJ",
+    "date": "2026-03-05",
+    "minPrice": 1500,
+    "maxPrice": 5,
+    "modalPrice": 7,
+    "unit": "NAG",
+    "arrival": 6,
     "source": "msamb"
   },
   {
@@ -242,6 +275,17 @@
     "source": "msamb"
   },
   {
+    "cropName": "TANDULJA",
+    "mandiName": "AKLUJ",
+    "date": "2026-03-05",
+    "minPrice": 1300,
+    "maxPrice": 5,
+    "modalPrice": 6,
+    "unit": "NAG",
+    "arrival": 6,
+    "source": "msamb"
+  },
+  {
     "cropName": "TOMATO",
     "mandiName": "AKLUJ",
     "date": "2026-03-05",
@@ -272,6 +316,17 @@
     "modalPrice": 5500,
     "unit": "NAG",
     "arrival": 4500,
+    "source": "msamb"
+  },
+  {
+    "cropName": "ONION",
+    "mandiName": "DEVALA",
+    "date": "2026-03-05",
+    "minPrice": 4690,
+    "maxPrice": 150,
+    "modalPrice": 950,
+    "unit": "QUINTAL",
+    "arrival": 750,
     "source": "msamb"
   },
   {
@@ -539,6 +594,28 @@
     "source": "msamb"
   },
   {
+    "cropName": "BOTTLE GOURD",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 1,
+    "maxPrice": 1520,
+    "modalPrice": 2020,
+    "unit": "QUINTAL",
+    "arrival": 1770,
+    "source": "msamb"
+  },
+  {
+    "cropName": "BRINJAL",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 12,
+    "maxPrice": 1020,
+    "modalPrice": 1520,
+    "unit": "QUINTAL",
+    "arrival": 1270,
+    "source": "msamb"
+  },
+  {
     "cropName": "CABBAGE",
     "mandiName": "KAMTHI",
     "date": "2026-03-05",
@@ -547,6 +624,50 @@
     "modalPrice": 1510,
     "unit": "QUINTAL",
     "arrival": 1260,
+    "source": "msamb"
+  },
+  {
+    "cropName": "CAPSICUM",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 1,
+    "maxPrice": 4070,
+    "modalPrice": 4570,
+    "unit": "QUINTAL",
+    "arrival": 4320,
+    "source": "msamb"
+  },
+  {
+    "cropName": "CARROT",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 3,
+    "maxPrice": 2530,
+    "modalPrice": 3030,
+    "unit": "QUINTAL",
+    "arrival": 2780,
+    "source": "msamb"
+  },
+  {
+    "cropName": "CHAVLI (PALA)",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 6,
+    "maxPrice": 2070,
+    "modalPrice": 2570,
+    "unit": "QUINTAL",
+    "arrival": 2320,
+    "source": "msamb"
+  },
+  {
+    "cropName": "CHAVLI (SHENGA )",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 1,
+    "maxPrice": 3020,
+    "modalPrice": 3520,
+    "unit": "QUINTAL",
+    "arrival": 3270,
     "source": "msamb"
   },
   {
@@ -572,6 +693,28 @@
     "source": "msamb"
   },
   {
+    "cropName": "DHEMSE",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 1,
+    "maxPrice": 4070,
+    "modalPrice": 4570,
+    "unit": "QUINTAL",
+    "arrival": 4320,
+    "source": "msamb"
+  },
+  {
+    "cropName": "FLOWER",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 10,
+    "maxPrice": 1040,
+    "modalPrice": 1540,
+    "unit": "QUINTAL",
+    "arrival": 1290,
+    "source": "msamb"
+  },
+  {
     "cropName": "GINGER (FRESH)",
     "mandiName": "KAMTHI",
     "date": "2026-03-05",
@@ -580,6 +723,94 @@
     "modalPrice": 6020,
     "unit": "QUINTAL",
     "arrival": 5520,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GREEN CHILI",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 9,
+    "maxPrice": 6050,
+    "modalPrice": 6550,
+    "unit": "QUINTAL",
+    "arrival": 6300,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GREEN PEAS (DRY)",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 2,
+    "maxPrice": 2060,
+    "modalPrice": 2560,
+    "unit": "QUINTAL",
+    "arrival": 2310,
+    "source": "msamb"
+  },
+  {
+    "cropName": "LADIES FINGER",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 5,
+    "maxPrice": 4020,
+    "modalPrice": 4520,
+    "unit": "QUINTAL",
+    "arrival": 4270,
+    "source": "msamb"
+  },
+  {
+    "cropName": "METHI (BHAJI)",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 5,
+    "maxPrice": 2520,
+    "modalPrice": 3020,
+    "unit": "QUINTAL",
+    "arrival": 2770,
+    "source": "msamb"
+  },
+  {
+    "cropName": "PAPAI",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 1,
+    "maxPrice": 2550,
+    "modalPrice": 3050,
+    "unit": "QUINTAL",
+    "arrival": 2800,
+    "source": "msamb"
+  },
+  {
+    "cropName": "RADDISH",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 1,
+    "maxPrice": 2030,
+    "modalPrice": 2530,
+    "unit": "QUINTAL",
+    "arrival": 2280,
+    "source": "msamb"
+  },
+  {
+    "cropName": "SPINACH",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 12,
+    "maxPrice": 1020,
+    "modalPrice": 1520,
+    "unit": "QUINTAL",
+    "arrival": 1270,
+    "source": "msamb"
+  },
+  {
+    "cropName": "TOMATO",
+    "mandiName": "KAMTHI",
+    "date": "2026-03-05",
+    "minPrice": 46,
+    "maxPrice": 640,
+    "modalPrice": 840,
+    "unit": "QUINTAL",
+    "arrival": 740,
     "source": "msamb"
   },
   {
@@ -1100,6 +1331,61 @@
     "source": "msamb"
   },
   {
+    "cropName": "GARLIC",
+    "mandiName": "NAGPUR",
+    "date": "2026-03-05",
+    "minPrice": 1820,
+    "maxPrice": 3000,
+    "modalPrice": 9000,
+    "unit": "QUINTAL",
+    "arrival": 7500,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GINGER (FRESH)",
+    "mandiName": "NAGPUR",
+    "date": "2026-03-05",
+    "minPrice": 600,
+    "maxPrice": 3000,
+    "modalPrice": 6000,
+    "unit": "QUINTAL",
+    "arrival": 5250,
+    "source": "msamb"
+  },
+  {
+    "cropName": "ONION",
+    "mandiName": "NAGPUR",
+    "date": "2026-03-05",
+    "minPrice": 2200,
+    "maxPrice": 1200,
+    "modalPrice": 1400,
+    "unit": "QUINTAL",
+    "arrival": 1350,
+    "source": "msamb"
+  },
+  {
+    "cropName": "ONION",
+    "mandiName": "NAGPUR",
+    "date": "2026-03-05",
+    "minPrice": 2000,
+    "maxPrice": 1400,
+    "modalPrice": 1600,
+    "unit": "QUINTAL",
+    "arrival": 1550,
+    "source": "msamb"
+  },
+  {
+    "cropName": "POTATO",
+    "mandiName": "NAGPUR",
+    "date": "2026-03-05",
+    "minPrice": 3500,
+    "maxPrice": 400,
+    "modalPrice": 1000,
+    "unit": "QUINTAL",
+    "arrival": 850,
+    "source": "msamb"
+  },
+  {
     "cropName": "AMBAT CHUKA",
     "mandiName": "PUNE",
     "date": "2026-03-05",
@@ -1155,6 +1441,17 @@
     "source": "msamb"
   },
   {
+    "cropName": "BAJRI",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 684,
+    "maxPrice": 3900,
+    "modalPrice": 4200,
+    "unit": "QUINTAL",
+    "arrival": 4050,
+    "source": "msamb"
+  },
+  {
     "cropName": "BANANA",
     "mandiName": "PUNE",
     "date": "2026-03-05",
@@ -1185,6 +1482,17 @@
     "modalPrice": 4000,
     "unit": "QUINTAL",
     "arrival": 3000,
+    "source": "msamb"
+  },
+  {
+    "cropName": "BLACK GRAM (Udid)",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 4,
+    "maxPrice": 9000,
+    "modalPrice": 10000,
+    "unit": "QUINTAL",
+    "arrival": 9500,
     "source": "msamb"
   },
   {
@@ -1331,6 +1639,17 @@
     "source": "msamb"
   },
   {
+    "cropName": "CHINESE GARLIC",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 5,
+    "maxPrice": 5000,
+    "modalPrice": 6000,
+    "unit": "QUINTAL",
+    "arrival": 5500,
+    "source": "msamb"
+  },
+  {
     "cropName": "CLUSTER BEAN",
     "mandiName": "PUNE",
     "date": "2026-03-05",
@@ -1350,6 +1669,17 @@
     "modalPrice": 12,
     "unit": "NAG",
     "arrival": 7,
+    "source": "msamb"
+  },
+  {
+    "cropName": "CORIANDER (DRY)",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 7,
+    "maxPrice": 9000,
+    "modalPrice": 15000,
+    "unit": "QUINTAL",
+    "arrival": 12000,
     "source": "msamb"
   },
   {
@@ -1474,6 +1804,28 @@
     "source": "msamb"
   },
   {
+    "cropName": "GR.NUT KERNELS",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 821,
+    "maxPrice": 11800,
+    "modalPrice": 13000,
+    "unit": "QUINTAL",
+    "arrival": 12400,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GRAM",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 42,
+    "maxPrice": 6200,
+    "modalPrice": 6800,
+    "unit": "QUINTAL",
+    "arrival": 6500,
+    "source": "msamb"
+  },
+  {
     "cropName": "GRAPES",
     "mandiName": "PUNE",
     "date": "2026-03-05",
@@ -1493,6 +1845,28 @@
     "modalPrice": 7000,
     "unit": "QUINTAL",
     "arrival": 5500,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GREEN GRAM (Mug)",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 38,
+    "maxPrice": 9200,
+    "modalPrice": 10000,
+    "unit": "QUINTAL",
+    "arrival": 9600,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GREEN PEAS (DRY)",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 39,
+    "maxPrice": 8200,
+    "modalPrice": 10500,
+    "unit": "QUINTAL",
+    "arrival": 9350,
     "source": "msamb"
   },
   {
@@ -1551,6 +1925,28 @@
     "source": "msamb"
   },
   {
+    "cropName": "JAGGERY",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 411,
+    "maxPrice": 4251,
+    "modalPrice": 4451,
+    "unit": "QUINTAL",
+    "arrival": 4351,
+    "source": "msamb"
+  },
+  {
+    "cropName": "JAGGERY",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 254,
+    "maxPrice": 4015,
+    "modalPrice": 4225,
+    "unit": "QUINTAL",
+    "arrival": 4120,
+    "source": "msamb"
+  },
+  {
     "cropName": "KANDA PAT",
     "mandiName": "PUNE",
     "date": "2026-03-05",
@@ -1592,6 +1988,28 @@
     "modalPrice": 3000,
     "unit": "QUINTAL",
     "arrival": 1700,
+    "source": "msamb"
+  },
+  {
+    "cropName": "LENTIL",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 35,
+    "maxPrice": 7000,
+    "modalPrice": 7500,
+    "unit": "QUINTAL",
+    "arrival": 7250,
+    "source": "msamb"
+  },
+  {
+    "cropName": "MAIZE",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 2,
+    "maxPrice": 2400,
+    "modalPrice": 2800,
+    "unit": "QUINTAL",
+    "arrival": 2600,
     "source": "msamb"
   },
   {
@@ -1647,6 +2065,17 @@
     "modalPrice": 7000,
     "unit": "QUINTAL",
     "arrival": 5200,
+    "source": "msamb"
+  },
+  {
+    "cropName": "NACHANI/ NAGALI",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 2,
+    "maxPrice": 5000,
+    "modalPrice": 5700,
+    "unit": "QUINTAL",
+    "arrival": 5350,
     "source": "msamb"
   },
   {
@@ -1815,6 +2244,39 @@
     "source": "msamb"
   },
   {
+    "cropName": "RICE(PADDY-HUS)",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 56,
+    "maxPrice": 8200,
+    "modalPrice": 11200,
+    "unit": "QUINTAL",
+    "arrival": 9700,
+    "source": "msamb"
+  },
+  {
+    "cropName": "RICE(PADDY-HUS)",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 529,
+    "maxPrice": 4300,
+    "modalPrice": 7000,
+    "unit": "QUINTAL",
+    "arrival": 5650,
+    "source": "msamb"
+  },
+  {
+    "cropName": "RICE(PADDY-HUS)",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 447,
+    "maxPrice": 3100,
+    "modalPrice": 3700,
+    "unit": "QUINTAL",
+    "arrival": 3400,
+    "source": "msamb"
+  },
+  {
     "cropName": "RIDGE GOURD",
     "mandiName": "PUNE",
     "date": "2026-03-05",
@@ -1878,6 +2340,17 @@
     "modalPrice": 3000,
     "unit": "QUINTAL",
     "arrival": 2750,
+    "source": "msamb"
+  },
+  {
+    "cropName": "SORGUM(JAWAR)",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 687,
+    "maxPrice": 5400,
+    "modalPrice": 6400,
+    "unit": "QUINTAL",
+    "arrival": 5900,
     "source": "msamb"
   },
   {
@@ -1966,6 +2439,28 @@
     "modalPrice": 2000,
     "unit": "QUINTAL",
     "arrival": 1500,
+    "source": "msamb"
+  },
+  {
+    "cropName": "WHEAT(HUSKED)",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 507,
+    "maxPrice": 4000,
+    "modalPrice": 4800,
+    "unit": "QUINTAL",
+    "arrival": 4400,
+    "source": "msamb"
+  },
+  {
+    "cropName": "ZUCCHINI",
+    "mandiName": "PUNE",
+    "date": "2026-03-05",
+    "minPrice": 12,
+    "maxPrice": 2000,
+    "modalPrice": 2500,
+    "unit": "QUINTAL",
+    "arrival": 2250,
     "source": "msamb"
   },
   {

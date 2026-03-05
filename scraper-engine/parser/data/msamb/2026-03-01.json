@@ -6039,6 +6039,61 @@
     "source": "msamb"
   },
   {
+    "cropName": "BAJRI",
+    "mandiName": "PAROLA",
+    "date": "2026-03-01",
+    "minPrice": 32,
+    "maxPrice": 2375,
+    "modalPrice": 2562,
+    "unit": "QUINTAL",
+    "arrival": 2501,
+    "source": "msamb"
+  },
+  {
+    "cropName": "GRAM",
+    "mandiName": "PAROLA",
+    "date": "2026-03-01",
+    "minPrice": 50,
+    "maxPrice": 4500,
+    "modalPrice": 5019,
+    "unit": "QUINTAL",
+    "arrival": 4999,
+    "source": "msamb"
+  },
+  {
+    "cropName": "PIGEON PEA (Tur)",
+    "mandiName": "PAROLA",
+    "date": "2026-03-01",
+    "minPrice": 40,
+    "maxPrice": 7000,
+    "modalPrice": 7300,
+    "unit": "QUINTAL",
+    "arrival": 7171,
+    "source": "msamb"
+  },
+  {
+    "cropName": "SORGUM(JAWAR)",
+    "mandiName": "PAROLA",
+    "date": "2026-03-01",
+    "minPrice": 40,
+    "maxPrice": 2275,
+    "modalPrice": 2275,
+    "unit": "QUINTAL",
+    "arrival": 2275,
+    "source": "msamb"
+  },
+  {
+    "cropName": "WHEAT(HUSKED)",
+    "mandiName": "PAROLA",
+    "date": "2026-03-01",
+    "minPrice": 30,
+    "maxPrice": 2101,
+    "modalPrice": 2400,
+    "unit": "QUINTAL",
+    "arrival": 2250,
+    "source": "msamb"
+  },
+  {
     "cropName": "BITTER GOURD",
     "mandiName": "PEN",
     "date": "2026-03-01",

@@ -20,7 +20,7 @@ function useMandiCrops(mandiId?: string) {
     ["mandi-crops", mandiId],
     async () => {
       if (!mandiId) return [];
-      const res = await fetch(`/api/prices/mandi/${mandiId}/crops`);
+      const res = await fetch(`/api/consumer-portal/prices/mandi/${mandiId}/crops`);
       if (!res.ok) throw new Error("Failed to fetch crops");
       return res.json();
     },
@@ -34,7 +34,7 @@ function useMandiPrices(mandiId?: string) {
     ["mandi-prices", mandiId],
     async () => {
       if (!mandiId) return [];
-      const res = await fetch(`/api/prices/mandi/${mandiId}/prices?limit=50`);
+      const res = await fetch(`/api/consumer-portal/prices/mandi/${mandiId}/prices?limit=50`);
       if (!res.ok) throw new Error("Failed to fetch prices");
       return res.json();
     },

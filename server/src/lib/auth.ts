@@ -1,11 +1,12 @@
 import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
-import { phoneNumber } from 'better-auth/plugins';
+import { emailOTP } from 'better-auth/plugins/email-otp';
 import { magicLink } from 'better-auth/plugins';
 import { apiKey } from '@better-auth/api-key';
 import mongoose from 'mongoose';
 import { env } from '../config/env';
 import { sendMagicLinkEmail } from '../services/mail.service';
+import { sendEmail } from '../services/mail.service';
 
 export const createAuth = (db: mongoose.mongo.Db, client: mongoose.mongo.MongoClient) => {
   return betterAuth({
@@ -23,9 +24,13 @@ export const createAuth = (db: mongoose.mongo.Db, client: mongoose.mongo.MongoCl
       enabled: true,
     },
     plugins: [
-      phoneNumber({
-        sendOTP: async ({ phoneNumber, code }) => {
-          console.log(`[OTP] Phone: ${phoneNumber}, Code: ${code}`);
+      emailOTP({
+        async sendVerificationOTP({ email, otp, type }) {
+          await sendEmail({
+            to: email,
+            subject: type === "sign-in" ? "Your Sign In Code" : "Your Verification Code",
+            text: `Your OTP code is: ${otp}`,
+          });
         },
       }),
       magicLink({

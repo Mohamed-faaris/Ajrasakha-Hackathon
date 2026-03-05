@@ -1,5 +1,6 @@
+import { useEffect, useMemo, useState } from "react";
 import { NavLink } from "@/components/NavLink";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -11,13 +12,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { BarChart3, Home, LayoutDashboard, Map, ArrowLeftRight, Bell, FileText, TrendingUp, LogOut, UserRound, Key } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { signOut as logout, useSession } from "@/lib/auth";
-import { useToast } from "@/hooks/use-toast";
+import { BarChart3, Home, LayoutDashboard, Map, ArrowLeftRight, Bell, FileText, TrendingUp, UserRound, Key } from "lucide-react";
+import { useSession } from "@/lib/auth";
 import type { UserRole } from "@/lib/types";
 import { isRoleAllowedForRoute } from "@/lib/role-access";
 import { ProfileSection } from "@/components/ProfileSection";
+import { api } from "@/lib/api";
+import { Badge } from "@/components/ui/badge";
 
 const navItems = [
   { title: "Home", url: "/", icon: Home },
@@ -35,24 +36,43 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const location = useLocation();
-  const navigate = useNavigate();
   const { data } = useSession();
-  const role = data?.user?.role as UserRole | undefined;
-  const { toast } = useToast();
-  const visibleNavItems = navItems.filter((item) => isRoleAllowedForRoute(role, item.url));
+  const sessionRole = data?.user?.role as UserRole | undefined;
+  const [profileRole, setProfileRole] = useState<UserRole | undefined>(undefined);
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/login");
-    } catch {
-      toast({
-        title: "Error",
-        description: "Failed to sign out.",
-        variant: "destructive",
-      });
+  useEffect(() => {
+    let cancelled = false;
+    if (sessionRole) {
+      setProfileRole(undefined);
+      return () => {
+        cancelled = true;
+      };
     }
-  };
+
+    api
+      .getMyProfile()
+      .then((profile) => {
+        if (!cancelled) {
+          setProfileRole((profile?.role as UserRole | null | undefined) ?? undefined);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setProfileRole(undefined);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [sessionRole]);
+
+  const role = sessionRole ?? profileRole;
+  const visibleNavItems = navItems.filter((item) => isRoleAllowedForRoute(role, item.url));
+  const roleLabel = useMemo(() => {
+    const resolvedRole = role || "farmer";
+    return resolvedRole.charAt(0).toUpperCase() + resolvedRole.slice(1);
+  }, [role]);
 
   return (
     <Sidebar collapsible="icon">
@@ -66,6 +86,9 @@ export function AppSidebar() {
             <p className="text-[10px] text-sidebar-foreground/60 leading-none">
               Unified APMC Data Hub
             </p>
+            <Badge variant="outline" className="mt-2 text-[10px] uppercase tracking-wide">
+              Role: {roleLabel}
+            </Badge>
           </div>
         )}
       </div>

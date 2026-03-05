@@ -7,9 +7,10 @@ if (!authBaseUrlEnv) {
     throw new Error("VITE_AUTH_BASE_URL environment variable is required");
 }
 
-const AUTH_BASE_URL = authBaseUrlEnv.endsWith('/auth')
-    ? authBaseUrlEnv
-    : `${authBaseUrlEnv.replace(/\/$/, '')}/auth`;
+const trimmedAuthBaseUrl = authBaseUrlEnv.replace(/\/+$/, "");
+const AUTH_BASE_URL = trimmedAuthBaseUrl.endsWith('/auth')
+    ? trimmedAuthBaseUrl
+    : `${trimmedAuthBaseUrl}/auth`;
 
 export const authClient = createAuthClient({
     baseURL: AUTH_BASE_URL,

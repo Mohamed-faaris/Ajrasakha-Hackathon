@@ -13,13 +13,16 @@ interface ApiKey {
   name: string;
   key?: string;
   prefix: string;
+  start?: string;
   createdAt: string;
   expiresAt?: string;
   lastUsedAt?: string;
 }
 
+const apiRootUrl = API_BASE_URL.replace(/\/consumer-portal\/?$/, "");
+
 const API_DOCS = {
-  baseUrl: `${API_BASE_URL.replace('/consumer-portal', '')}/api`,
+  baseUrl: apiRootUrl,
   endpoints: [
     {
       method: "GET",
@@ -119,9 +122,23 @@ const ApiDocs = () => {
     throw new Error("VITE_AUTH_BASE_URL environment variable is required");
   }
 
-  const AUTH_BASE_URL = authBaseUrlEnv.endsWith("/auth")
-    ? authBaseUrlEnv
-    : `${authBaseUrlEnv.replace(/\/$/, "")}/auth`;
+  const trimmedAuthBaseUrl = authBaseUrlEnv.replace(/\/+$/, "");
+  const AUTH_BASE_URL = trimmedAuthBaseUrl.endsWith("/auth")
+    ? trimmedAuthBaseUrl
+    : `${trimmedAuthBaseUrl}/auth`;
+
+  const normalizeApiKey = (raw: Record<string, unknown>): ApiKey => {
+    const id = String(raw.id ?? raw.keyId ?? raw._id ?? "");
+    const name = String(raw.name ?? "API Key");
+    const prefix = String(raw.prefix ?? raw.start ?? "");
+    const start = raw.start ? String(raw.start) : undefined;
+    const key = typeof raw.key === "string" ? raw.key : undefined;
+    const createdAt = String(raw.createdAt ?? new Date().toISOString());
+    const expiresAt = raw.expiresAt ? String(raw.expiresAt) : undefined;
+    const lastUsedAt = raw.lastUsedAt ? String(raw.lastUsedAt) : undefined;
+
+    return { id, name, prefix, start, key, createdAt, expiresAt, lastUsedAt };
+  };
 
   useEffect(() => {
     fetchApiKeys();
@@ -134,10 +151,27 @@ const ApiDocs = () => {
       });
       if (res.ok) {
         const data = await res.json();
-        setKeys(data.apiKeys || []);
+        const list = Array.isArray(data?.apiKeys)
+          ? data.apiKeys
+          : Array.isArray(data)
+            ? data
+            : [];
+        setKeys(list.map((item: Record<string, unknown>) => normalizeApiKey(item)));
+      } else {
+        const err = await res.json().catch(() => ({}));
+        toast({
+          title: "Error",
+          description: err?.error?.message || err?.message || "Failed to load API keys",
+          variant: "destructive",
+        });
       }
     } catch (error) {
       console.error("Failed to fetch API keys:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load API keys",
+        variant: "destructive",
+      });
     }
   };
 
@@ -158,10 +192,14 @@ const ApiDocs = () => {
 
       if (res.ok) {
         const data = await res.json();
-        if (data.apiKey) {
-          setKeys([...keys, data.apiKey]);
+        const created = (data?.apiKey ?? data) as Record<string, unknown> | undefined;
+        if (created) {
+          setKeys((prev) => [...prev, normalizeApiKey(created)]);
           setNewKeyName("");
           toast({ title: "Success", description: "API key created. Copy it now - you won't see it again!" });
+        } else {
+          toast({ title: "Success", description: "API key created." });
+          await fetchApiKeys();
         }
       } else {
         const err = await res.json();
@@ -253,7 +291,7 @@ const ApiDocs = () => {
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{key.name}</span>
-                          <Badge variant="outline">{key.prefix}***</Badge>
+                          <Badge variant="outline">{key.start || `${key.prefix}***`}</Badge>
                         </div>
                         <div className="text-xs text-muted-foreground">
                           Created: {new Date(key.createdAt).toLocaleDateString()}

@@ -28,11 +28,11 @@ class Orchestrator:
         }
         self.logs_collection.insert_one(doc)
 
-    def trigger_scraper(self, date: str = None) -> Dict[str, Any]:
-        self.save_log("INFO", "scraper", f"Starting scraper (mode: scrape)")
+    def trigger_scraper(self, date: str = None, mode: str = "discover_and_scrape") -> Dict[str, Any]:
+        self.save_log("INFO", "scraper", f"Starting scraper (mode: {mode})")
 
         try:
-            cmd = [sys.executable, "main.py", "--mode", "scrape"]
+            cmd = [sys.executable, "main.py", "--mode", mode]
             result = subprocess.run(
                 cmd,
                 cwd=SCRAPER_DIR,

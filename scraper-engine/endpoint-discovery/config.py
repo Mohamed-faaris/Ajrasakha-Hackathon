@@ -72,6 +72,7 @@ class AppConfig:
 
     # Runtime (set by CLI --url for single_url mode)
     target_url: str = ""
+    target_date: str = ""
 
     # CSV paths (used when input_mode=csv)
     csv_input_path: str = "data/samples/sources.csv"
@@ -120,6 +121,8 @@ class AppConfig:
             overrides["log_mode"] = LogMode(args.log)
         if args.headless is not None:
             overrides["headless"] = args.headless
+        if args.date is not None:
+            overrides["target_date"] = args.date
 
         if not overrides:
             return self
@@ -168,5 +171,11 @@ def build_arg_parser() -> argparse.ArgumentParser:
         type=lambda v: v.lower() in ("true", "1", "yes"),
         default=None,
         help="Run browser headless (true/false)",
+    )
+    parser.add_argument(
+        "--date",
+        type=str,
+        default=None,
+        help="Target date for scraping (YYYY-MM-DD format)",
     )
     return parser

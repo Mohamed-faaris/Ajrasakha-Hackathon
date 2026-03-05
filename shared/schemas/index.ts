@@ -445,3 +445,25 @@ export const FrontendPriceTrendSchema = z.object({
   minPrice: z.number(),
   maxPrice: z.number(),
 });
+
+export const PredictionDaySchema = z.object({
+  date: z.string(),
+  predictedPrice: z.number(),
+  confidence: z.number(),
+});
+
+export const PredictionResultSchema = z.object({
+  cropId: z.string(),
+  mandiId: z.string(),
+  predictions: z.array(PredictionDaySchema),
+  trend: z.enum(['Bullish', 'Bearish', 'Neutral']),
+  generatedAt: z.coerce.date(),
+  expiresAt: z.coerce.date(),
+});
+
+export const PredictionStatusSchema = z.object({
+  hasValidPrediction: z.boolean(),
+  expiresAt: z.coerce.date().nullable(),
+  generatedAt: z.coerce.date().nullable(),
+  trend: z.enum(['Bullish', 'Bearish', 'Neutral']).nullable(),
+});

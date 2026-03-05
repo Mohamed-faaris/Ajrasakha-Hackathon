@@ -1,266 +1,421 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid, BarChart, Bar, ReferenceLine } from "recharts";
-import { usePricePrediction } from "@/hooks/usePricePrediction";
+import { ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid } from "recharts";
+import { usePrediction, usePredictionStatus } from "@/hooks/use-prediction";
+import { useCrops, useStates } from "@/hooks/use-crops";
+import { useMandis } from "@/hooks/use-crops";
+import { Button } from "@/components/ui/button";
+import { Loader2, RefreshCw, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { apiClient } from "@/lib/api-client";
+import { useQueryClient } from "@tanstack/react-query";
+import { useTypedQuery } from "@/hooks/use-api";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+
+// Hook to get crops available for a mandi
+function useMandiCrops(mandiId?: string) {
+  return useTypedQuery(
+    ["mandi-crops", mandiId],
+    async () => {
+      if (!mandiId) return [];
+      const res = await fetch(`/api/prices/mandi/${mandiId}/crops`);
+      if (!res.ok) throw new Error("Failed to fetch crops");
+      return res.json();
+    },
+    { enabled: !!mandiId }
+  );
+}
+
+// Hook to get prices for a mandi
+function useMandiPrices(mandiId?: string) {
+  return useTypedQuery(
+    ["mandi-prices", mandiId],
+    async () => {
+      if (!mandiId) return [];
+      const res = await fetch(`/api/prices/mandi/${mandiId}/prices?limit=50`);
+      if (!res.ok) throw new Error("Failed to fetch prices");
+      return res.json();
+    },
+    { enabled: !!mandiId }
+  );
+}
 
 const Analytics = () => {
-  const [selectedCrop, setSelectedCrop] = useState("Wheat");
-  const [period, setPeriod] = useState<number>(6);
-  const trendData = [
-    { date: "2024-01-01", price: 2100, minPrice: 2000, maxPrice: 2200 },
-    { date: "2024-02-01", price: 2200, minPrice: 2100, maxPrice: 2300 },
-    { date: "2024-03-01", price: 2150, minPrice: 2050, maxPrice: 2250 },
-    { date: "2024-04-01", price: 2250, minPrice: 2150, maxPrice: 2350 },
-    { date: "2024-05-01", price: 2300, minPrice: 2200, maxPrice: 2400 },
-    { date: "2024-06-01", price: 2280, minPrice: 2180, maxPrice: 2380 },
-  ];
-  const allCrops = [
-    { name: "Wheat", mspPrice: 2275 },
-    { name: "Rice", mspPrice: 2183 },
-    { name: "Maize", mspPrice: 2225 },
-    { name: "Gram", mspPrice: 5440 },
-  ];
-  const trendLoading = false;
-  const trendError = false;
+  const queryClient = useQueryClient();
+  const [selectedState, setSelectedState] = useState<string>("");
+  const [selectedMandi, setSelectedMandi] = useState<string>("");
+  const [selectedCrop, setSelectedCrop] = useState<string>("");
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const mspCrop = allCrops.find((c) => c.name === selectedCrop);
-  const mspValue = mspCrop?.mspPrice ?? allCrops[0]?.mspPrice ?? 2275;
-  const combinedData = trendData.map((d) => ({
-    ...d,
-    msp: mspValue,
-  }));
+  const { data: allStates = [] } = useStates();
+  const { data: mandis = [], isLoading: mandisLoading, error: mandisError } = useMandis(selectedState);
+  const { data: mandiCrops = [] } = useMandiCrops(selectedMandi);
+  const { data: mandiPrices = [] } = useMandiPrices(selectedMandi);
 
-  // Volatility: std dev / mean
-  const prices = trendData.map((d) => d.price);
-  const { predictedPrice, trend, confidence } = usePricePrediction(prices);
-  const mean = prices.length ? prices.reduce((a, b) => a + b, 0) / prices.length : 0;
-  const stddev = prices.length ? Math.sqrt(prices.reduce((sum, p) => sum + (p - mean) ** 2, 0) / prices.length) : 0;
-  const volatility = mean ? ((stddev / mean) * 100).toFixed(1) : "0";
+  const { data: prediction, isLoading: predictionLoading, error: predictionError } = usePrediction(
+    selectedCrop || undefined,
+    selectedMandi || undefined
+  );
+  const { data: predictionStatus } = usePredictionStatus(
+    selectedCrop || undefined,
+    selectedMandi || undefined
+  );
 
-  const chartConfig = {
-    price: { label: "Modal Price", color: "hsl(var(--primary))" },
-    minPrice: { label: "Min Price", color: "hsl(var(--muted-foreground))" },
-    maxPrice: { label: "Max Price", color: "hsl(var(--destructive))" },
-    msp: { label: "MSP", color: "hsl(var(--warning))" },
+  // Get selected mandi name
+  const selectedMandiName = useMemo(() => {
+    return mandis.find(m => m.id === selectedMandi)?.name || selectedMandi;
+  }, [mandis, selectedMandi]);
+
+  // Get selected state name
+  const selectedStateName = useMemo(() => {
+    return allStates.find(s => s.id === selectedState)?.name || selectedState;
+  }, [allStates, selectedState]);
+
+  // Get selected crop name
+  const selectedCropName = useMemo(() => {
+    return mandiCrops.find(c => c.id === selectedCrop)?.name || selectedCrop;
+  }, [mandiCrops, selectedCrop]);
+
+  // Build chart data from predictions
+  const chartData = useMemo(() => {
+    if (!prediction?.predictions?.length) return [];
+    return prediction.predictions.map((p) => ({
+      date: p.date,
+      price: p.predictedPrice,
+      confidence: p.confidence,
+    }));
+  }, [prediction]);
+
+  // Group prices by crop
+  const pricesByCrop = useMemo(() => {
+    const grouped: Record<string, typeof mandiPrices> = {};
+    mandiPrices.forEach(p => {
+      if (!grouped[p.cropId]) grouped[p.cropId] = [];
+      grouped[p.cropId].push(p);
+    });
+    return grouped;
+  }, [mandiPrices]);
+
+  const handleRefresh = async () => {
+    if (!selectedCrop || !selectedMandi) return;
+    setIsRefreshing(true);
+    try {
+      await apiClient.refreshPrediction(selectedCrop, selectedMandi);
+      queryClient.invalidateQueries({ queryKey: ["prediction", selectedCrop, selectedMandi] });
+    } catch (error) {
+      console.error("Failed to refresh prediction:", error);
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
-  // Top volatile crops
-  const volatileCrops = ["Tomato", "Onion", "Red Chilli", "Cumin", "Potato"].map((name) => {
-    const v = 5 + Math.random() * 25;
-    return { name, volatility: +v.toFixed(1) };
-  }).sort((a, b) => b.volatility - a.volatility);
+  const chartConfig = {
+    price: { label: "Predicted Price", color: "hsl(var(--primary))" },
+    confidence: { label: "Confidence %", color: "hsl(var(--secondary))" },
+  };
 
-  const canViewVolatility = true;
-  const canViewAnomalies = true;
-  const canViewDataQuality = true;
-  const canViewPrediction = true;
+  const hasSelection = selectedCrop && selectedMandi;
+  const showPredictionCard = hasSelection && !predictionLoading && !predictionError && prediction;
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-bold">Analytics & Trends</h1>
-          <p className="text-sm text-muted-foreground">Price trends, seasonal patterns, and market intelligence</p>
-        </div>
-        <div className="flex gap-2">
-          <Select value={selectedCrop} onValueChange={setSelectedCrop}>
-            <SelectTrigger className="w-[180px]"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              {allCrops.map((c) => <SelectItem key={c.name} value={c.name}>{c.name}</SelectItem>)}
-            </SelectContent>
-          </Select>
-          <Select value={period.toString()} onValueChange={(v) => setPeriod(Number(v))}>
-            <SelectTrigger className="w-[120px]"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="1">1 Month</SelectItem>
-              <SelectItem value="3">3 Months</SelectItem>
-              <SelectItem value="6">6 Months</SelectItem>
-              <SelectItem value="12">1 Year</SelectItem>
-            </SelectContent>
-          </Select>
+          <h1 className="font-display text-2xl font-bold">Analytics & Predictions</h1>
+          <p className="text-sm text-muted-foreground">Select state → mandi → crop to view price predictions</p>
         </div>
       </div>
 
-      {/* Price Trend */}
+      {/* Filters */}
       <Card>
-        <CardHeader>
-          <CardTitle className="font-display text-lg">{selectedCrop} - Price Trend</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {trendLoading ? (
-            <div className="p-6 text-center text-sm text-muted-foreground">Loading trend...</div>
-          ) : trendError ? (
-            <div className="p-6 text-center text-sm text-destructive">Failed to load trend.</div>
-          ) : (
-            <ChartContainer config={chartConfig} className="h-[320px] w-full">
-  <ComposedChart data={combinedData}>
-    <CartesianGrid strokeDasharray="3 3" />
+        <CardContent className="pt-4 pb-4">
+          <div className="flex flex-wrap gap-3 items-center">
+            {/* Step 1: Select State */}
+            <div className="flex flex-col gap-1">
+              <span className="text-xs text-muted-foreground">Step 1: State</span>
+              <Select value={selectedState} onValueChange={(v) => { 
+                setSelectedState(v); 
+                setSelectedMandi(""); 
+                setSelectedCrop("");
+              }}>
+                <SelectTrigger className="w-[200px]">
+                  <SelectValue placeholder="Select State" />
+                </SelectTrigger>
+                <SelectContent>
+                  {allStates.map((s) => (
+                    <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-    <XAxis
-      dataKey="date"
-      tickFormatter={(d) =>
-        new Date(d).toLocaleDateString("en-IN", {
-          month: "short",
-          day: "numeric",
-        })
-      }
-      fontSize={11}
-    />
+            {/* Step 2: Select Mandi */}
+            <div className="flex flex-col gap-1">
+              <span className="text-xs text-muted-foreground">Step 2: Mandi</span>
+              <Select
+                key={`mandi-select-${selectedState}-${mandis.length}`}
+                value={selectedMandi}
+                onValueChange={(v) => {
+                  setSelectedMandi(v);
+                  setSelectedCrop("");
+                }}
+                disabled={!selectedState || mandisLoading}
+              >
+                <SelectTrigger className="w-[220px]">
+                  <SelectValue placeholder={
+                    mandisLoading ? "Loading mandis..." :
+                    mandisError ? "Error loading mandis" :
+                    selectedState ? `${mandis.length} mandis available` :
+                    "Select state first"
+                  } />
+                </SelectTrigger>
+                <SelectContent>
+                  {mandis.map((m) => (
+                    <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {mandisError && (
+                <p className="text-xs text-destructive">{(mandisError as Error).message}</p>
+              )}
+            </div>
 
-    <YAxis
-      fontSize={11}
-      tickFormatter={(v) => `₹${v}`}
-      domain={["dataMin - 100", "dataMax + 100"]}
-    />
+            {/* Step 3: Select Crop */}
+            <div className="flex flex-col gap-1">
+              <span className="text-xs text-muted-foreground">Step 3: Crop</span>
+              <Select value={selectedCrop} onValueChange={setSelectedCrop} disabled={!selectedMandi || mandiCrops.length === 0}>
+                <SelectTrigger className="w-[200px]">
+                  <SelectValue placeholder={
+                    !selectedMandi ? "Select mandi first" :
+                    mandiCrops.length === 0 ? "No crops available" :
+                    `${mandiCrops.length} crops available`
+                  } />
+                </SelectTrigger>
+                <SelectContent>
+                  {mandiCrops.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {selectedMandi && mandiCrops.length === 0 && (
+                <p className="text-xs text-amber-600">No price data for this mandi</p>
+              )}
+            </div>
 
-    <ReferenceLine
-  y={mspValue}
-  stroke="#f59e0b"
-  strokeWidth={3}
-  strokeDasharray="6 6"
-  label={{
-    value: `MSP ₹${mspValue}`,
-    position: "right",
-    fill: "#f59e0b",
-    fontSize: 12,
-  }}
-/>
-
-    <ChartTooltip content={<ChartTooltipContent />} />
-
-    {/* Price band */}
-    <Area
-      type="monotone"
-      dataKey="maxPrice"
-      fill="hsl(var(--destructive) / 0.1)"
-      stroke="hsl(var(--destructive) / 0.3)"
-    />
-
-    <Area
-      type="monotone"
-      dataKey="minPrice"
-      fill="hsl(var(--muted) / 0.3)"
-      stroke="hsl(var(--muted-foreground) / 0.4)"
-    />
-
-    {/* Modal price line */}
-    <Line
-      type="monotone"
-      dataKey="price"
-      stroke="hsl(var(--primary))"
-      strokeWidth={3}
-      dot={{ r: 3 }}
-    />
-
-    {/* MSP line — render LAST so it appears on top */}
-    <Line
-      type="monotone"
-      dataKey="msp"
-      stroke="hsl(var(--warning))"
-      strokeWidth={3}
-      strokeDasharray="6 6"
-      dot={false}
-      isAnimationActive={false}
-    />
-  </ComposedChart>
-</ChartContainer>
-          )}
+            {hasSelection && (
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="mt-5"
+              >
+                {isRefreshing ? (
+                  <Loader2 className="h-4 w-4 animate-spin mr-1" />
+                ) : (
+                  <RefreshCw className="h-4 w-4 mr-1" />
+                )}
+                Refresh Prediction
+              </Button>
+            )}
+          </div>
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {canViewVolatility && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-display text-lg">Volatility Index</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="mb-4">
-                <span className="text-sm text-muted-foreground">{selectedCrop} volatility:</span>
-                <span className="ml-2 text-xl font-bold font-display">{volatility}%</span>
+      {/* Mandi Info & Available Crops */}
+      {selectedMandi && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-display text-lg">
+              {selectedMandiName} - Available Crops
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {mandiCrops.length === 0 ? (
+              <div className="text-center py-6">
+                <p className="text-muted-foreground">No price data available for this mandi.</p>
+                <p className="text-sm text-muted-foreground mt-1">Try selecting a different mandi.</p>
               </div>
-              <ChartContainer config={{ volatility: { label: "Volatility %", color: "hsl(var(--accent))" } }} className="h-[180px] w-full">
-                <BarChart data={volatileCrops}>
-                  <XAxis dataKey="name" fontSize={11} />
-                  <YAxis fontSize={11} />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Bar dataKey="volatility" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ChartContainer>
-            </CardContent>
-          </Card>
-        )}
-        {canViewPrediction && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-display text-lg">Real-Time Price Prediction</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <p className="text-sm text-muted-foreground">Predicted Next Price</p>
-                <p className="text-2xl font-bold font-display">{`\u20b9${predictedPrice.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`}</p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {mandiCrops.map((crop) => (
+                  <Badge
+                    key={crop.id}
+                    variant={selectedCrop === crop.id ? "default" : "outline"}
+                    className="cursor-pointer"
+                    onClick={() => setSelectedCrop(crop.id)}
+                  >
+                    {crop.name}
+                    <span className="ml-1 text-xs opacity-70">({crop.priceCount} records)</span>
+                  </Badge>
+                ))}
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Trend</p>
-                <p
-                  className={
-                    trend === "Bullish"
-                      ? "font-semibold text-emerald-600"
-                      : trend === "Bearish"
-                        ? "font-semibold text-destructive"
-                        : "font-semibold text-muted-foreground"
-                  }
-                >
-                  {trend}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Confidence</p>
-                <p className="font-semibold">{confidence}%</p>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-      </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
-      {(canViewAnomalies || canViewDataQuality || canViewPrediction) && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {canViewAnomalies && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="font-display text-lg">Anomaly Signals</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                <p>Spike detection threshold crossed in 3 markets this week.</p>
-                <p className="text-muted-foreground">Suggested action: inspect supply-chain disruption in high-volatility zones.</p>
-              </CardContent>
-            </Card>
-          )}
-          {canViewPrediction && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="font-display text-lg">Predictive Snapshot</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                <p>30-day forward band indicates moderate upside for {selectedCrop}.</p>
-                <p className="text-muted-foreground">Use forecast with policy simulation before intervention rollout.</p>
-              </CardContent>
-            </Card>
-          )}
-          {canViewDataQuality && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="font-display text-lg">Data Quality Indicators</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                <p>Source confidence: 0.92 | Missing points: 4.1%</p>
-                <p className="text-muted-foreground">Recommended: prefer eNAM-tagged records for embedded analytics outputs.</p>
-              </CardContent>
-            </Card>
-          )}
-        </div>
+      {/* Recent Prices Table */}
+      {selectedMandi && mandiPrices.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-display text-lg">
+              Recent Prices at {selectedMandiName}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Crop</TableHead>
+                  <TableHead className="text-right">Min ₹</TableHead>
+                  <TableHead className="text-right">Max ₹</TableHead>
+                  <TableHead className="text-right">Modal ₹</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {mandiPrices.slice(0, 10).map((p) => (
+                  <TableRow key={`${p.cropId}-${p.date}`} className={selectedCrop === p.cropId ? "bg-primary/5" : ""}>
+                    <TableCell className="text-xs">{p.date?.split('T')[0]}</TableCell>
+                    <TableCell className="font-medium">{p.cropName}</TableCell>
+                    <TableCell className="text-right font-mono">₹{p.minPrice?.toLocaleString()}</TableCell>
+                    <TableCell className="text-right font-mono">₹{p.maxPrice?.toLocaleString()}</TableCell>
+                    <TableCell className="text-right font-mono font-semibold">₹{p.modalPrice?.toLocaleString()}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            {mandiPrices.length > 10 && (
+              <p className="text-center text-sm text-muted-foreground mt-4">
+                Showing 10 of {mandiPrices.length} records
+              </p>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Price Prediction */}
+      {selectedCrop && selectedMandi && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-display text-lg">
+              {selectedCropName} at {selectedMandiName} - Price Prediction
+              {predictionStatus?.hasValidPrediction && (
+                <Badge variant="outline" className="ml-2">
+                  {predictionStatus.trend}
+                </Badge>
+              )}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {predictionLoading ? (
+              <div className="p-6 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Loading prediction...
+              </div>
+            ) : predictionError || !prediction ? (
+              <div className="p-6 text-center text-sm text-destructive">
+                <p>No prediction available for this crop/mandi combination.</p>
+                <p className="text-xs mt-2">Insufficient historical data or prediction service unavailable.</p>
+              </div>
+            ) : chartData.length === 0 ? (
+              <div className="p-6 text-center text-sm text-muted-foreground">
+                No prediction data available.
+              </div>
+            ) : (
+              <>
+                <ChartContainer config={chartConfig} className="h-[320px] w-full">
+                  <ComposedChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="date"
+                      tickFormatter={(d) => new Date(d).toLocaleDateString("en-IN", { month: "short", day: "numeric" })}
+                      fontSize={11}
+                    />
+                    <YAxis fontSize={11} tickFormatter={(v) => `₹${v}`} />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Area
+                      type="monotone"
+                      dataKey="confidence"
+                      fill="hsl(var(--secondary) / 0.2)"
+                      stroke="hsl(var(--secondary) / 0.5)"
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="price"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth={3}
+                      dot={{ r: 3 }}
+                    />
+                  </ComposedChart>
+                </ChartContainer>
+
+                {/* Prediction Summary */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                  <Card>
+                    <CardContent className="pt-4">
+                      <p className="text-sm text-muted-foreground">Trend</p>
+                      <div className="flex items-center gap-2">
+                        {prediction.trend === "Bullish" ? (
+                          <TrendingUp className="h-5 w-5 text-emerald-600" />
+                        ) : prediction.trend === "Bearish" ? (
+                          <TrendingDown className="h-5 w-5 text-destructive" />
+                        ) : (
+                          <Minus className="h-5 w-5 text-muted-foreground" />
+                        )}
+                        <span className={`text-lg font-bold ${
+                          prediction.trend === "Bullish" ? "text-emerald-600" :
+                          prediction.trend === "Bearish" ? "text-destructive" :
+                          "text-muted-foreground"
+                        }`}>
+                          {prediction.trend}
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardContent className="pt-4">
+                      <p className="text-sm text-muted-foreground">Next Day Prediction</p>
+                      <p className="text-2xl font-bold font-display">
+                        ₹{prediction.predictions[0]?.predictedPrice?.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
+                      </p>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardContent className="pt-4">
+                      <p className="text-sm text-muted-foreground">Confidence</p>
+                      <p className="text-2xl font-bold font-display">
+                        {prediction.predictions[0]?.confidence?.toFixed(1)}%
+                      </p>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardContent className="pt-4">
+                      <p className="text-sm text-muted-foreground">Forecast Days</p>
+                      <p className="text-2xl font-bold font-display">{prediction.predictions.length}</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Empty State */}
+      {!selectedState && (
+        <Card className="bg-muted/20">
+          <CardContent className="p-12 text-center">
+            <p className="text-lg font-medium text-muted-foreground">Select a state to get started</p>
+            <p className="text-sm text-muted-foreground mt-2">Choose a state to view available mandis and their price predictions</p>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

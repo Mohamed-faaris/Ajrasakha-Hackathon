@@ -17,6 +17,8 @@ import {
   PriceAlertSchema,
   NotificationSettingsSchema,
   LanguageSchema,
+  PredictionResultSchema,
+  PredictionStatusSchema,
 } from "@shared/schemas";
 import type {
   CropPrice,
@@ -31,6 +33,8 @@ import type {
   AlertDirection,
   NotificationSettings,
   Language,
+  PredictionResult,
+  PredictionStatus,
 } from "@shared/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
@@ -274,9 +278,8 @@ export const apiClient = {
 
   getMandis: (stateCode?: string): Promise<Mandi[]> =>
     request(
-      "/mandis",
-      z.array(MandiSchema),
-      stateCode ? { stateCode } : undefined
+      stateCode ? `/mandis/state/${stateCode}` : "/mandis",
+      z.array(MandiSchema)
     ),
 
   getTopMovers: (): Promise<TopMover[]> =>
@@ -354,6 +357,17 @@ export const apiClient = {
     request("/profile/security", z.object({ phone: z.string().optional() }), undefined, {
       method: "PATCH",
       body: payload,
+    }),
+
+  getPrediction: (cropId: string, mandiId: string): Promise<PredictionResult> =>
+    request(`/predictions/${cropId}/${mandiId}`, PredictionResultSchema),
+
+  getPredictionStatus: (cropId: string, mandiId: string): Promise<PredictionStatus> =>
+    request(`/predictions/${cropId}/${mandiId}/status`, PredictionStatusSchema),
+
+  refreshPrediction: (cropId: string, mandiId: string): Promise<PredictionResult> =>
+    request(`/predictions/${cropId}/${mandiId}/refresh`, PredictionResultSchema, undefined, {
+      method: "POST",
     }),
 
   request,

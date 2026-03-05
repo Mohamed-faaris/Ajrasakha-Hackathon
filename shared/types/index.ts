@@ -397,3 +397,27 @@ export interface StateCoverage {
   uncovered: number;
   avgPrice?: number;
 }
+
+export interface PredictionDay {
+  date: string;
+  predictedPrice: number;
+  confidence: number;
+}
+
+export type PredictionTrend = 'Bullish' | 'Bearish' | 'Neutral';
+
+export interface PredictionResult {
+  cropId: string;
+  mandiId: string;
+  predictions: PredictionDay[];
+  trend: PredictionTrend;
+  generatedAt: Date;
+  expiresAt: Date;
+}
+
+export interface PredictionStatus {
+  hasValidPrediction: boolean;
+  expiresAt: Date | null;
+  generatedAt: Date | null;
+  trend: PredictionTrend | null;
+}

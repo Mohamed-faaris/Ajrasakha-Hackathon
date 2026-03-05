@@ -17,6 +17,8 @@ export const queryKeys = {
   notificationSettings: () => ["notificationSettings"] as const,
   profilePreferences: () => ["profilePreferences"] as const,
   profileSecurity: () => ["profileSecurity"] as const,
+  prediction: (cropId?: string, mandiId?: string) => ["prediction", cropId, mandiId] as const,
+  predictionStatus: (cropId?: string, mandiId?: string) => ["predictionStatus", cropId, mandiId] as const,
 };
 
 export function useTypedQuery<TData, TError = Error>(

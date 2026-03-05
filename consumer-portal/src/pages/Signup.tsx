@@ -12,6 +12,7 @@ import { signUp } from "@/lib/auth";
 import { api } from "@/lib/api";
 import type { UserRole, State } from "@/lib/types";
 import { CAPABILITY_LABELS, ROLE_ACCESS } from "@/lib/role-access";
+import { z } from "zod";
 
 const ROLE_LABELS: Record<UserRole, string> = {
   farmer: "Farmer",
@@ -26,6 +27,66 @@ const parseCsv = (value: string) =>
     .split(",")
     .map((v) => v.trim())
     .filter(Boolean);
+
+const SignupRequiredFieldsSchema = z
+  .object({
+    role: z.enum(["farmer", "trader", "developer", "admin", "apmc"]),
+    farmSize: z.string().optional(),
+    primaryCrops: z.string().optional(),
+    companyName: z.string().optional(),
+    tradingStates: z.string().optional(),
+    hasGst: z.enum(["yes", "no"]),
+    gstNumber: z.string().optional(),
+    developerCompanyName: z.string().optional(),
+    developerApiKey: z.string().optional(),
+    adminEmployeeId: z.string().optional(),
+    apmcMandiName: z.string().optional(),
+    apmcLicenseNumber: z.string().optional(),
+  })
+  .superRefine((value, ctx) => {
+    if (value.role === "farmer") {
+      if (!value.farmSize?.trim()) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Farm Size is mandatory for Farmer." });
+      }
+      if (!value.primaryCrops?.trim()) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Primary Crops is mandatory for Farmer." });
+      }
+    }
+
+    if (value.role === "trader") {
+      if (!value.companyName?.trim()) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Company Name is mandatory for Trader." });
+      }
+      if (!value.tradingStates?.trim()) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Trading States is mandatory for Trader." });
+      }
+      if (value.hasGst === "yes" && !value.gstNumber?.trim()) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "GST Number is mandatory when GST is available." });
+      }
+    }
+
+    if (value.role === "developer") {
+      if (!value.developerCompanyName?.trim()) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Company Name is mandatory for Developer." });
+      }
+      if (!value.developerApiKey?.trim()) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Intended API Use is mandatory for Developer." });
+      }
+    }
+
+    if (value.role === "admin" && !value.adminEmployeeId?.trim()) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Employee ID is mandatory for Admin." });
+    }
+
+    if (value.role === "apmc") {
+      if (!value.apmcMandiName?.trim()) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Mandi Name is mandatory for APMC." });
+      }
+      if (!value.apmcLicenseNumber?.trim()) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "License Number is mandatory for APMC." });
+      }
+    }
+  });
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -91,28 +152,6 @@ export default function Signup() {
     setDistrict("");
   };
 
-  const validateRoleFields = () => {
-    if (role === "farmer" && (!farmSize || !primaryCrops.trim())) {
-      return "Farm size and primary crops are required for farmers.";
-    }
-    if (role === "trader" && (!companyName.trim() || !tradingStates.trim())) {
-      return "Company name and trading states are required for traders.";
-    }
-    if (role === "trader" && hasGst === "yes" && !gstNumber.trim()) {
-      return "GST number is required when GST is marked as available.";
-    }
-    if (role === "developer" && (!developerCompanyName.trim() || !developerApiKey.trim())) {
-      return "Company name and intended API use are required for developers.";
-    }
-    if (role === "admin" && (!adminEmployeeId.trim())) {
-      return "Employee ID is required for admin accounts.";
-    }
-    if (role === "apmc" && (!apmcMandiName.trim() || !apmcLicenseNumber.trim())) {
-      return "Mandi name and license number are required for APMC.";
-    }
-    return null;
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -121,9 +160,23 @@ export default function Signup() {
       return;
     }
 
-    const validationMessage = validateRoleFields();
-    if (validationMessage) {
-      toast({ title: "Error", description: validationMessage, variant: "destructive" });
+    const validationResult = SignupRequiredFieldsSchema.safeParse({
+      role,
+      farmSize,
+      primaryCrops,
+      companyName,
+      tradingStates,
+      hasGst,
+      gstNumber,
+      developerCompanyName,
+      developerApiKey,
+      adminEmployeeId,
+      apmcMandiName,
+      apmcLicenseNumber,
+    });
+    if (!validationResult.success) {
+      const firstError = validationResult.error.issues[0]?.message ?? "Please fill all mandatory fields.";
+      toast({ title: "Error", description: firstError, variant: "destructive" });
       return;
     }
 
@@ -191,12 +244,15 @@ export default function Signup() {
           <CardHeader className="text-center">
             <CardTitle className="text-xl">Sign Up</CardTitle>
             <CardDescription>Choose your role and complete role-specific details</CardDescription>
+            <p className="text-xs text-muted-foreground mt-1">
+              <span className="text-destructive">*</span> indicates mandatory fields
+            </p>
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
+                  <Label htmlFor="name">Full Name <span className="text-destructive">*</span></Label>
                   <Input
                     id="name"
                     type="text"
@@ -207,7 +263,7 @@ export default function Signup() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">Email <span className="text-destructive">*</span></Label>
                   <Input
                     id="email"
                     type="email"
@@ -218,14 +274,13 @@ export default function Signup() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>User Role</Label>
+                  <Label>User Role <span className="text-destructive">*</span></Label>
                   <Select value={role} onValueChange={(v) => setRole(v as UserRole)}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="farmer">Farmer</SelectItem>
                       <SelectItem value="trader">Trader</SelectItem>
                       <SelectItem value="developer">Developer</SelectItem>
-                      <SelectItem value="apmc">APMC</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -297,7 +352,7 @@ export default function Signup() {
                   <p className="text-sm font-semibold">Farmer Details</p>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="farmSize">Farm Size (acres)</Label>
+                      <Label htmlFor="farmSize">Farm Size (acres) <span className="text-destructive">*</span></Label>
                       <Input
                         id="farmSize"
                         type="number"
@@ -309,7 +364,7 @@ export default function Signup() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="primaryCrops">Primary Crops (comma separated)</Label>
+                      <Label htmlFor="primaryCrops">Primary Crops (comma separated) <span className="text-destructive">*</span></Label>
                       <Input
                         id="primaryCrops"
                         type="text"
@@ -328,7 +383,7 @@ export default function Signup() {
                   <p className="text-sm font-semibold">Trader Details</p>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="companyName">Company Name</Label>
+                      <Label htmlFor="companyName">Company Name <span className="text-destructive">*</span></Label>
                       <Input
                         id="companyName"
                         type="text"
@@ -350,7 +405,7 @@ export default function Signup() {
                     </div>
                     {hasGst === "yes" && (
                       <div className="space-y-2 md:col-span-2">
-                        <Label htmlFor="gstNumber">GST Number</Label>
+                        <Label htmlFor="gstNumber">GST Number <span className="text-destructive">*</span></Label>
                         <Input
                           id="gstNumber"
                           type="text"
@@ -362,7 +417,7 @@ export default function Signup() {
                       </div>
                     )}
                     <div className="space-y-2 md:col-span-2">
-                      <Label htmlFor="tradingStates">Trading States (comma separated)</Label>
+                      <Label htmlFor="tradingStates">Trading States (comma separated) <span className="text-destructive">*</span></Label>
                       <Input
                         id="tradingStates"
                         type="text"
@@ -381,7 +436,7 @@ export default function Signup() {
                   <p className="text-sm font-semibold">Developer Details</p>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="developerCompanyName">Company / Organization Name</Label>
+                      <Label htmlFor="developerCompanyName">Company / Organization Name <span className="text-destructive">*</span></Label>
                       <Input
                         id="developerCompanyName"
                         type="text"
@@ -392,7 +447,7 @@ export default function Signup() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="developerUseCase">Intended API Use</Label>
+                      <Label htmlFor="developerUseCase">Intended API Use <span className="text-destructive">*</span></Label>
                       <Input
                         id="developerUseCase"
                         type="text"
@@ -490,7 +545,7 @@ export default function Signup() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Password <span className="text-destructive">*</span></Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -510,7 +565,7 @@ export default function Signup() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword">Confirm Password <span className="text-destructive">*</span></Label>
                 <Input
                   id="confirmPassword"
                   type="password"

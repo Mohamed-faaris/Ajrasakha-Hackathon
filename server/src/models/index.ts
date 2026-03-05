@@ -258,7 +258,7 @@ const userProfileSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['farmer', 'trader', 'policy_maker', 'agri_startup'],
+    enum: ['farmer', 'trader', 'developer', 'admin', 'apmc', 'policy_maker', 'agri_startup'],
     default: 'farmer',
     required: true,
     index: true,
@@ -348,6 +348,20 @@ const userProfileSchema = new mongoose.Schema({
     tradingStates: [{
       type: String,
     }],
+  },
+  developerDetails: {
+    companyName: { type: String, trim: true },
+    intendedApiKey: { type: String, trim: true },
+    useCase: { type: String, trim: true },
+  },
+  adminDetails: {
+    employeeId: { type: String, trim: true },
+    department: { type: String, trim: true },
+  },
+  apmcDetails: {
+    mandiName: { type: String, trim: true },
+    licenseNumber: { type: String, trim: true },
+    state: { type: String, trim: true, uppercase: true },
   },
   policyMakerDetails: {
     organization: { type: String, trim: true },

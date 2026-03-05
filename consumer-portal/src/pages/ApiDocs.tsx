@@ -53,7 +53,7 @@ const API_DOCS = {
     },
     {
       method: "GET",
-      path: "/consumer-portal/state-coverage",
+      path: "/consumer-portal/coverage",
       description: "Get state-wise APMC coverage data",
       params: [],
     },
@@ -65,12 +65,6 @@ const API_DOCS = {
     },
     {
       method: "GET",
-      path: "/consumer-portal/arbitrage-opportunities",
-      description: "Find price differences between markets",
-      params: [],
-    },
-    {
-      method: "GET",
       path: "/consumer-portal/mandi-prices",
       description: "Get latest prices by mandi location",
       params: [
@@ -78,11 +72,20 @@ const API_DOCS = {
         { name: "cropId", type: "string", required: false, description: "Filter by crop" },
       ],
     },
+    {
+      method: "GET",
+      path: "/consumer-portal/predictions/:cropId/:mandiId",
+      description: "Get 30-day price prediction for a crop in a mandi",
+      params: [
+        { name: "cropId", type: "string", required: true, description: "Crop ID path parameter" },
+        { name: "mandiId", type: "string", required: true, description: "Mandi ID path parameter" },
+      ],
+    },
   ],
   devEndpoints: [
     {
       method: "GET",
-      path: "/dev/prices",
+      path: "/dev/prices/prices",
       description: "Raw price data (dev only)",
       params: [],
       requiresAuth: true,
@@ -111,7 +114,14 @@ const ApiDocs = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
-  const AUTH_BASE_URL = import.meta.env.VITE_AUTH_BASE_URL || 'http://localhost:5000/api/auth';
+  const authBaseUrlEnv = import.meta.env.VITE_AUTH_BASE_URL;
+  if (!authBaseUrlEnv) {
+    throw new Error("VITE_AUTH_BASE_URL environment variable is required");
+  }
+
+  const AUTH_BASE_URL = authBaseUrlEnv.endsWith("/auth")
+    ? authBaseUrlEnv
+    : `${authBaseUrlEnv.replace(/\/$/, "")}/auth`;
 
   useEffect(() => {
     fetchApiKeys();
@@ -253,7 +263,8 @@ const ApiDocs = () => {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => copyToClipboard(key.key, key.id)}
+                          onClick={() => key.key && copyToClipboard(key.key, key.id)}
+                          disabled={!key.key}
                         >
                           {copiedKey === key.id ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                         </Button>

@@ -9,7 +9,15 @@ export const AlertTypeSchema = z.enum(['price', 'trend', 'both']);
 export const TrendDirectionSchema = z.enum(['increase', 'decrease']);
 export const TopMoverDirectionSchema = z.enum(['up', 'down']);
 export const LanguageSchema = z.enum(['en', 'hi', 'mr', 'te', 'ta', 'kn', 'gu', 'pa']);
-export const UserRoleSchema = z.enum(['farmer', 'trader', 'policy_maker', 'agri_startup']);
+export const UserRoleSchema = z.enum([
+  'farmer',
+  'trader',
+  'developer',
+  'admin',
+  'apmc',
+  'policy_maker',
+  'agri_startup',
+]);
 
 export const FiltersSchema = z.object({
   cropId: z.string().optional(),
@@ -173,6 +181,23 @@ export const AgriStartupDetailsSchema = z.object({
   focusAreas: z.array(z.string()).optional(),
 });
 
+export const DeveloperDetailsSchema = z.object({
+  companyName: z.string().optional(),
+  intendedApiKey: z.string().optional(),
+  useCase: z.string().optional(),
+});
+
+export const AdminDetailsSchema = z.object({
+  employeeId: z.string().optional(),
+  department: z.string().optional(),
+});
+
+export const APMCDetailsSchema = z.object({
+  mandiName: z.string().optional(),
+  licenseNumber: z.string().optional(),
+  state: z.string().optional(),
+});
+
 export const UserProfileSchema = z.object({
   userId: z.string(),
   role: UserRoleSchema.optional(),
@@ -186,6 +211,9 @@ export const UserProfileSchema = z.object({
   avatar: z.string().optional(),
   farmerDetails: FarmerDetailsSchema.optional(),
   traderDetails: TraderDetailsSchema.optional(),
+  developerDetails: DeveloperDetailsSchema.optional(),
+  adminDetails: AdminDetailsSchema.optional(),
+  apmcDetails: APMCDetailsSchema.optional(),
   policyMakerDetails: PolicyMakerDetailsSchema.optional(),
   agriStartupDetails: AgriStartupDetailsSchema.optional(),
 });
@@ -375,6 +403,9 @@ export const UpdateUserProfileBodySchema = z.object({
   avatar: z.string().optional(),
   farmerDetails: FarmerDetailsSchema.partial().optional(),
   traderDetails: TraderDetailsSchema.partial().optional(),
+  developerDetails: DeveloperDetailsSchema.partial().optional(),
+  adminDetails: AdminDetailsSchema.partial().optional(),
+  apmcDetails: APMCDetailsSchema.partial().optional(),
   policyMakerDetails: PolicyMakerDetailsSchema.partial().optional(),
   agriStartupDetails: AgriStartupDetailsSchema.partial().optional(),
 });

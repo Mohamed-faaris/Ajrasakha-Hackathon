@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "@/lib/api";
 import type {
@@ -27,6 +27,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { AlertTriangle } from "lucide-react";
+import { z } from "zod";
 
 const ROLE_LABELS: Record<UserRole, string> = {
   farmer: "Farmer",
@@ -49,6 +50,97 @@ const parseCsv = (value: string) =>
     .split(",")
     .map((v) => v.trim())
     .filter(Boolean);
+
+const ProfileRequiredFieldsSchema = z
+  .object({
+    role: z.enum(["farmer", "trader", "developer", "admin", "apmc"]),
+    farmSize: z.string().optional(),
+    primaryCrops: z.string().optional(),
+    companyName: z.string().optional(),
+    tradingStates: z.string().optional(),
+    developerCompanyName: z.string().optional(),
+    developerApiKey: z.string().optional(),
+    adminEmployeeId: z.string().optional(),
+    apmcMandiName: z.string().optional(),
+    apmcLicenseNumber: z.string().optional(),
+  })
+  .superRefine((value, ctx) => {
+    if (value.role === "farmer") {
+      if (!value.farmSize?.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Farm Size is mandatory for Farmer.",
+          path: ["farmSize"],
+        });
+      }
+      if (!value.primaryCrops?.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Primary Crops is mandatory for Farmer.",
+          path: ["primaryCrops"],
+        });
+      }
+    }
+
+    if (value.role === "trader") {
+      if (!value.companyName?.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Company Name is mandatory for Trader.",
+          path: ["companyName"],
+        });
+      }
+      if (!value.tradingStates?.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Trading States is mandatory for Trader.",
+          path: ["tradingStates"],
+        });
+      }
+    }
+
+    if (value.role === "developer") {
+      if (!value.developerCompanyName?.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Company Name is mandatory for Developer.",
+          path: ["developerCompanyName"],
+        });
+      }
+      if (!value.developerApiKey?.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Intended API Access is mandatory for Developer.",
+          path: ["developerApiKey"],
+        });
+      }
+    }
+
+    if (value.role === "admin" && !value.adminEmployeeId?.trim()) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Employee ID is mandatory for Admin.",
+        path: ["adminEmployeeId"],
+      });
+    }
+
+    if (value.role === "apmc") {
+      if (!value.apmcMandiName?.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Mandi Name is mandatory for APMC.",
+          path: ["apmcMandiName"],
+        });
+      }
+      if (!value.apmcLicenseNumber?.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "License Number is mandatory for APMC.",
+          path: ["apmcLicenseNumber"],
+        });
+      }
+    }
+  });
 
 export default function Profile() {
   const { role: roleParam } = useParams();
@@ -86,53 +178,58 @@ export default function Profile() {
   const [apmcLicenseNumber, setApmcLicenseNumber] = useState("");
   const [apmcState, setApmcState] = useState("");
 
-  useEffect(() => {
-    api
-      .getMyProfile()
-      .then((data) => {
-        if (!data) return;
-        setProfile(data);
-        setRole(data.role || "farmer");
-        setPhone(data.phone || "");
-        setStateName(data.state || "");
-        setDistrict(data.district || "");
-        setPreferredCrops((data.preferredCrops || []).join(", "));
-        setPreferredMandis((data.preferredMandis || []).join(", "));
+  const hydrateFormFromProfile = useCallback((data: UserProfile) => {
+    setProfile(data);
+    setRole(requestedRole ?? data.role ?? "farmer");
+    setPhone(data.phone || "");
+    setStateName(data.state || "");
+    setDistrict(data.district || "");
+    setPreferredCrops((data.preferredCrops || []).join(", "));
+    setPreferredMandis((data.preferredMandis || []).join(", "));
 
-        const farmerDetails = data.farmerDetails as FarmerDetails | null;
-        setFarmSize(farmerDetails?.farmSize ? String(farmerDetails.farmSize) : "");
-        setPrimaryCrops((farmerDetails?.primaryCrops || []).join(", "));
+    const farmerDetails = data.farmerDetails as FarmerDetails | null;
+    setFarmSize(farmerDetails?.farmSize ? String(farmerDetails.farmSize) : "");
+    setPrimaryCrops((farmerDetails?.primaryCrops || []).join(", "));
 
-        const traderDetails = data.traderDetails as TraderDetails | null;
-        setCompanyName(traderDetails?.companyName || "");
-        setGstNumber(traderDetails?.gstNumber || "");
-        setTradingStates((traderDetails?.tradingStates || []).join(", "));
+    const traderDetails = data.traderDetails as TraderDetails | null;
+    setCompanyName(traderDetails?.companyName || "");
+    setGstNumber(traderDetails?.gstNumber || "");
+    setTradingStates((traderDetails?.tradingStates || []).join(", "));
 
-        const developerDetails = data.developerDetails as DeveloperDetails | null;
-        setDeveloperCompanyName(developerDetails?.companyName || "");
-        setDeveloperApiKey(developerDetails?.intendedApiKey || "");
-        setDeveloperUseCase(developerDetails?.useCase || "");
+    const developerDetails = data.developerDetails as DeveloperDetails | null;
+    setDeveloperCompanyName(developerDetails?.companyName || "");
+    setDeveloperApiKey(developerDetails?.intendedApiKey || "");
+    setDeveloperUseCase(developerDetails?.useCase || "");
 
-        const adminDetails = data.adminDetails as AdminDetails | null;
-        setAdminEmployeeId(adminDetails?.employeeId || "");
-        setAdminDepartment(adminDetails?.department || "");
+    const adminDetails = data.adminDetails as AdminDetails | null;
+    setAdminEmployeeId(adminDetails?.employeeId || "");
+    setAdminDepartment(adminDetails?.department || "");
 
-        const apmcDetails = data.apmcDetails as APMCDetails | null;
-        setApmcMandiName(apmcDetails?.mandiName || "");
-        setApmcLicenseNumber(apmcDetails?.licenseNumber || "");
-        setApmcState(apmcDetails?.state || "");
-      })
-      .catch(() => {
-        setProfile(null);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  useEffect(() => {
-    if (requestedRole) {
-      setRole(requestedRole);
-    }
+    const apmcDetails = data.apmcDetails as APMCDetails | null;
+    setApmcMandiName(apmcDetails?.mandiName || "");
+    setApmcLicenseNumber(apmcDetails?.licenseNumber || "");
+    setApmcState(apmcDetails?.state || "");
   }, [requestedRole]);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      setLoading(true);
+      try {
+        const data = await api.getMyProfile();
+        if (data) {
+          hydrateFormFromProfile(data);
+        } else {
+          setProfile(null);
+        }
+      } catch {
+        setProfile(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void fetchProfile();
+  }, [requestedRole, hydrateFormFromProfile]);
 
   const handleRoleChange = (newRole: UserRole) => {
     if (newRole !== role && profile?.role) {
@@ -165,6 +262,29 @@ export default function Profile() {
   const handleSave = async () => {
     setSaving(true);
     try {
+      const validationResult = ProfileRequiredFieldsSchema.safeParse({
+        role,
+        farmSize,
+        primaryCrops,
+        companyName,
+        tradingStates,
+        developerCompanyName,
+        developerApiKey,
+        adminEmployeeId,
+        apmcMandiName,
+        apmcLicenseNumber,
+      });
+
+      if (!validationResult.success) {
+        const firstError = validationResult.error.issues[0]?.message ?? "Please fill all mandatory fields.";
+        toast({
+          title: "Validation Error",
+          description: firstError,
+          variant: "destructive",
+        });
+        return;
+      }
+
       const payload = {
         role,
         phone: phone || undefined,
@@ -215,7 +335,7 @@ export default function Profile() {
       };
 
       const updated = await api.updateMyProfile(payload);
-      setProfile(updated);
+      hydrateFormFromProfile(updated);
       updateStoredUser({ role });
       toast({ title: "Profile updated", description: "Your profile was saved successfully." });
     } catch (error) {
@@ -240,6 +360,9 @@ export default function Profile() {
         <div>
           <h1 className="font-display text-2xl font-bold">Profile</h1>
           <p className="text-sm text-muted-foreground">Set role-specific details for personalized insights.</p>
+          <p className="text-xs text-muted-foreground mt-1">
+            <span className="text-destructive">*</span> indicates mandatory fields
+          </p>
         </div>
         {classificationBadge && <Badge variant="secondary">{classificationBadge}</Badge>}
       </div>
@@ -251,15 +374,13 @@ export default function Profile() {
         <CardContent className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>User Role</Label>
+              <Label>User Role <span className="text-destructive">*</span></Label>
               <Select value={role} onValueChange={(v) => handleRoleChange(v as UserRole)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="farmer">Farmer</SelectItem>
                   <SelectItem value="trader">Trader</SelectItem>
                   <SelectItem value="developer">Developer</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
-                  <SelectItem value="apmc">APMC</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -292,12 +413,12 @@ export default function Profile() {
           <CardHeader><CardTitle className="font-display text-lg">Farmer Profile</CardTitle></CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Farm Size (acres)</Label>
-              <Input type="number" value={farmSize} onChange={(e) => setFarmSize(e.target.value)} placeholder="4.5" />
+              <Label>Farm Size (acres) <span className="text-destructive">*</span></Label>
+              <Input required type="number" value={farmSize} onChange={(e) => setFarmSize(e.target.value)} placeholder="4.5" />
             </div>
             <div className="space-y-2">
-              <Label>Primary Crops</Label>
-              <Input value={primaryCrops} onChange={(e) => setPrimaryCrops(e.target.value)} placeholder="Soybean, Cotton" />
+              <Label>Primary Crops <span className="text-destructive">*</span></Label>
+              <Input required value={primaryCrops} onChange={(e) => setPrimaryCrops(e.target.value)} placeholder="Soybean, Cotton" />
             </div>
           </CardContent>
         </Card>
@@ -308,16 +429,16 @@ export default function Profile() {
           <CardHeader><CardTitle className="font-display text-lg">Trader Profile</CardTitle></CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Company Name</Label>
-              <Input value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="AgriTrade Pvt Ltd" />
+              <Label>Company Name <span className="text-destructive">*</span></Label>
+              <Input required value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="AgriTrade Pvt Ltd" />
             </div>
             <div className="space-y-2">
               <Label>GST Number</Label>
               <Input value={gstNumber} onChange={(e) => setGstNumber(e.target.value)} placeholder="27ABCDE1234F1Z5" />
             </div>
             <div className="space-y-2 md:col-span-2">
-              <Label>Trading States</Label>
-              <Input value={tradingStates} onChange={(e) => setTradingStates(e.target.value)} placeholder="MH, MP, GJ" />
+              <Label>Trading States <span className="text-destructive">*</span></Label>
+              <Input required value={tradingStates} onChange={(e) => setTradingStates(e.target.value)} placeholder="MH, MP, GJ" />
             </div>
           </CardContent>
         </Card>
@@ -328,12 +449,12 @@ export default function Profile() {
           <CardHeader><CardTitle className="font-display text-lg">Developer Profile</CardTitle></CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Company Name</Label>
-              <Input value={developerCompanyName} onChange={(e) => setDeveloperCompanyName(e.target.value)} placeholder="AgriTech Labs" />
+              <Label>Company Name <span className="text-destructive">*</span></Label>
+              <Input required value={developerCompanyName} onChange={(e) => setDeveloperCompanyName(e.target.value)} placeholder="AgriTech Labs" />
             </div>
             <div className="space-y-2">
-              <Label>Intended API Access</Label>
-              <Input value={developerApiKey} onChange={(e) => setDeveloperApiKey(e.target.value)} placeholder="Market Prices, Alerts" />
+              <Label>Intended API Access <span className="text-destructive">*</span></Label>
+              <Input required value={developerApiKey} onChange={(e) => setDeveloperApiKey(e.target.value)} placeholder="Market Prices, Alerts" />
             </div>
             <div className="space-y-2 md:col-span-2">
               <Label>Use Case</Label>
@@ -348,8 +469,8 @@ export default function Profile() {
           <CardHeader><CardTitle className="font-display text-lg">Admin Profile</CardTitle></CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Employee ID</Label>
-              <Input value={adminEmployeeId} onChange={(e) => setAdminEmployeeId(e.target.value)} placeholder="ADM-1024" />
+              <Label>Employee ID <span className="text-destructive">*</span></Label>
+              <Input required value={adminEmployeeId} onChange={(e) => setAdminEmployeeId(e.target.value)} placeholder="ADM-1024" />
             </div>
             <div className="space-y-2">
               <Label>Department</Label>
@@ -364,12 +485,12 @@ export default function Profile() {
           <CardHeader><CardTitle className="font-display text-lg">APMC Profile</CardTitle></CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Mandi Name</Label>
-              <Input value={apmcMandiName} onChange={(e) => setApmcMandiName(e.target.value)} placeholder="Lasalgaon APMC" />
+              <Label>Mandi Name <span className="text-destructive">*</span></Label>
+              <Input required value={apmcMandiName} onChange={(e) => setApmcMandiName(e.target.value)} placeholder="Lasalgaon APMC" />
             </div>
             <div className="space-y-2">
-              <Label>License Number</Label>
-              <Input value={apmcLicenseNumber} onChange={(e) => setApmcLicenseNumber(e.target.value)} placeholder="APMC-7781" />
+              <Label>License Number <span className="text-destructive">*</span></Label>
+              <Input required value={apmcLicenseNumber} onChange={(e) => setApmcLicenseNumber(e.target.value)} placeholder="APMC-7781" />
             </div>
             <div className="space-y-2 md:col-span-2">
               <Label>APMC State</Label>

@@ -136,3 +136,28 @@ export const getCachedPrediction = async (
     expiresAt: cached.expiresAt
   };
 };
+
+interface PredictionDataCheck {
+  hasEnoughData: boolean;
+  priceCount: number;
+  minRequired: number;
+  hasPrediction: boolean;
+}
+
+/**
+ * Check if there's enough historical data to generate a prediction
+ */
+export const checkPredictionData = async (
+  cropId: string,
+  mandiId: string
+): Promise<PredictionDataCheck> => {
+  const priceCount = await Price.countDocuments({ cropId, mandiId });
+  const hasPrediction = await hasValidPrediction(cropId, mandiId);
+
+  return {
+    hasEnoughData: priceCount >= 3,
+    priceCount,
+    minRequired: 3,
+    hasPrediction
+  };
+};

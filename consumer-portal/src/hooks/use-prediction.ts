@@ -1,6 +1,6 @@
 import { useTypedQuery, queryKeys } from "./use-api";
 import { apiClient } from "@/lib/api-client";
-import type { PredictionResult, PredictionStatus } from "@shared/types";
+import type { PredictionResult, PredictionStatus, PredictionDataCheck } from "@shared/types";
 
 export function usePrediction(cropId?: string, mandiId?: string) {
   return useTypedQuery(
@@ -24,4 +24,15 @@ export function usePredictionStatus(cropId?: string, mandiId?: string) {
   );
 }
 
-export type { PredictionResult, PredictionStatus };
+export function usePredictionDataCheck(cropId?: string, mandiId?: string) {
+  return useTypedQuery(
+    queryKeys.predictionDataCheck(cropId, mandiId),
+    () => apiClient.checkPredictionData(cropId!, mandiId!),
+    {
+      enabled: !!cropId && !!mandiId,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
+}
+
+export type { PredictionResult, PredictionStatus, PredictionDataCheck };

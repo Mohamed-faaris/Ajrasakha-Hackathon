@@ -19,6 +19,7 @@ import {
   LanguageSchema,
   PredictionResultSchema,
   PredictionStatusSchema,
+  PredictionDataCheckSchema,
 } from "@shared/schemas";
 import type {
   CropPrice,
@@ -35,6 +36,7 @@ import type {
   Language,
   PredictionResult,
   PredictionStatus,
+  PredictionDataCheck,
 } from "@shared/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
@@ -369,6 +371,9 @@ export const apiClient = {
     request(`/predictions/${cropId}/${mandiId}/refresh`, PredictionResultSchema, undefined, {
       method: "POST",
     }),
+
+  checkPredictionData: (cropId: string, mandiId: string): Promise<PredictionDataCheck> =>
+    request(`/predictions/${cropId}/${mandiId}/check`, PredictionDataCheckSchema),
 
   request,
 };

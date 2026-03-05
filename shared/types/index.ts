@@ -421,3 +421,10 @@ export interface PredictionStatus {
   generatedAt: Date | null;
   trend: PredictionTrend | null;
 }
+
+export interface PredictionDataCheck {
+  hasEnoughData: boolean;
+  priceCount: number;
+  minRequired: number;
+  hasPrediction: boolean;
+}

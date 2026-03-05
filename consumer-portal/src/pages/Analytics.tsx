@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid } from "recharts";
-import { usePrediction, usePredictionStatus } from "@/hooks/use-prediction";
+import { usePrediction, usePredictionDataCheck } from "@/hooks/use-prediction";
 import { useCrops, useStates } from "@/hooks/use-crops";
 import { useMandis } from "@/hooks/use-crops";
 import { Button } from "@/components/ui/button";
@@ -58,7 +58,7 @@ const Analytics = () => {
     selectedCrop || undefined,
     selectedMandi || undefined
   );
-  const { data: predictionStatus } = usePredictionStatus(
+  const { data: predictionDataCheck, isLoading: dataCheckLoading } = usePredictionDataCheck(
     selectedCrop || undefined,
     selectedMandi || undefined
   );
@@ -303,23 +303,26 @@ const Analytics = () => {
           <CardHeader>
             <CardTitle className="font-display text-lg">
               {selectedCropName} at {selectedMandiName} - Price Prediction
-              {predictionStatus?.hasValidPrediction && (
-                <Badge variant="outline" className="ml-2">
-                  {predictionStatus.trend}
-                </Badge>
-              )}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {predictionLoading ? (
+            {dataCheckLoading || predictionLoading ? (
               <div className="p-6 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
                 <Loader2 className="h-4 w-4 animate-spin" />
                 Loading prediction...
               </div>
+            ) : predictionDataCheck && !predictionDataCheck.hasEnoughData ? (
+              <div className="p-8 text-center">
+                <p className="text-lg font-medium text-amber-600 mb-2">Insufficient Historical Data</p>
+                <p className="text-muted-foreground max-w-md mx-auto">
+                  We only have {predictionDataCheck.priceCount} price record(s) for this crop/mandi combination.
+                  Please wait a few weeks for more price data to be collected before predictions can be generated.
+                </p>
+              </div>
             ) : predictionError || !prediction ? (
               <div className="p-6 text-center text-sm text-destructive">
-                <p>No prediction available for this crop/mandi combination.</p>
-                <p className="text-xs mt-2">Insufficient historical data or prediction service unavailable.</p>
+                <p>Unable to generate prediction at this time.</p>
+                <p className="text-xs mt-2">Please try again later.</p>
               </div>
             ) : chartData.length === 0 ? (
               <div className="p-6 text-center text-sm text-muted-foreground">

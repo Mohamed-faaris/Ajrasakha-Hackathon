@@ -467,3 +467,10 @@ export const PredictionStatusSchema = z.object({
   generatedAt: z.coerce.date().nullable(),
   trend: z.enum(['Bullish', 'Bearish', 'Neutral']).nullable(),
 });
+
+export const PredictionDataCheckSchema = z.object({
+  hasEnoughData: z.boolean(),
+  priceCount: z.number(),
+  minRequired: z.number(),
+  hasPrediction: z.boolean(),
+});

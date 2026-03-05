@@ -26,8 +26,8 @@ export const getPrices = async (query: GetPricesQuery): Promise<{ items: CropPri
 
   const filter: Record<string, unknown> = {};
 
-  if (cropId) filter.cropId = cropId;
-  if (stateId) filter.stateId = stateId;
+  if (cropId) filter.cropId = { $regex: new RegExp(cropId.replace(/[()]/g, ''), 'i') };
+  if (stateId) filter.stateId = { $regex: new RegExp(`^${stateId}$`, 'i') };
   if (mandiId) filter.mandiId = mandiId;
   if (districtId) filter.districtId = districtId;
   if (source) filter.source = source;
@@ -102,4 +102,36 @@ export const getPricesByMandiAndCrop = async (mandiId: string, cropId: string, l
     .sort({ date: -1 })
     .limit(limit)
     .lean();
+};
+
+export const getUniqueCropsFromPrices = async () => {
+  const crops = await Price.aggregate([
+    {
+      $group: {
+        _id: '$cropId',
+        name: { $first: '$cropName' },
+      },
+    },
+    { $sort: { name: 1 } },
+  ]);
+  return crops.map(c => ({
+    id: c._id,
+    name: c.name,
+  }));
+};
+
+export const getUniqueStatesFromPrices = async () => {
+  const states = await Price.aggregate([
+    {
+      $group: {
+        _id: { $toLower: '$stateId' },
+        name: { $first: '$stateName' },
+      },
+    },
+    { $sort: { name: 1 } },
+  ]);
+  return states.map(s => ({
+    id: s._id,
+    name: s.name,
+  }));
 };

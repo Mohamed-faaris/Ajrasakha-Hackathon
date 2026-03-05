@@ -3,7 +3,7 @@ import * as cropController from '../controllers/crop.controller';
 
 const router = Router();
 
-router.get('/', cropController.getCrops);
+router.get('/', cropController.getAllCrops);
 router.get('/search', cropController.searchCrops);
 router.get('/:id', cropController.getCropById);
 

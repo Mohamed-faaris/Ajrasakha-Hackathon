@@ -225,7 +225,6 @@ export default function Signup() {
                       <SelectItem value="farmer">Farmer</SelectItem>
                       <SelectItem value="trader">Trader</SelectItem>
                       <SelectItem value="developer">Developer</SelectItem>
-                      <SelectItem value="admin">Admin</SelectItem>
                       <SelectItem value="apmc">APMC</SelectItem>
                     </SelectContent>
                   </Select>

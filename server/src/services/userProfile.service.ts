@@ -1,11 +1,10 @@
 import { UserProfile } from '../models';
-import type { Types } from 'mongoose';
 
-export const getProfile = async (userId: Types.ObjectId) => {
+export const getProfile = async (userId: string) => {
   return UserProfile.findOne({ userId }).lean();
 };
 
-export const getOrCreateProfile = async (userId: Types.ObjectId) => {
+export const getOrCreateProfile = async (userId: string) => {
   const existing = await UserProfile.findOne({ userId }).lean();
   if (existing) return existing;
 
@@ -13,12 +12,12 @@ export const getOrCreateProfile = async (userId: Types.ObjectId) => {
   return created.toObject();
 };
 
-export const createProfile = async (userId: Types.ObjectId, data: Record<string, unknown>) => {
+export const createProfile = async (userId: string, data: Record<string, unknown>) => {
   const profile = await UserProfile.create({ userId, ...data });
   return profile.toObject();
 };
 
-export const updateProfile = async (userId: Types.ObjectId, data: Record<string, unknown>) => {
+export const updateProfile = async (userId: string, data: Record<string, unknown>) => {
   return UserProfile.findOneAndUpdate(
     { userId },
     { $set: data },
@@ -26,13 +25,13 @@ export const updateProfile = async (userId: Types.ObjectId, data: Record<string,
   ).lean();
 };
 
-export const getNotificationSettings = async (userId: Types.ObjectId) => {
+export const getNotificationSettings = async (userId: string) => {
   const profile = await getOrCreateProfile(userId);
   return profile.notificationSettings;
 };
 
 export const updateNotificationSettings = async (
-  userId: Types.ObjectId,
+  userId: string,
   notificationSettings: Record<string, unknown>
 ) => {
   const updated = await UserProfile.findOneAndUpdate(
@@ -44,7 +43,7 @@ export const updateNotificationSettings = async (
   return updated?.notificationSettings;
 };
 
-export const getPreferences = async (userId: Types.ObjectId) => {
+export const getPreferences = async (userId: string) => {
   const profile = await getOrCreateProfile(userId);
   return {
     language: profile.language,
@@ -57,7 +56,7 @@ export const getPreferences = async (userId: Types.ObjectId) => {
 };
 
 export const updatePreferences = async (
-  userId: Types.ObjectId,
+  userId: string,
   data: Record<string, unknown>
 ) => {
   const updated = await UserProfile.findOneAndUpdate(
@@ -76,7 +75,7 @@ export const updatePreferences = async (
   };
 };
 
-export const getSecurityInfo = async (userId: Types.ObjectId) => {
+export const getSecurityInfo = async (userId: string) => {
   const profile = await getOrCreateProfile(userId);
   return {
     phone: profile.phone,
@@ -84,7 +83,7 @@ export const getSecurityInfo = async (userId: Types.ObjectId) => {
 };
 
 export const updateSecurityInfo = async (
-  userId: Types.ObjectId,
+  userId: string,
   data: { phone?: string }
 ) => {
   const updated = await UserProfile.findOneAndUpdate(
@@ -98,7 +97,7 @@ export const updateSecurityInfo = async (
   };
 };
 
-export const deleteProfile = async (userId: Types.ObjectId) => {
+export const deleteProfile = async (userId: string) => {
   const result = await UserProfile.findOneAndDelete({ userId });
   return !!result;
 };

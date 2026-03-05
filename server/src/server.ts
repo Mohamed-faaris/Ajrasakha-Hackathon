@@ -14,7 +14,7 @@ const start = async () => {
     throw new Error('Database connection failed');
   }
 
-  const auth = createAuth(db);
+  const auth = createAuth(db, mongoose.connection.getClient());
   const app = createApp(auth);
   
   // startScheduler(); moved to python prediction service

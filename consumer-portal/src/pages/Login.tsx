@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { TrendingUp, Eye, EyeOff, Mail, Phone, Lock, Loader2 } from "lucide-react";
+import { TrendingUp, Eye, EyeOff, Mail, Lock, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { signIn, authClient } from "@/lib/auth";
 
@@ -38,7 +38,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [phone, setPhone] = useState("");
+  const [otpEmail, setOtpEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [otpLoading, setOtpLoading] = useState(false);
@@ -67,16 +67,15 @@ export default function Login() {
 
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone || phone.length < 10) {
-      toast({ title: "Error", description: "Please enter a valid phone number.", variant: "destructive" });
+    if (!otpEmail || !otpEmail.includes("@")) {
+      toast({ title: "Error", description: "Please enter a valid email address.", variant: "destructive" });
       return;
     }
     setOtpLoading(true);
     try {
-      const formattedPhone = phone.startsWith("+") ? phone : `+91${phone}`;
-      await authClient.phoneNumber.sendOtp({ phoneNumber: formattedPhone });
+      await authClient.emailOtp.sendVerificationOtp({ email: otpEmail, type: "sign-in" });
       setOtpSent(true);
-      toast({ title: "OTP Sent", description: "Check your phone for the verification code." });
+      toast({ title: "OTP Sent", description: "Check your email for the verification code." });
     } catch (err: unknown) {
       toast({
         title: "Error",
@@ -96,8 +95,7 @@ export default function Login() {
     }
     setLoading(true);
     try {
-      const formattedPhone = phone.startsWith("+") ? phone : `+91${phone}`;
-      await authClient.phoneNumber.verify({ phoneNumber: formattedPhone, code: otp });
+      await authClient.signIn.emailOtp({ email: otpEmail, otp });
       toast({ title: "Welcome back!", description: "Logged in successfully." });
       navigate("/dashboard");
     } catch (err: unknown) {
@@ -139,9 +137,8 @@ export default function Login() {
   const handleResendOtp = async () => {
     setOtpLoading(true);
     try {
-      const formattedPhone = phone.startsWith("+") ? phone : `+91${phone}`;
-      await authClient.phoneNumber.sendOtp({ phoneNumber: formattedPhone });
-      toast({ title: "OTP Resent", description: "Check your phone for the new verification code." });
+      await authClient.emailOtp.sendVerificationOtp({ email: otpEmail, type: "sign-in" });
+      toast({ title: "OTP Resent", description: "Check your email for the new verification code." });
     } catch (err: unknown) {
       toast({
         title: "Error",
@@ -192,7 +189,7 @@ export default function Login() {
               <Lock className="h-3 w-3" /> Password
             </TabsTrigger>
             <TabsTrigger value="otp" className="flex items-center gap-1">
-              <Phone className="h-3 w-3" /> OTP
+              <Mail className="h-3 w-3" /> Email OTP
             </TabsTrigger>
             <TabsTrigger value="magic" className="flex items-center gap-1">
               <Mail className="h-3 w-3" /> Magic Link
@@ -257,15 +254,6 @@ export default function Login() {
                   <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? "Signing in..." : "Sign In"}
                   </Button>
-                  <p className="text-sm text-muted-foreground text-center">
-                    Don't have an account?{" "}
-                    <Link
-                      to="/signup"
-                      className="text-primary font-medium hover:underline"
-                    >
-                      Sign Up
-                    </Link>
-                  </p>
                 </CardFooter>
               </form>
             </Card>
@@ -274,27 +262,24 @@ export default function Login() {
           <TabsContent value="otp">
             <Card>
               <CardHeader className="text-center">
-                <CardTitle className="text-xl">Sign In with OTP</CardTitle>
+                <CardTitle className="text-xl">Sign In with Email OTP</CardTitle>
                 <CardDescription>
-                  {otpSent ? "Enter the code sent to your phone" : "Enter your phone number to get verification code"}
+                  {otpSent ? "Enter the code sent to your email" : "Enter your email to get verification code"}
                 </CardDescription>
               </CardHeader>
               {!otpSent ? (
                 <form onSubmit={handleSendOtp}>
                   <CardContent className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
+                      <Label htmlFor="otpEmail">Email</Label>
                       <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="9876543210"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                        id="otpEmail"
+                        type="email"
+                        placeholder="farmer@example.com"
+                        value={otpEmail}
+                        onChange={(e) => setOtpEmail(e.target.value)}
                         required
                       />
-                      <p className="text-xs text-muted-foreground">
-                        Enter 10-digit mobile number without +91
-                      </p>
                     </div>
                   </CardContent>
                   <CardFooter className="flex flex-col gap-3">
@@ -325,7 +310,7 @@ export default function Login() {
                         </InputOTP>
                       </div>
                       <p className="text-xs text-muted-foreground text-center">
-                        Enter the 6-digit code sent to {phone}
+                        Enter the 6-digit code sent to {otpEmail}
                       </p>
                     </div>
                   </CardContent>
@@ -340,7 +325,7 @@ export default function Login() {
                         onClick={() => setOtpSent(false)}
                         disabled={otpLoading}
                       >
-                        Change Phone Number
+                        Change Email
                       </Button>
                       <span className="text-muted-foreground">|</span>
                       <Button
@@ -404,15 +389,8 @@ export default function Login() {
           </TabsContent>
         </Tabs>
 
-        <p className="text-sm text-muted-foreground text-center">
-          Don't have an account?{" "}
-          <Link
-            to="/signup"
-            className="text-primary font-medium hover:underline"
-          >
-            Sign Up
-          </Link>
-        </p>
+        <p className="text-sm text-muted-foreground text-center">Don't have an account? <Link to="/signup" className="text-primary font-medium hover:underline">Sign Up</Link></p>
+
       </div>
     </div>
   );

@@ -37,3 +37,13 @@ export const getPricesByMandiAndCrop = [
     res.json(prices);
   },
 ];
+
+export const getUniqueCrops = async (req: Request, res: Response) => {
+  const crops = await priceService.getUniqueCropsFromPrices();
+  res.json(crops);
+};
+
+export const getUniqueStates = async (req: Request, res: Response) => {
+  const states = await priceService.getUniqueStatesFromPrices();
+  res.json(states);
+};

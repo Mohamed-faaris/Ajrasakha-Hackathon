@@ -37,10 +37,6 @@ async function checkPredictionEngine(): Promise<{ status: string; latency?: numb
 const createConsumerPortalRouter = (auth: Auth) => {
   const router = express.Router();
 
-  router.all('/auth/{*any}', (req, res) => {
-    return toNodeHandler(auth)(req, res);
-  });
-
   router.use(express.json());
 
   router.use('/crops', cropRoutes);
@@ -81,6 +77,7 @@ const createApp = (auth: Auth) => {
     });
   });
 
+  app.all('/api/auth/*splat', (req, res) => toNodeHandler(auth)(req, res));
   app.use('/api/consumer-portal', createConsumerPortalRouter(auth));
   app.use('/api/dev/prices', createDevPriceRoutes(auth));
   app.use('/api/dev/crops', devCropRoutes);

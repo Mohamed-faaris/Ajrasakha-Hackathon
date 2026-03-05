@@ -251,7 +251,7 @@ export const Price = mongoose.model("Price", priceSchema);
 // 5. UserProfile Schema
 const userProfileSchema = new mongoose.Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
     unique: true,
     ref: 'user',
@@ -400,7 +400,7 @@ const alertSchema = new mongoose.Schema(
       default: () => new mongoose.Types.ObjectId().toString(),
     },
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
       ref: "user",
     },
@@ -482,7 +482,7 @@ export const Alert = mongoose.model("Alert", alertSchema);
 // Alert Interface for TypeScript
 export interface IAlert {
   id: string;
-  userId: Types.ObjectId;
+  userId: string;
   cropId: string;
   cropName: string;
   mandiId?: string;

@@ -54,9 +54,9 @@ const Dashboard = () => {
   };
 
   const exportCSV = () => {
-    const header = "Date,State,District,Mandi,Crop,Variety,Min Price,Max Price,Modal Price,Unit,Source\n";
+    const header = "Date,Crop,Variety,Mandi,State,District,Min Price,Max Price,Modal Price,Unit,Source\n";
     const rows = filtered.map(p =>
-      `${p.date},${p.state},${p.district},${p.mandi},${p.crop},${p.variety},${p.minPrice},${p.maxPrice},${p.modalPrice},${p.unit},${p.source}`
+      `${p.date},${p.crop},${p.variety},${p.mandi},${p.state},${p.district},${p.minPrice},${p.maxPrice},${p.modalPrice},${p.unit},${p.source}`
     ).join("\n");
     const blob = new Blob([header + rows], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
@@ -140,21 +140,32 @@ const Dashboard = () => {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input placeholder="Search..." className="pl-9 h-9" value={searchQ} onChange={(e) => setSearchQ(e.target.value)} />
               </div>
-                <Select value={filters.state || "all"} onValueChange={(v) => setFilters({ ...filters, state: v === "all" ? undefined : v })}>
+                <Select 
+                  value={filters.state || "all"} 
+                  onValueChange={(v) => setFilters((prev) => ({ ...prev, state: v === "all" ? undefined : v }))}
+                  disabled={!allStates?.length}
+                >
                   <SelectTrigger className="w-[160px] h-9"><SelectValue placeholder="State" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All States</SelectItem>
-                   {allStates?.map((s) => <SelectItem key={s.code} value={s.code}>{s.name}</SelectItem>)}
+                    {allStates?.map((s) => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}
                   </SelectContent>
                 </Select>
-                <Select value={filters.crop || "all"} onValueChange={(v) => setFilters({ ...filters, crop: v === "all" ? undefined : v })}>
+                <Select 
+                  value={filters.crop || "all"} 
+                  onValueChange={(v) => setFilters((prev) => ({ ...prev, crop: v === "all" ? undefined : v }))}
+                  disabled={!allCrops?.length}
+                >
                   <SelectTrigger className="w-[160px] h-9"><SelectValue placeholder="Crop" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Crops</SelectItem>
-                   {allCrops?.map((c) => <SelectItem key={c.name} value={c.name}>{c.name}</SelectItem>)}
+                    {allCrops?.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}
                   </SelectContent>
                 </Select>
-              <Select value={filters.source || "all"} onValueChange={(v) => setFilters({ ...filters, source: v === "all" ? undefined : v })}>
+              <Select 
+                value={filters.source ?? "all"} 
+                onValueChange={(v) => setFilters((prev) => ({ ...prev, source: v === "all" ? undefined : v }))}
+              >
                 <SelectTrigger className="w-[140px] h-9"><SelectValue placeholder="Source" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Sources</SelectItem>
@@ -163,6 +174,16 @@ const Dashboard = () => {
                   <SelectItem value="State Portal">State Portal</SelectItem>
                 </SelectContent>
               </Select>
+              {(filters.state || filters.crop || filters.source) && (
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => setFilters({})}
+                  className="h-9 px-2"
+                >
+                  Clear
+                </Button>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -178,6 +199,7 @@ const Dashboard = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead>Date</TableHead>
                     <TableHead className="cursor-pointer" onClick={() => handleSort("crop")}>
                       <span className="flex items-center gap-1">Crop <ArrowUpDown className="h-3 w-3" /></span>
                     </TableHead>
@@ -198,6 +220,7 @@ const Dashboard = () => {
                 <TableBody>
                   {filtered.slice(0, 50).map((p) => (
                     <TableRow key={p.id}>
+                      <TableCell className="text-xs whitespace-nowrap">{p.date}</TableCell>
                       <TableCell className="font-medium">{p.crop}<span className="text-xs text-muted-foreground ml-1">({p.variety})</span></TableCell>
                       <TableCell>{p.mandi}</TableCell>
                       <TableCell>

@@ -396,8 +396,9 @@ export const CropPriceSchema = z.object({
 });
 
 export const CropInfoSchema = z.object({
+  id: z.string(),
   name: z.string(),
-  category: z.string(),
+  category: z.string().optional(),
   mspPrice: z.number().optional(),
 });
 
@@ -434,7 +435,7 @@ export const StateCoverageSchema = z.object({
 });
 
 export const FrontendStateSchema = z.object({
-  code: z.string(),
+  id: z.string(),
   name: z.string(),
 });
 

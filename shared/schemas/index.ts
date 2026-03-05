@@ -417,10 +417,21 @@ export const ArbitrageOpportunitySchema = z.object({
 
 export const PriceAlertSchema = z.object({
   id: z.string(),
-  crop: z.string(),
-  state: z.string(),
-  thresholdType: AlertDirectionSchema,
-  thresholdPrice: z.number(),
+  crop: z.string().optional(),
+  cropId: z.string().optional(),
+  cropName: z.string().optional(),
+  state: z.string().optional(),
+  mandiId: z.string().optional(),
+  mandiName: z.string().optional(),
+  alertType: AlertTypeSchema.optional(),
+  thresholdType: AlertDirectionSchema.optional(),
+  direction: AlertDirectionSchema.optional(),
+  thresholdPrice: z.number().optional(),
+  percentage: z.number().optional(),
+  days: z.number().int().optional(),
+  trendDirection: TrendDirectionSchema.optional(),
+  cooldownHours: z.number().int().optional(),
+  lastNotifiedAt: z.string().optional(),
   isActive: z.boolean(),
 });
 

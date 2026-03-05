@@ -16,7 +16,10 @@ import type {
   UpdateUserProfileBody,
 } from "./types";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+if (!API_BASE_URL) {
+  throw new Error("VITE_API_BASE_URL environment variable is required");
+}
 
 export interface PriceFilters {
   state?: string;
@@ -114,7 +117,7 @@ export const api = {
 
   getTopMovers: (): Promise<TopMover[]> => request<TopMover[]>("/top-movers"),
 
-  getStateCoverage: (): Promise<StateCoverage[]> => request<StateCoverage[]>("/state-coverage"),
+  getStateCoverage: (): Promise<StateCoverage[]> => request<StateCoverage[]>("/coverage"),
 
   getArbitrageOpportunities: (): Promise<ArbitrageOpportunity[]> =>
     request<ArbitrageOpportunity[]>("/arbitrage-opportunities"),

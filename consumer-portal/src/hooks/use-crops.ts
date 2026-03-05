@@ -28,7 +28,7 @@ export function useMandis(stateCode?: string) {
     () => apiClient.getMandis(stateCode),
     {
       staleTime: 30 * 60 * 1000,
-      enabled: !!stateCode,
+      enabled: stateCode === undefined ? true : !!stateCode,
     }
   );
 }

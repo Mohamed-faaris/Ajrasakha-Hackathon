@@ -1,4 +1,5 @@
 import { type Request, type Response } from 'express';
+import { z } from 'zod';
 import * as alertService from '../services/alert.service';
 import * as firebaseService from '../services/firebase.service';
 import { validateParams, validateBody } from '../middlewares/validate.middleware';
@@ -9,6 +10,7 @@ import {
   ToggleAlertBodySchema,
   RegisterFCMTokenSchema,
 } from '@shared/schemas';
+import { sendPriceAlertEmail, sendTrendAlertEmail } from '../services/mail.service';
 
 export const createAlert = [
   validateBody(CreateAlertBodySchema),
@@ -179,3 +181,55 @@ export const unregisterFCMToken = [
     }
   },
 ];
+
+export const sendSampleAlertEmail = async (req: Request, res: Response) => {
+  const userEmail = req.user?.email;
+
+  if (!userEmail) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  const bodySchema = z.object({
+    alertType: z.enum(['price', 'trend', 'both']).optional(),
+    cropName: z.string().optional(),
+    mandiName: z.string().optional(),
+  });
+
+  try {
+    const body = bodySchema.parse(req.body ?? {});
+    const cropName = body.cropName || 'WHEAT';
+    const mandiName = body.mandiName || 'Sample Mandi';
+    const alertType = body.alertType || 'price';
+
+    const results = [];
+
+    if (alertType === 'price' || alertType === 'both') {
+      results.push(
+        await sendPriceAlertEmail(userEmail, cropName, mandiName, 2750, 2600, 'above')
+      );
+    }
+
+    if (alertType === 'trend' || alertType === 'both') {
+      results.push(
+        await sendTrendAlertEmail(userEmail, cropName, mandiName, 'increase', 8.5, 5)
+      );
+    }
+
+    const failed = results.find((r) => !r.success);
+    if (failed) {
+      return res.status(500).json({
+        success: false,
+        error: failed.error || 'Failed to send sample email',
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: `Sample email sent to ${userEmail}`,
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to send sample email';
+    return res.status(400).json({ success: false, error: message });
+  }
+};

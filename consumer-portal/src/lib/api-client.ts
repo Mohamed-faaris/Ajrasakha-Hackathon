@@ -43,7 +43,10 @@ import type {
   AnalyticsPredictResponse,
 } from "@shared/types";
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+if (!API_BASE_URL) {
+  throw new Error("VITE_API_BASE_URL environment variable is required");
+}
 
 export interface QuickStats {
   totalApmcs: number;
@@ -112,6 +115,12 @@ export interface ProfileSecurity {
     expiresAt: string | Date;
   } | null;
 }
+
+const SampleEmailResponseSchema = z.object({
+  success: z.boolean(),
+  message: z.string().optional(),
+  error: z.string().optional(),
+});
 
 const UserProfileSettingsSchema: z.ZodType<UserProfileSettings> = z.object({
   phone: z.string().optional(),
@@ -292,7 +301,7 @@ export const apiClient = {
     request("/top-movers", z.array(TopMoverSchema)),
 
   getStateCoverage: (): Promise<StateCoverage[]> =>
-    request("/state-coverage", z.array(StateCoverageSchema)),
+    request("/coverage", z.array(StateCoverageSchema)),
 
   getArbitrageOpportunities: (): Promise<ArbitrageOpportunity[]> =>
     request("/arbitrage-opportunities", z.array(ArbitrageOpportunitySchema)),
@@ -312,13 +321,26 @@ export const apiClient = {
 
   createAlert: (payload: {
     crop: string;
-    threshold: number;
-    type: AlertDirection;
+    threshold?: number;
+    type?: AlertDirection;
+    alertType?: "price" | "trend" | "both";
+    mandiId?: string;
+    percentage?: number;
+    days?: number;
+    trendDirection?: "increase" | "decrease";
+    cooldownHours?: number;
   }): Promise<PriceAlert> => {
+    const alertType = payload.alertType ?? "price";
     const body = CreateAlertBodySchema.parse({
       cropId: payload.crop,
+      mandiId: payload.mandiId,
+      alertType,
       thresholdPrice: payload.threshold,
       priceDirection: payload.type,
+      percentage: payload.percentage,
+      days: payload.days,
+      trendDirection: payload.trendDirection,
+      cooldownHours: payload.cooldownHours,
     });
     return request("/alerts", PriceAlertSchema, undefined, {
       method: "POST",
@@ -328,6 +350,16 @@ export const apiClient = {
 
   deleteAlert: (id: string): Promise<void> =>
     request(`/alerts/${id}`, z.void(), undefined, { method: "DELETE" }),
+
+  sendSampleAlertEmail: (payload?: {
+    alertType?: "price" | "trend" | "both";
+    cropName?: string;
+    mandiName?: string;
+  }): Promise<{ success: boolean; message?: string; error?: string }> =>
+    request("/alerts/sample-email", SampleEmailResponseSchema, undefined, {
+      method: "POST",
+      body: payload ?? {},
+    }),
 
   getProfileSettings: (): Promise<UserProfileSettings> =>
     request("/profile/settings", UserProfileSettingsSchema),

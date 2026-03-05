@@ -6,11 +6,10 @@ import type {
   UserRole,
   FarmerDetails,
   TraderDetails,
-  PolicyMakerDetails,
-  AgriStartupDetails,
-  State,
+  DeveloperDetails,
+  AdminDetails,
+  APMCDetails,
 } from "@/lib/types";
-import { useSession } from "@/lib/auth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,7 +18,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Dialog,
   DialogContent,
@@ -46,17 +44,6 @@ const ROUTE_ROLE_TO_VALUE: Record<string, UserRole> = {
   apmc: "apmc",
 };
 
-const getInitials = (name?: string | null) => {
-  if (!name) return "U";
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
-};
-
 const parseCsv = (value: string) =>
   value
     .split(",")
@@ -67,14 +54,10 @@ export default function Profile() {
   const { role: roleParam } = useParams();
   const requestedRole = roleParam ? ROUTE_ROLE_TO_VALUE[roleParam] : undefined;
   const { toast } = useToast();
-  const { data: sessionData } = useSession();
-
-  const user = sessionData?.user;
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [states, setStates] = useState<State[]>([]);
   const [showRoleChangeDialog, setShowRoleChangeDialog] = useState(false);
   const [pendingRole, setPendingRole] = useState<UserRole | null>(null);
 
@@ -92,13 +75,16 @@ export default function Profile() {
   const [gstNumber, setGstNumber] = useState("");
   const [tradingStates, setTradingStates] = useState("");
 
-  const [organization, setOrganization] = useState("");
-  const [designation, setDesignation] = useState("");
-  const [policyFocusAreas, setPolicyFocusAreas] = useState("");
+  const [developerCompanyName, setDeveloperCompanyName] = useState("");
+  const [developerApiKey, setDeveloperApiKey] = useState("");
+  const [developerUseCase, setDeveloperUseCase] = useState("");
 
-  const [startupName, setStartupName] = useState("");
-  const [startupStage, setStartupStage] = useState<"idea" | "mvp" | "early" | "growth" | "scale">("idea");
-  const [startupFocusAreas, setStartupFocusAreas] = useState("");
+  const [adminEmployeeId, setAdminEmployeeId] = useState("");
+  const [adminDepartment, setAdminDepartment] = useState("");
+
+  const [apmcMandiName, setApmcMandiName] = useState("");
+  const [apmcLicenseNumber, setApmcLicenseNumber] = useState("");
+  const [apmcState, setApmcState] = useState("");
 
   useEffect(() => {
     api
@@ -122,15 +108,19 @@ export default function Profile() {
         setGstNumber(traderDetails?.gstNumber || "");
         setTradingStates((traderDetails?.tradingStates || []).join(", "));
 
-        const policyMakerDetails = data.policyMakerDetails as PolicyMakerDetails | null;
-        setOrganization(policyMakerDetails?.organization || "");
-        setDesignation(policyMakerDetails?.designation || "");
-        setPolicyFocusAreas((policyMakerDetails?.policyFocusAreas || []).join(", "));
+        const developerDetails = data.developerDetails as DeveloperDetails | null;
+        setDeveloperCompanyName(developerDetails?.companyName || "");
+        setDeveloperApiKey(developerDetails?.intendedApiKey || "");
+        setDeveloperUseCase(developerDetails?.useCase || "");
 
-        const agriStartupDetails = data.agriStartupDetails as AgriStartupDetails | null;
-        setStartupName(agriStartupDetails?.startupName || "");
-        setStartupStage(agriStartupDetails?.stage || "idea");
-        setStartupFocusAreas((agriStartupDetails?.focusAreas || []).join(", "));
+        const adminDetails = data.adminDetails as AdminDetails | null;
+        setAdminEmployeeId(adminDetails?.employeeId || "");
+        setAdminDepartment(adminDetails?.department || "");
+
+        const apmcDetails = data.apmcDetails as APMCDetails | null;
+        setApmcMandiName(apmcDetails?.mandiName || "");
+        setApmcLicenseNumber(apmcDetails?.licenseNumber || "");
+        setApmcState(apmcDetails?.state || "");
       })
       .catch(() => {
         setProfile(null);
@@ -155,12 +145,13 @@ export default function Profile() {
 
   const confirmRoleChange = () => {
     if (pendingRole) {
-      setRole(pendingRole);
+      const nextRole = pendingRole;
+      setRole(nextRole);
       setShowRoleChangeDialog(false);
       setPendingRole(null);
       toast({
         title: "Role Changed",
-        description: `Your role has been changed to ${ROLE_LABELS[role]}. Please fill in the required details below.`,
+        description: `Your role has been changed to ${ROLE_LABELS[nextRole]}. Please fill in the required details below.`,
       });
     }
   };
@@ -181,27 +172,46 @@ export default function Profile() {
         district: district || undefined,
         preferredCrops: parseCsv(preferredCrops),
         preferredMandis: parseCsv(preferredMandis),
-        farmerDetails: role === "farmer" ? {
-          isFarmer: true,
-          farmSize: farmSize ? Number(farmSize) : undefined,
-          primaryCrops: parseCsv(primaryCrops),
-        } : undefined,
-        traderDetails: role === "trader" ? {
-          isTrader: true,
-          companyName: companyName || undefined,
-          gstNumber: gstNumber || undefined,
-          tradingStates: parseCsv(tradingStates),
-        } : undefined,
-        policyMakerDetails: role === "policy_maker" ? {
-          organization: organization || undefined,
-          designation: designation || undefined,
-          policyFocusAreas: parseCsv(policyFocusAreas),
-        } : undefined,
-        agriStartupDetails: role === "agri_startup" ? {
-          startupName: startupName || undefined,
-          stage: startupStage || undefined,
-          focusAreas: parseCsv(startupFocusAreas),
-        } : undefined,
+        farmerDetails:
+          role === "farmer"
+            ? {
+                isFarmer: true,
+                farmSize: farmSize ? Number(farmSize) : undefined,
+                primaryCrops: parseCsv(primaryCrops),
+              }
+            : undefined,
+        traderDetails:
+          role === "trader"
+            ? {
+                isTrader: true,
+                companyName: companyName || undefined,
+                gstNumber: gstNumber || undefined,
+                tradingStates: parseCsv(tradingStates),
+              }
+            : undefined,
+        developerDetails:
+          role === "developer"
+            ? {
+                companyName: developerCompanyName || undefined,
+                intendedApiKey: developerApiKey || undefined,
+                useCase: developerUseCase || undefined,
+              }
+            : undefined,
+        adminDetails:
+          role === "admin"
+            ? {
+                employeeId: adminEmployeeId || undefined,
+                department: adminDepartment || undefined,
+              }
+            : undefined,
+        apmcDetails:
+          role === "apmc"
+            ? {
+                mandiName: apmcMandiName || undefined,
+                licenseNumber: apmcLicenseNumber || undefined,
+                state: apmcState || undefined,
+              }
+            : undefined,
       };
 
       const updated = await api.updateMyProfile(payload);
@@ -313,50 +323,57 @@ export default function Profile() {
         </Card>
       )}
 
-      {role === "policy_maker" && (
+      {role === "developer" && (
         <Card>
-          <CardHeader><CardTitle className="font-display text-lg">Policy Maker Profile</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="font-display text-lg">Developer Profile</CardTitle></CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Organization</Label>
-              <Input value={organization} onChange={(e) => setOrganization(e.target.value)} placeholder="State Agriculture Dept" />
+              <Label>Company Name</Label>
+              <Input value={developerCompanyName} onChange={(e) => setDeveloperCompanyName(e.target.value)} placeholder="AgriTech Labs" />
             </div>
             <div className="space-y-2">
-              <Label>Designation</Label>
-              <Input value={designation} onChange={(e) => setDesignation(e.target.value)} placeholder="Deputy Director" />
+              <Label>Intended API Access</Label>
+              <Input value={developerApiKey} onChange={(e) => setDeveloperApiKey(e.target.value)} placeholder="Market Prices, Alerts" />
             </div>
             <div className="space-y-2 md:col-span-2">
-              <Label>Policy Focus Areas</Label>
-              <Textarea value={policyFocusAreas} onChange={(e) => setPolicyFocusAreas(e.target.value)} placeholder="Price stabilization, mandi modernization" />
+              <Label>Use Case</Label>
+              <Textarea value={developerUseCase} onChange={(e) => setDeveloperUseCase(e.target.value)} placeholder="Building procurement intelligence dashboards" />
             </div>
           </CardContent>
         </Card>
       )}
 
-      {role === "agri_startup" && (
+      {role === "admin" && (
         <Card>
-          <CardHeader><CardTitle className="font-display text-lg">Agri Startup Profile</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="font-display text-lg">Admin Profile</CardTitle></CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Startup Name</Label>
-              <Input value={startupName} onChange={(e) => setStartupName(e.target.value)} placeholder="FarmPulse" />
+              <Label>Employee ID</Label>
+              <Input value={adminEmployeeId} onChange={(e) => setAdminEmployeeId(e.target.value)} placeholder="ADM-1024" />
             </div>
             <div className="space-y-2">
-              <Label>Stage</Label>
-              <Select value={startupStage || "idea"} onValueChange={(v) => setStartupStage(v as "idea" | "mvp" | "early" | "growth" | "scale")}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="idea">Idea</SelectItem>
-                  <SelectItem value="mvp">MVP</SelectItem>
-                  <SelectItem value="early">Early</SelectItem>
-                  <SelectItem value="growth">Growth</SelectItem>
-                  <SelectItem value="scale">Scale</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label>Department</Label>
+              <Input value={adminDepartment} onChange={(e) => setAdminDepartment(e.target.value)} placeholder="Operations" />
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {role === "apmc" && (
+        <Card>
+          <CardHeader><CardTitle className="font-display text-lg">APMC Profile</CardTitle></CardHeader>
+          <CardContent className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>Mandi Name</Label>
+              <Input value={apmcMandiName} onChange={(e) => setApmcMandiName(e.target.value)} placeholder="Lasalgaon APMC" />
+            </div>
+            <div className="space-y-2">
+              <Label>License Number</Label>
+              <Input value={apmcLicenseNumber} onChange={(e) => setApmcLicenseNumber(e.target.value)} placeholder="APMC-7781" />
             </div>
             <div className="space-y-2 md:col-span-2">
-              <Label>Focus Areas</Label>
-              <Textarea value={startupFocusAreas} onChange={(e) => setStartupFocusAreas(e.target.value)} placeholder="Supply chain, price analytics, traceability" />
+              <Label>APMC State</Label>
+              <Input value={apmcState} onChange={(e) => setApmcState(e.target.value)} placeholder="Maharashtra" />
             </div>
           </CardContent>
         </Card>
@@ -381,7 +398,7 @@ export default function Profile() {
           </DialogHeader>
           <div className="py-4">
             <p className="text-sm text-muted-foreground">
-              This will change your access permissions and the features available to you. 
+              This will change your access permissions and the features available to you.
               You may need to update role-specific details after saving.
             </p>
           </div>
@@ -398,6 +415,7 @@ export default function Profile() {
     </div>
   );
 }
+
 function updateStoredUser(data: { role: UserRole }) {
   try {
     const stored = localStorage.getItem("user");
@@ -406,8 +424,18 @@ function updateStoredUser(data: { role: UserRole }) {
       user.role = data.role;
       localStorage.setItem("user", JSON.stringify(user));
     }
+
+    if (sessionStorage.getItem("session")) {
+      const storedSession = sessionStorage.getItem("session");
+      if (storedSession) {
+        const session = JSON.parse(storedSession);
+        if (session?.user) {
+          session.user.role = data.role;
+          sessionStorage.setItem("session", JSON.stringify(session));
+        }
+      }
+    }
   } catch (error) {
     console.error("Failed to update stored user:", error);
   }
 }
-

@@ -381,10 +381,21 @@ export interface ArbitrageOpportunity {
 
 export interface PriceAlert {
   id: string;
-  crop: string;
-  state: string;
-  thresholdType: AlertDirection;
-  thresholdPrice: number;
+  crop?: string;
+  cropId?: string;
+  cropName?: string;
+  state?: string;
+  mandiId?: string;
+  mandiName?: string;
+  alertType?: AlertType;
+  thresholdType?: AlertDirection;
+  direction?: AlertDirection;
+  thresholdPrice?: number;
+  percentage?: number;
+  days?: number;
+  trendDirection?: TrendDirection;
+  cooldownHours?: number;
+  lastNotifiedAt?: string;
   isActive: boolean;
 }
 

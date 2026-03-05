@@ -18,17 +18,41 @@ const MapInsights = () => {
   const [allCrops, setAllCrops] = useState<CropInfo[]>([]);
   const [selectedCrop, setSelectedCrop] = useState("Wheat");
   const [selectedState, setSelectedState] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
-    api.getStateCoverage().then(setCoverage);
-    api.getCrops().then(setAllCrops);
+    let mounted = true;
+    setIsLoading(true);
+    setLoadError(null);
+
+    Promise.all([api.getStateCoverage(), api.getCrops()])
+      .then(([coverageData, cropData]) => {
+        if (!mounted) return;
+        setCoverage(coverageData);
+        setAllCrops(cropData);
+      })
+      .catch((error: unknown) => {
+        if (!mounted) return;
+        setLoadError(error instanceof Error ? error.message : "Failed to load map insights");
+      })
+      .finally(() => {
+        if (!mounted) return;
+        setIsLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const totalEnam = coverage.reduce((s, c) => s + c.enamIntegrated, 0);
   const totalPortal = coverage.reduce((s, c) => s + c.statePortal, 0);
   const totalApmcs = coverage.reduce((s, c) => s + c.totalApmcs, 0);
+  const enamProgress = totalApmcs ? (totalEnam / totalApmcs) * 100 : 0;
+  const portalProgress = totalApmcs ? (totalPortal / totalApmcs) * 100 : 0;
 
-  const comparisonData = coverage
+  const comparisonData = [...coverage]
     .sort((a, b) => (b.avgPrice || 0) - (a.avgPrice || 0))
     .slice(0, 10)
     .map((c) => ({ state: c.stateCode, avgPrice: c.avgPrice || 0 }));
@@ -55,25 +79,37 @@ const MapInsights = () => {
         </Select>
       </div>
 
+      {loadError && (
+        <Card>
+          <CardContent className="pt-5">
+            <p className="text-sm text-destructive">Unable to load map insights: {loadError}</p>
+          </CardContent>
+        </Card>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardContent className="pt-5">
             <p className="text-sm text-muted-foreground">eNAM Integrated</p>
-            <p className="text-3xl font-bold font-display text-primary">{totalEnam.toLocaleString()}</p>
-            <Progress value={(totalEnam / totalApmcs) * 100} className="mt-2 h-2" />
+            <p className="text-3xl font-bold font-display text-primary">
+              {isLoading ? "..." : totalEnam.toLocaleString()}
+            </p>
+            <Progress value={enamProgress} className="mt-2 h-2" />
           </CardContent>
         </Card>
         <Card>
           <CardContent className="pt-5">
             <p className="text-sm text-muted-foreground">State Portal Coverage</p>
-            <p className="text-3xl font-bold font-display text-secondary">{totalPortal.toLocaleString()}</p>
-            <Progress value={(totalPortal / totalApmcs) * 100} className="mt-2 h-2" />
+            <p className="text-3xl font-bold font-display text-secondary">
+              {isLoading ? "..." : totalPortal.toLocaleString()}
+            </p>
+            <Progress value={portalProgress} className="mt-2 h-2" />
           </CardContent>
         </Card>
         <Card>
           <CardContent className="pt-5">
             <p className="text-sm text-muted-foreground">Total APMCs Tracked</p>
-            <p className="text-3xl font-bold font-display">{totalApmcs.toLocaleString()}</p>
+            <p className="text-3xl font-bold font-display">{isLoading ? "..." : totalApmcs.toLocaleString()}</p>
             <p className="text-xs text-muted-foreground/70 mt-1">Target: 7,021</p>
           </CardContent>
         </Card>

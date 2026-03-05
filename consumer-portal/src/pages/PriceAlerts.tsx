@@ -6,12 +6,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Switch } from "@/components/ui/switch";
 import { Bell, TrendingUp, TrendingDown, BellRing, Clock, Trash2, BellOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAlerts, useCreateAlert, useDeleteAlert } from "@/hooks/use-alerts";
 import { useCrops, useMandis } from "@/hooks/use-crops";
 import type { PriceAlert, AlertDirection } from "@shared/types";
+import { apiClient } from "@/lib/api-client";
 
 // FCM Hook - requests push notification permission
 const useFCM = () => {
@@ -99,6 +99,8 @@ const PriceAlerts = () => {
 
   // Common fields
   const [cooldownHours, setCooldownHours] = useState("24");
+  const [sendingSample, setSendingSample] = useState(false);
+  const [sendingTestPush, setSendingTestPush] = useState(false);
 
   const showPriceSection = alertType === "price" || alertType === "both";
   const showTrendSection = alertType === "trend" || alertType === "both";
@@ -124,14 +126,17 @@ const PriceAlerts = () => {
     }
 
     try {
-      // Create price alert if applicable
-      if (showPriceSection && priceCrop && priceThreshold) {
-        await createAlert.mutateAsync({
-          crop: priceCrop,
-          threshold: Number(priceThreshold),
-          type: priceDirection,
-        });
-      }
+      await createAlert.mutateAsync({
+        crop: priceCrop,
+        mandiId: priceMandi || undefined,
+        alertType,
+        threshold: showPriceSection ? Number(priceThreshold) : undefined,
+        type: showPriceSection ? priceDirection : undefined,
+        percentage: showTrendSection ? Number(trendPercentage) : undefined,
+        days: showTrendSection ? Number(trendDays) : undefined,
+        trendDirection: showTrendSection ? trendDirection : undefined,
+        cooldownHours: Number(cooldownHours),
+      });
 
       // Reset form after successful creation
       setPriceCrop("");
@@ -143,14 +148,90 @@ const PriceAlerts = () => {
 
       toast({
         title: "Success",
-        description: "Alert created successfully.",
+        description: "Alert created successfully. An email will also be sent when triggered.",
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to create alert. Please try again.";
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleSendTestPush = async () => {
+    if (!isSupported) {
+      toast({
+        title: "Push not supported",
+        description: "This browser does not support notifications.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      setSendingTestPush(true);
+      let granted = permission === "granted";
+      if (!granted) {
+        const pushResult = await requestPermission();
+        granted = pushResult.success;
+      }
+
+      if (!granted) {
+        throw new Error("Notification permission not granted.");
+      }
+
+      const selectedCropName = crops.find((crop) => crop.id === priceCrop)?.name || "WHEAT";
+      const selectedMandiName = mandis.find((mandi) => mandi.id === priceMandi)?.name || "Sample Mandi";
+      new Notification("Test Push Notification", {
+        body: `${selectedCropName} at ${selectedMandiName} crossed your watch threshold.`,
+        icon: "/favicon.ico",
+      });
+
+      toast({
+        title: "Test push sent",
+        description: "Browser test push notification sent.",
       });
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to create alert. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to send test push.",
         variant: "destructive",
       });
+    } finally {
+      setSendingTestPush(false);
+    }
+  };
+
+  const handleSendSampleMail = async () => {
+    try {
+      setSendingSample(true);
+      const selectedCropName = crops.find((crop) => crop.id === priceCrop)?.name;
+      const selectedMandiName = mandis.find((mandi) => mandi.id === priceMandi)?.name;
+
+      const response = await apiClient.sendSampleAlertEmail({
+        alertType,
+        cropName: selectedCropName,
+        mandiName: selectedMandiName,
+      });
+
+      if (!response.success) {
+        throw new Error(response.error || "Failed to send sample email");
+      }
+
+      toast({
+        title: "Sample email sent",
+        description: response.message || "Sample alert email sent successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to send sample email.",
+        variant: "destructive",
+      });
+    } finally {
+      setSendingSample(false);
     }
   };
 
@@ -216,7 +297,7 @@ const PriceAlerts = () => {
           <CardHeader>
             <CardTitle className="font-display text-lg flex items-center gap-2">
               <Bell className="h-5 w-5 text-primary" />
-              Push Notifications
+              Alert Channels
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -239,6 +320,36 @@ const PriceAlerts = () => {
                   {fcmLoading ? "Enabling..." : "Enable Notifications"}
                 </Button>
               )}
+            </div>
+            <div className="space-y-3 rounded-md border p-3">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm font-medium">Email</p>
+                  <p className="text-xs text-muted-foreground">Receive alert mails when triggered.</p>
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={handleSendSampleMail}
+                  disabled={sendingSample}
+                  className="w-full md:w-auto"
+                >
+                  {sendingSample ? "Sending..." : "Send Sample"}
+                </Button>
+              </div>
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm font-medium">Push</p>
+                  <p className="text-xs text-muted-foreground">Test a browser push notification.</p>
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={handleSendTestPush}
+                  disabled={sendingTestPush}
+                  className="w-full md:w-auto"
+                >
+                  {sendingTestPush ? "Sending..." : "Send Test Push"}
+                </Button>
+              </div>
             </div>
             {permission === "denied" && (
               <p className="text-xs text-muted-foreground">
@@ -286,7 +397,7 @@ const PriceAlerts = () => {
                     </SelectTrigger>
                     <SelectContent>
                       {crops.map((crop) => (
-                        <SelectItem key={crop.name} value={crop.name}>
+                        <SelectItem key={crop.id} value={crop.id}>
                           {crop.name}
                         </SelectItem>
                       ))}
@@ -300,9 +411,8 @@ const PriceAlerts = () => {
                       <SelectValue placeholder="Any mandi" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Any mandi</SelectItem>
                       {mandis.map((mandi) => (
-                        <SelectItem key={mandi.id} value={mandi.name}>
+                        <SelectItem key={mandi.id} value={mandi.id}>
                           {mandi.name}
                         </SelectItem>
                       ))}
@@ -466,19 +576,19 @@ const PriceAlerts = () => {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       {getAlertTypeBadge(alert)}
-                      <span className="font-medium">{alert.crop}</span>
+                      <span className="font-medium">{alert.cropName || alert.crop || alert.cropId}</span>
                       {alert.state && (
                         <span className="text-xs text-muted-foreground">({alert.state})</span>
                       )}
                     </div>
 
                     {/* Price alert details */}
-                    {(!alert.alertType || alert.alertType === "price" || alert.alertType === "both") && (
+                    {(!alert.alertType || alert.alertType === "price" || alert.alertType === "both") && alert.thresholdPrice !== undefined && (
                       <div className="text-sm text-muted-foreground flex items-center gap-2">
                         <TrendingUp className="h-3 w-3" />
-                        {alert.thresholdType === "above" ? "Above" : "Below"} Rs{" "}
+                        {(alert.direction || alert.thresholdType) === "above" ? "Above" : "Below"} Rs{" "}
                         {alert.thresholdPrice?.toLocaleString()}/qtl
-                        {alert.mandi && <span className="text-xs">at {alert.mandi}</span>}
+                        {(alert.mandiName || alert.mandi) && <span className="text-xs">at {alert.mandiName || alert.mandi}</span>}
                       </div>
                     )}
 
@@ -487,7 +597,7 @@ const PriceAlerts = () => {
                       <div className="text-sm text-muted-foreground flex items-center gap-2">
                         <TrendingUp className="h-3 w-3" />
                         {alert.trendDirection === "increase" ? "Increase" : "Decrease"} of{" "}
-                        {alert.trendPercentage}% over {alert.trendDays} days
+                        {(alert.percentage ?? alert.trendPercentage)}% over {(alert.days ?? alert.trendDays)} days
                       </div>
                     )}
 

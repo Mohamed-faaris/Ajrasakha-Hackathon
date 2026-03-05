@@ -10,6 +10,7 @@ const createAlertRoutes = (auth: Auth) => {
   router.get('/', authMiddleware, alertController.getUserAlerts);
   router.get('/active', authMiddleware, alertController.getActiveAlerts);
   router.post('/', authMiddleware, ...alertController.createAlert);
+  router.post('/sample-email', authMiddleware, alertController.sendSampleAlertEmail);
   router.patch('/:alertId', authMiddleware, ...alertController.updateAlert);
   router.delete('/:alertId', authMiddleware, ...alertController.deleteAlert);
   router.patch('/:alertId/toggle', authMiddleware, ...alertController.toggleAlert);

@@ -15,24 +15,38 @@ export function useAlerts() {
 
 export interface CreateAlertInput {
   crop: string;
-  threshold: number;
-  type: AlertDirection;
+  threshold?: number;
+  type?: AlertDirection;
+  alertType?: "price" | "trend" | "both";
+  mandiId?: string;
+  percentage?: number;
+  days?: number;
+  trendDirection?: "increase" | "decrease";
+  cooldownHours?: number;
 }
 
 export function useCreateAlert() {
   const queryClient = useQueryClient();
 
-  return useTypedMutation<PriceAlert, Error, CreateAlertInput>({
-    mutationFn: (input) => apiClient.createAlert(input),
+  return useTypedMutation<PriceAlert, Error, CreateAlertInput>(
+    (input) => apiClient.createAlert(input),
+    {
     onMutate: async (newAlert) => {
       await queryClient.cancelQueries({ queryKey: queryKeys.alerts() });
       const previousAlerts = queryClient.getQueryData<PriceAlert[]>(queryKeys.alerts());
       const optimisticAlert: PriceAlert = {
         id: `temp-${Date.now()}`,
-        crop: newAlert.crop,
-        state: "",
+        cropId: newAlert.crop,
+        cropName: newAlert.crop,
+        alertType: newAlert.alertType ?? "price",
         thresholdType: newAlert.type,
+        direction: newAlert.type,
         thresholdPrice: newAlert.threshold,
+        percentage: newAlert.percentage,
+        days: newAlert.days,
+        trendDirection: newAlert.trendDirection,
+        cooldownHours: newAlert.cooldownHours,
+        mandiId: newAlert.mandiId,
         isActive: true,
       };
       if (previousAlerts) {
@@ -59,14 +73,16 @@ export function useCreateAlert() {
         description: "Alert created successfully.",
       });
     },
-  });
+    }
+  );
 }
 
 export function useDeleteAlert() {
   const queryClient = useQueryClient();
 
-  return useTypedMutation<void, Error, string>({
-    mutationFn: (id) => apiClient.deleteAlert(id),
+  return useTypedMutation<void, Error, string>(
+    (id) => apiClient.deleteAlert(id),
+    {
     onMutate: async (alertId) => {
       await queryClient.cancelQueries({ queryKey: queryKeys.alerts() });
       const previousAlerts = queryClient.getQueryData<PriceAlert[]>(queryKeys.alerts());
@@ -97,7 +113,8 @@ export function useDeleteAlert() {
         description: "Alert deleted successfully.",
       });
     },
-  });
+    }
+  );
 }
 
 export type { AlertDirection };

@@ -1,4 +1,4 @@
-import { Mandi, Price } from '../models';
+import { Price } from '../models';
 
 export interface StateCoverage {
   stateCode: string;
@@ -11,51 +11,110 @@ export interface StateCoverage {
 }
 
 export const getCoverage = async (): Promise<StateCoverage[]> => {
-  const states = await Mandi.aggregate([
+  // Build coverage from unique APMCs present in price data.
+  // Uniqueness key prefers mandiId, then falls back to mandiName.
+  const states = await Price.aggregate([
+    {
+      $project: {
+        stateCode: { $toUpper: '$stateId' },
+        state: '$stateName',
+        source: '$source',
+        mandiKey: {
+          $toLower: {
+            $trim: {
+              input: {
+                $cond: [
+                  {
+                    $and: [
+                      { $ne: ['$mandiId', null] },
+                      { $ne: ['$mandiId', ''] },
+                    ],
+                  },
+                  '$mandiId',
+                  '$mandiName',
+                ],
+              },
+            },
+          },
+        },
+      },
+    },
     {
       $group: {
-        _id: { stateId: "$stateId", stateName: "$stateName" },
-        totalApmcs: { $sum: 1 },
-        enamIntegrated: {
-          $sum: { $cond: [{ $eq: ["$sourceMandiId", "enam"] }, 1, 0] }
+        _id: {
+          stateCode: '$stateCode',
+          state: '$state',
+          mandiKey: '$mandiKey',
         },
-        statePortal: {
-          $sum: { $cond: [{ $eq: ["$sourceMandiId", "state_portal"] }, 1, 0] }
-        }
-      }
+        hasEnam: {
+          $max: {
+            $cond: [{ $eq: ['$source', 'enam'] }, 1, 0],
+          },
+        },
+        hasStatePortal: {
+          $max: {
+            $cond: [{ $eq: ['$source', 'enam'] }, 0, 1],
+          },
+        },
+      },
     },
     {
       $project: {
-        stateCode: { $toUpper: "$_id.stateId" },
-        state: "$_id.stateName",
+        _id: 0,
+        stateCode: '$_id.stateCode',
+        state: '$_id.state',
+        hasEnam: 1,
+        hasStatePortal: 1,
+      },
+    },
+    {
+      $group: {
+        _id: {
+          stateCode: '$stateCode',
+          state: '$state',
+        },
+        totalApmcs: { $sum: 1 },
+        enamIntegrated: { $sum: '$hasEnam' },
+        statePortal: { $sum: '$hasStatePortal' },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        stateCode: '$_id.stateCode',
+        state: '$_id.state',
         totalApmcs: 1,
         enamIntegrated: 1,
         statePortal: 1,
-        uncovered: { $subtract: [1, 0] }
-      }
-    }
+      },
+    },
   ]);
 
   const prices = await Price.aggregate([
     {
       $group: {
-        _id: "$stateId",
-        avgPrice: { $avg: "$modalPrice" }
-      }
-    }
+        _id: { $toLower: '$stateId' },
+        avgPrice: { $avg: '$modalPrice' },
+      },
+    },
   ]);
 
-  const priceMap = new Map(prices.map(p => [p._id?.toLowerCase(), p.avgPrice]));
+  const priceMap = new Map(prices.map((p) => [p._id, p.avgPrice]));
 
-  const result: StateCoverage[] = states.map(s => ({
-    stateCode: s.stateCode || s._id?.stateId?.toUpperCase() || "",
-    state: s.state || s._id?.stateName || "",
-    totalApmcs: s.totalApmcs || 0,
-    enamIntegrated: s.enamIntegrated || 0,
-    statePortal: s.statePortal || 0,
-    uncovered: Math.max(0, (s.totalApmcs || 0) - (s.enamIntegrated || 0) - (s.statePortal || 0)),
-    avgPrice: priceMap.get(s._id?.stateId?.toLowerCase())
-  }));
+  const result: StateCoverage[] = states
+    .map((s) => ({
+      stateCode: s.stateCode || '',
+      state: s.state || '',
+      totalApmcs: s.totalApmcs || 0,
+      enamIntegrated: s.enamIntegrated || 0,
+      statePortal: s.statePortal || 0,
+      uncovered: Math.max(
+        0,
+        (s.totalApmcs || 0) - (s.enamIntegrated || 0) - (s.statePortal || 0)
+      ),
+      avgPrice: priceMap.get((s.stateCode || '').toLowerCase()),
+    }))
+    .sort((a, b) => b.totalApmcs - a.totalApmcs);
 
   return result.length > 0 ? result : getDefaultCoverage();
 };

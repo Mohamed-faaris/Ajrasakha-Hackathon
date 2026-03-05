@@ -40,9 +40,23 @@ export interface TriggeredAlert {
   triggeredAt: Date;
 }
 
+const resolveCrop = async (cropRef: string) => {
+  const normalized = cropRef.trim();
+  if (!normalized) return null;
+
+  const byId = await Crop.findById(normalized.toLowerCase());
+  if (byId) return byId;
+
+  return Crop.findOne({
+    name: { $regex: new RegExp(`^${normalized}$`, 'i') },
+  });
+};
+
 export const createAlert = async (data: CreateAlertData) => {
-  const crop = await Crop.findById(data.cropId);
-  if (!crop) throw new Error('Crop not found');
+  const crop = await resolveCrop(data.cropId);
+  if (!crop) {
+    throw new Error(`Crop not found for reference: ${data.cropId}`);
+  }
 
   // Validate based on alert type
   if (data.alertType === 'price' || data.alertType === 'both') {
@@ -68,6 +82,7 @@ export const createAlert = async (data: CreateAlertData) => {
 
   const alert = await Alert.create({
     ...data,
+    cropId: crop._id,
     cropName: crop.name,
     isActive: true,
     cooldownHours: data.cooldownHours ?? 24,

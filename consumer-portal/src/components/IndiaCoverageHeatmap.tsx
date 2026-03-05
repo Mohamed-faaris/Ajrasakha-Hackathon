@@ -132,10 +132,19 @@ const buildPathFeatures = (collection: GeoCollection): PathFeature[] => {
   const points = extractAllPoints(collection.features);
   if (points.length === 0) return [];
 
-  const minX = Math.min(...points.map(([x]) => x));
-  const maxX = Math.max(...points.map(([x]) => x));
-  const minY = Math.min(...points.map(([, y]) => y));
-  const maxY = Math.max(...points.map(([, y]) => y));
+  // Avoid spreading large point arrays into Math.min/Math.max, which can throw
+  // "too many function arguments" in some runtimes.
+  let minX = Number.POSITIVE_INFINITY;
+  let maxX = Number.NEGATIVE_INFINITY;
+  let minY = Number.POSITIVE_INFINITY;
+  let maxY = Number.NEGATIVE_INFINITY;
+
+  for (const [x, y] of points) {
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+    if (y < minY) minY = y;
+    if (y > maxY) maxY = y;
+  }
 
   const contentWidth = VIEWBOX_WIDTH - VIEWBOX_PADDING * 2;
   const contentHeight = VIEWBOX_HEIGHT - VIEWBOX_PADDING * 2;

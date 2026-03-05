@@ -1,19 +1,15 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { useQuickStats } from "@/hooks/use-quick-stats";
-import { useTopMovers } from "@/hooks/use-prices";
-import type { TopMover } from "@shared/types";
+import { useStateCoverage } from "@/hooks/use-coverage";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   Search,
-  TrendingUp,
-  TrendingDown,
   BarChart3,
   MapPin,
   Wheat,
+  IndianRupee,
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
@@ -21,11 +17,31 @@ import {
 const Index = () => {
   const [search, setSearch] = useState("");
   const {
-    data: stats,
+    data: coverage = [],
     isLoading: statsLoading,
     isError: statsError,
-  } = useQuickStats();
-  const { data: movers = [], isLoading: moversLoading } = useTopMovers();
+  } = useStateCoverage();
+
+  const stats = useMemo(() => {
+    const totalApmcs = coverage.reduce((sum, item) => sum + item.totalApmcs, 0);
+    const enamIntegrated = coverage.reduce((sum, item) => sum + item.enamIntegrated, 0);
+    const statePortalCovered = coverage.reduce((sum, item) => sum + item.statePortal, 0);
+    const uncovered = coverage.reduce((sum, item) => sum + item.uncovered, 0);
+    const statesCovered = coverage.length;
+    const avgPrice =
+      coverage.length > 0
+        ? coverage.reduce((sum, item) => sum + (item.avgPrice ?? 0), 0) / coverage.length
+        : 0;
+
+    return {
+      totalApmcs,
+      statesCovered,
+      enamIntegrated,
+      statePortalCovered,
+      uncovered,
+      avgPrice,
+    };
+  }, [coverage]);
 
   return (
     <div className="max-w-7xl mx-auto space-y-8">
@@ -71,131 +87,74 @@ const Index = () => {
           Failed to load stats.
         </div>
       ) : (
-        stats && (
-          <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <StatCard
-              icon={MapPin}
-              label="Total APMCs"
-              value={stats.totalApmcs.toLocaleString()}
-            />
-            <StatCard
-              icon={Wheat}
-              label="Crops Tracked"
-              value={stats.cropsTracked}
-            />
-            <StatCard
-              icon={BarChart3}
-              label="Today's Updates"
-              value={stats.todaysUpdates}
-            />
-            <StatCard
-              icon={MapPin}
-              label="States Covered"
-              value={stats.statesCovered}
-            />
-          </section>
-        )
-      )}
-
-      {/* Coverage Breakdown */}
-      {stats && (
-        <section>
-          <h2 className="font-display text-xl font-bold mb-4">APMC Coverage</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="border-l-4 border-l-primary">
-              <CardContent className="pt-6">
-                <p className="text-3xl font-bold font-display text-primary">
-                  {stats.enamIntegrated.toLocaleString()}
-                </p>
-                <p className="text-sm text-muted-foreground">eNAM Integrated</p>
-                <p className="text-xs text-muted-foreground/70 mt-1">
-                  {((stats.enamIntegrated / stats.totalApmcs) * 100).toFixed(1)}
-                  % of total
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-l-4 border-l-secondary">
-              <CardContent className="pt-6">
-                <p className="text-3xl font-bold font-display text-secondary">
-                  {stats.statePortalCovered.toLocaleString()}
-                </p>
-                <p className="text-sm text-muted-foreground">State Portals</p>
-                <p className="text-xs text-muted-foreground/70 mt-1">
-                  {(
-                    (stats.statePortalCovered / stats.totalApmcs) *
-                    100
-                  ).toFixed(1)}
-                  % of total
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-l-4 border-l-destructive">
-              <CardContent className="pt-6">
-                <p className="text-3xl font-bold font-display text-destructive">
-                  {stats.uncovered.toLocaleString()}
-                </p>
-                <p className="text-sm text-muted-foreground">Uncovered</p>
-                <p className="text-xs text-muted-foreground/70 mt-1">
-                  {((stats.uncovered / stats.totalApmcs) * 100).toFixed(1)}% gap
-                  remaining
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <StatCard
+            icon={MapPin}
+            label="Total APMCs"
+            value={stats.totalApmcs.toLocaleString()}
+          />
+          <StatCard
+            icon={Wheat}
+            label="eNAM Integrated"
+            value={stats.enamIntegrated.toLocaleString()}
+          />
+          <StatCard
+            icon={BarChart3}
+            label="State Portals"
+            value={stats.statePortalCovered.toLocaleString()}
+          />
+          <StatCard
+            icon={IndianRupee}
+            label="Avg Price"
+            value={`₹${Math.round(stats.avgPrice).toLocaleString()}`}
+          />
         </section>
       )}
 
-      {/* Top Movers */}
+      {/* Coverage Breakdown */}
       <section>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-display text-xl font-bold">
-            Top Gainers & Losers
-          </h2>
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/dashboard">View All →</Link>
-          </Button>
+        <h2 className="font-display text-xl font-bold mb-4">APMC Coverage</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card className="border-l-4 border-l-primary">
+            <CardContent className="pt-6">
+              <p className="text-3xl font-bold font-display text-primary">
+                {stats.enamIntegrated.toLocaleString()}
+              </p>
+              <p className="text-sm text-muted-foreground">eNAM Integrated</p>
+              <p className="text-xs text-muted-foreground/70 mt-1">
+                {stats.totalApmcs > 0 ? ((stats.enamIntegrated / stats.totalApmcs) * 100).toFixed(1) : "0.0"}
+                % of total
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="border-l-4 border-l-secondary">
+            <CardContent className="pt-6">
+              <p className="text-3xl font-bold font-display text-secondary">
+                {stats.statePortalCovered.toLocaleString()}
+              </p>
+              <p className="text-sm text-muted-foreground">State Portals</p>
+              <p className="text-xs text-muted-foreground/70 mt-1">
+                {stats.totalApmcs > 0 ? ((stats.statePortalCovered / stats.totalApmcs) * 100).toFixed(1) : "0.0"}
+                % of total
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="border-l-4 border-l-destructive">
+            <CardContent className="pt-6">
+              <p className="text-3xl font-bold font-display text-destructive">
+                {stats.uncovered.toLocaleString()}
+              </p>
+              <p className="text-sm text-muted-foreground">Uncovered</p>
+              <p className="text-xs text-muted-foreground/70 mt-1">
+                {stats.totalApmcs > 0 ? ((stats.uncovered / stats.totalApmcs) * 100).toFixed(1) : "0.0"}% gap
+                remaining
+              </p>
+            </CardContent>
+          </Card>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {moversLoading ? (
-            <div className="col-span-4 text-center text-sm text-muted-foreground">
-              Loading movers…
-            </div>
-          ) : (
-            movers.slice(0, 8).map((m) => (
-              <Card
-                key={`${m.cropId}-${m.state}`}
-                className="hover:shadow-md transition-shadow"
-              >
-                <CardContent className="pt-4 pb-4">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="font-semibold text-sm">{m.cropName}</p>
-                      <p className="text-xs text-muted-foreground">{m.state}</p>
-                    </div>
-                    <Badge
-                      variant={m.direction === "up" ? "default" : "destructive"}
-                      className="text-xs"
-                    >
-                      {m.direction === "up" ? (
-                        <TrendingUp className="h-3 w-3 mr-1" />
-                      ) : (
-                        <TrendingDown className="h-3 w-3 mr-1" />
-                      )}
-                      {m.changePct > 0 ? "+" : ""}
-                      {m.changePct}%
-                    </Badge>
-                  </div>
-                  <p className="text-lg font-bold mt-2 font-display">
-                    ₹{m.latestPrice?.toLocaleString()}
-                    <span className="text-xs font-normal text-muted-foreground">
-                      /qtl
-                    </span>
-                  </p>
-                </CardContent>
-              </Card>
-            ))
-          )}
-        </div>
+        <p className="text-sm text-muted-foreground mt-3">
+          Coverage across {stats.statesCovered} states.
+        </p>
       </section>
 
       {/* CTA */}

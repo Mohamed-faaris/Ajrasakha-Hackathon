@@ -62,7 +62,7 @@ function parseArgs(): { date: string; apmc?: string; all: boolean } {
   const args = process.argv.slice(2);
   const params: { date: string; apmc?: string; all: boolean } = { 
     date: getTodayDate(), 
-    all: false 
+    all: true  // Default to all APMCs
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -373,11 +373,8 @@ async function main() {
         console.log(`Saved ${dateRecords.length} records to ${outputPath}`);
       }
     } else {
-      console.log("APMC List (first 10):");
-      console.log(APMC_LIST.slice(0, 10));
-      console.log(`\nTotal APMCs: ${APMC_LIST.length}`);
-      console.log("\nUsage: bun run scripts/msamb/index.ts -a 022 -d 28/02/2026");
-      return;
+      // Default: scrape all APMCs
+      prices = await scrapeAll(inputDate);
     }
   } catch (error) {
     console.error("Error:", error);

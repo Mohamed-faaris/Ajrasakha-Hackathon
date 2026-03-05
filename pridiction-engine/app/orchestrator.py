@@ -9,6 +9,7 @@ from app.models import PricePredictor
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SCRAPER_DIR = os.path.join(PROJECT_ROOT, "scraper-engine", "endpoint-discovery")
 LOADER_DIR = os.path.join(PROJECT_ROOT, "scraper-engine", "loader")
+PARSER_DIR = os.path.join(PROJECT_ROOT, "scraper-engine", "parser")
 
 
 class Orchestrator:
@@ -28,13 +29,10 @@ class Orchestrator:
         self.logs_collection.insert_one(doc)
 
     def trigger_scraper(self, date: str = None) -> Dict[str, Any]:
-        if date is None:
-            date = datetime.now().strftime("%Y-%m-%d")
-
-        self.save_log("INFO", "scraper", f"Starting scraper for date: {date}")
+        self.save_log("INFO", "scraper", f"Starting scraper (mode: scrape)")
 
         try:
-            cmd = [sys.executable, "main.py", "--mode", "scrape", "--date", date]
+            cmd = [sys.executable, "main.py", "--mode", "scrape"]
             result = subprocess.run(
                 cmd,
                 cwd=SCRAPER_DIR,
@@ -61,6 +59,47 @@ class Orchestrator:
         except Exception as e:
             self.save_log("ERROR", "scraper", f"Scraper exception: {str(e)}")
             return {"success": False, "error": str(e)}
+
+    def run_parsers(self, date: str = None) -> Dict[str, Any]:
+        if date is None:
+            date = datetime.now().strftime("%Y-%m-%d")
+
+        sources = ["agmarknet", "msamb", "krishimaratavahini"]
+        results = {}
+
+        for source in sources:
+            self.save_log("INFO", "parser", f"Running parser for {source}")
+            try:
+                cmd = ["bun", "run", f"scripts/{source}/index.ts"]
+                result = subprocess.run(
+                    cmd,
+                    cwd=PARSER_DIR,
+                    capture_output=True,
+                    text=True,
+                    timeout=1800
+                )
+                success = result.returncode == 0
+                results[source] = {
+                    "success": success,
+                    "stdout": result.stdout[-500:] if result.stdout else "",
+                    "stderr": result.stderr[-500:] if result.stderr else ""
+                }
+                if success:
+                    self.save_log("INFO", "parser", f"Parser {source} completed")
+                else:
+                    self.save_log("ERROR", "parser", f"Parser {source} failed", {"error": result.stderr[-300:]})
+            except subprocess.TimeoutExpired:
+                self.save_log("ERROR", "parser", f"Parser {source} timed out")
+                results[source] = {"success": False, "error": "timeout"}
+            except FileNotFoundError:
+                self.save_log("ERROR", "parser", f"Bun not found")
+                results[source] = {"success": False, "error": "bun not found"}
+            except Exception as e:
+                self.save_log("ERROR", "parser", f"Parser {source} exception: {str(e)}")
+                results[source] = {"success": False, "error": str(e)}
+
+        all_success = all(r.get("success", False) for r in results.values())
+        return {"success": all_success, "date": date, "results": results}
 
     def run_loader(self, date: str = None) -> Dict[str, Any]:
         if date is None:
@@ -124,6 +163,27 @@ class Orchestrator:
 
         self.save_log("INFO", "orchestrator", f"Scrape and load pipeline completed for {date}")
         return {"success": True, "date": date}
+
+    def parse_and_load(self, date: str = None) -> Dict[str, Any]:
+        if date is None:
+            date = datetime.now().strftime("%Y-%m-%d")
+
+        self.save_log("INFO", "orchestrator", f"Starting parse and load pipeline for {date}")
+
+        parser_result = self.run_parsers(date)
+        if not parser_result.get("success"):
+            self.save_log("WARNING", "orchestrator", "Some parsers failed, continuing with loader")
+
+        loader_result = self.run_loader(date)
+        if not loader_result.get("success"):
+            return {
+                "success": False,
+                "stage": "loader",
+                "result": loader_result
+            }
+
+        self.save_log("INFO", "orchestrator", f"Parse and load pipeline completed for {date}")
+        return {"success": True, "date": date, "parser_results": parser_result.get("results", {})}
 
     def get_unique_crop_mandi_pairs(self) -> List[tuple]:
         pipeline = [

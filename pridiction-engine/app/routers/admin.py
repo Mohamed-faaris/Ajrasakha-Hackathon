@@ -57,6 +57,20 @@ async def trigger_scrape_load(date: Optional[str] = None):
         return JobTriggerResponse(success=False, message=str(e))
 
 
+@router.post("/jobs/parse-load", response_model=JobTriggerResponse)
+async def trigger_parse_load(date: Optional[str] = None):
+    try:
+        orch = Orchestrator()
+        result = orch.parse_and_load(date)
+        return JobTriggerResponse(
+            success=result.get("success", False),
+            message=f"Parse and load {'completed' if result.get('success') else 'failed'}",
+            result=result
+        )
+    except Exception as e:
+        return JobTriggerResponse(success=False, message=str(e))
+
+
 @router.post("/jobs/predictions", response_model=JobTriggerResponse)
 async def trigger_predictions():
     try:

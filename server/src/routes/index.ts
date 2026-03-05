@@ -9,3 +9,4 @@ export { default as mandiPriceRoutes } from './mandiPrice.routes';
 export { default as createUserProfileRoutes } from './userProfile.routes';
 export { default as adminRoutes } from './admin.routes';
 export { default as predictionRoutes } from './prediction.routes';
+export { default as createMapRoutes } from './map.routes';

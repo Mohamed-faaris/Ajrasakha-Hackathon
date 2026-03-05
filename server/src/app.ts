@@ -13,7 +13,8 @@ import {
   mandiPriceRoutes,
   createUserProfileRoutes,
   adminRoutes,
-  predictionRoutes
+  predictionRoutes,
+  createMapRoutes
 } from './routes';
 import createDevPriceRoutes from './routes/dev.price.routes';
 import devCropRoutes from './routes/dev.crop.routes';
@@ -50,6 +51,7 @@ const createConsumerPortalRouter = (auth: Auth) => {
   router.use('/profile', createUserProfileRoutes(auth));
   router.use('/admin', adminRoutes);
   router.use('/predictions', predictionRoutes);
+  router.use('/map-insights', createMapRoutes(auth));
 
   return router;
 };

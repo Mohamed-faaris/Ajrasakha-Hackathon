@@ -733,3 +733,68 @@ const predictionSchema = new mongoose.Schema(
 predictionSchema.index({ cropId: 1, mandiId: 1, expiresAt: -1 });
 
 export const Prediction = mongoose.model("Prediction", predictionSchema);
+
+// 12. MapInsight Schema (User saved map insights)
+const mapInsightSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+      ref: "user",
+      index: true,
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    cropId: {
+      type: String,
+      ref: "Crop",
+    },
+    cropName: {
+      type: String,
+      uppercase: true,
+    },
+    stateCodes: [{
+      type: String,
+      uppercase: true,
+    }],
+    mandiIds: [{
+      type: String,
+      ref: "Mandi",
+    }],
+    filters: {
+      dateRange: {
+        start: { type: Date },
+        end: { type: Date },
+      },
+      priceRange: {
+        min: { type: Number },
+        max: { type: Number },
+      },
+      sources: [{
+        type: String,
+        enum: ["agmarknet", "enam", "apmc", "other"],
+      }],
+    },
+    viewType: {
+      type: String,
+      enum: ["heatmap", "markers", "choropleth", "cluster"],
+      default: "heatmap",
+    },
+    isPublic: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+    collection: "mapinsights",
+  }
+);
+
+mapInsightSchema.index({ userId: 1, createdAt: -1 });
+mapInsightSchema.index({ isPublic: 1 });
+
+export const MapInsight = mongoose.model("MapInsight", mapInsightSchema);

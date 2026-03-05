@@ -257,15 +257,6 @@ export default function Login() {
                   <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? "Signing in..." : "Sign In"}
                   </Button>
-                  <p className="text-sm text-muted-foreground text-center">
-                    Don't have an account?{" "}
-                    <Link
-                      to="/signup"
-                      className="text-primary font-medium hover:underline"
-                    >
-                      Sign Up
-                    </Link>
-                  </p>
                 </CardFooter>
               </form>
             </Card>
@@ -404,15 +395,7 @@ export default function Login() {
           </TabsContent>
         </Tabs>
 
-        <p className="text-sm text-muted-foreground text-center">
-          Don't have an account?{" "}
-          <Link
-            to="/signup"
-            className="text-primary font-medium hover:underline"
-          >
-            Sign Up
-          </Link>
-        </p>
+
       </div>
     </div>
   );

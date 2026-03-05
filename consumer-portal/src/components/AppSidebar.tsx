@@ -11,7 +11,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { BarChart3, Home, LayoutDashboard, Map, ArrowLeftRight, Bell, FileText, TrendingUp, LogOut, UserRound } from "lucide-react";
+import { BarChart3, Home, LayoutDashboard, Map, ArrowLeftRight, Bell, FileText, TrendingUp, LogOut, UserRound, Key } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOut as logout, useSession } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
@@ -26,6 +26,7 @@ const navItems = [
   { title: "Map Insights", url: "/map", icon: Map },
   { title: "Arbitrage", url: "/arbitrage", icon: ArrowLeftRight },
   { title: "Price Alerts", url: "/price-alerts", icon: Bell },
+  { title: "API Docs", url: "/api-docs", icon: Key },
   { title: "Reports", url: "/reports", icon: FileText },
   { title: "Profile", url: "/profile", icon: UserRound },
 ];

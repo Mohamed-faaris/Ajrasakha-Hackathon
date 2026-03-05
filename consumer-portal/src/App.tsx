@@ -15,6 +15,7 @@ import PriceAlerts from "./pages/PriceAlerts";
 import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import ApiDocs from "./pages/ApiDocs";
 import { ProtectedRoute, PublicOnlyRoute } from "./components/ProtectedRoute";
 import { AppLayout } from "./components/AppLayout";
 import { RoleRoute } from "./components/RoleRoute";
@@ -102,6 +103,10 @@ const App = () => (
             <Route
               path="/profile/:role"
               element={<Profile />}
+            />
+            <Route
+              path="/api-docs"
+              element={<ApiDocs />}
             />
           </Route>
           <Route path="*" element={<NotFound />} />

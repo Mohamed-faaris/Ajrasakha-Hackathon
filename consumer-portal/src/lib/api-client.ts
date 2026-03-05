@@ -312,7 +312,7 @@ export const apiClient = {
     const body = CreateAlertBodySchema.parse({
       cropId: payload.crop,
       thresholdPrice: payload.threshold,
-      direction: payload.type,
+      priceDirection: payload.type,
     });
     return request("/alerts", PriceAlertSchema, undefined, {
       method: "POST",

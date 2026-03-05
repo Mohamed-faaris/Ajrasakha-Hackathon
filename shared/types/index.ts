@@ -428,3 +428,52 @@ export interface PredictionDataCheck {
   minRequired: number;
   hasPrediction: boolean;
 }
+
+export type AnalyticsPredictLevel = 'states' | 'apmcs' | 'crops' | 'prediction';
+
+export interface AnalyticsPredictQuery {
+  stateId?: string;
+  mandiId?: string;
+  cropId?: string;
+}
+
+export interface StateRow {
+  stateId: string;
+  stateName: string;
+  totalApmcs: number;
+  eligiblePairs: number;
+  predictionsAvailable: number;
+}
+
+export interface APMCRow {
+  stateId: string;
+  stateName: string;
+  mandiId: string;
+  mandiName: string;
+  eligibleCrops: number;
+  eligiblePairs: number;
+  predictionsAvailable: number;
+}
+
+export interface CropRow {
+  stateId: string;
+  stateName: string;
+  mandiId: string;
+  mandiName: string;
+  cropId: string;
+  cropName: string;
+  priceCount: number;
+  hasPrediction: boolean;
+  trend: PredictionTrend | null;
+  nextPredictedPrice: number | null;
+  confidence: number | null;
+}
+
+export interface AnalyticsPredictResponse {
+  level: AnalyticsPredictLevel;
+  filters: AnalyticsPredictQuery;
+  generatedOnMiss: number;
+  skippedOnCap: number;
+  cap: number;
+  data: StateRow[] | APMCRow[] | CropRow[] | PredictionResult | null;
+}

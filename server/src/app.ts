@@ -14,7 +14,8 @@ import {
   createUserProfileRoutes,
   adminRoutes,
   predictionRoutes,
-  createMapRoutes
+  createMapRoutes,
+  analyticsPredictionRoutes
 } from './routes';
 import createDevPriceRoutes from './routes/dev.price.routes';
 import devCropRoutes from './routes/dev.crop.routes';
@@ -51,6 +52,7 @@ const createConsumerPortalRouter = (auth: Auth) => {
   router.use('/profile', createUserProfileRoutes(auth));
   router.use('/admin', adminRoutes);
   router.use('/predictions', predictionRoutes);
+  router.use('/analytics', analyticsPredictionRoutes);
   router.use('/map-insights', createMapRoutes(auth));
 
   return router;

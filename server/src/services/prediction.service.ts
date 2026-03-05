@@ -1,7 +1,10 @@
 import { Prediction, Price } from '../models';
 import axios from 'axios';
 
-const PREDICTION_ENGINE_URL = process.env.PREDICTION_ENGINE_URL || 'http://localhost:8000';
+const PREDICTION_ENGINE_URL = process.env.PREDICTION_ENGINE_URL;
+if (!PREDICTION_ENGINE_URL) {
+  throw new Error('PREDICTION_ENGINE_URL environment variable is required');
+}
 
 interface PredictionDay {
   date: string;

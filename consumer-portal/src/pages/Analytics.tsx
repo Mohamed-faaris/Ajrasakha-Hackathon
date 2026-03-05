@@ -1,367 +1,336 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid } from "recharts";
-import { usePrediction, usePredictionDataCheck } from "@/hooks/use-prediction";
-import { useCrops, useStates } from "@/hooks/use-crops";
-import { useMandis } from "@/hooks/use-crops";
-import { Button } from "@/components/ui/button";
-import { Loader2, RefreshCw, TrendingUp, TrendingDown, Minus } from "lucide-react";
-import { apiClient } from "@/lib/api-client";
-import { useQueryClient } from "@tanstack/react-query";
-import { useTypedQuery } from "@/hooks/use-api";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { CartesianGrid, ComposedChart, Line, XAxis, YAxis } from "recharts";
+import { Loader2, RefreshCw, TrendingDown, TrendingUp, Minus } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/lib/api-client";
+import { useAnalyticsPredictions } from "@/hooks/use-analytics-predictions";
+import { useTypedQuery } from "@/hooks/use-api";
+import type { APMCRow, CropRow, PredictionResult, StateRow } from "@shared/types";
 
-// Hook to get crops available for a mandi
-function useMandiCrops(mandiId?: string) {
+interface MandiCropOption {
+  id: string;
+  name: string;
+  priceCount?: number;
+}
+
+interface SelectorStateOption {
+  id: string;
+  name: string;
+}
+
+interface SelectorMandiOption {
+  id: string;
+  name: string;
+}
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+if (!API_BASE_URL) {
+  throw new Error("VITE_API_BASE_URL environment variable is required");
+}
+
+const chartConfig = {
+  price: { label: "Predicted Price", color: "hsl(var(--primary))" },
+};
+
+function useStateMasterOptions() {
   return useTypedQuery(
-    ["mandi-crops", mandiId],
-    async () => {
-      if (!mandiId) return [];
-      const res = await fetch(`/api/consumer-portal/prices/mandi/${mandiId}/crops`);
-      if (!res.ok) throw new Error("Failed to fetch crops");
-      return res.json();
+    ["states-master-options"],
+    async (): Promise<SelectorStateOption[]> => {
+      const response = await fetch(`${API_BASE_URL}/states`, {
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Failed to fetch states");
+      const data = (await response.json()) as Array<{ code: string; name: string }>;
+      return data.map((item) => ({ id: item.code.toLowerCase(), name: item.name }));
     },
-    { enabled: !!mandiId }
+    { staleTime: 30 * 60 * 1000 }
   );
 }
 
-// Hook to get prices for a mandi
-function useMandiPrices(mandiId?: string) {
+function useMandisByStateFallback(stateId?: string) {
   return useTypedQuery(
-    ["mandi-prices", mandiId],
-    async () => {
-      if (!mandiId) return [];
-      const res = await fetch(`/api/consumer-portal/prices/mandi/${mandiId}/prices?limit=50`);
-      if (!res.ok) throw new Error("Failed to fetch prices");
-      return res.json();
+    ["mandis-fallback", stateId],
+    async (): Promise<SelectorMandiOption[]> => {
+      if (!stateId) return [];
+      const response = await fetch(`${API_BASE_URL}/mandis/state/${stateId}`, {
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Failed to fetch mandis");
+      const data = (await response.json()) as Array<{ id: string; name: string }>;
+      return data.map((item) => ({ id: item.id, name: item.name }));
     },
-    { enabled: !!mandiId }
+    { enabled: Boolean(stateId), staleTime: 10 * 60 * 1000 }
+  );
+}
+
+function useMandiCrops(mandiId?: string) {
+  return useTypedQuery(
+    ["mandi-crops-fallback", mandiId],
+    async (): Promise<MandiCropOption[]> => {
+      if (!mandiId) return [];
+      const response = await fetch(`${API_BASE_URL}/prices/mandi/${mandiId}/crops`, {
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Failed to fetch crops for mandi");
+      return response.json();
+    },
+    { enabled: Boolean(mandiId) }
   );
 }
 
 const Analytics = () => {
   const queryClient = useQueryClient();
-  const [selectedState, setSelectedState] = useState<string>("");
-  const [selectedMandi, setSelectedMandi] = useState<string>("");
-  const [selectedCrop, setSelectedCrop] = useState<string>("");
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedMandi, setSelectedMandi] = useState("");
+  const [selectedCrop, setSelectedCrop] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const { data: allStates = [] } = useStates();
-  const { data: mandis = [], isLoading: mandisLoading, error: mandisError } = useMandis(selectedState);
-  const { data: mandiCrops = [] } = useMandiCrops(selectedMandi);
-  const { data: mandiPrices = [] } = useMandiPrices(selectedMandi);
+  const { data: allStates = [] } = useStateMasterOptions();
+  const { data: allMandis = [] } = useMandisByStateFallback(selectedState || undefined);
+  const { data: fallbackMandiCrops = [] } = useMandiCrops(selectedMandi || undefined);
 
-  const { data: prediction, isLoading: predictionLoading, error: predictionError } = usePrediction(
-    selectedCrop || undefined,
-    selectedMandi || undefined
+  const statesQuery = useAnalyticsPredictions({});
+  const apmcsQuery = useAnalyticsPredictions({ stateId: selectedState }, Boolean(selectedState));
+  const cropsQuery = useAnalyticsPredictions(
+    { stateId: selectedState, mandiId: selectedMandi },
+    Boolean(selectedState && selectedMandi)
   );
-  const { data: predictionDataCheck, isLoading: dataCheckLoading } = usePredictionDataCheck(
-    selectedCrop || undefined,
-    selectedMandi || undefined
+  const predictionQuery = useAnalyticsPredictions(
+    { stateId: selectedState, mandiId: selectedMandi, cropId: selectedCrop },
+    Boolean(selectedState && selectedMandi && selectedCrop)
   );
 
-  // Get selected mandi name
-  const selectedMandiName = useMemo(() => {
-    return mandis.find(m => m.id === selectedMandi)?.name || selectedMandi;
-  }, [mandis, selectedMandi]);
+  const stateRows = useMemo<StateRow[]>(
+    () =>
+      statesQuery.data?.level === "states" && Array.isArray(statesQuery.data.data)
+        ? (statesQuery.data.data as StateRow[])
+        : [],
+    [statesQuery.data]
+  );
+  const apmcRows = useMemo<APMCRow[]>(
+    () =>
+      apmcsQuery.data?.level === "apmcs" && Array.isArray(apmcsQuery.data.data)
+        ? (apmcsQuery.data.data as APMCRow[])
+        : [],
+    [apmcsQuery.data]
+  );
+  const cropRows = useMemo<CropRow[]>(
+    () =>
+      cropsQuery.data?.level === "crops" && Array.isArray(cropsQuery.data.data)
+        ? (cropsQuery.data.data as CropRow[])
+        : [],
+    [cropsQuery.data]
+  );
+  const prediction = useMemo<PredictionResult | null>(
+    () =>
+      predictionQuery.data?.level === "prediction" &&
+      predictionQuery.data.data &&
+      !Array.isArray(predictionQuery.data.data)
+        ? (predictionQuery.data.data as PredictionResult)
+        : null,
+    [predictionQuery.data]
+  );
 
-  // Get selected state name
-  const selectedStateName = useMemo(() => {
-    return allStates.find(s => s.id === selectedState)?.name || selectedState;
-  }, [allStates, selectedState]);
+  const selectedStateRow = useMemo(
+    () => stateRows.find((row) => row.stateId === selectedState) ?? null,
+    [selectedState, stateRows]
+  );
+  const selectedApmcRow = useMemo(
+    () => apmcRows.find((row) => row.mandiId === selectedMandi) ?? null,
+    [selectedMandi, apmcRows]
+  );
+  const selectedCropRow = useMemo(
+    () => cropRows.find((row) => row.cropId === selectedCrop) ?? null,
+    [selectedCrop, cropRows]
+  );
 
-  // Get selected crop name
-  const selectedCropName = useMemo(() => {
-    return mandiCrops.find(c => c.id === selectedCrop)?.name || selectedCrop;
-  }, [mandiCrops, selectedCrop]);
+  const chartData = useMemo(
+    () =>
+      prediction?.predictions?.map((point) => ({
+        date: point.date,
+        price: point.predictedPrice,
+      })) ?? [],
+    [prediction]
+  );
 
-  // Build chart data from predictions
-  const chartData = useMemo(() => {
-    if (!prediction?.predictions?.length) return [];
-    return prediction.predictions.map((p) => ({
-      date: p.date,
-      price: p.predictedPrice,
-      confidence: p.confidence,
-    }));
-  }, [prediction]);
+  const activeMeta =
+    predictionQuery.data ??
+    cropsQuery.data ??
+    apmcsQuery.data ??
+    statesQuery.data ?? { generatedOnMiss: 0, skippedOnCap: 0, cap: 25, level: "states" as const };
 
-  // Group prices by crop
-  const pricesByCrop = useMemo(() => {
-    const grouped: Record<string, typeof mandiPrices> = {};
-    mandiPrices.forEach(p => {
-      if (!grouped[p.cropId]) grouped[p.cropId] = [];
-      grouped[p.cropId].push(p);
-    });
-    return grouped;
-  }, [mandiPrices]);
+  const stateOptions = useMemo(() => {
+    if (allStates.length > 0) {
+      return allStates;
+    }
+    return stateRows.map((state) => ({ id: state.stateId, name: state.stateName }));
+  }, [allStates, stateRows]);
+
+  const apmcOptions = useMemo(() => {
+    if (apmcRows.length > 0) {
+      return apmcRows.map((apmc) => ({ id: apmc.mandiId, name: apmc.mandiName }));
+    }
+    return allMandis.map((mandi) => ({ id: mandi.id, name: mandi.name }));
+  }, [allMandis, apmcRows]);
+
+  const cropOptions = useMemo(() => {
+    if (cropRows.length > 0) {
+      return cropRows.map((crop) => ({ id: crop.cropId, name: crop.cropName }));
+    }
+    return fallbackMandiCrops.map((crop) => ({ id: crop.id, name: crop.name }));
+  }, [cropRows, fallbackMandiCrops]);
 
   const handleRefresh = async () => {
-    if (!selectedCrop || !selectedMandi) return;
+    if (!selectedMandi || !selectedCrop) return;
+
     setIsRefreshing(true);
     try {
       await apiClient.refreshPrediction(selectedCrop, selectedMandi);
-      queryClient.invalidateQueries({ queryKey: ["prediction", selectedCrop, selectedMandi] });
-    } catch (error) {
-      console.error("Failed to refresh prediction:", error);
+      await queryClient.invalidateQueries({ queryKey: ["analyticsPredictions"] });
+      await queryClient.invalidateQueries({ queryKey: ["prediction", selectedCrop, selectedMandi] });
     } finally {
       setIsRefreshing(false);
     }
   };
 
-  const chartConfig = {
-    price: { label: "Predicted Price", color: "hsl(var(--primary))" },
-    confidence: { label: "Confidence %", color: "hsl(var(--secondary))" },
-  };
-
-  const hasSelection = selectedCrop && selectedMandi;
-  const showPredictionCard = hasSelection && !predictionLoading && !predictionError && prediction;
-
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-bold">Analytics & Predictions</h1>
-          <p className="text-sm text-muted-foreground">Select state → mandi → crop to view price predictions</p>
-        </div>
+    <div className="mx-auto max-w-7xl space-y-6">
+      <div className="flex flex-col gap-2">
+        <h1 className="font-display text-2xl font-bold">Agri Intelligence Control Board</h1>
+        <p className="text-sm text-muted-foreground">
+          Drill down by state, APMC, and crop. Predictions are served from cache first and generated on demand when missing.
+        </p>
       </div>
 
-      {/* Filters */}
       <Card>
-        <CardContent className="pt-4 pb-4">
-          <div className="flex flex-wrap gap-3 items-center">
-            {/* Step 1: Select State */}
-            <div className="flex flex-col gap-1">
-              <span className="text-xs text-muted-foreground">Step 1: State</span>
-              <Select value={selectedState} onValueChange={(v) => { 
-                setSelectedState(v); 
-                setSelectedMandi(""); 
+        <CardHeader>
+          <CardTitle className="text-base">Filters</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+            <Select
+              value={selectedState}
+              onValueChange={(value) => {
+                setSelectedState(value);
+                setSelectedMandi("");
                 setSelectedCrop("");
-              }}>
-                <SelectTrigger className="w-[200px]">
-                  <SelectValue placeholder="Select State" />
-                </SelectTrigger>
-                <SelectContent>
-                  {allStates.map((s) => (
-                    <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select state" />
+              </SelectTrigger>
+              <SelectContent>
+                {stateOptions.map((row) => (
+                  <SelectItem key={row.id} value={row.id}>
+                    {row.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-            {/* Step 2: Select Mandi */}
-            <div className="flex flex-col gap-1">
-              <span className="text-xs text-muted-foreground">Step 2: Mandi</span>
-              <Select
-                key={`mandi-select-${selectedState}-${mandis.length}`}
-                value={selectedMandi}
-                onValueChange={(v) => {
-                  setSelectedMandi(v);
-                  setSelectedCrop("");
-                }}
-                disabled={!selectedState || mandisLoading}
-              >
-                <SelectTrigger className="w-[220px]">
-                  <SelectValue placeholder={
-                    mandisLoading ? "Loading mandis..." :
-                    mandisError ? "Error loading mandis" :
-                    selectedState ? `${mandis.length} mandis available` :
-                    "Select state first"
-                  } />
-                </SelectTrigger>
-                <SelectContent>
-                  {mandis.map((m) => (
-                    <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {mandisError && (
-                <p className="text-xs text-destructive">{(mandisError as Error).message}</p>
-              )}
-            </div>
+            <Select
+              value={selectedMandi}
+              onValueChange={(value) => {
+                setSelectedMandi(value);
+                setSelectedCrop("");
+              }}
+              disabled={!selectedState}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder={selectedState ? "Select APMC" : "Select state first"} />
+              </SelectTrigger>
+              <SelectContent>
+                {apmcOptions.map((row) => (
+                  <SelectItem key={row.id} value={row.id}>
+                    {row.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-            {/* Step 3: Select Crop */}
-            <div className="flex flex-col gap-1">
-              <span className="text-xs text-muted-foreground">Step 3: Crop</span>
-              <Select value={selectedCrop} onValueChange={setSelectedCrop} disabled={!selectedMandi || mandiCrops.length === 0}>
-                <SelectTrigger className="w-[200px]">
-                  <SelectValue placeholder={
-                    !selectedMandi ? "Select mandi first" :
-                    mandiCrops.length === 0 ? "No crops available" :
-                    `${mandiCrops.length} crops available`
-                  } />
-                </SelectTrigger>
-                <SelectContent>
-                  {mandiCrops.map((c) => (
-                    <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {selectedMandi && mandiCrops.length === 0 && (
-                <p className="text-xs text-amber-600">No price data for this mandi</p>
-              )}
-            </div>
-
-            {hasSelection && (
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                className="mt-5"
-              >
-                {isRefreshing ? (
-                  <Loader2 className="h-4 w-4 animate-spin mr-1" />
-                ) : (
-                  <RefreshCw className="h-4 w-4 mr-1" />
-                )}
-                Refresh Prediction
-              </Button>
-            )}
+            <Select value={selectedCrop} onValueChange={setSelectedCrop} disabled={!selectedMandi}>
+              <SelectTrigger>
+                <SelectValue placeholder={selectedMandi ? "Select crop" : "Select APMC first"} />
+              </SelectTrigger>
+              <SelectContent>
+                {cropOptions.map((row) => (
+                  <SelectItem key={row.id} value={row.id}>
+                    {row.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
+          {(statesQuery.error || apmcsQuery.error || cropsQuery.error || predictionQuery.error) && (
+            <p className="mt-3 text-xs text-destructive">
+              Some analytics data failed to load. Fallback options are shown so you can still continue.
+            </p>
+          )}
         </CardContent>
       </Card>
 
-      {/* Mandi Info & Available Crops */}
-      {selectedMandi && (
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <Card>
-          <CardHeader>
-            <CardTitle className="font-display text-lg">
-              {selectedMandiName} - Available Crops
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {mandiCrops.length === 0 ? (
-              <div className="text-center py-6">
-                <p className="text-muted-foreground">No price data available for this mandi.</p>
-                <p className="text-sm text-muted-foreground mt-1">Try selecting a different mandi.</p>
-              </div>
-            ) : (
-              <div className="flex flex-wrap gap-2">
-                {mandiCrops.map((crop) => (
-                  <Badge
-                    key={crop.id}
-                    variant={selectedCrop === crop.id ? "default" : "outline"}
-                    className="cursor-pointer"
-                    onClick={() => setSelectedCrop(crop.id)}
-                  >
-                    {crop.name}
-                    <span className="ml-1 text-xs opacity-70">({crop.priceCount} records)</span>
-                  </Badge>
-                ))}
-              </div>
-            )}
+          <CardContent className="pt-4">
+            <p className="text-xs text-muted-foreground">Current Level</p>
+            <p className="font-display text-xl font-semibold uppercase">{activeMeta.level}</p>
           </CardContent>
         </Card>
-      )}
-
-      {/* Recent Prices Table */}
-      {selectedMandi && mandiPrices.length > 0 && (
         <Card>
-          <CardHeader>
-            <CardTitle className="font-display text-lg">
-              Recent Prices at {selectedMandiName}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Crop</TableHead>
-                  <TableHead className="text-right">Min ₹</TableHead>
-                  <TableHead className="text-right">Max ₹</TableHead>
-                  <TableHead className="text-right">Modal ₹</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {mandiPrices.slice(0, 10).map((p) => (
-                  <TableRow key={`${p.cropId}-${p.date}`} className={selectedCrop === p.cropId ? "bg-primary/5" : ""}>
-                    <TableCell className="text-xs">{p.date?.split('T')[0]}</TableCell>
-                    <TableCell className="font-medium">{p.cropName}</TableCell>
-                    <TableCell className="text-right font-mono">₹{p.minPrice?.toLocaleString()}</TableCell>
-                    <TableCell className="text-right font-mono">₹{p.maxPrice?.toLocaleString()}</TableCell>
-                    <TableCell className="text-right font-mono font-semibold">₹{p.modalPrice?.toLocaleString()}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            {mandiPrices.length > 10 && (
-              <p className="text-center text-sm text-muted-foreground mt-4">
-                Showing 10 of {mandiPrices.length} records
-              </p>
-            )}
+          <CardContent className="pt-4">
+            <p className="text-xs text-muted-foreground">Generated On Miss</p>
+            <p className="font-display text-xl font-semibold">{activeMeta.generatedOnMiss}</p>
           </CardContent>
         </Card>
-      )}
-
-      {/* Price Prediction */}
-      {selectedCrop && selectedMandi && (
         <Card>
-          <CardHeader>
-            <CardTitle className="font-display text-lg">
-              {selectedCropName} at {selectedMandiName} - Price Prediction
+          <CardContent className="pt-4">
+            <p className="text-xs text-muted-foreground">Skipped On Cap</p>
+            <p className="font-display text-xl font-semibold">{activeMeta.skippedOnCap}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-4">
+            <p className="text-xs text-muted-foreground">Generation Cap</p>
+            <p className="font-display text-xl font-semibold">{activeMeta.cap}</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {selectedCrop && (
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="text-lg">
+              Prediction Detail
+              {selectedCropRow ? ` - ${selectedCropRow.cropName}` : ""}
             </CardTitle>
+            <Button variant="outline" onClick={handleRefresh} disabled={isRefreshing}>
+              {isRefreshing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-2 h-4 w-4" />}
+              Refresh
+            </Button>
           </CardHeader>
           <CardContent>
-            {dataCheckLoading || predictionLoading ? (
-              <div className="p-6 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
-                <Loader2 className="h-4 w-4 animate-spin" />
+            {predictionQuery.isLoading ? (
+              <div className="flex items-center justify-center py-8 text-sm text-muted-foreground">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Loading prediction...
               </div>
-            ) : predictionDataCheck && !predictionDataCheck.hasEnoughData ? (
-              <div className="p-8 text-center">
-                <p className="text-lg font-medium text-amber-600 mb-2">Insufficient Historical Data</p>
-                <p className="text-muted-foreground max-w-md mx-auto">
-                  We only have {predictionDataCheck.priceCount} price record(s) for this crop/mandi combination.
-                  Please wait a few weeks for more price data to be collected before predictions can be generated.
-                </p>
-              </div>
-            ) : predictionError || !prediction ? (
-              <div className="p-6 text-center text-sm text-destructive">
-                <p>Unable to generate prediction at this time.</p>
-                <p className="text-xs mt-2">Please try again later.</p>
-              </div>
-            ) : chartData.length === 0 ? (
-              <div className="p-6 text-center text-sm text-muted-foreground">
-                No prediction data available.
-              </div>
+            ) : !prediction ? (
+              <p className="py-6 text-center text-sm text-muted-foreground">
+                Prediction is not available right now. Check data quality or retry refresh.
+              </p>
             ) : (
               <>
-                <ChartContainer config={chartConfig} className="h-[320px] w-full">
-                  <ComposedChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis
-                      dataKey="date"
-                      tickFormatter={(d) => new Date(d).toLocaleDateString("en-IN", { month: "short", day: "numeric" })}
-                      fontSize={11}
-                    />
-                    <YAxis fontSize={11} tickFormatter={(v) => `₹${v}`} />
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <Area
-                      type="monotone"
-                      dataKey="confidence"
-                      fill="hsl(var(--secondary) / 0.2)"
-                      stroke="hsl(var(--secondary) / 0.5)"
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="price"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth={3}
-                      dot={{ r: 3 }}
-                    />
-                  </ComposedChart>
-                </ChartContainer>
-
-                {/* Prediction Summary */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
                   <Card>
                     <CardContent className="pt-4">
-                      <p className="text-sm text-muted-foreground">Trend</p>
-                      <div className="flex items-center gap-2">
+                      <p className="text-xs text-muted-foreground">Trend</p>
+                      <div className="mt-1 flex items-center gap-2">
                         {prediction.trend === "Bullish" ? (
                           <TrendingUp className="h-5 w-5 text-emerald-600" />
                         ) : prediction.trend === "Bearish" ? (
@@ -369,57 +338,169 @@ const Analytics = () => {
                         ) : (
                           <Minus className="h-5 w-5 text-muted-foreground" />
                         )}
-                        <span className={`text-lg font-bold ${
-                          prediction.trend === "Bullish" ? "text-emerald-600" :
-                          prediction.trend === "Bearish" ? "text-destructive" :
-                          "text-muted-foreground"
-                        }`}>
-                          {prediction.trend}
-                        </span>
+                        <span className="font-semibold">{prediction.trend}</span>
                       </div>
                     </CardContent>
                   </Card>
-
                   <Card>
                     <CardContent className="pt-4">
-                      <p className="text-sm text-muted-foreground">Next Day Prediction</p>
-                      <p className="text-2xl font-bold font-display">
-                        ₹{prediction.predictions[0]?.predictedPrice?.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
+                      <p className="text-xs text-muted-foreground">Next Day Price</p>
+                      <p className="font-display text-2xl font-semibold">
+                        ₹{prediction.predictions[0]?.predictedPrice?.toLocaleString("en-IN")}
                       </p>
                     </CardContent>
                   </Card>
-
                   <Card>
                     <CardContent className="pt-4">
-                      <p className="text-sm text-muted-foreground">Confidence</p>
-                      <p className="text-2xl font-bold font-display">
+                      <p className="text-xs text-muted-foreground">Next Day Confidence</p>
+                      <p className="font-display text-2xl font-semibold">
                         {prediction.predictions[0]?.confidence?.toFixed(1)}%
                       </p>
                     </CardContent>
                   </Card>
-
-                  <Card>
-                    <CardContent className="pt-4">
-                      <p className="text-sm text-muted-foreground">Forecast Days</p>
-                      <p className="text-2xl font-bold font-display">{prediction.predictions.length}</p>
-                    </CardContent>
-                  </Card>
                 </div>
+
+                <ChartContainer config={chartConfig} className="h-[320px] w-full">
+                  <ComposedChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="date"
+                      tickFormatter={(date) =>
+                        new Date(date).toLocaleDateString("en-IN", { month: "short", day: "numeric" })
+                      }
+                    />
+                    <YAxis tickFormatter={(value) => `₹${value}`} />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Line type="monotone" dataKey="price" stroke="hsl(var(--primary))" strokeWidth={3} dot={{ r: 2 }} />
+                  </ComposedChart>
+                </ChartContainer>
               </>
             )}
           </CardContent>
         </Card>
       )}
 
-      {/* Empty State */}
-      {!selectedState && (
-        <Card className="bg-muted/20">
-          <CardContent className="p-12 text-center">
-            <p className="text-lg font-medium text-muted-foreground">Select a state to get started</p>
-            <p className="text-sm text-muted-foreground mt-2">Choose a state to view available mandis and their price predictions</p>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">States Overview</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {statesQuery.isLoading ? (
+            <div className="flex items-center justify-center py-8 text-sm text-muted-foreground">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Loading states...
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>State</TableHead>
+                  <TableHead className="text-right">APMCs</TableHead>
+                  <TableHead className="text-right">Eligible Pairs</TableHead>
+                  <TableHead className="text-right">Predictions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {stateRows.map((row) => (
+                  <TableRow key={row.stateId} className={selectedState === row.stateId ? "bg-primary/5" : ""}>
+                    <TableCell className="font-medium">{row.stateName}</TableCell>
+                    <TableCell className="text-right">{row.totalApmcs}</TableCell>
+                    <TableCell className="text-right">{row.eligiblePairs}</TableCell>
+                    <TableCell className="text-right">{row.predictionsAvailable}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+
+      {selectedState && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">
+              APMC Overview {selectedStateRow ? `- ${selectedStateRow.stateName}` : ""}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {apmcsQuery.isLoading ? (
+              <div className="flex items-center justify-center py-8 text-sm text-muted-foreground">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Loading APMCs...
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>APMC</TableHead>
+                    <TableHead className="text-right">Eligible Crops</TableHead>
+                    <TableHead className="text-right">Eligible Pairs</TableHead>
+                    <TableHead className="text-right">Predictions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {apmcRows.map((row) => (
+                    <TableRow key={row.mandiId} className={selectedMandi === row.mandiId ? "bg-primary/5" : ""}>
+                      <TableCell className="font-medium">{row.mandiName}</TableCell>
+                      <TableCell className="text-right">{row.eligibleCrops}</TableCell>
+                      <TableCell className="text-right">{row.eligiblePairs}</TableCell>
+                      <TableCell className="text-right">{row.predictionsAvailable}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
           </CardContent>
         </Card>
       )}
+
+      {selectedMandi && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">
+              Crop Eligibility {selectedApmcRow ? `- ${selectedApmcRow.mandiName}` : ""}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {cropsQuery.isLoading ? (
+              <div className="flex items-center justify-center py-8 text-sm text-muted-foreground">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Loading crops...
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Crop</TableHead>
+                    <TableHead className="text-right">Price Records</TableHead>
+                    <TableHead className="text-right">Prediction</TableHead>
+                    <TableHead className="text-right">Trend</TableHead>
+                    <TableHead className="text-right">Next Price</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {cropRows.map((row) => (
+                    <TableRow key={row.cropId} className={selectedCrop === row.cropId ? "bg-primary/5" : ""}>
+                      <TableCell className="font-medium">{row.cropName}</TableCell>
+                      <TableCell className="text-right">{row.priceCount}</TableCell>
+                      <TableCell className="text-right">
+                        <Badge variant={row.hasPrediction ? "default" : "secondary"}>
+                          {row.hasPrediction ? "Available" : "Pending"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-right">{row.trend ?? "-"}</TableCell>
+                      <TableCell className="text-right">
+                        {row.nextPredictedPrice ? `₹${row.nextPredictedPrice.toLocaleString("en-IN")}` : "-"}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
     </div>
   );
 };

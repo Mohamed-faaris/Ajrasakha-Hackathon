@@ -20,6 +20,8 @@ import {
   PredictionResultSchema,
   PredictionStatusSchema,
   PredictionDataCheckSchema,
+  AnalyticsPredictQuerySchema,
+  AnalyticsPredictResponseSchema,
 } from "@shared/schemas";
 import type {
   CropPrice,
@@ -37,6 +39,8 @@ import type {
   PredictionResult,
   PredictionStatus,
   PredictionDataCheck,
+  AnalyticsPredictQuery,
+  AnalyticsPredictResponse,
 } from "@shared/types";
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
@@ -374,6 +378,13 @@ export const apiClient = {
 
   checkPredictionData: (cropId: string, mandiId: string): Promise<PredictionDataCheck> =>
     request(`/predictions/${cropId}/${mandiId}/check`, PredictionDataCheckSchema),
+
+  getAnalyticsPredictions: (query: AnalyticsPredictQuery): Promise<AnalyticsPredictResponse> =>
+    request(
+      '/analytics/predictions',
+      AnalyticsPredictResponseSchema,
+      AnalyticsPredictQuerySchema.parse(query)
+    ),
 
   request,
 };

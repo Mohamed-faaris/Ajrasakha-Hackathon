@@ -474,3 +474,58 @@ export const PredictionDataCheckSchema = z.object({
   minRequired: z.number(),
   hasPrediction: z.boolean(),
 });
+
+export const AnalyticsPredictQuerySchema = z.object({
+  stateId: z.string().min(1).optional(),
+  mandiId: z.string().min(1).optional(),
+  cropId: z.string().min(1).optional(),
+});
+
+export const AnalyticsPredictLevelSchema = z.enum(['states', 'apmcs', 'crops', 'prediction']);
+
+export const StateRowSchema = z.object({
+  stateId: z.string(),
+  stateName: z.string(),
+  totalApmcs: z.number().int().min(0),
+  eligiblePairs: z.number().int().min(0),
+  predictionsAvailable: z.number().int().min(0),
+});
+
+export const APMCRowSchema = z.object({
+  stateId: z.string(),
+  stateName: z.string(),
+  mandiId: z.string(),
+  mandiName: z.string(),
+  eligibleCrops: z.number().int().min(0),
+  eligiblePairs: z.number().int().min(0),
+  predictionsAvailable: z.number().int().min(0),
+});
+
+export const CropRowSchema = z.object({
+  stateId: z.string(),
+  stateName: z.string(),
+  mandiId: z.string(),
+  mandiName: z.string(),
+  cropId: z.string(),
+  cropName: z.string(),
+  priceCount: z.number().int().min(0),
+  hasPrediction: z.boolean(),
+  trend: z.enum(['Bullish', 'Bearish', 'Neutral']).nullable(),
+  nextPredictedPrice: z.number().nullable(),
+  confidence: z.number().nullable(),
+});
+
+export const AnalyticsPredictResponseSchema = z.object({
+  level: AnalyticsPredictLevelSchema,
+  filters: AnalyticsPredictQuerySchema,
+  generatedOnMiss: z.number().int().min(0),
+  skippedOnCap: z.number().int().min(0),
+  cap: z.number().int().min(1),
+  data: z.union([
+    z.array(StateRowSchema),
+    z.array(APMCRowSchema),
+    z.array(CropRowSchema),
+    PredictionResultSchema,
+    z.null(),
+  ]),
+});

@@ -169,7 +169,7 @@ function transformFilters(filters?: PriceFilters): QueryParams {
     delete params.state;
   }
   if (filters.crop) {
-    params.cropId = filters.crop.toLowerCase().replace(/\s+/g, '-');
+    params.cropId = filters.crop;
     delete params.crop;
   }
   return params;
@@ -267,10 +267,10 @@ export const apiClient = {
     request("/prices", z.array(CropPriceSchema), transformFilters(filters)),
 
   getCrops: (): Promise<CropInfo[]> =>
-    request("/crops", z.array(CropInfoSchema)),
+    request("/prices/crops", z.array(CropInfoSchema)),
 
   getStates: (): Promise<FrontendState[]> =>
-    request("/states", z.array(FrontendStateSchema)),
+    request("/prices/states", z.array(FrontendStateSchema)),
 
   getMandis: (stateCode?: string): Promise<Mandi[]> =>
     request(

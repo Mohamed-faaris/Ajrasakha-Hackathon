@@ -1,7 +1,6 @@
 import { type Request, type Response } from 'express';
 import * as userProfileService from '../services/userProfile.service';
 import { validateBody } from '../middlewares/validate.middleware';
-import { Types } from 'mongoose';
 import {
   UpdateUserProfileBodySchema,
   NotificationSettingsSchema,
@@ -22,17 +21,17 @@ const UpdateSecurityBodySchema = z.object({
   phone: z.string().regex(/^[6-9]\d{9}$/).optional(),
 });
 
-const getUserObjectId = (req: Request, res: Response) => {
+const getUserId = (req: Request, res: Response): string | null => {
   const userId = req.user?.id;
   if (!userId) {
     res.status(401).json({ error: 'Unauthorized' });
     return null;
   }
-  return new Types.ObjectId(userId);
+  return userId;
 };
 
 export const getProfile = async (req: Request, res: Response) => {
-  const userId = getUserObjectId(req, res);
+  const userId = getUserId(req, res);
   if (!userId) return;
 
   const profile = await userProfileService.getOrCreateProfile(userId);
@@ -42,7 +41,7 @@ export const getProfile = async (req: Request, res: Response) => {
 export const updateProfile = [
   validateBody(UpdateUserProfileBodySchema),
   async (req: Request, res: Response) => {
-    const userId = getUserObjectId(req, res);
+    const userId = getUserId(req, res);
     if (!userId) return;
 
     const body = UpdateUserProfileBodySchema.parse(req.body);
@@ -52,7 +51,7 @@ export const updateProfile = [
 ];
 
 export const deleteProfile = async (req: Request, res: Response) => {
-  const userId = getUserObjectId(req, res);
+  const userId = getUserId(req, res);
   if (!userId) return;
 
   await userProfileService.deleteProfile(userId);
@@ -60,7 +59,7 @@ export const deleteProfile = async (req: Request, res: Response) => {
 };
 
 export const getSettings = async (req: Request, res: Response) => {
-  const userId = getUserObjectId(req, res);
+  const userId = getUserId(req, res);
   if (!userId) return;
 
   const profile = await userProfileService.getOrCreateProfile(userId);
@@ -68,7 +67,7 @@ export const getSettings = async (req: Request, res: Response) => {
 };
 
 export const getNotifications = async (req: Request, res: Response) => {
-  const userId = getUserObjectId(req, res);
+  const userId = getUserId(req, res);
   if (!userId) return;
 
   const notificationSettings = await userProfileService.getNotificationSettings(userId);
@@ -78,7 +77,7 @@ export const getNotifications = async (req: Request, res: Response) => {
 export const updateNotifications = [
   validateBody(NotificationSettingsSchema),
   async (req: Request, res: Response) => {
-    const userId = getUserObjectId(req, res);
+    const userId = getUserId(req, res);
     if (!userId) return;
 
     const body = NotificationSettingsSchema.parse(req.body);
@@ -88,7 +87,7 @@ export const updateNotifications = [
 ];
 
 export const getPreferences = async (req: Request, res: Response) => {
-  const userId = getUserObjectId(req, res);
+  const userId = getUserId(req, res);
   if (!userId) return;
 
   const preferences = await userProfileService.getPreferences(userId);
@@ -98,7 +97,7 @@ export const getPreferences = async (req: Request, res: Response) => {
 export const updatePreferences = [
   validateBody(UpdatePreferencesBodySchema),
   async (req: Request, res: Response) => {
-    const userId = getUserObjectId(req, res);
+    const userId = getUserId(req, res);
     if (!userId) return;
 
     const body = UpdatePreferencesBodySchema.parse(req.body);
@@ -108,7 +107,7 @@ export const updatePreferences = [
 ];
 
 export const getSecurity = async (req: Request, res: Response) => {
-  const userId = getUserObjectId(req, res);
+  const userId = getUserId(req, res);
   if (!userId) return;
 
   const security = await userProfileService.getSecurityInfo(userId);
@@ -129,7 +128,7 @@ export const getSecurity = async (req: Request, res: Response) => {
 export const updateSecurity = [
   validateBody(UpdateSecurityBodySchema),
   async (req: Request, res: Response) => {
-    const userId = getUserObjectId(req, res);
+    const userId = getUserId(req, res);
     if (!userId) return;
 
     const body = UpdateSecurityBodySchema.parse(req.body);

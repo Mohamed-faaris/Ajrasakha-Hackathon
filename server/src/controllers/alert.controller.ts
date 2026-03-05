@@ -2,7 +2,6 @@ import { type Request, type Response } from 'express';
 import * as alertService from '../services/alert.service';
 import * as firebaseService from '../services/firebase.service';
 import { validateParams, validateBody } from '../middlewares/validate.middleware';
-import { Types } from 'mongoose';
 import {
   AlertIdParamsSchema,
   CreateAlertBodySchema,
@@ -24,7 +23,7 @@ export const createAlert = [
     try {
       const body = CreateAlertBodySchema.parse(req.body);
       const alert = await alertService.createAlert({
-        userId: new Types.ObjectId(userId),
+        userId,
         ...body,
       });
       res.status(201).json(alert);
@@ -43,7 +42,7 @@ export const getUserAlerts = async (req: Request, res: Response) => {
     return;
   }
 
-  const alerts = await alertService.getUserAlerts(new Types.ObjectId(userId));
+  const alerts = await alertService.getUserAlerts(userId);
   res.json(alerts);
 };
 
@@ -55,7 +54,7 @@ export const getActiveAlerts = async (req: Request, res: Response) => {
     return;
   }
 
-  const alerts = await alertService.getActiveAlerts(new Types.ObjectId(userId));
+  const alerts = await alertService.getActiveAlerts(userId);
   res.json(alerts);
 };
 
@@ -72,7 +71,7 @@ export const updateAlert = [
     }
 
     const body = UpdateAlertBodySchema.parse(req.body);
-    const alert = await alertService.updateAlert(params.alertId, new Types.ObjectId(userId), body);
+    const alert = await alertService.updateAlert(params.alertId, userId, body);
 
     if (!alert) {
       res.status(404).json({ error: 'Alert not found' });
@@ -94,7 +93,7 @@ export const deleteAlert = [
       return;
     }
 
-    const deleted = await alertService.deleteAlert(params.alertId, new Types.ObjectId(userId));
+    const deleted = await alertService.deleteAlert(params.alertId, userId);
 
     if (!deleted) {
       res.status(404).json({ error: 'Alert not found' });
@@ -118,7 +117,7 @@ export const toggleAlert = [
       return;
     }
 
-    const alert = await alertService.toggleAlert(params.alertId, new Types.ObjectId(userId), body.isActive);
+    const alert = await alertService.toggleAlert(params.alertId, userId, body.isActive);
 
     if (!alert) {
       res.status(404).json({ error: 'Alert not found' });

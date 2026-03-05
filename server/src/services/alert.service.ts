@@ -1,12 +1,11 @@
 import { Alert, Crop } from '../models';
-import type { Types } from 'mongoose';
 
 export type AlertType = 'price' | 'trend' | 'both';
 export type PriceDirection = 'above' | 'below';
 export type TrendDirection = 'increase' | 'decrease';
 
 export interface CreateAlertData {
-  userId: Types.ObjectId;
+  userId: string;
   cropId: string;
   mandiId?: string;
   alertType: AlertType;
@@ -77,11 +76,11 @@ export const createAlert = async (data: CreateAlertData) => {
   return alert.toObject();
 };
 
-export const getUserAlerts = async (userId: Types.ObjectId) => {
+export const getUserAlerts = async (userId: string) => {
   return Alert.find({ userId }).sort({ createdAt: -1 }).lean();
 };
 
-export const getActiveAlerts = async (userId: Types.ObjectId) => {
+export const getActiveAlerts = async (userId: string) => {
   return Alert.find({ userId, isActive: true }).sort({ createdAt: -1 }).lean();
 };
 
@@ -99,7 +98,7 @@ export interface UpdateAlertData {
 
 export const updateAlert = async (
   alertId: string,
-  userId: Types.ObjectId,
+  userId: string,
   updates: UpdateAlertData
 ) => {
   // If updating alert type or related fields, validate the new configuration
@@ -147,12 +146,12 @@ export const updateAlert = async (
   ).lean();
 };
 
-export const deleteAlert = async (alertId: string, userId: Types.ObjectId) => {
+export const deleteAlert = async (alertId: string, userId: string) => {
   const result = await Alert.findOneAndDelete({ id: alertId, userId });
   return !!result;
 };
 
-export const toggleAlert = async (alertId: string, userId: Types.ObjectId, isActive: boolean) => {
+export const toggleAlert = async (alertId: string, userId: string, isActive: boolean) => {
   return Alert.findOneAndUpdate(
     { id: alertId, userId },
     { $set: { isActive } },

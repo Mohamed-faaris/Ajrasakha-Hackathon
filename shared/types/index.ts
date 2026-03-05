@@ -37,7 +37,7 @@ export interface State {
 }
 
 export interface FrontendState {
-  code: string;
+  id: string;
   name: string;
   districts?: District[];
 }
@@ -360,8 +360,9 @@ export interface CropPrice {
 }
 
 export interface CropInfo {
+  id: string;
   name: string;
-  category: string;
+  category?: string;
   mspPrice?: number;
 }
 

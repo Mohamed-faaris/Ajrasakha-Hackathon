@@ -41,77 +41,149 @@ graph TD
 ### A. Discovery Workflow (`mode="discover"`)
 *Goal: Find out HOW to scrape a new website without human coding.*
 
-1.  **Orchestration (`app.discovery.discovery_engine`)**:
-    *   Initializes `Playwright` browser (headless).
-    *   Navigates to the target URL (`page.goto`).
-    *   **Network Sniffing**: Attaches listeners to `request` and `response` events to capture XHR/Fetch calls. Filters for JSON responses > 1KB.
-    *   **Heuristic Crawl**: Uses a priority queue (heapq) to visit links.
-        *   **L0**: File downloads (PDF/XLS) found in `<a>` tags.
-        *   **L1**: "Market", "Rate", "Price" links.
-        *   **L2**: General navigation.
-    *   **Content Detection**:
-        *   `TableDetector`: Finds HTML tables with >3 rows and headers matching keywords (Commodity, Price, Arrival).
-        *   `FileDetector`: Identifies downloadable assets.
+```mermaid
+flowchart TD
+    Start([Start Discovery]) --> Init[Initialize Playwright<br/>Headless Browser]
+    Init --> Navigate[Navigate to Target URL]
+    Navigate --> Sniff[Attach Network Listeners<br/>XHR/Fetch Detection]
 
-2.  **AI Analysis (`app.ai.discovery_mode`)**:
-    *   Aggregates all findings (API endpoints, table selectors, file URLs) into a compressed JSON context.
-    *   **Prompting**: Sends context to the LLM with the `ExtractionConfig` Pydantic schema.
-    *   **Decision**: The AI evaluates the reliability of each method:
-        *   **API**: Preferred (Score 1.0). Checks for JSON structure.
-        *   **HTML Table**: Fallback (Score 0.7). Checks for valid headers.
-        *   **File**: Last resort (Score 0.4).
-    *   **Validation**:
-        *   Normalizes extraction types (`table` → `html_table`).
-        *   Rejects hallucinated selectors (e.g., selectors containing raw HTML).
+    subgraph Crawl[Heuristic Crawl Phase]
+        Sniff --> Queue[Priority Queue<br/>heapq]
+        Queue --> L0{Check Links}
+        L0 -->|PDF/XLS Files| L0_Collect[Collect Downloads]
+        L0 -->|Market/Rate/Price| L1_Collect[Collect L1 Links]
+        L0 -->|General Nav| L2_Collect[Collect L2 Links]
+        L0_Collect & L1_Collect & L2_Collect --> Queue
+    end
 
-3.  **Persistence**:
-    *   Saves the valid `ExtractionConfig` to the `sources` collection.
+    subgraph Detect[Content Detection]
+        Queue --> TableDetect[TableDetector<br/>>3 rows + headers]
+        Queue --> FileDetect[FileDetector<br/>Downloadable Assets]
+        TableDetect & FileDetect --> Findings[Aggregate Findings]
+    end
+
+    subgraph AI[AI Analysis]
+        Findings --> Context[Compress to JSON Context]
+        Context --> Prompt[LLM Prompt<br/>ExtractionConfig Schema]
+        Prompt --> Score{Score Methods}
+        Score -->|Score 1.0| API_Pref[API Preferred]
+        Score -->|Score 0.7| HTML_Fallback[HTML Table Fallback]
+        Score -->|Score 0.4| File_Last[File Last Resort]
+        API_Pref & HTML_Fallback & File_Last --> Validate[Validate Config<br/>Reject Hallucinations]
+    end
+
+    Validate --> Save[Save ExtractionConfig<br/>to Sources Collection]
+    Save --> End([End])
+
+    style Start fill:#4CAF50,stroke:#2E7D32,color:#fff
+    style End fill:#f44336,stroke:#c62828,color:#fff
+    style Crawl fill:#E3F2FD,stroke:#1976D2
+    style Detect fill:#FFF3E0,stroke:#F57C00
+    style AI fill:#F3E5F5,stroke:#7B1FA2
+```
 
 ### B. Mapping Workflow (Implicit in Discovery/First Scrape)
 *Goal: Semantic understanding of column names.*
 
-1.  **Sample Scrape**: The runner executes a "dry run" scrape using the newly discovered config to fetch 5 sample records.
-2.  **AI Mapping (`app.ai.mapping_mode`)**:
-    *   Extracts raw keys from the sample data (e.g., `["Orchard_Name", "Rate_Min", "dt"]`).
-    *   Sends these keys to the LLM with the `SchemaMapping` schema.
-    *   **Logic**:
-        *   Maps raw keys to the unified `Price` schema (`minPrice`, `maxPrice`, `cropName`).
-        *   Generates `FieldConversion` rules (e.g., `multiply: 100` for Quintal conversion, date format strings).
-3.  **Persistence**:
-    *   Updates the source document with `schemaMapping` and `conversions`.
+```mermaid
+flowchart LR
+    Start([Start Mapping]) --> DryRun[Dry Run Scrape<br/>5 Sample Records]
+
+    subgraph Extract[Sample Extraction]
+        DryRun --> RawKeys[Extract Raw Keys<br/>e.g., Orchard_Name, Rate_Min, dt]
+    end
+
+    subgraph AI_Map[AI Mapping]
+        RawKeys --> Prompt[LLM Prompt<br/>SchemaMapping Schema]
+        Prompt --> Logic{Mapping Logic}
+        Logic -->|Field Mapping| Unified[Map to Price Schema<br/>minPrice, maxPrice, cropName]
+        Logic -->|Conversions| ConvRules[FieldConversion Rules<br/>multiply: 100, date formats]
+    end
+
+    subgraph Persist[Persistence]
+        Unified & ConvRules --> Update[Update Source Document<br/>schemaMapping + conversions]
+    end
+
+    Update --> End([End])
+
+    style Start fill:#4CAF50,stroke:#2E7D32,color:#fff
+    style End fill:#f44336,stroke:#c62828,color:#fff
+    style AI_Map fill:#F3E5F5,stroke:#7B1FA2
+    style Persist fill:#E8F5E9,stroke:#388E3C
+```
 
 ### C. Scrape Workflow (`mode="scrape"`)
 *Goal: High-volume production extraction.*
 
-1.  **Load Sources**: Fetches active sources from MongoDB (or CSV in debug mode).
-2.  **Dispatch (`app.scraping.scrape_engine`)**:
-    *   **API Scraper**:
-        *   Uses `httpx.AsyncClient`.
-        *   Handles pagination (detects `page` param).
-        *   Supports `POST` with JSON or Form data.
-    *   **HTML Scraper**:
-        *   Fetches page HTML via `httpx`.
-        *   Parses with `BeautifulSoup` (lxml) + `pandas.read_html`.
-        *   **Robustness**: Wraps HTML in `io.StringIO` to prevent Pandas from misinterpreting large tables as filenames.
-    *   **File Scraper**:
-        *   Downloads file to temp storage.
-        *   Uses `pdfplumber` for PDFs (table extraction) or `openpyxl` for Excel.
-3.  **Normalize (`app.scraping.normalizer`)**:
-    *   Renames fields using `schemaMapping`.
-    *   Executes conversions (math, string cleaning).
-    *   Parses dates using `dateutil` and strict format strings.
-    *   Validates mandatory fields (`cropName`, `price`, `date`).
-4.  **Save (`app.outputs.db_output`)**:
-    *   Uses `bulk_write` with `UpdateOne(upsert=True)` to prevent duplicates.
-    *   Composite key: `sourceId` + `date` + `cropName` + `mandiName`.
+```mermaid
+flowchart TD
+    Start([Start Scrape]) --> Load[Load Active Sources<br/>MongoDB or CSV]
+
+    subgraph Dispatch[Scrape Engine Dispatch]
+        Load --> Type{Config Type}
+
+        Type -->|API| API_Scrape[API Scraper<br/>httpx.AsyncClient]
+        Type -->|HTML| HTML_Scrape[HTML Scraper<br/>httpx + BeautifulSoup]
+        Type -->|File| File_Scrape[File Scraper<br/>pdfplumber / openpyxl]
+
+        API_Scrape --> API_Feat[Pagination Support<br/>POST JSON/Form Data]
+        HTML_Scrape --> HTML_Feat[pandas.read_html<br/>StringIO Wrapper]
+        File_Scrape --> File_Feat[Temp Download<br/>PDF/Excel Extraction]
+    end
+
+    subgraph Normalize[Data Normalization]
+        API_Feat & HTML_Feat & File_Feat --> Rename[Rename Fields<br/>schemaMapping]
+        Rename --> Convert[Execute Conversions<br/>Math & String Cleaning]
+        Convert --> DateParse[Parse Dates<br/>dateutil + Format Strings]
+        DateParse --> Validate{Validate<br/>Mandatory Fields}
+        Validate -->|Pass| Continue[Continue]
+        Validate -->|Fail| Drop[Drop Record]
+    end
+
+    subgraph Save[Persistence]
+        Continue --> Bulk[bulk_write<br/>UpdateOne upsert]
+        Bulk --> Key[Composite Key<br/>sourceId+date+cropName+mandiName]
+    end
+
+    Drop --> Key
+    Key --> End([End])
+
+    style Start fill:#4CAF50,stroke:#2E7D32,color:#fff
+    style End fill:#f44336,stroke:#c62828,color:#fff
+    style Dispatch fill:#E3F2FD,stroke:#1976D2
+    style Normalize fill:#FFF3E0,stroke:#F57C00
+    style Save fill:#E8F5E9,stroke:#388E3C
+```
 
 ### D. Single URL Workflow (`mode="single_url" --url ...`)
 *Goal: One-shot onboarding.*
 
-1.  **Lookup**: Checks DB for `entryUrl`.
-2.  **Branch**:
-    *   **Found**: Loads config and runs **Scrape Workflow**.
-    *   **Not Found**: Runs **Discovery Workflow** → **Mapping Workflow** → **Scrape Workflow** in sequence.
+```mermaid
+flowchart TD
+    Start([Start Single URL]) --> Lookup[Check DB for entryUrl]
+
+    Lookup --> Found{Source Exists?}
+
+    Found -->|Yes| LoadConfig[Load Config<br/>from Sources]
+    Found -->|No| Discovery[Run Discovery Workflow]
+
+    Discovery --> Mapping[Run Mapping Workflow]
+    Mapping --> ScrapeNew[Run Scrape Workflow]
+
+    LoadConfig --> ScrapeExisting[Run Scrape Workflow]
+
+    ScrapeNew & ScrapeExisting --> Save[Save Results<br/>Prices Collection]
+
+    Save --> End([End])
+
+    style Start fill:#4CAF50,stroke:#2E7D32,color:#fff
+    style End fill:#f44336,stroke:#c62828,color:#fff
+    style Discovery fill:#F3E5F5,stroke:#7B1FA2
+    style Mapping fill:#E3F2FD,stroke:#1976D2
+    style ScrapeNew fill:#FFF3E0,stroke:#F57C00
+    style ScrapeExisting fill:#FFF3E0,stroke:#F57C00
+    style Save fill:#E8F5E9,stroke:#388E3C
+```
 
 ## 3. Configuration & Environment
 

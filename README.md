@@ -5,6 +5,11 @@ Problem statement: https://vicharanashala.github.io/ajrasakha-hackathon/docs/pro
 Ajrasakha is a comprehensive agricultural market intelligence platform that empowers farmers, traders, and APMC operators with real-time price analytics, AI-driven forecasting, and automated alerts across Indian mandi markets.
 
 ---
+**Jury Notes:**
+- Check [demo.md](demo.md) for project demonstration
+- We used Bun instead of Node.js for faster development, but you can use Node.js as well since we did not use any Bun-specific APIs
+- To view Mermaid diagrams in VS Code, install the [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid) extension, or view this file on GitHub
+---
 
 ## Table of Contents
 
@@ -15,10 +20,7 @@ Ajrasakha is a comprehensive agricultural market intelligence platform that empo
 5. [Setup Instructions](#setup-instructions)
 6. [Environment Configuration](#environment-configuration)
 7. [Development Workflow](#development-workflow)
-8. [API Documentation](#api-documentation)
-9. [Testing](#testing)
-10. [Deployment](#deployment)
-11. [Troubleshooting](#troubleshooting)
+8. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -34,7 +36,7 @@ Ajrasakha is a comprehensive agricultural market intelligence platform that empo
 | **Market Analytics** | Top movers, trend analysis, coverage maps | Consumer Portal |
 | **APMC Management** | Portal for operators to manage listings and submissions | APMC Portal |
 | **Data Ingestion** | AI-powered scraping from 150+ government sources | Scraper Engine |
-| **Developer API** | RESTful APIs with key management for third-party access | Dev Portal |
+| **Developer API** | RESTful APIs with key management for third-party access | Server |
 
 ### Target Users
 
@@ -49,100 +51,60 @@ Ajrasakha is a comprehensive agricultural market intelligence platform that empo
 
 ### High-Level Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                              CLIENT LAYER                                    │
-├─────────────────┬──────────────────┬─────────────────┬──────────────────────┤
-│                 │                  │                 │                      │
-│  Consumer       │  APMC Portal     │  Dev Portal     │  Third-Party Apps    │
-│  Portal         │  (Operators)     │  (API Keys)     │  (API Consumers)     │
-│  (React/Vite)   │  (React/Vite)    │  (React/Vite)   │                      │
-│  Port: 3000     │  Port: 8080      │  Port: 5173     │                      │
-│                 │                  │                 │                      │
-└────────┬────────┴────────┬─────────┴────────┬────────┴──────────────────────┘
-         │                 │                  │
-         └─────────────────┼──────────────────┘
-                           │
-                    ┌──────▼──────┐
-                    │   Nginx/    │
-                    │   CDN       │
-                    └──────┬──────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────────────────────┐
-│                           API LAYER                                          │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │                    API Server (Node.js/Express)                      │   │
-│  │                         Port: 5000                                   │   │
-│  │                                                                      │   │
-│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌────────────┐  │   │
-│  │  │ Auth        │  │ Prices      │  │ Predictions │  │ Alerts     │  │   │
-│  │  │ (Better     │  │ API         │  │ Proxy       │  │ (Cron)     │  │   │
-│  │  │  Auth)      │  │             │  │             │  │            │  │   │
-│  │  └─────────────┘  └─────────────┘  └─────────────┘  └────────────┘  │   │
-│  │                                                                      │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-│                                    │                                        │
-│                                    │ HTTP/REST                              │
-│                                    ▼                                        │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │              Prediction Engine (Python/FastAPI)                      │   │
-│  │                         Port: 8000                                   │   │
-│  │              ARIMA-based forecasting, pandas, statsmodels            │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    │ MongoDB Driver
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                          DATA LAYER                                          │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │              Scraper Engine (Python/Playwright/LangChain)            │   │
-│  │                      Endpoint Discovery Pipeline                     │   │
-│  │         AI-powered discovery, mapping, extraction, normalization    │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-│                                    │                                        │
-│                                    ▼                                        │
-│                        ┌───────────────────┐                                │
-│                        │     MongoDB       │                                │
-│                        │   (Data Store)    │                                │
-│                        │                   │                                │
-│                        │ • prices          │                                │
-│                        │ • sources         │                                │
-│                        │ • predictions     │                                │
-│                        │ • alerts          │                                │
-│                        │ • user_profiles   │                                │
-│                        └───────────────────┘                                │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Client["Client Layer"]
+        CP[Consumer Portal<br/>React/Vite<br/>Port: 3000]
+        AP[APMC Portal<br/>Operators<br/>Port: 8080]
+        TPA[Third-Party Apps<br/>API Consumers]
+    end
+
+    NGINX[Nginx/CDN]
+
+    subgraph API["API Layer"]
+        subgraph Server["API Server Node.js/Express<br/>Port: 5000"]
+            Auth[Auth<br/>Better Auth]
+            Prices[Prices API]
+            Predictions[Predictions<br/>Proxy]
+            Alerts[Alerts<br/>Cron]
+        end
+
+        PE[Prediction Engine<br/>Python/FastAPI<br/>Port: 8000<br/>ARIMA forecasting]
+    end
+
+    subgraph Data["Data Layer"]
+        SE[Scraper Engine<br/>Python/Playwright/LangChain<br/>Endpoint Discovery Pipeline<br/>AI-powered discovery, mapping,<br/>extraction, normalization]
+
+        MongoDB[(MongoDB<br/>Data Store<br/><br/>• prices<br/>• sources<br/>• predictions<br/>• alerts<br/>• user_profiles)]
+    end
+
+    CP --> NGINX
+    AP --> NGINX
+    TPA --> NGINX
+
+    NGINX --> Server
+    Server <-->|HTTP/REST| PE
+    PE -->|MongoDB Driver| MongoDB
+    SE --> MongoDB
 ```
 
 ### Data Flow
 
-```
-External Sources          Ingestion                Processing              API
-(150+ Mandi Sites)   →  Scraper Engine    →     Cron Jobs        →    Server
-                             ↓                       ↓                   ↓
-                        ┌─────────┐           ┌───────────┐        ┌──────────┐
-                        │ MongoDB │    →      │ Analytics │   →    │ REST API │
-                        └─────────┘           └───────────┘        └────┬─────┘
-                                                                        │
-                        ┌───────────────────────────────────────────────┼───────┐
-                        ▼                                               ▼       │
-              ┌──────────────────┐                          ┌────────────────┐ │
-              │ Firebase FCM     │                          │ Prediction     │ │
-              │ (Push Alerts)    │                          │ Engine (ML)    │ │
-              └──────────────────┘                          └────────────────┘ │
-                                                                               │
-                        ┌──────────────────────────────────────────────────────┘
-                        ▼
-              ┌──────────────────┬──────────────────┬──────────────────┐
-              │ Consumer Portal  │ APMC Portal      │ Dev Portal       │
-              └──────────────────┴──────────────────┴──────────────────┘
+```mermaid
+flowchart LR
+    ES[External Sources<br/>150+ Mandi Sites] --> SE[Scraper Engine]
+    SE --> MongoDB[(MongoDB)]
+    MongoDB --> CJ[Cron Jobs]
+    CJ --> API[Server<br/>REST API]
+
+    MongoDB --> Analytics[Analytics]
+    Analytics --> API
+
+    API --> FCM[Firebase FCM<br/>Push Alerts]
+    API --> PE[Prediction Engine<br/>ML]
+
+    API --> CP[Consumer Portal]
+    API --> AP[APMC Portal]
 ```
 
 ---
@@ -164,16 +126,9 @@ cp .env.example .env
 # Using Docker:
 docker run -d -p 27017:27017 --name ajrasakha-mongo mongo:7
 
-# 4. Install dependencies and start services (in separate terminals)
-
-# Terminal 1 - Server
-(cd server && bun install && bun dev)
-
-# Terminal 2 - Consumer Portal
-(cd consumer-portal && bun install && bun dev)
-
-# Terminal 3 - Prediction Engine
-(cd pridiction-engine && python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt && uvicorn app.main:app --reload)
+# 4. Install all dependencies and start services
+bun install:all
+bun dev
 
 # Access the app at http://localhost:3000
 ```
@@ -210,7 +165,8 @@ docker run -d -p 27017:27017 --name ajrasakha-mongo mongo:7
 
 ## Setup Instructions
 
-### 1. Repository Setup
+<details>
+<summary><strong>1. Repository Setup</strong> (Click to expand)</summary>
 
 ```bash
 # Clone repository
@@ -220,8 +176,10 @@ cd Ajrasakha-Hackathon
 # Verify directory structure
 ls -la
 ```
+</details>
 
-### 2. Database Setup
+<details>
+<summary><strong>2. Database Setup</strong> (Click to expand)</summary>
 
 #### Option A: MongoDB Atlas (Cloud)
 1. Create account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
@@ -244,8 +202,10 @@ docker run -d \
 sudo apt-get install mongodb
 sudo systemctl start mongodb
 ```
+</details>
 
-### 3. Service-by-Service Setup
+<details>
+<summary><strong>3. Service-by-Service Setup</strong> (Click to expand)</summary>
 
 #### Server (Node.js/Express)
 
@@ -297,20 +257,6 @@ bun dev
 
 The portal will be available at `http://localhost:8080`
 
-#### Dev Portal (React)
-
-```bash
-cd dev-portal
-
-# Install dependencies
-bun install
-
-# Start development server
-bun dev
-```
-
-The portal will be available at `http://localhost:5173`
-
 #### Prediction Engine (Python/FastAPI)
 
 ```bash
@@ -356,24 +302,20 @@ cp .env.example .env
 # Run scraper
 python main.py
 ```
+</details>
 
 ---
 
 ## Environment Configuration
 
-### Configuration Strategy
-
 Ajrasakha uses a **single root `.env` file** as the source of truth. All services read from this file using the `dotenv` pattern.
-
-### Required Environment Variables
-
-Copy `.env.example` to `.env` and configure:
 
 ```bash
 cp .env.example .env
 ```
 
-#### Core Server Configuration
+<details>
+<summary><strong>Core Server Configuration</strong> (Click to expand)</summary>
 
 | Variable | Required | Description | Example |
 |----------|----------|-------------|---------|
@@ -382,8 +324,10 @@ cp .env.example .env
 | `BETTER_AUTH_SECRET` | Yes | Min 32 char secret for auth | Generate with `openssl rand -base64 32` |
 | `BETTER_AUTH_URL` | Yes | Auth service URL | `http://localhost:5000` |
 | `BETTER_AUTH_TRUSTED_ORIGINS` | Yes | Allowed CORS origins | `http://localhost:5173,http://localhost:3000` |
+</details>
 
-#### Frontend Configuration
+<details>
+<summary><strong>Frontend Configuration</strong> (Click to expand)</summary>
 
 | Variable | Required | Description | Example |
 |----------|----------|-------------|---------|
@@ -393,15 +337,19 @@ cp .env.example .env
 | `VITE_FIREBASE_AUTH_DOMAIN` | Yes* | Firebase auth domain | `project.firebaseapp.com` |
 
 *Required for push notifications
+</details>
 
-#### Prediction Engine Configuration
+<details>
+<summary><strong>Prediction Engine Configuration</strong> (Click to expand)</summary>
 
 | Variable | Required | Description | Example |
 |----------|----------|-------------|---------|
 | `PREDICTION_ENGINE_PORT` | Yes | Prediction API port | `8000` |
 | `PREDICTION_ENGINE_URL` | Yes | Full URL for server to call | `http://localhost:8000` |
+</details>
 
-#### Scraper Engine Configuration
+<details>
+<summary><strong>Scraper Engine Configuration</strong> (Click to expand)</summary>
 
 | Variable | Required | Description | Example |
 |----------|----------|-------------|---------|
@@ -411,8 +359,10 @@ cp .env.example .env
 | `OPENAI_API_KEY` | Conditional | Required if using OpenAI | `sk-...` |
 | `OPENROUTER_API_KEY` | Conditional | Required if using OpenRouter | `sk-or-...` |
 | `AGENT_MODE` | Yes | `discover`, `scrape`, or `discover_and_scrape` | `discover_and_scrape` |
+</details>
 
-### Generating Secrets
+<details>
+<summary><strong>Generating Secrets</strong> (Click to expand)</summary>
 
 ```bash
 # Generate Better Auth secret
@@ -422,6 +372,7 @@ openssl rand -base64 32
 # Go to Firebase Console > Project Settings > Service Accounts
 # Click "Generate new private key"
 ```
+</details>
 
 ---
 
@@ -434,29 +385,30 @@ openssl rand -base64 32
 | Server API | 5000 | http://localhost:5000 | Main backend |
 | Consumer Portal | 3000 | http://localhost:3000 | End-user app |
 | APMC Portal | 8080 | http://localhost:8080 | Operator portal |
-| Dev Portal | 5173 | http://localhost:5173 | API key management |
 | Prediction Engine | 8000 | http://localhost:8000 | ML service |
 | MongoDB | 27017 | mongodb://localhost:27017 | Database |
 
 ### Running Services
 
-Use separate terminal windows/tabs for each service:
+Use the root-level bun scripts to run services:
 
 ```bash
+# Start all services at once
+bun dev
+
+# Or run individual services in separate terminals:
+
 # Terminal 1: Server
-cd server && bun dev
+bun dev:server
 
 # Terminal 2: Consumer Portal
-cd consumer-portal && bun dev
+bun dev:consumer-portal
 
 # Terminal 3: APMC Portal (optional)
-cd apmc-portal && bun dev
+bun dev:apmc-portal
 
 # Terminal 4: Prediction Engine
-cd pridiction-engine && source .venv/bin/activate && uvicorn app.main:app --reload
-
-# Terminal 5: Dev Portal (optional)
-cd dev-portal && bun dev
+bun dev:prediction
 ```
 
 ### Development Scripts
@@ -475,7 +427,7 @@ bun run typecheck # Run TypeScript checks
 #### Frontend Apps
 
 ```bash
-# Consumer Portal, APMC Portal, Dev Portal
+# Consumer Portal, APMC Portal
 bun dev           # Start dev server
 bun run build     # Build for production
 bun run preview   # Preview production build
@@ -502,148 +454,6 @@ python main.py --mode scrape      # Scraping only
 ```
 
 ---
-
-## API Documentation
-
-### Authentication
-
-All API endpoints (except health check and auth routes) require authentication via Better Auth session cookies.
-
-```bash
-# Login
-curl -X POST http://localhost:5000/api/auth/sign-in/email \
-  -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","password":"password"}'
-```
-
-### Core Endpoints
-
-| Endpoint | Method | Description | Auth Required |
-|----------|--------|-------------|---------------|
-| `/api/health` | GET | Health check | No |
-| `/api/auth/*` | Various | Authentication | Varies |
-| `/api/crops` | GET | List all crops | Yes |
-| `/api/crops/:id` | GET | Get crop details | Yes |
-| `/api/mandis` | GET | List all mandis | Yes |
-| `/api/mandis/:id` | GET | Get mandi details | Yes |
-| `/api/prices` | GET | Query prices with filters | Yes |
-| `/api/prices/latest` | GET | Latest prices | Yes |
-| `/api/predictions/:cropId/:mandiId` | GET | Get prediction | Yes |
-| `/api/predictions/:cropId/:mandiId` | POST | Generate prediction | Yes |
-| `/api/alerts` | GET | List user alerts | Yes |
-| `/api/alerts` | POST | Create alert | Yes |
-| `/api/alerts/:id` | DELETE | Delete alert | Yes |
-| `/api/topmovers` | GET | Top price movers | Yes |
-| `/api/coverage` | GET | Data coverage stats | Yes |
-
-### Query Parameters
-
-#### Price Query (`/api/prices`)
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `cropId` | string | Filter by crop ID |
-| `mandiId` | string | Filter by mandi ID |
-| `startDate` | ISO date | Start date range |
-| `endDate` | ISO date | End date range |
-| `limit` | number | Max results (default 100) |
-| `page` | number | Pagination page |
-
-### Response Format
-
-```json
-{
-  "success": true,
-  "data": { ... },
-  "meta": {
-    "page": 1,
-    "limit": 100,
-    "total": 1000
-  }
-}
-```
-
-### Prediction API
-
-Direct access to prediction engine:
-
-```bash
-# Get prediction
-curl http://localhost:8000/predictions/crop-123/mandi-456
-
-# Generate new prediction
-curl -X POST http://localhost:8000/predictions/crop-123/mandi-456
-
-# Response format
-{
-  "crop_id": "crop-123",
-  "mandi_id": "mandi-456",
-  "predictions": [
-    {"date": "2024-01-01", "price": 2500.50, "confidence": 0.85},
-    ...
-  ],
-  "model_info": {
-    "type": "ARIMA",
-    "parameters": {...}
-  }
-}
-```
-
----
-
-## Testing
-
-### Frontend Tests
-
-```bash
-# Consumer Portal
-cd consumer-portal
-bun test              # Run all tests
-bun test:watch        # Run in watch mode
-bun test:coverage     # Generate coverage report
-
-# APMC Portal
-cd apmc-portal
-bun test
-```
-
-### Backend Tests
-
-Currently, server and Python services do not have automated test suites configured. Testing is done via:
-
-1. **Manual API Testing**: Use tools like Postman or curl
-2. **Integration Testing**: Test full flows through frontend
-3. **Health Checks**: `curl http://localhost:5000/api/health`
-
-### Manual Test Checklist
-
-```bash
-# 1. Health checks
-curl http://localhost:5000/api/health
-curl http://localhost:8000/health
-
-# 2. Authentication flow
-# - Sign up via consumer portal
-# - Log in
-# - Verify session persists
-
-# 3. Price queries
-# - Search for crops
-# - View price charts
-# - Check map view
-
-# 4. Alerts
-# - Create price alert
-# - Verify in database: db.alerts.find()
-
-# 5. Predictions
-# - Request prediction for crop/mandi
-# - Verify response format
-```
-
----
-
-## Deployment
 
 ### Production Checklist
 
@@ -828,9 +638,6 @@ Ajrasakha-Hackathon/
 │   └── package.json
 │
 ├── apmc-portal/              # React frontend (operators)
-│   └── src/
-│
-├── dev-portal/               # Developer API portal
 │   └── src/
 │
 ├── pridiction-engine/        # Python FastAPI ML service

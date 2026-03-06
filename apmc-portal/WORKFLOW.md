@@ -66,40 +66,39 @@ apmc-portal/
 
 ### Routing Setup
 
-Routes are defined in `src/lib/routes.ts`:
+```mermaid
+flowchart TB
+    subgraph Browser["BrowserRouter"]
+        RootRoute["/"]
+        APMCRoute["/apmc"]
+        RegisterRoute["/apmc/register"]
+        NotFoundRoute["*"]
+    end
 
-```typescript
-export const APMC_ROUTES = {
-  root: "/apmc",
-  dashboard: "/apmc",
-  submitPrice: "/apmc/submit-price",
-  bulkUpload: "/apmc/bulk-upload",
-  history: "/apmc/history",
-  profile: "/apmc/profile",
-  settings: "/apmc/settings",
-  register: "/apmc/register",
-} as const;
+    subgraph APMCLayout["APMCLayout Wrapper"]
+        Dashboard["/apmc<br/>APMCDashboard"]
+        SubmitPrice["/apmc/submit-price<br/>SubmitPrice"]
+        BulkUpload["/apmc/bulk-upload<br/>BulkUpload"]
+        History["/apmc/history<br/>SubmissionHistory"]
+        Profile["/apmc/profile<br/>MyMandiProfile"]
+        Settings["/apmc/settings<br/>IntegrationSettings"]
+    end
+
+    RootRoute -->|Navigate| APMCRoute
+    APMCRoute --> Dashboard
+    APMCRoute --> SubmitPrice
+    APMCRoute --> BulkUpload
+    APMCRoute --> History
+    APMCRoute --> Profile
+    APMCRoute --> Settings
+    RegisterRoute --> MandiRegistration["MandiRegistration"]
+    NotFoundRoute --> NotFound["NotFound"]
+
+    style Browser fill:#f0f0f0,stroke:#333
+    style APMCLayout fill:#e8f4e8,stroke:#2e7d32
 ```
 
-**Route Configuration** (`src/App.tsx`):
-
-```typescript
-<BrowserRouter>
-  <Routes>
-    <Route path="/" element={<Navigate to={APMC_ROUTES.root} replace />} />
-    <Route path={APMC_ROUTES.root} element={<APMCLayout />}>
-      <Route index element={<APMCDashboard />} />
-      <Route path="submit-price" element={<SubmitPrice />} />
-      <Route path="bulk-upload" element={<BulkUpload />} />
-      <Route path="history" element={<SubmissionHistory />} />
-      <Route path="profile" element={<MyMandiProfile />} />
-      <Route path="settings" element={<IntegrationSettings />} />
-    </Route>
-    <Route path={APMC_ROUTES.register} element={<MandiRegistration />} />
-    <Route path="*" element={<NotFound />} />
-  </Routes>
-</BrowserRouter>
-```
+Routes are defined in `src/lib/routes.ts` and configured in `src/App.tsx`.
 
 ---
 
@@ -109,6 +108,29 @@ export const APMC_ROUTES = {
 
 **Purpose**: APMC-specific overview showing key metrics and submission trends.
 
+```mermaid
+flowchart LR
+    A[Mount Component] --> B[useAPMCStats Hook]
+    B --> C{Loading?}
+    C -->|Yes| D[Show Skeleton]
+    C -->|No| E[Render Stats Cards]
+    E --> F[Render Trend Chart]
+    B --> G[Fetch Stats Data]
+
+    subgraph StatsCards["Stats Cards"]
+        S1[Last Submission]
+        S2[Total Records]
+        S3[Data Health]
+        S4[Coverage Contribution]
+        S5[Monthly Average]
+    end
+
+    E --> StatsCards
+    F --> H[6-Month Area Chart]
+
+    style StatsCards fill:#e8f4e8,stroke:#2e7d32
+```
+
 **Features**:
 - Stats cards: Last Submission, Total Records, Data Health, Coverage Contribution, Monthly Avg
 - Area chart showing 6-month submission trend
@@ -116,17 +138,48 @@ export const APMC_ROUTES = {
 
 **Hook**: `useAPMCStats()`
 
-```typescript
-const { data: stats } = useAPMCStats();
-// Returns: integrationStatus, lastSubmission, totalRecords, 
-//          dataHealth, coverageContribution, submissionTrend[]
-```
-
 ---
 
 ### Submit Price (`/apmc/submit-price`)
 
 **Purpose**: Manual entry form for daily commodity price data.
+
+```mermaid
+flowchart TD
+    A[Load SubmitPrice Page] --> B[Initialize Form State]
+    B --> C[Render Form Fields]
+
+    subgraph FormFields["Form Fields"]
+        F1[Crop Select]
+        F2[Date Picker]
+        F3[Min Price]
+        F4[Max Price]
+        F5[Modal Price]
+        F6[Arrival Qty]
+        F7[Unit Select]
+    end
+
+    C --> FormFields
+    F1 --> G[User Fills Form]
+    F2 --> G
+    F3 --> G
+    F4 --> G
+    F5 --> G
+    F6 --> G
+    F7 --> G
+    G --> H[Submit Button Click]
+    H --> I{Validate Fields}
+    I -->|Invalid| J[Show Validation Errors]
+    J --> G
+    I -->|Valid| K[Call useSubmitPrice.mutate]
+    K --> L{API Response}
+    L -->|Success| M[Show Success Toast]
+    L -->|Error| N[Show Error Toast]
+    M --> O[Reset Form]
+    N --> G
+
+    style FormFields fill:#fff4e6,stroke:#ff9800
+```
 
 **Form Fields**:
 | Field | Type | Required | Validation |
@@ -141,16 +194,39 @@ const { data: stats } = useAPMCStats();
 
 **Hook**: `useSubmitPrice()`
 
-```typescript
-const { mutate, isPending } = useSubmitPrice();
-mutate({ crop, date, minPrice, maxPrice, modalPrice, arrival, unit });
-```
-
 ---
 
 ### Bulk Upload (`/apmc/bulk-upload`)
 
 **Purpose**: Upload price data via Excel/CSV files.
+
+```mermaid
+flowchart TD
+    A[Load BulkUpload Page] --> B[Show Drop Zone]
+    B --> C{User Action}
+    C -->|Download Template| D[Get Excel Template]
+    C -->|Drop File| E[File Drop Event]
+    C -->|Select File| F[File Input Change]
+    E --> G[Validate File Format]
+    F --> G
+    G -->|Invalid| H[Show Error: Invalid Format]
+    H --> B
+    G -->|Valid| I[Call useBulkUpload.upload]
+    I --> J[Set Status: processing]
+    J --> K[Show Progress Bar]
+    K --> L{Upload Result}
+    L -->|Success| M[Set Status: success]
+    L -->|Failed| N[Set Status: failed]
+    M --> O[Show Success Report]
+    N --> P[Show Error Details]
+    O --> Q{User Action}
+    P --> Q
+    Q -->|Upload Another| R[Reset Form]
+    Q -->|Done| S[Navigate to History]
+    R --> B
+
+    style I fill:#e8f4e8,stroke:#2e7d32
+```
 
 **Features**:
 - Drag-and-drop file zone
@@ -161,10 +237,14 @@ mutate({ crop, date, minPrice, maxPrice, modalPrice, arrival, unit });
 
 **Hook**: `useBulkUpload()`
 
-```typescript
-const { upload, progress, status, error, reset } = useBulkUpload();
-upload(file); // status: 'idle' | 'processing' | 'success' | 'failed'
-```
+**Features**:
+- Drag-and-drop file zone
+- File validation (CSV, XLSX, XLS)
+- Progress tracking
+- Processing status indicators
+- Template download button
+
+**Hook**: `useBulkUpload()`
 
 ---
 
@@ -191,6 +271,47 @@ const { data: records, totalPages, currentPage } = useSubmissionHistory();
 
 **Purpose**: Manage APMC mandi profile information.
 
+```mermaid
+flowchart TD
+    A[Load MyMandiProfile Page] --> B[useMandiProfile Hook]
+    B --> C[Fetch Profile Data]
+    C --> D[Populate Form Fields]
+
+    subgraph ReadOnly["Read-Only Fields"]
+        R1[Mandi Name]
+        R2[State]
+    end
+
+    subgraph Editable["Editable Fields"]
+        E1[District]
+        E2[Latitude]
+        E3[Longitude]
+        E4[Contact Person]
+        E5[Email]
+        E6[Phone]
+    end
+
+    D --> ReadOnly
+    D --> Editable
+    E1 --> F[User Edits Field]
+    E2 --> F
+    E3 --> F
+    E4 --> F
+    E5 --> F
+    E6 --> F
+    F --> G[Enable Save Button]
+    G --> H[Click Save]
+    H --> I[Call update.mutate]
+    I --> J{Update Status}
+    J -->|Success| K[Show Success Toast]
+    J -->|Error| L[Show Error Toast]
+    K --> M[Disable Save Button]
+    L --> F
+
+    style ReadOnly fill:#f5f5f5,stroke:#9e9e9e
+    style Editable fill:#e3f2fd,stroke:#2196f3
+```
+
 **Editable Fields**:
 - District
 - Latitude / Longitude
@@ -203,11 +324,6 @@ const { data: records, totalPages, currentPage } = useSubmissionHistory();
 - State
 
 **Hook**: `useMandiProfile()`
-
-```typescript
-const { data: profile, update, isUpdating } = useMandiProfile();
-update({ district, latitude, longitude, contactPerson, email, phone });
-```
 
 ---
 
@@ -248,6 +364,40 @@ const { data: settings, updateSource, regenerateKey } = useIntegrationSettings()
 ---
 
 ## 3. Current Implementation Status
+
+```mermaid
+flowchart LR
+    subgraph Current["Current State"]
+        C1[Dashboard UI]
+        C2[Forms & Validation]
+        C3[Mock Data Hooks]
+    end
+
+    subgraph Transition["Migration Path"]
+        T1[Create apiClient]
+        T2[Add TanStack Query]
+        T3[Update Hooks]
+    end
+
+    subgraph Target["Target State"]
+        X1[Dashboard UI]
+        X2[Forms & Validation]
+        X3[Live API Hooks]
+        X4[Real Backend Data]
+    end
+
+    C1 --> X1
+    C2 --> X2
+    C3 --> T1
+    T1 --> T2
+    T2 --> T3
+    T3 --> X3
+    X3 --> X4
+
+    style Current fill:#fff4e6,stroke:#ff9800
+    style Transition fill:#fff9c4,stroke:#fbc02d
+    style Target fill:#e8f4e8,stroke:#2e7d32
+```
 
 ### Implemented Features
 
@@ -345,20 +495,56 @@ export const apiClient = {
 
 ### Price Submission Workflows
 
-**Single Entry Flow**:
-```
-User → Submit Price Page → Fill Form → Validation → API Call → Success Toast
-```
+```mermaid
+flowchart TD
+    subgraph SingleEntry["Single Entry Flow"]
+        SE1[User Accesses] --> SE2[Submit Price Page]
+        SE2 --> SE3[Fill Price Form]
+        SE3 --> SE4[Client Validation]
+        SE4 -->|Invalid| SE5[Show Field Errors]
+        SE5 --> SE3
+        SE4 -->|Valid| SE6[POST /api/apmc/prices]
+        SE6 --> SE7{API Response}
+        SE7 -->|201 Created| SE8[Show Success Toast]
+        SE7 -->|Error| SE9[Show Error Message]
+        SE9 --> SE3
+        SE8 --> SE10[Clear Form]
+    end
 
-**Bulk Upload Flow**:
-```
-User → Bulk Upload Page → Drop File → Validate Format → Upload → Process → Report
+    subgraph BulkUpload["Bulk Upload Flow"]
+        BU1[User Accesses] --> BU2[Bulk Upload Page]
+        BU2 --> BU3[Download Template]
+        BU3 --> BU4[Fill Excel/CSV]
+        BU4 --> BU5[Drop File]
+        BU5 --> BU6[Validate Format]
+        BU6 -->|Invalid| BU7[Show Format Error]
+        BU7 --> BU5
+        BU6 -->|Valid| BU8[POST /api/apmc/prices/bulk]
+        BU8 --> BU9[Show Progress]
+        BU9 --> BU10{Process Result}
+        BU10 -->|Success| BU11[Show Success Report]
+        BU10 -->|Partial| BU12[Show Error Report]
+        BU10 -->|Failed| BU13[Show Failure Message]
+    end
+
+    subgraph APISource["API Integration Flow"]
+        API1[External System] --> API2[POST to Webhook]
+        API2 --> API3[Validate API Key]
+        API3 -->|Invalid| API4[401 Unauthorized]
+        API3 -->|Valid| API5[Process Payload]
+        API5 --> API6[Store Prices]
+        API6 --> API7[200 OK Response]
+    end
+
+    style SingleEntry fill:#e8f4e8,stroke:#2e7d32
+    style BulkUpload fill:#fff4e6,stroke:#ff9800
+    style APISource fill:#e3f2fd,stroke:#2196f3
 ```
 
 **Data Sources Supported**:
-1. **Manual** - Form-based entry
-2. **Excel** - CSV/XLSX file upload
-3. **API** - Direct system integration via REST API
+1. **Manual** - Form-based entry (Single Entry Flow)
+2. **Excel** - CSV/XLSX file upload (Bulk Upload Flow)
+3. **API** - Direct system integration via REST API (API Integration Flow)
 
 ### Profile Management
 

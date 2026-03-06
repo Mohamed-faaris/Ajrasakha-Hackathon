@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { toNodeHandler } from 'better-auth/node';
 import type { Auth } from './lib/auth';
+import { env } from './config/env';
 import {
   cropRoutes,
   stateRoutes,
@@ -62,7 +63,7 @@ const createApp = (auth: Auth) => {
   const app = express();
 
   app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: env.BETTER_AUTH_TRUSTED_ORIGINS,
     credentials: true
   }));
 

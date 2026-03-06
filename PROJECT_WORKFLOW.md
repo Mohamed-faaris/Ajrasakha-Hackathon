@@ -16,19 +16,63 @@ Primary datastore: MongoDB.
 
 ## 2) End-to-End Data Flow
 
-```text
-Public mandi/APMC websites
-  -> scraper-engine/endpoint-discovery
-  -> MongoDB.prices / sources / scrape_runs
-  -> server cron jobs compute derived collections
-  -> server REST APIs
-  -> consumer-portal + apmc-portal
+```mermaid
+flowchart TB
+    subgraph Ingestion["📥 Data Ingestion"]
+        PublicSites["Public Mandi/APMC Websites"]
+        ScraperEngine["scraper-engine/<br/>endpoint-discovery"]
+    end
 
-On-demand prediction request
-  -> server /api/predictions/*
-  -> pridiction-engine /predictions/*
-  -> MongoDB.predictions
-  -> server response to frontend
+    subgraph Storage["💾 MongoDB Storage"]
+        Prices[(prices)]
+        Sources[(sources)]
+        ScrapeRuns[(scrape_runs)]
+    end
+
+    subgraph Processing["⚙️ Server Processing"]
+        CronJobs["Cron Jobs"]
+        Derived["Derived Collections"]
+    end
+
+    subgraph API["🔌 API Layer"]
+        RestAPIs["REST APIs<br/>/api/*"]
+        PredictionAPI["Prediction APIs<br/>/api/predictions/*"]
+    end
+
+    subgraph Portals["🖥️ Frontend Portals"]
+        ConsumerPortal["consumer-portal"]
+        APMCPortal["apmc-portal"]
+    end
+
+    subgraph PredictionFlow["🔮 Prediction Request Flow"]
+        UserRequest["User Prediction Request"]
+        PredictionEngine["pridiction-engine<br/>/predictions/*"]
+        Predictions[(predictions)]
+    end
+
+    %% Ingestion Flow
+    PublicSites -->|"Scrape"| ScraperEngine
+    ScraperEngine -->|"Store"| Prices
+    ScraperEngine -->|"Store"| Sources
+    ScraperEngine -->|"Log"| ScrapeRuns
+
+    %% Processing Flow
+    Prices -->|"Read"| CronJobs
+    CronJobs -->|"Compute"| Derived
+
+    %% API Flow
+    Prices -->|"Query"| RestAPIs
+    Derived -->|"Query"| RestAPIs
+    RestAPIs -->|"Serve"| ConsumerPortal
+    RestAPIs -->|"Serve"| APMCPortal
+
+    %% Prediction Flow
+    UserRequest -->|"Request"| PredictionAPI
+    PredictionAPI -->|"Forward"| PredictionEngine
+    PredictionEngine -->|"Read 90d data"| Prices
+    PredictionEngine -->|"Store forecast"| Predictions
+    Predictions -->|"Return"| PredictionAPI
+    PredictionAPI -->|"Response"| ConsumerPortal
 ```
 
 ## 3) Ingestion Workflow (Scraper Engine)
@@ -119,61 +163,130 @@ Services involved: `server` + `pridiction-engine`
 
 Services involved: `consumer-portal` + `server` + Firebase Cloud Messaging
 
-### Alert Creation
+```mermaid
+flowchart TB
+    subgraph AlertCreation["🚨 Alert Creation Flow"]
+        User["User"]
+        PriceAlertsPage["PriceAlerts.tsx<br/>(consumer-portal)"]
+        useAlertsHook["useAlerts Hook<br/>POST /api/alerts"]
+        AlertTypes{"Alert Types"}
+        PriceAlert["💰 Price Alert<br/>Threshold above/below"]
+        TrendAlert["📈 Trend Alert<br/>X% change over N days"]
+        BothAlert["🔔 Both<br/>Combined conditions"]
+        ServerCreate["Server API<br/>Validation & Storage"]
+        AlertsCollection[(alerts<br/>MongoDB)]
 
-1. User creates alert via `PriceAlerts.tsx` page in consumer-portal
-2. Alert types supported:
-   - **Price Alert**: Triggered when price goes above/below threshold
-   - **Trend Alert**: Triggered when price changes by X% over N days  
-   - **Both**: Combines both conditions
-3. Frontend calls `POST /api/alerts` via `useAlerts` hook
-4. Server validates and stores alert in MongoDB `alerts` collection
+        User -->|"Create Alert"| PriceAlertsPage
+        PriceAlertsPage -->|"Submit"| useAlertsHook
+        useAlertsHook -->|"Select Type"| AlertTypes
+        AlertTypes --> PriceAlert
+        AlertTypes --> TrendAlert
+        AlertTypes --> BothAlert
+        PriceAlert -->|"Create"| ServerCreate
+        TrendAlert -->|"Create"| ServerCreate
+        BothAlert -->|"Create"| ServerCreate
+        ServerCreate -->|"Store"| AlertsCollection
+    end
 
-### Push Notification Setup
+    subgraph PushSetup["🔔 Push Notification Setup"]
+        EnableNotif["User enables<br/>notifications"]
+        Browser["Browser"]
+        FCM["Firebase Cloud<br/>Messaging"]
+        FCMToken["FCM Token"]
+        RegisterToken["POST /api/alerts/fcm-token"]
+        UserProfile["UserProfile<br/>fcmTokens[]"]
 
-1. User enables push notifications in browser
-2. Browser requests FCM token from Firebase
-3. Frontend registers token via `POST /api/alerts/fcm-token`
-4. Server stores token in `UserProfile.fcmTokens` array
+        EnableNotif -->|"Request permission"| Browser
+        Browser -->|"Request token"| FCM
+        FCM -->|"Return token"| FCMToken
+        FCMToken -->|"Register"| RegisterToken
+        RegisterToken -->|"Store"| UserProfile
+    end
 
-### Alert Processing (Cron Job)
+    subgraph AlertProcessing["⏰ Alert Processing<br/>(Cron Job)"]
+        CronTrigger["Every Hour<br/>0 * * * *"]
+        FetchActive["Fetch active alerts"]
+        GroupBy["Group by (cropId, mandiId)"]
+        GetLatestPrice["Get latest price<br/>from prices collection"]
+        CheckConditions{"Check Conditions"}
+        PriceCheck["Price vs Threshold?"]
+        TrendCheck["% Change over N days?"]
+        CooldownCheck["In cooldown?<br/>(24h default)"]
+        SendNotif["Send Push Notification"]
+        UpdateTimestamp["Update lastNotifiedAt"]
+        LogTrigger["Log trigger<br/>in alert doc"]
 
-Location: `server/src/jobs/alert.processor.ts`
+        CronTrigger --> FetchActive
+        FetchActive --> GroupBy
+        GroupBy --> GetLatestPrice
+        GetLatestPrice --> CheckConditions
+        CheckConditions --> PriceCheck
+        CheckConditions --> TrendCheck
+        PriceCheck --> CooldownCheck
+        TrendCheck --> CooldownCheck
+        CooldownCheck -->|"Passed"| SendNotif
+        SendNotif --> UpdateTimestamp
+        UpdateTimestamp --> LogTrigger
+    end
 
-Schedule: **Every hour** (`0 * * * *`)
+    subgraph Delivery["📤 Notification Delivery"]
+        FirebaseService["firebase.service.ts"]
+        LoadTokens["Load FCM tokens"]
+        SendMulticast["sendEachForMulticast()"]
+        Cleanup["Auto cleanup<br/>invalid tokens"]
+        DeepLink["Deep Link<br/>ajrasakha://price/{cropId}/{mandiId}"]
 
+        SendNotif --> FirebaseService
+        UserProfile -->|"Load"| LoadTokens
+        LoadTokens --> SendMulticast
+        SendMulticast --> Cleanup
+        SendMulticast -->|"Include"| DeepLink
+    end
+
+    subgraph Management["⚙️ Alert Management"]
+        ViewAlerts["GET /api/alerts"]
+        Toggle["PATCH /api/alerts/:id/toggle"]
+        Update["PATCH /api/alerts/:id"]
+        Delete["DELETE /api/alerts/:id"]
+        OptimisticUI["Optimistic UI Updates"]
+
+        User -->|"View"| ViewAlerts
+        User -->|"Toggle"| Toggle
+        User -->|"Update"| Update
+        User -->|"Delete"| Delete
+        ViewAlerts --> OptimisticUI
+        Toggle --> OptimisticUI
+        Update --> OptimisticUI
+        Delete --> OptimisticUI
+    end
+
+    %% Connect sections
+    AlertCreation -.->|"User has alerts"| AlertProcessing
+    PushSetup -.->|"Tokens ready"| Delivery
 ```
-1. Fetch all active alerts from MongoDB
-2. Group alerts by (cropId, mandiId) for efficient processing
-3. For each group:
-   - Get latest price from `prices` collection
-   - Check price alerts: current price vs threshold (above/below)
-   - Check trend alerts: % change over N days vs historical data
-   - Skip if in cooldown period (default 24h between notifications)
-4. For triggered alerts:
-   - Send push notification via Firebase
-   - Update `lastNotifiedAt` timestamp
-   - Log trigger in alert document
-```
+
+### Alert Types
+
+| Type | Trigger Condition |
+|------|-------------------|
+| **Price Alert** | When price goes above/below threshold |
+| **Trend Alert** | When price changes by X% over N days |
+| **Both** | Combines both conditions |
+
+### Cron Job Details
+
+**Location:** `server/src/jobs/alert.processor.ts`  
+**Schedule:** Every hour (`0 * * * *`)
+
+The cron job processes alerts in batches, grouping by `(cropId, mandiId)` for efficiency.
 
 ### Notification Delivery
 
-Location: `server/src/services/firebase.service.ts`
+**Location:** `server/src/services/firebase.service.ts`
 
-- Loads user's FCM tokens from `UserProfile`
-- Sends multicast notification via `messaging.sendEachForMulticast()`
-- Handles invalid token cleanup automatically
-- Payload includes deep links: `ajrasakha://price/{cropId}/{mandiId}`
-
-### Alert Management
-
-User can:
-- View all alerts: `GET /api/alerts`
-- Toggle on/off: `PATCH /api/alerts/:id/toggle`
-- Update settings: `PATCH /api/alerts/:id`
-- Delete: `DELETE /api/alerts/:id`
-
-Frontend uses optimistic updates (UI updates immediately before server confirms).
+- Uses Firebase `messaging.sendEachForMulticast()` for batch delivery
+- Automatically cleans up invalid/expired FCM tokens
+- Payload includes deep links for mobile app navigation
 
 ## 8) Frontend Workflow
 

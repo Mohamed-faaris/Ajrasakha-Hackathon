@@ -49,100 +49,63 @@ Ajrasakha is a comprehensive agricultural market intelligence platform that empo
 
 ### High-Level Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                              CLIENT LAYER                                    │
-├─────────────────┬──────────────────┬─────────────────┬──────────────────────┤
-│                 │                  │                 │                      │
-│  Consumer       │  APMC Portal     │  Dev Portal     │  Third-Party Apps    │
-│  Portal         │  (Operators)     │  (API Keys)     │  (API Consumers)     │
-│  (React/Vite)   │  (React/Vite)    │  (React/Vite)   │                      │
-│  Port: 3000     │  Port: 8080      │  Port: 5173     │                      │
-│                 │                  │                 │                      │
-└────────┬────────┴────────┬─────────┴────────┬────────┴──────────────────────┘
-         │                 │                  │
-         └─────────────────┼──────────────────┘
-                           │
-                    ┌──────▼──────┐
-                    │   Nginx/    │
-                    │   CDN       │
-                    └──────┬──────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────────────────────┐
-│                           API LAYER                                          │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │                    API Server (Node.js/Express)                      │   │
-│  │                         Port: 5000                                   │   │
-│  │                                                                      │   │
-│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌────────────┐  │   │
-│  │  │ Auth        │  │ Prices      │  │ Predictions │  │ Alerts     │  │   │
-│  │  │ (Better     │  │ API         │  │ Proxy       │  │ (Cron)     │  │   │
-│  │  │  Auth)      │  │             │  │             │  │            │  │   │
-│  │  └─────────────┘  └─────────────┘  └─────────────┘  └────────────┘  │   │
-│  │                                                                      │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-│                                    │                                        │
-│                                    │ HTTP/REST                              │
-│                                    ▼                                        │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │              Prediction Engine (Python/FastAPI)                      │   │
-│  │                         Port: 8000                                   │   │
-│  │              ARIMA-based forecasting, pandas, statsmodels            │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    │ MongoDB Driver
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                          DATA LAYER                                          │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │              Scraper Engine (Python/Playwright/LangChain)            │   │
-│  │                      Endpoint Discovery Pipeline                     │   │
-│  │         AI-powered discovery, mapping, extraction, normalization    │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-│                                    │                                        │
-│                                    ▼                                        │
-│                        ┌───────────────────┐                                │
-│                        │     MongoDB       │                                │
-│                        │   (Data Store)    │                                │
-│                        │                   │                                │
-│                        │ • prices          │                                │
-│                        │ • sources         │                                │
-│                        │ • predictions     │                                │
-│                        │ • alerts          │                                │
-│                        │ • user_profiles   │                                │
-│                        └───────────────────┘                                │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Client["Client Layer"]
+        CP[Consumer Portal<br/>React/Vite<br/>Port: 3000]
+        AP[APMC Portal<br/>Operators<br/>Port: 8080]
+        DP[Dev Portal<br/>API Keys<br/>Port: 5173]
+        TPA[Third-Party Apps<br/>API Consumers]
+    end
+
+    NGINX[Nginx/CDN]
+
+    subgraph API["API Layer"]
+        subgraph Server["API Server Node.js/Express<br/>Port: 5000"]
+            Auth[Auth<br/>Better Auth]
+            Prices[Prices API]
+            Predictions[Predictions<br/>Proxy]
+            Alerts[Alerts<br/>Cron]
+        end
+
+        PE[Prediction Engine<br/>Python/FastAPI<br/>Port: 8000<br/>ARIMA forecasting]
+    end
+
+    subgraph Data["Data Layer"]
+        SE[Scraper Engine<br/>Python/Playwright/LangChain<br/>Endpoint Discovery Pipeline<br/>AI-powered discovery, mapping,<br/>extraction, normalization]
+
+        MongoDB[(MongoDB<br/>Data Store<br/><br/>• prices<br/>• sources<br/>• predictions<br/>• alerts<br/>• user_profiles)]
+    end
+
+    CP --> NGINX
+    AP --> NGINX
+    DP --> NGINX
+    TPA --> NGINX
+
+    NGINX --> Server
+    Server <-->|HTTP/REST| PE
+    PE -->|MongoDB Driver| MongoDB
+    SE --> MongoDB
 ```
 
 ### Data Flow
 
-```
-External Sources          Ingestion                Processing              API
-(150+ Mandi Sites)   →  Scraper Engine    →     Cron Jobs        →    Server
-                             ↓                       ↓                   ↓
-                        ┌─────────┐           ┌───────────┐        ┌──────────┐
-                        │ MongoDB │    →      │ Analytics │   →    │ REST API │
-                        └─────────┘           └───────────┘        └────┬─────┘
-                                                                        │
-                        ┌───────────────────────────────────────────────┼───────┐
-                        ▼                                               ▼       │
-              ┌──────────────────┐                          ┌────────────────┐ │
-              │ Firebase FCM     │                          │ Prediction     │ │
-              │ (Push Alerts)    │                          │ Engine (ML)    │ │
-              └──────────────────┘                          └────────────────┘ │
-                                                                               │
-                        ┌──────────────────────────────────────────────────────┘
-                        ▼
-              ┌──────────────────┬──────────────────┬──────────────────┐
-              │ Consumer Portal  │ APMC Portal      │ Dev Portal       │
-              └──────────────────┴──────────────────┴──────────────────┘
+```mermaid
+flowchart LR
+    ES[External Sources<br/>150+ Mandi Sites] --> SE[Scraper Engine]
+    SE --> MongoDB[(MongoDB)]
+    MongoDB --> CJ[Cron Jobs]
+    CJ --> API[Server<br/>REST API]
+
+    MongoDB --> Analytics[Analytics]
+    Analytics --> API
+
+    API --> FCM[Firebase FCM<br/>Push Alerts]
+    API --> PE[Prediction Engine<br/>ML]
+
+    API --> CP[Consumer Portal]
+    API --> AP[APMC Portal]
+    API --> DP[Dev Portal]
 ```
 
 ---

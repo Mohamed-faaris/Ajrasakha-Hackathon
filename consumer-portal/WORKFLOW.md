@@ -106,14 +106,16 @@ Route guards:
 - Role-based feature hints (trader tools, policy analytics)
 
 **Data Flow**:
-```
-User selects filters
-    ↓
-usePrices(filters) → API call with filters
-    ↓
-Client-side search filtering
-    ↓
-Display in sortable table
+
+```mermaid
+flowchart TD
+    A[User Selects Filters] --> B[usePrices Hook]
+    B --> C[API Call with Filters]
+    C --> D[Client-side Search Filtering]
+    D --> E[Display in Sortable Table]
+    
+    style A fill:#e1f5fe
+    style E fill:#c8e6c9
 ```
 
 **Code Example**:
@@ -157,21 +159,31 @@ Fetch/display prediction
 ```
 
 **State Management**:
-```tsx
-const [selectedState, setSelectedState] = useState("");
-const [selectedMandi, setSelectedMandi] = useState("");
-const [selectedCrop, setSelectedCrop] = useState("");
 
-// Cascading queries with dependent fetching
-const statesQuery = useAnalyticsPredictions({});
-const apmcsQuery = useAnalyticsPredictions(
-  { stateId: selectedState }, 
-  Boolean(selectedState)
-);
-const predictionQuery = useAnalyticsPredictions(
-  { stateId: selectedState, mandiId: selectedMandi, cropId: selectedCrop },
-  Boolean(selectedState && selectedMandi && selectedCrop)
-);
+```mermaid
+flowchart TD
+    subgraph SelectionFlow [Drill-down Selection Flow]
+        A[Select State] --> B[Fetch APMCs for State]
+        B --> C[Select APMC]
+        C --> D[Fetch Crops for APMC]
+        D --> E[Select Crop]
+        E --> F[Fetch/Display Prediction]
+    end
+    
+    subgraph CascadingQueries [Cascading Queries with Dependent Fetching]
+        G[statesQuery<br/>useAnalyticsPredictions{}]
+        H[apmcsQuery<br/>enabled: Boolean(selectedState)]
+        I[predictionQuery<br/>enabled: Boolean(all selected)]
+    end
+    
+    A -.-> G
+    C -.-> H
+    E -.-> I
+    
+    style A fill:#e3f2fd
+    style C fill:#e3f2fd
+    style E fill:#e3f2fd
+    style F fill:#c8e6c9
 ```
 
 ### 2.3 Price Alerts
@@ -208,16 +220,24 @@ type AlertType = "price" | "trend" | "both";
 ```
 
 **Creating an Alert**:
-```tsx
-const createAlert = useCreateAlert();
 
-await createAlert.mutateAsync({
-  crop: "wheat",
-  threshold: 2500,
-  type: "above",
-  alertType: "price",
-  cooldownHours: 24,
-});
+```mermaid
+flowchart TD
+    A[User Fills Alert Form] --> B[createAlert.mutateAsync]
+    B --> C[POST /alerts]
+    C --> D[Backend Validation]
+    D --> E{Valid?}
+    E -->|Yes| F[Create Alert in DB]
+    E -->|No| G[Return Validation Error]
+    F --> H[Return Success Response]
+    G --> I[Show Error Toast]
+    H --> J[Show Success Toast]
+    J --> K[Invalidate Alerts Cache]
+    K --> L[Refetch Alert List]
+    
+    style A fill:#e3f2fd
+    style F fill:#c8e6c9
+    style G fill:#ffcdd2
 ```
 
 ### 2.4 Map Insights
@@ -289,6 +309,40 @@ const ProfileRequiredFieldsSchema = z.object({
 ### 3.1 TanStack Query Setup
 
 All queries use a centralized configuration in `use-api.ts`:
+
+**TanStack Query Flow:**
+
+```mermaid
+flowchart TD
+    subgraph QueryFlow [Query Execution Flow]
+        A[Component Calls useTypedQuery] --> B{Cache Hit?}
+        B -->|Yes| C[Return Cached Data]
+        B -->|No| D[Execute queryFn]
+        C --> E{Data Stale?}
+        E -->|Yes| F[Background Refetch]
+        E -->|No| G[Use Cached Data]
+        D --> H[API Call via apiClient]
+        H --> I[Zod Schema Validation]
+        I --> J[Update Query Cache]
+        J --> K[Return Validated Data]
+        F --> L[Silently Update Cache]
+    end
+    
+    subgraph ErrorHandling [Error Handling]
+        M[API Error] --> N{Status Code}
+        N -->|401| O[Redirect to Login]
+        N -->|403| P[Show Forbidden Message]
+        N -->|404| Q[Show Not Found]
+        N -->|5xx| R[Show Retry Option]
+        N -->|Validation| S[Show Field Errors]
+    end
+    
+    H -.-> M
+    
+    style A fill:#e3f2fd
+    style K fill:#c8e6c9
+    style G fill:#c8e6c9
+```
 
 ```tsx
 export function useTypedQuery<TData, TError = Error>(
@@ -426,6 +480,29 @@ class ValidationError extends Error {
 
 Authentication client configuration:
 
+```mermaid
+flowchart TD
+    subgraph ClientSetup [Better Auth Client Setup]
+        A[createAuthClient] --> B[Configure baseURL]
+        B --> C[Set credentials: 'include']
+        C --> D[Add Plugins]
+        D --> E[emailOTPClient]
+        D --> F[magicLinkClient]
+        E --> G[Export Hooks & Methods]
+        F --> G
+        G --> H[signIn / signUp / signOut / useSession]
+    end
+    
+    subgraph AuthMethods [Authentication Methods]
+        I[Email/Password] --> J[signIn.email]
+        K[Email OTP] --> L[signIn.emailOtp]
+        M[Magic Link] --> N[signIn.magicLink]
+    end
+    
+    style A fill:#e3f2fd
+    style H fill:#c8e6c9
+```
+
 ```tsx
 // lib/auth-client.ts
 import { createAuthClient } from 'better-auth/react';
@@ -448,6 +525,27 @@ export const { signIn, signUp, signOut, useSession } = authClient;
 ### 4.2 Protected Routes
 
 Route guards handle authentication state:
+
+```mermaid
+flowchart TD
+    subgraph ProtectedRouteFlow [Protected Route Guard]
+        A[Route Requested] --> B{useSession Status}
+        B -->|isPending| C[Show Loading Spinner]
+        B -->|data?.user exists| D[Render Protected Content]
+        B -->|!data?.user| E[Navigate to /login]
+        E --> F[Store Redirect URL]
+    end
+    
+    subgraph PublicOnlyRouteFlow [Public-Only Route Guard]
+        G[Login/Signup Page] --> H{useSession Status}
+        H -->|isPending| I[Show Loading Spinner]
+        H -->|data?.user exists| J[Navigate to /dashboard]
+        H -->|!data?.user| K[Render Login/Signup Form]
+    end
+    
+    style D fill:#c8e6c9
+    style K fill:#c8e6c9
+```
 
 ```tsx
 // components/ProtectedRoute.tsx
@@ -485,6 +583,30 @@ export function PublicOnlyRoute({ children }: { children: ReactNode }) {
 
 Using the `useSession` hook throughout the app:
 
+```mermaid
+flowchart TD
+    subgraph SessionFlow [Session Management Flow]
+        A[useSession Hook] --> B[Check Cookie Session]
+        B --> C{Session Valid?}
+        C -->|Yes| D[Return User Data]
+        C -->|No / Expired| E[Refresh Token]
+        E --> F{Refresh Success?}
+        F -->|Yes| D
+        F -->|No| G[Clear Session]
+    end
+    
+    subgraph RoleCheck [Role-Based Rendering]
+        D --> H[Extract user.role]
+        H --> I{Role Check}
+        I -->|trader| J[Show TraderTools]
+        I -->|farmer| K[Show FarmTools]
+        I -->|developer| L[Show API Access]
+        I -->|admin| M[Show Admin Panel]
+    end
+    
+    style D fill:#c8e6c9
+```
+
 ```tsx
 function MyComponent() {
   const { data: session, isPending } = useSession();
@@ -503,6 +625,45 @@ function MyComponent() {
 ```
 
 ### 4.4 Sign In/Sign Up
+
+```mermaid
+flowchart TD
+    subgraph SignInFlow [Sign In Flow]
+        A[User Enters Credentials] --> B{Auth Method}
+        B -->|Email/Password| C[signIn.email]
+        B -->|OTP| D[Request OTP] --> E[Enter OTP] --> F[signIn.emailOtp]
+        B -->|Magic Link| G[signIn.magicLink]
+        C --> H[Validate Credentials]
+        F --> H
+        G --> I[Send Email with Link]
+        H --> J{Success?}
+        J -->|Yes| K[Set Session Cookie]
+        J -->|No| L[Show Error Message]
+        K --> M[Navigate to Dashboard]
+        I --> N[User Clicks Link] --> K
+    end
+    
+    subgraph SignUpFlow [Sign Up Flow]
+        O[Enter Email/Password/Name] --> P[signUp.email]
+        P --> Q[Validate Input]
+        Q --> R{Valid?}
+        R -->|Yes| S[Create Account]
+        R -->|No| T[Show Validation Errors]
+        S --> U[Auto Sign In]
+        U --> M
+    end
+    
+    subgraph SignOutFlow [Sign Out Flow]
+        V[Click Sign Out] --> W[signOut]
+        W --> X[Clear Session Cookie]
+        X --> Y[Invalidate Cache]
+        Y --> Z[Navigate to Login]
+    end
+    
+    style M fill:#c8e6c9
+    style S fill:#c8e6c9
+    style Z fill:#ffccbc
+```
 
 ```tsx
 // Sign in with email/password
@@ -558,27 +719,55 @@ export function hasRoleCapability(
 
 FCM integration for web push notifications:
 
+```mermaid
+flowchart TD
+    subgraph FCMSetup [FCM Setup & Permission Flow]
+        A[App Mounts] --> B{isSupported?}
+        B -->|Yes| C[Check Permission Status]
+        B -->|No| D[Show Not Supported Message]
+        C --> E{Permission Status}
+        E -->|default| F[Show Enable Button]
+        E -->|granted| G[Already Enabled]
+        E -->|denied| H[Show Instructions to Enable]
+        F --> I[User Clicks Enable]
+        I --> J[requestPermission]
+        J --> K{Granted?}
+        K -->|Yes| L[Get FCM Token]
+        K -->|No| M[Show Denied Message]
+    end
+    
+    subgraph TokenRegistration [Token Registration]
+        L --> N[registerFCM]
+        N --> O[POST /alerts/fcm-token]
+        O --> P[Store with Device Info]
+        P --> Q[Token Active]
+    end
+    
+    style G fill:#c8e6c9
+    style Q fill:#c8e6c9
+```
+
 ```tsx
 // hooks/use-fcm.ts
 export function useFCM(autoRequest = false): UseFCMReturn {
   const [permissionStatus, setPermissionStatus] = useState<PermissionStatus>("default");
   const [fcmToken, setFcmToken] = useState<string | null>(null);
-  
+
   const isSupported = isNotificationSupported() && isPushSupported();
-  
+
   const requestPermission = async (): Promise<boolean> => {
     if (!isSupported) return false;
-    
+
     const granted = await Notification.requestPermission();
     setPermissionStatus(granted as PermissionStatus);
     return granted === "granted";
   };
-  
+
   const registerFCM = async (token: string): Promise<void> => {
     await registerFCMToken(token);
     setFcmToken(token);
   };
-  
+
   return {
     registerFCM,
     unregisterFCM,
@@ -594,6 +783,33 @@ export function useFCM(autoRequest = false): UseFCMReturn {
 ### 5.2 Token Registration
 
 Register FCM token with backend for targeted notifications:
+
+```mermaid
+flowchart TD
+    subgraph TokenReg [FCM Token Registration Flow]
+        A[getFCMToken] --> B[Initialize Firebase]
+        B --> C[Get VAPID Key]
+        C --> D[Generate Token]
+        D --> E[registerFCMToken]
+        E --> F[Gather Device Info]
+        F --> G[browser / os / userAgent]
+        G --> H[POST /alerts/fcm-token]
+        H --> I[Backend Stores Token]
+        I --> J[Link to User Account]
+        J --> K[Return Success]
+    end
+    
+    subgraph TokenRefresh [Token Refresh & Cleanup]
+        L[Periodic Refresh] --> M[Check Token Validity]
+        M --> N{Token Changed?}
+        N -->|Yes| O[Update Backend]
+        N -->|No| P[Continue]
+        Q[User Logs Out] --> R[Unregister Token]
+        R --> S[DELETE /alerts/fcm-token]
+    end
+    
+    style K fill:#c8e6c9
+```
 
 ```tsx
 export async function registerFCMToken(fcmToken: string): Promise<void> {
@@ -619,6 +835,34 @@ export async function registerFCMToken(fcmToken: string): Promise<void> {
 
 Listen for incoming FCM messages:
 
+```mermaid
+flowchart TD
+    subgraph ReceiveNotif [Receiving Notifications]
+        A[FCM Message Arrives] --> B{App in Focus?}
+        B -->|Yes| C[onMessage Listener]
+        B -->|No| D[Service Worker Handles]
+        C --> E[Show Toast via use-toast]
+        D --> F[Show Native Notification]
+        E --> G[Play Sound/Vibrate]
+        F --> H[User Clicks Notification]
+        H --> I[window.focus]
+        I --> J{Has data.url?}
+        J -->|Yes| K[Navigate to URL]
+        J -->|No| L[Focus Current Page]
+    end
+    
+    subgraph MessagePayload [Message Payload Handling]
+        M[notification.title] --> E
+        N[notification.body] --> E
+        O[notification.image] --> F
+        P[data.alertId] --> Q[Mark Alert Read]
+        P --> K
+    end
+    
+    style E fill:#c8e6c9
+    style F fill:#c8e6c9
+```
+
 ```tsx
 export function onMessageListener(
   messaging: unknown,
@@ -626,17 +870,17 @@ export function onMessageListener(
 ): () => void {
   const setupListener = async () => {
     const { onMessage } = await import("firebase/messaging");
-    
+
     unsubscribe = onMessage(messaging, (payload: FCMMessage) => {
       const { notification, data } = payload;
-      
+
       // Show toast notification
       toast({
         title: notification?.title || "New Notification",
         description: notification?.body || "",
         duration: 5000,
       });
-      
+
       // Or create native notification
       if (Notification.permission === "granted") {
         const notif = new Notification(notification?.title, {
@@ -644,7 +888,7 @@ export function onMessageListener(
           icon: notification?.image || "/favicon.ico",
           data: data || {},
         });
-        
+
         notif.onclick = () => {
           window.focus();
           if (data?.url) {
@@ -654,13 +898,37 @@ export function onMessageListener(
       }
     });
   };
-  
+
   setupListener();
   return () => unsubscribe();
 }
 ```
 
 ### 5.4 Usage in Components
+
+```mermaid
+flowchart TD
+    subgraph ComponentUsage [Notification Settings Component]
+        A[Render NotificationSettings] --> B{isSupported}
+        B -->|false| C[Hide Notification Options]
+        B -->|true| D{permissionStatus}
+        D -->|granted| E[Show Token Status]
+        D -->|denied| F[Show Enable Instructions]
+        D -->|default| G[Show Enable Button]
+        G --> H[handleEnableNotifications]
+        H --> I[requestPermission]
+        I --> J{Granted?}
+        J -->|Yes| K[getFCMToken]
+        K --> L[registerFCM]
+        L --> M[Update UI State]
+        J -->|No| N[Show Error Message]
+        E --> O[Test Notification Button]
+        O --> P[Send Test Alert]
+    end
+    
+    style E fill:#c8e6c9
+    style M fill:#c8e6c9
+```
 
 ```tsx
 function NotificationSettings() {
@@ -670,7 +938,7 @@ function NotificationSettings() {
     registerFCM,
     isSupported 
   } = useFCM();
-  
+
   const handleEnableNotifications = async () => {
     const granted = await requestPermission();
     if (granted) {
@@ -681,7 +949,7 @@ function NotificationSettings() {
       }
     }
   };
-  
+
   return (
     <div>
       {isSupported && permissionStatus !== "granted" && (
@@ -728,6 +996,41 @@ const prefetchPrices = () => {
 ### 6.3 Optimistic Updates
 
 Update UI immediately before API confirmation:
+
+```mermaid
+flowchart TD
+    subgraph OptimisticFlow [Optimistic Update Flow]
+        A[User Submits Form] --> B[onMutate]
+        B --> C[Cancel Outgoing Refetches]
+        C --> D[Snapshot Previous Value]
+        D --> E[Optimistically Update Cache]
+        E --> F[UI Shows New Item Immediately]
+        F --> G[Execute API Call]
+        G --> H{API Response}
+        H -->|Success| I[onSuccess]
+        H -->|Error| J[onError]
+        I --> K[Invalidate Queries]
+        J --> L[Rollback to Snapshot]
+        K --> M[Refetch Fresh Data]
+        L --> M
+        M --> N[Update UI with Server Data]
+    end
+    
+    subgraph ExampleAlert [Example: Create Alert]
+        O[Click Create Alert] --> P[Add Temp Alert with ID temp-123]
+        P --> Q[List Shows New Alert Immediately]
+        Q --> R[Wait for API Response]
+        R -->|Success| S[Replace temp-123 with Real ID]
+        R -->|Error| T[Remove Temp Alert]
+        T --> U[Show Error Toast]
+        U --> V[Form Keeps Values for Retry]
+    end
+    
+    style F fill:#fff9c4
+    style N fill:#c8e6c9
+    style S fill:#c8e6c9
+    style T fill:#ffcdd2
+```
 
 ```tsx
 export function useCreateAlert() {

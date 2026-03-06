@@ -21,21 +21,37 @@ This document provides a comprehensive guide to understanding and working with t
 
 The server follows a modular Express application pattern:
 
-```
-┌─────────────────┐
-│   server.ts     │  ← Entry point, connects DB, creates auth
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│    app.ts       │  ← Configures middleware, routes
-└────────┬────────┘
-         │
-    ┌────┴────┬─────────┬─────────────┐
-    ▼         ▼         ▼             ▼
-┌────────┐ ┌────────┐ ┌──────────┐ ┌─────────┐
-│ Routes │ │ Auth   │ │ Services │ │ Models  │
-└────────┘ └────────┘ └──────────┘ └─────────┘
+```mermaid
+flowchart TD
+    subgraph Entry["Entry Point"]
+        S[server.ts<br/>Connects DB, creates auth]
+    end
+
+    subgraph App["Express Application"]
+        A[app.ts<br/>Configures middleware, routes]
+    end
+
+    subgraph Modules["Application Modules"]
+        R[Routes]
+        AU[Auth]
+        SV[Services]
+        M[Models]
+    end
+
+    S -->|creates| A
+    A -->|mounts| R
+    A -->|initializes| AU
+    A -.->|uses| SV
+    A -.->|uses| M
+    SV -.->|queries| M
+    R -->|calls| SV
+
+    style S fill:#e1f5fe
+    style A fill:#e8f5e9
+    style R fill:#fff3e0
+    style AU fill:#fce4ec
+    style SV fill:#f3e5f5
+    style M fill:#e0f2f1
 ```
 
 **Key Files:**
@@ -71,30 +87,44 @@ Request processing flows through this middleware pipeline:
 
 Routes are organized by functional domain using Express sub-routers:
 
-```typescript
-// Consumer Portal Router (createConsumerPortalRouter)
-/api/consumer-portal
-├── /crops          → cropRoutes
-├── /states         → stateRoutes
-├── /mandis         → mandiRoutes
-├── /prices         → priceRoutes
-├── /alerts         → createAlertRoutes(auth)
-├── /coverage       → coverageRoutes
-├── /top-movers     → topMoverRoutes
-├── /mandi-prices   → mandiPriceRoutes
-├── /profile        → createUserProfileRoutes(auth)
-├── /admin          → adminRoutes
-├── /predictions    → predictionRoutes
-├── /analytics      → analyticsPredictionRoutes
-└── /map-insights   → createMapRoutes(auth)
+```mermaid
+flowchart TD
+    subgraph Consumer["/api/consumer-portal"]
+        CROP[/crops\]
+        STA[/states\]
+        MAN[/mandis\]
+        PRI[/prices\]
+        COV[/coverage\]
+        TM[/top-movers\]
+        MPRI[/mandi-prices\]
+        PRED[/predictions\]
+        ANA[/analytics\]
 
-// Auth Routes (Better Auth)
-/api/auth/*         → Better Auth handlers
+        subgraph AuthRequired["Authentication Required"]
+            AL[/alerts\]
+            PRO[/profile\]
+            MAP[/map-insights\]
+            ADM[/admin\]
+        end
+    end
 
-// Dev Routes
-/api/dev/prices     → createDevPriceRoutes(auth)
-/api/dev/crops      → devCropRoutes
-/api/dev/states     → devStateRoutes
+    subgraph Auth["/api/auth"]
+        AH[Better Auth Handlers]
+    end
+
+    subgraph Dev["/api/dev"]
+        DP[/prices\]
+        DC[/crops\]
+        DS[/states\]
+    end
+
+    API[Express App] --> Consumer
+    API --> Auth
+    API --> Dev
+
+    style AuthRequired fill:#fff3e0
+    style AH fill:#e3f2fd
+    style Dev fill:#e8f5e9
 ```
 
 ---
@@ -103,103 +133,127 @@ Routes are organized by functional domain using Express sub-routers:
 
 ### Complete Request Flow
 
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   Client    │────▶│    CORS     │────▶│  JSON Body  │────▶│   Route     │
-│   Request   │     │   Headers   │     │   Parsing   │     │   Match     │
-└─────────────┘     └─────────────┘     └─────────────┘     └──────┬──────┘
-                                                                   │
-                    ┌──────────────────────────────────────────────┘
-                    │
-                    ▼
-         ┌──────────────────────┐
-         │    Auth Middleware   │
-         │  (session validation)│
-         └──────────┬───────────┘
-                    │
-        ┌───────────┴───────────┐
-        │                       │
-        ▼                       ▼
-┌───────────────┐       ┌───────────────┐
-│  Controller   │       │  Controller   │
-│ (with auth)   │       │ (public)      │
-└───────┬───────┘       └───────┬───────┘
-        │                       │
-        ▼                       ▼
-┌───────────────┐       ┌───────────────┐
-│   Service     │       │   Service     │
-│    Layer      │       │    Layer      │
-└───────┬───────┘       └───────┬───────┘
-        │                       │
-        ▼                       ▼
-┌───────────────┐       ┌───────────────┐
-│    Model      │       │    Model      │
-│  (Mongoose)   │       │  (Mongoose)   │
-└───────┬───────┘       └───────┬───────┘
-        │                       │
-        └───────────┬───────────┘
-                    ▼
-            ┌───────────────┐
-            │   MongoDB     │
-            └───────────────┘
+```mermaid
+flowchart LR
+    subgraph Incoming["Request Pipeline"]
+        C[Client Request]
+        COR[CORS Headers]
+        JSON[JSON Body Parsing]
+        RM[Route Match]
+    end
+
+    subgraph Auth["Authentication"]
+        AM[Auth Middleware<br/>Session Validation]
+    end
+
+    subgraph Protected["Protected Route"]
+        CP[Controller]
+        SP[Service Layer]
+        MP[Model<br/>Mongoose]
+    end
+
+    subgraph Public["Public Route"]
+        CU[Controller]
+        SU[Service Layer]
+        MU[Model<br/>Mongoose]
+    end
+
+    subgraph Data["Data Layer"]
+        DB[(MongoDB)]
+    end
+
+    C --> COR --> JSON --> RM
+    RM --> AM
+    AM -->|Valid Session| CP
+    AM -->|No Session Required| CU
+    AM -->|Invalid/Expired| ERR[401 Unauthorized]
+
+    CP --> SP --> MP
+    CU --> SU --> MU
+    MP --> DB
+    MU --> DB
+
+    style C fill:#e3f2fd
+    style AM fill:#fff3e0
+    style CP fill:#e8f5e9
+    style CU fill:#e8f5e9
+    style DB fill:#fce4ec
+    style ERR fill:#ffcdd2
 ```
 
 ### Authentication Flow with Better Auth
 
-```typescript
-// 1. Client makes request with session cookie
-const response = await fetch('/api/consumer-portal/alerts', {
-  credentials: 'include'  // Important for cookie transmission
-});
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant M as Auth Middleware
+    participant BA as Better Auth
+    participant DB as MongoDB
+    participant R as Route Handler
 
-// 2. Auth middleware validates session
-const session = await auth.api.getSession({ headers: req.headers });
+    C->>C: Prepare request with<br/>credentials: 'include'
+    C->>M: GET /api/consumer-portal/alerts<br/>Cookie: session=xxx
 
-// 3. Better Auth flow:
-//    - Extracts session token from cookie/header
-//    - Validates against MongoDB (via adapter)
-//    - Returns session + user data
-//    - Middleware attaches to req.user and req.session
+    M->>BA: auth.api.getSession({ headers })
+    BA->>BA: Extract session token<br/>from cookie/header
+    BA->>DB: Validate session<br/>against database
+    DB-->>BA: Session + User data
 
-// 4. Protected route handler accesses user
-if (req.user) {
-  // User is authenticated
-  const userAlerts = await Alert.find({ userId: req.user.id });
-}
+    alt Valid Session
+        BA-->>M: Return session & user
+        M->>M: Attach to req.user<br/>and req.session
+        M->>R: Continue to handler
+        R->>DB: Alert.find({ userId: req.user.id })
+        DB-->>R: User alerts
+        R-->>C: 200 OK + Data
+    else Invalid/Expired
+        BA-->>M: null/invalid
+        M-->>C: 401 Unauthorized
+    end
 ```
 
 ### Service Layer Pattern
 
 All business logic is encapsulated in services, keeping controllers thin:
 
-```typescript
-// Controller (routes/alert.routes.ts)
-router.post('/', async (req, res) => {
-  try {
-    const alert = await alertService.createAlert({
-      userId: req.user!.id,
-      ...req.body
-    });
-    res.status(201).json(alert);
-  } catch (error) {
-    res.status(400).json({ error: (error as Error).message });
-  }
-});
+```mermaid
+flowchart TD
+    subgraph Controller["Controller Layer"]
+        C[Route Handler<br/>routes/alert.routes.ts]
+    end
 
-// Service (services/alert.service.ts)
-export const createAlert = async (data: CreateAlertData) => {
-  const crop = await resolveCrop(data.cropId);
-  if (!crop) throw new Error('Crop not found');
-  
-  validateAlertConfig(data);  // Business rule validation
-  
-  const alert = await Alert.create({
-    ...data,
-    cropId: crop._id,
-    cropName: crop.name
-  });
-  return alert.toObject();
-};
+    subgraph Service["Service Layer"]
+        S[alertService.createAlert]<br/>Business Logic
+        V[validateAlertConfig]<br/>Validation
+        R[resolveCrop]<br/>Data Resolution
+    end
+
+    subgraph Model["Data Layer"]
+        M[Alert.create]<br/>Mongoose Model
+        CROP[Crop Lookup]
+    end
+
+    subgraph Response["Response"]
+        OK[201 Created]
+        ERR[400 Bad Request]
+    end
+
+    C -->|calls| S
+    S -->|validates| V
+    S -->|resolves| R
+    R -->|queries| CROP
+    S -->|creates| M
+    M -->|returns| OK
+    S -.->|throws| ERR
+    ERR -.->|caught by| C
+
+    C -.->|responds| OK
+
+    style Controller fill:#e3f2fd
+    style Service fill:#e8f5e9
+    style Model fill:#fce4ec
+    style OK fill:#c8e6c9
+    style ERR fill:#ffcdd2
 ```
 
 ---
@@ -415,11 +469,69 @@ mandiSchema.index({ location: '2dsphere' });
 
 ### Data Relationships
 
-```
-UserProfile → Alert (1:N) - User can have many alerts
-Crop ←── Price ──→ Mandi (N:M via Price)
-State ←── Mandi (1:N) - State has many mandis
-Crop ←── Prediction ──→ Mandi (Unique per crop/mandi)
+```mermaid
+erDiagram
+    USERPROFILE ||--o{ ALERT : "has many"
+    USERPROFILE {
+        string _id
+        string userId
+        string name
+        string phone
+    }
+
+    ALERT {
+        string _id
+        string userId
+        string cropId
+        string mandiId
+        string alertType
+    }
+
+    CROP ||--o{ PRICE : "priced at"
+    CROP ||--o{ PREDICTION : "predicted"
+    CROP {
+        string _id
+        string name
+        string category
+    }
+
+    MANDI ||--o{ PRICE : "has prices"
+    MANDI ||--o{ PREDICTION : "predicted"
+    MANDI }o--|| STATE : "belongs to"
+    MANDI {
+        string _id
+        string name
+        string stateId
+        object location
+    }
+
+    STATE ||--o{ MANDI : "contains"
+    STATE {
+        string _id
+        string name
+        array districts
+    }
+
+    PRICE {
+        string _id
+        string cropId
+        string mandiId
+        date date
+        number price
+    }
+
+    PREDICTION {
+        string _id
+        string cropId
+        string mandiId
+        number predictedPrice
+        date expiresAt
+    }
+
+    PRICE }o--o{ CROP : "references"
+    PRICE }o--o{ MANDI : "references"
+    PREDICTION }o--o{ CROP : "references"
+    PREDICTION }o--o{ MANDI : "references"
 ```
 
 ---

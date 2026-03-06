@@ -5,9 +5,10 @@ Problem statement: https://vicharanashala.github.io/ajrasakha-hackathon/docs/pro
 Ajrasakha is a comprehensive agricultural market intelligence platform that empowers farmers, traders, and APMC operators with real-time price analytics, AI-driven forecasting, and automated alerts across Indian mandi markets.
 
 ---
-jury Notes : 
-  check demo.md
-  we used to bun instead of node due to faster devlopment you could use node as well since we did not used any bun specific apis
+**Jury Notes:**
+- Check [demo.md](demo.md) for project demonstration
+- We used Bun instead of Node.js for faster development, but you can use Node.js as well since we did not use any Bun-specific APIs
+- To view Mermaid diagrams in VS Code, install the [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid) extension, or view this file on GitHub
 ---
 
 ## Table of Contents
@@ -19,10 +20,7 @@ jury Notes :
 5. [Setup Instructions](#setup-instructions)
 6. [Environment Configuration](#environment-configuration)
 7. [Development Workflow](#development-workflow)
-8. [API Documentation](#api-documentation)
-9. [Testing](#testing)
-10. [Deployment](#deployment)
-11. [Troubleshooting](#troubleshooting)
+8. [Troubleshooting](#troubleshooting)
 
 ---
 

@@ -32,6 +32,14 @@ const navItems = [
   { title: "Profile", url: "/profile", icon: UserRound },
 ];
 
+const ROLE_LABELS: Record<UserRole, string> = {
+  farmer: "Farmer",
+  trader: "Trader",
+  developer: "Developer",
+  admin: "Admin",
+  apmc: "APMC",
+};
+
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
@@ -71,7 +79,7 @@ export function AppSidebar() {
   const visibleNavItems = navItems.filter((item) => isRoleAllowedForRoute(role, item.url));
   const roleLabel = useMemo(() => {
     const resolvedRole = role || "farmer";
-    return resolvedRole.charAt(0).toUpperCase() + resolvedRole.slice(1);
+    return ROLE_LABELS[resolvedRole];
   }, [role]);
 
   return (
@@ -86,7 +94,10 @@ export function AppSidebar() {
             <p className="text-[10px] text-sidebar-foreground/60 leading-none">
               Unified APMC Data Hub
             </p>
-            <Badge variant="outline" className="mt-2 text-[10px] uppercase tracking-wide">
+            <Badge
+              variant="outline"
+              className="mt-2 border-sidebar-border bg-sidebar-accent/40 text-[10px] uppercase tracking-wide text-sidebar-foreground"
+            >
               Role: {roleLabel}
             </Badge>
           </div>

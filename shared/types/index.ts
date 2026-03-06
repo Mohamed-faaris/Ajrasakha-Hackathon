@@ -7,7 +7,7 @@ export type PriceSortBy = 'date' | 'crop' | 'state' | 'mandi' | 'modalPrice';
 export type AlertDirection = 'above' | 'below';
 export type TopMoverDirection = 'up' | 'down';
 export type Language = 'en' | 'hi' | 'mr' | 'te' | 'ta' | 'kn' | 'gu' | 'pa';
-export type UserRole = 'farmer' | 'trader' | 'policy_maker' | 'agri_startup';
+export type UserRole = 'farmer' | 'trader' | 'developer' | 'admin' | 'apmc';
 
 export interface Filters {
   cropId?: string;
@@ -37,7 +37,7 @@ export interface State {
 }
 
 export interface FrontendState {
-  code: string;
+  id: string;
   name: string;
   districts?: District[];
 }
@@ -183,16 +183,21 @@ export interface TraderDetails {
   tradingStates?: string[] | null;
 }
 
-export interface PolicyMakerDetails {
-  organization?: string | null;
-  designation?: string | null;
-  policyFocusAreas?: string[] | null;
+export interface DeveloperDetails {
+  companyName?: string | null;
+  intendedApiKey?: string | null;
+  useCase?: string | null;
 }
 
-export interface AgriStartupDetails {
-  startupName?: string | null;
-  stage?: 'idea' | 'mvp' | 'early' | 'growth' | 'scale' | null;
-  focusAreas?: string[] | null;
+export interface AdminDetails {
+  employeeId?: string | null;
+  department?: string | null;
+}
+
+export interface APMCDetails {
+  mandiName?: string | null;
+  licenseNumber?: string | null;
+  state?: string | null;
 }
 
 export interface UserProfile {
@@ -209,8 +214,9 @@ export interface UserProfile {
   avatar?: string | null;
   farmerDetails?: FarmerDetails | null;
   traderDetails?: TraderDetails | null;
-  policyMakerDetails?: PolicyMakerDetails | null;
-  agriStartupDetails?: AgriStartupDetails | null;
+  developerDetails?: DeveloperDetails | null;
+  adminDetails?: AdminDetails | null;
+  apmcDetails?: APMCDetails | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -325,8 +331,9 @@ export interface UpdateUserProfileBody {
   avatar?: string;
   farmerDetails?: Partial<FarmerDetails>;
   traderDetails?: Partial<TraderDetails>;
-  policyMakerDetails?: Partial<PolicyMakerDetails>;
-  agriStartupDetails?: Partial<AgriStartupDetails>;
+  developerDetails?: Partial<DeveloperDetails>;
+  adminDetails?: Partial<AdminDetails>;
+  apmcDetails?: Partial<APMCDetails>;
 }
 
 export interface GeoBounds {
@@ -353,8 +360,9 @@ export interface CropPrice {
 }
 
 export interface CropInfo {
+  id: string;
   name: string;
-  category: string;
+  category?: string;
   mspPrice?: number;
 }
 
@@ -373,10 +381,21 @@ export interface ArbitrageOpportunity {
 
 export interface PriceAlert {
   id: string;
-  crop: string;
-  state: string;
-  thresholdType: AlertDirection;
-  thresholdPrice: number;
+  crop?: string;
+  cropId?: string;
+  cropName?: string;
+  state?: string;
+  mandiId?: string;
+  mandiName?: string;
+  alertType?: AlertType;
+  thresholdType?: AlertDirection;
+  direction?: AlertDirection;
+  thresholdPrice?: number;
+  percentage?: number;
+  days?: number;
+  trendDirection?: TrendDirection;
+  cooldownHours?: number;
+  lastNotifiedAt?: string;
   isActive: boolean;
 }
 
@@ -388,4 +407,84 @@ export interface StateCoverage {
   statePortal: number;
   uncovered: number;
   avgPrice?: number;
+}
+
+export interface PredictionDay {
+  date: string;
+  predictedPrice: number;
+  confidence: number;
+}
+
+export type PredictionTrend = 'Bullish' | 'Bearish' | 'Neutral';
+
+export interface PredictionResult {
+  cropId: string;
+  mandiId: string;
+  predictions: PredictionDay[];
+  trend: PredictionTrend;
+  generatedAt: Date;
+  expiresAt: Date;
+}
+
+export interface PredictionStatus {
+  hasValidPrediction: boolean;
+  expiresAt: Date | null;
+  generatedAt: Date | null;
+  trend: PredictionTrend | null;
+}
+
+export interface PredictionDataCheck {
+  hasEnoughData: boolean;
+  priceCount: number;
+  minRequired: number;
+  hasPrediction: boolean;
+}
+
+export type AnalyticsPredictLevel = 'states' | 'apmcs' | 'crops' | 'prediction';
+
+export interface AnalyticsPredictQuery {
+  stateId?: string;
+  mandiId?: string;
+  cropId?: string;
+}
+
+export interface StateRow {
+  stateId: string;
+  stateName: string;
+  totalApmcs: number;
+  eligiblePairs: number;
+  predictionsAvailable: number;
+}
+
+export interface APMCRow {
+  stateId: string;
+  stateName: string;
+  mandiId: string;
+  mandiName: string;
+  eligibleCrops: number;
+  eligiblePairs: number;
+  predictionsAvailable: number;
+}
+
+export interface CropRow {
+  stateId: string;
+  stateName: string;
+  mandiId: string;
+  mandiName: string;
+  cropId: string;
+  cropName: string;
+  priceCount: number;
+  hasPrediction: boolean;
+  trend: PredictionTrend | null;
+  nextPredictedPrice: number | null;
+  confidence: number | null;
+}
+
+export interface AnalyticsPredictResponse {
+  level: AnalyticsPredictLevel;
+  filters: AnalyticsPredictQuery;
+  generatedOnMiss: number;
+  skippedOnCap: number;
+  cap: number;
+  data: StateRow[] | APMCRow[] | CropRow[] | PredictionResult | null;
 }

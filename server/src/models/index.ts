@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 // 1. Crop Schema
 const cropSchema = new mongoose.Schema(
@@ -249,129 +249,160 @@ priceSchema.index(
 export const Price = mongoose.model("Price", priceSchema);
 
 // 5. UserProfile Schema
-const userProfileSchema = new mongoose.Schema(
-  {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      unique: true,
-      ref: "user",
+const userProfileSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+    unique: true,
+    ref: 'user',
+  },
+  role: {
+    type: String,
+    enum: ['farmer', 'trader', 'developer', 'admin', 'apmc', 'policy_maker', 'agri_startup'],
+    default: 'farmer',
+    required: true,
+    index: true,
+  },
+  phone: {
+    type: String,
+    trim: true,
+    match: [/^[6-9]\d{9}$/, 'Invalid Indian phone number'],
+  },
+  state: {
+    type: String,
+    trim: true,
+    uppercase: true,
+  },
+  district: {
+    type: String,
+    trim: true,
+    uppercase: true,
+  },
+  preferredCrops: [{
+    type: String,
+  }],
+  preferredMandis: [{
+    type: String,
+  }],
+  notificationSettings: {
+    email: {
+      enabled: { type: Boolean, default: true },
+      priceAlerts: { type: Boolean, default: true },
+      dailyDigest: { type: Boolean, default: false },
+      weeklyReport: { type: Boolean, default: true },
     },
-    role: {
-      type: String,
-      enum: ["farmer", "trader", "policy_maker", "agri_startup"],
-      default: "farmer",
+    sms: {
+      enabled: { type: Boolean, default: false },
+      priceAlerts: { type: Boolean, default: false },
     },
-    phone: {
-      type: String,
-      trim: true,
-      match: [/^[6-9]\d{9}$/, "Invalid Indian phone number"],
-    },
-    state: {
-      type: String,
-      trim: true,
-      uppercase: true,
-    },
-    district: {
-      type: String,
-      trim: true,
-      uppercase: true,
-    },
-    preferredCrops: [
-      {
-        type: String,
-      },
-    ],
-    preferredMandis: [
-      {
-        type: String,
-      },
-    ],
-    notificationSettings: {
-      email: {
-        enabled: { type: Boolean, default: true },
-        priceAlerts: { type: Boolean, default: true },
-        dailyDigest: { type: Boolean, default: false },
-        weeklyReport: { type: Boolean, default: true },
-      },
-      sms: {
-        enabled: { type: Boolean, default: false },
-        priceAlerts: { type: Boolean, default: false },
-      },
-      push: {
-        enabled: { type: Boolean, default: true },
-        priceAlerts: { type: Boolean, default: true },
-      },
-    },
-    language: {
-      type: String,
-      default: "en",
-      enum: ["en", "hi", "mr", "te", "ta", "kn", "gu", "pa"],
-    },
-    avatar: {
-      type: String,
-    },
-    farmerDetails: {
-      isFarmer: { type: Boolean, default: false },
-      farmSize: { type: Number },
-      farmLocation: {
-        type: {
-          type: String,
-          enum: ["Point"],
-        },
-        coordinates: {
-          type: [Number],
-        },
-      },
-      primaryCrops: [
-        {
-          type: String,
-        },
-      ],
-    },
-    traderDetails: {
-      isTrader: { type: Boolean, default: false },
-      companyName: { type: String, trim: true },
-      gstNumber: { type: String, trim: true },
-      tradingStates: [
-        {
-          type: String,
-        },
-      ],
-    },
-    policyMakerDetails: {
-      organization: { type: String, trim: true },
-      designation: { type: String, trim: true },
-      policyFocusAreas: [
-        {
-          type: String,
-        },
-      ],
-    },
-    agriStartupDetails: {
-      startupName: { type: String, trim: true },
-      stage: {
-        type: String,
-        enum: ["idea", "mvp", "early", "growth", "scale"],
-      },
-      focusAreas: [
-        {
-          type: String,
-        },
-      ],
+    push: {
+      enabled: { type: Boolean, default: true },
+      priceAlerts: { type: Boolean, default: true },
     },
   },
-  {
-    timestamps: true,
-    collection: "userprofiles",
-  }
-);
+  fcmTokens: [{
+    token: {
+      type: String,
+      required: true,
+    },
+    device: {
+      type: String,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    lastUsedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  }],
+  language: {
+    type: String,
+    default: 'en',
+    enum: ['en', 'hi', 'mr', 'te', 'ta', 'kn', 'gu', 'pa'],
+  },
+  avatar: {
+    type: String,
+  },
+  farmerDetails: {
+    isFarmer: { type: Boolean, default: false },
+    farmSize: { type: Number },
+    farmLocation: {
+      type: {
+        type: String,
+        enum: ['Point'],
+      },
+      coordinates: {
+        type: [Number],
+      },
+    },
+    primaryCrops: [{
+      type: String,
+    }],
+  },
+  traderDetails: {
+    isTrader: { type: Boolean, default: false },
+    companyName: { type: String, trim: true },
+    gstNumber: { type: String, trim: true },
+    tradingStates: [{
+      type: String,
+    }],
+  },
+  developerDetails: {
+    companyName: { type: String, trim: true },
+    intendedApiKey: { type: String, trim: true },
+    useCase: { type: String, trim: true },
+  },
+  adminDetails: {
+    employeeId: { type: String, trim: true },
+    department: { type: String, trim: true },
+  },
+  apmcDetails: {
+    mandiName: { type: String, trim: true },
+    licenseNumber: { type: String, trim: true },
+    state: { type: String, trim: true, uppercase: true },
+  },
+  policyMakerDetails: {
+    organization: { type: String, trim: true },
+    designation: { type: String, trim: true },
+    policyFocusAreas: [{
+      type: String,
+    }],
+  },
+  agriStartupDetails: {
+    startupName: { type: String, trim: true },
+    stage: {
+      type: String,
+      enum: ['idea', 'mvp', 'early', 'growth', 'scale'],
+    },
+    focusAreas: [{
+      type: String,
+    }],
+  },
+  classification: {
+    method: {
+      type: String,
+      enum: ['self_declared', 'rule_based'],
+    },
+    confidence: {
+      type: Number,
+      min: 0,
+      max: 1,
+    },
+    evaluatedAt: {
+      type: Date,
+    },
+  },
+}, {
+  timestamps: true,
+  collection: 'userprofiles',
+});
 
-userProfileSchema.index({ userId: 1 });
 userProfileSchema.index({ state: 1 });
-userProfileSchema.index({ "farmerDetails.farmLocation": "2dsphere" });
+userProfileSchema.index({ 'farmerDetails.farmLocation': '2dsphere' });
 
-export const UserProfile = mongoose.model("UserProfile", userProfileSchema);
+export const UserProfile = mongoose.model('UserProfile', userProfileSchema);
 
 // 6. Alert Schema
 const alertSchema = new mongoose.Schema(
@@ -383,7 +414,7 @@ const alertSchema = new mongoose.Schema(
       default: () => new mongoose.Types.ObjectId().toString(),
     },
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
       ref: "user",
     },
@@ -405,15 +436,38 @@ const alertSchema = new mongoose.Schema(
       type: String,
       uppercase: true,
     },
+    alertType: {
+      type: String,
+      enum: ["price", "trend", "both"],
+      default: "price",
+    },
     thresholdPrice: {
       type: Number,
-      required: true,
       min: 0,
     },
     direction: {
       type: String,
-      required: true,
       enum: ["above", "below"],
+    },
+    percentage: {
+      type: Number,
+      min: 0,
+    },
+    days: {
+      type: Number,
+      min: 1,
+    },
+    trendDirection: {
+      type: String,
+      enum: ["increase", "decrease"],
+    },
+    cooldownHours: {
+      type: Number,
+      default: 24,
+      min: 0,
+    },
+    lastNotifiedAt: {
+      type: Date,
     },
     isActive: {
       type: Boolean,
@@ -438,6 +492,27 @@ alertSchema.index({ cropId: 1, isActive: 1 });
 alertSchema.index({ mandiId: 1, isActive: 1 });
 
 export const Alert = mongoose.model("Alert", alertSchema);
+
+// Alert Interface for TypeScript
+export interface IAlert {
+  id: string;
+  userId: string;
+  cropId: string;
+  cropName: string;
+  mandiId?: string;
+  mandiName?: string;
+  alertType: "price" | "trend" | "both";
+  thresholdPrice?: number;
+  direction?: "above" | "below";
+  percentage?: number;
+  days?: number;
+  trendDirection?: "increase" | "decrease";
+  cooldownHours?: number;
+  lastNotifiedAt?: Date;
+  isActive?: boolean;
+  triggeredAt?: Date;
+  message?: string;
+}
 
 // 7. TopMover Schema (Cached)
 const topMoverSchema = new mongoose.Schema(
@@ -668,9 +743,72 @@ const predictionSchema = new mongoose.Schema(
   }
 );
 
-// TTL index: auto-delete documents 24 hours after expiresAt
-predictionSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 // Compound index for quick lookups
 predictionSchema.index({ cropId: 1, mandiId: 1, expiresAt: -1 });
 
 export const Prediction = mongoose.model("Prediction", predictionSchema);
+
+// 12. MapInsight Schema (User saved map insights)
+const mapInsightSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+      ref: "user",
+      index: true,
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    cropId: {
+      type: String,
+      ref: "Crop",
+    },
+    cropName: {
+      type: String,
+      uppercase: true,
+    },
+    stateCodes: [{
+      type: String,
+      uppercase: true,
+    }],
+    mandiIds: [{
+      type: String,
+      ref: "Mandi",
+    }],
+    filters: {
+      dateRange: {
+        start: { type: Date },
+        end: { type: Date },
+      },
+      priceRange: {
+        min: { type: Number },
+        max: { type: Number },
+      },
+      sources: [{
+        type: String,
+        enum: ["agmarknet", "enam", "apmc", "other"],
+      }],
+    },
+    viewType: {
+      type: String,
+      enum: ["heatmap", "markers", "choropleth", "cluster"],
+      default: "heatmap",
+    },
+    isPublic: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+    collection: "mapinsights",
+  }
+);
+
+mapInsightSchema.index({ userId: 1, createdAt: -1 });
+mapInsightSchema.index({ isPublic: 1 });
+
+export const MapInsight = mongoose.model("MapInsight", mapInsightSchema);

@@ -2,6 +2,10 @@
 import { parseArgs, SOURCES } from "./config.js";
 import { PriceLoader } from "./loader.js";
 import type { LoadStats } from "./types.js";
+import { loadEnv } from "./env.js";
+
+// Load environment from root .env file
+loadEnv();
 
 async function main() {
   const args = parseArgs();

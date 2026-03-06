@@ -1,9 +1,9 @@
+// Import env first to load dotenv before any other modules
+import { env } from './config/env';
 import createApp from './app';
 import connectDB from './config/db';
-import { env } from './config/env';
 import mongoose from 'mongoose';
 import { createAuth } from './lib/auth';
-import { startScheduler } from './jobs/cron';
 
 const PORT = env.PORT;
 
@@ -13,11 +13,11 @@ const start = async () => {
   if (!db) {
     throw new Error('Database connection failed');
   }
-  
-  const auth = createAuth(db);
+
+  const auth = createAuth(db, mongoose.connection.getClient());
   const app = createApp(auth);
   
-  startScheduler();
+  // startScheduler(); moved to python prediction service
   
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

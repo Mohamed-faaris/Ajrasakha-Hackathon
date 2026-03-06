@@ -1,5 +1,11 @@
-import { Price } from '../models';
+import { Price, Prediction } from '../models';
 import type { GetPricesQuery, CropPrice, PriceSource, DataSource } from '@shared/types';
+import axios from 'axios';
+
+const PREDICTION_ENGINE_URL = process.env.PREDICTION_ENGINE_URL;
+if (!PREDICTION_ENGINE_URL) {
+  throw new Error('PREDICTION_ENGINE_URL environment variable is required');
+}
 
 const sourceMap: Record<PriceSource, DataSource> = {
   'enam': 'eNAM',
@@ -26,8 +32,8 @@ export const getPrices = async (query: GetPricesQuery): Promise<{ items: CropPri
 
   const filter: Record<string, unknown> = {};
 
-  if (cropId) filter.cropId = cropId;
-  if (stateId) filter.stateId = stateId;
+  if (cropId) filter.cropId = { $regex: new RegExp(cropId.replace(/[()]/g, ''), 'i') };
+  if (stateId) filter.stateId = { $regex: new RegExp(`^${stateId}$`, 'i') };
   if (mandiId) filter.mandiId = mandiId;
   if (districtId) filter.districtId = districtId;
   if (source) filter.source = source;
@@ -101,5 +107,66 @@ export const getPricesByMandiAndCrop = async (mandiId: string, cropId: string, l
   return Price.find({ mandiId, cropId })
     .sort({ date: -1 })
     .limit(limit)
+    .lean();
+};
+
+export const getUniqueCropsFromPrices = async () => {
+  const crops = await Price.aggregate([
+    {
+      $group: {
+        _id: '$cropId',
+        name: { $first: '$cropName' },
+      },
+    },
+    { $sort: { name: 1 } },
+  ]);
+  return crops.map(c => ({
+    id: c._id,
+    name: c.name,
+  }));
+};
+
+export const getUniqueStatesFromPrices = async () => {
+  const states = await Price.aggregate([
+    {
+      $group: {
+        _id: { $toLower: '$stateId' },
+        name: { $first: '$stateName' },
+      },
+    },
+    { $sort: { name: 1 } },
+  ]);
+  return states.map(s => ({
+    id: s._id,
+    name: s.name,
+  }));
+};
+
+export const getCropsForMandi = async (mandiId: string) => {
+  const crops = await Price.aggregate([
+    { $match: { mandiId } },
+    {
+      $group: {
+        _id: '$cropId',
+        name: { $first: '$cropName' },
+        lastDate: { $max: '$date' },
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { lastDate: -1 } },
+  ]);
+  return crops.map(c => ({
+    id: c._id,
+    name: c.name,
+    lastDate: c.lastDate,
+    priceCount: c.count,
+  }));
+};
+
+export const getPricesForMandi = async (mandiId: string, limit = 100) => {
+  return Price.find({ mandiId })
+    .sort({ date: -1 })
+    .limit(limit)
+    .select('cropId cropName date modalPrice minPrice maxPrice unit')
     .lean();
 };

@@ -1,7 +1,10 @@
 import { Prediction, Price } from '../models';
 import axios from 'axios';
 
-const PREDICTION_ENGINE_URL = process.env.PREDICTION_ENGINE_URL || 'http://localhost:8000';
+const PREDICTION_ENGINE_URL = process.env.PREDICTION_ENGINE_URL;
+if (!PREDICTION_ENGINE_URL) {
+  throw new Error('PREDICTION_ENGINE_URL environment variable is required');
+}
 
 interface PredictionDay {
   date: string;
@@ -134,5 +137,30 @@ export const getCachedPrediction = async (
     trend: cached.trend as 'Bullish' | 'Bearish' | 'Neutral',
     generatedAt: cached.generatedAt,
     expiresAt: cached.expiresAt
+  };
+};
+
+interface PredictionDataCheck {
+  hasEnoughData: boolean;
+  priceCount: number;
+  minRequired: number;
+  hasPrediction: boolean;
+}
+
+/**
+ * Check if there's enough historical data to generate a prediction
+ */
+export const checkPredictionData = async (
+  cropId: string,
+  mandiId: string
+): Promise<PredictionDataCheck> => {
+  const priceCount = await Price.countDocuments({ cropId, mandiId });
+  const hasPrediction = await hasValidPrediction(cropId, mandiId);
+
+  return {
+    hasEnoughData: priceCount >= 3,
+    priceCount,
+    minRequired: 3,
+    hasPrediction
   };
 };

@@ -8,7 +8,7 @@ const PredictionParamsSchema = z.object({
 });
 
 /**
- * GET /api/predictions/:cropId/:mandiId
+ * GET /api/consumer-portal/predictions/:cropId/:mandiId
  * Get prediction for a crop/mandi pair (cached or generate new)
  */
 export const getPrediction = async (req: Request, res: Response) => {
@@ -38,7 +38,7 @@ export const getPrediction = async (req: Request, res: Response) => {
 };
 
 /**
- * POST /api/predictions/:cropId/:mandiId/refresh
+ * POST /api/consumer-portal/predictions/:cropId/:mandiId/refresh
  * Force refresh prediction (admin only)
  */
 export const refreshPrediction = async (req: Request, res: Response) => {
@@ -68,13 +68,13 @@ export const refreshPrediction = async (req: Request, res: Response) => {
 };
 
 /**
- * GET /api/predictions/:cropId/:mandiId/status
+ * GET /api/consumer-portal/predictions/:cropId/:mandiId/status
  * Check if valid prediction exists
  */
 export const checkPredictionStatus = async (req: Request, res: Response) => {
   try {
     const { cropId, mandiId } = PredictionParamsSchema.parse(req.params);
-    
+
     const hasValid = await predictionService.hasValidPrediction(cropId, mandiId);
     const cached = hasValid ? await predictionService.getCachedPrediction(cropId, mandiId) : null;
 
@@ -92,6 +92,29 @@ export const checkPredictionStatus = async (req: Request, res: Response) => {
       });
     }
     console.error('Error in checkPredictionStatus:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+/**
+ * GET /api/consumer-portal/predictions/:cropId/:mandiId/check
+ * Check if there's enough data to generate a prediction
+ */
+export const checkPredictionData = async (req: Request, res: Response) => {
+  try {
+    const { cropId, mandiId } = PredictionParamsSchema.parse(req.params);
+
+    const result = await predictionService.checkPredictionData(cropId, mandiId);
+
+    res.json(result);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({
+        error: 'Invalid parameters',
+        details: error.issues
+      });
+    }
+    console.error('Error in checkPredictionData:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

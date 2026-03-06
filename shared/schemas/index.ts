@@ -5,9 +5,19 @@ export const DataSourceSchema = z.enum(['eNAM', 'Agmarknet', 'State Portal']);
 export const SortDirectionSchema = z.enum(['asc', 'desc']);
 export const PriceSortBySchema = z.enum(['date', 'crop', 'state', 'mandi', 'modalPrice']);
 export const AlertDirectionSchema = z.enum(['above', 'below']);
+export const AlertTypeSchema = z.enum(['price', 'trend', 'both']);
+export const TrendDirectionSchema = z.enum(['increase', 'decrease']);
 export const TopMoverDirectionSchema = z.enum(['up', 'down']);
 export const LanguageSchema = z.enum(['en', 'hi', 'mr', 'te', 'ta', 'kn', 'gu', 'pa']);
-export const UserRoleSchema = z.enum(['farmer', 'trader', 'policy_maker', 'agri_startup']);
+export const UserRoleSchema = z.enum([
+  'farmer',
+  'trader',
+  'developer',
+  'admin',
+  'apmc',
+  'policy_maker',
+  'agri_startup',
+]);
 
 export const FiltersSchema = z.object({
   cropId: z.string().optional(),
@@ -171,6 +181,23 @@ export const AgriStartupDetailsSchema = z.object({
   focusAreas: z.array(z.string()).optional(),
 });
 
+export const DeveloperDetailsSchema = z.object({
+  companyName: z.string().optional(),
+  intendedApiKey: z.string().optional(),
+  useCase: z.string().optional(),
+});
+
+export const AdminDetailsSchema = z.object({
+  employeeId: z.string().optional(),
+  department: z.string().optional(),
+});
+
+export const APMCDetailsSchema = z.object({
+  mandiName: z.string().optional(),
+  licenseNumber: z.string().optional(),
+  state: z.string().optional(),
+});
+
 export const UserProfileSchema = z.object({
   userId: z.string(),
   role: UserRoleSchema.optional(),
@@ -184,6 +211,9 @@ export const UserProfileSchema = z.object({
   avatar: z.string().optional(),
   farmerDetails: FarmerDetailsSchema.optional(),
   traderDetails: TraderDetailsSchema.optional(),
+  developerDetails: DeveloperDetailsSchema.optional(),
+  adminDetails: AdminDetailsSchema.optional(),
+  apmcDetails: APMCDetailsSchema.optional(),
   policyMakerDetails: PolicyMakerDetailsSchema.optional(),
   agriStartupDetails: AgriStartupDetailsSchema.optional(),
 });
@@ -298,20 +328,67 @@ export const PricesByMandiAndCropQuerySchema = z.object({
 });
 
 export const CreateAlertBodySchema = z.object({
+  alertType: AlertTypeSchema.default('price'),
   cropId: z.string().min(1),
   mandiId: z.string().optional(),
-  thresholdPrice: z.number().min(0),
-  direction: AlertDirectionSchema,
+  thresholdPrice: z.number().min(0).optional(),
+  priceDirection: AlertDirectionSchema.optional(),
+  percentage: z.number().min(0).optional(),
+  days: z.number().int().min(1).optional(),
+  trendDirection: TrendDirectionSchema.optional(),
+  cooldownHours: z.number().int().min(0).default(24),
+}).refine(
+  (data) => {
+    if (data.alertType === 'price' || data.alertType === 'both') {
+      return data.thresholdPrice !== undefined;
+    }
+    return true;
+  },
+  {
+    message: 'thresholdPrice is required for price alerts',
+    path: ['thresholdPrice'],
+  }
+).refine(
+  (data) => {
+    if (data.alertType === 'trend' || data.alertType === 'both') {
+      return data.percentage !== undefined && data.days !== undefined;
+    }
+    return true;
+  },
+  {
+    message: 'percentage and days are required for trend alerts',
+    path: ['percentage'],
+  }
+);
+
+export const ToggleAlertBodySchema = z.object({
+  isActive: z.boolean(),
 });
 
 export const UpdateAlertBodySchema = z.object({
   thresholdPrice: z.number().min(0).optional(),
-  direction: AlertDirectionSchema.optional(),
+  priceDirection: AlertDirectionSchema.optional(),
+  percentage: z.number().min(0).optional(),
+  days: z.number().int().min(1).optional(),
+  trendDirection: TrendDirectionSchema.optional(),
+  cooldownHours: z.number().int().min(0).optional(),
   isActive: z.boolean().optional(),
 });
 
-export const ToggleAlertBodySchema = z.object({
-  isActive: z.boolean(),
+export const RegisterFCMTokenSchema = z.object({
+  token: z.string().min(1),
+  device: z.string().optional(),
+});
+
+export const ProcessAlertResultSchema = z.object({
+  alertId: z.string(),
+  triggered: z.boolean(),
+  triggeredAt: z.string().optional(),
+  message: z.string().optional(),
+  priceAtTrigger: z.number().optional(),
+  previousPrice: z.number().optional(),
+  changePercent: z.number().optional(),
+  triggeredBy: z.enum(['price', 'trend']).optional(),
 });
 
 export const UpdateUserProfileBodySchema = z.object({
@@ -326,6 +403,9 @@ export const UpdateUserProfileBodySchema = z.object({
   avatar: z.string().optional(),
   farmerDetails: FarmerDetailsSchema.partial().optional(),
   traderDetails: TraderDetailsSchema.partial().optional(),
+  developerDetails: DeveloperDetailsSchema.partial().optional(),
+  adminDetails: AdminDetailsSchema.partial().optional(),
+  apmcDetails: APMCDetailsSchema.partial().optional(),
   policyMakerDetails: PolicyMakerDetailsSchema.partial().optional(),
   agriStartupDetails: AgriStartupDetailsSchema.partial().optional(),
 });
@@ -347,8 +427,9 @@ export const CropPriceSchema = z.object({
 });
 
 export const CropInfoSchema = z.object({
+  id: z.string(),
   name: z.string(),
-  category: z.string(),
+  category: z.string().optional(),
   mspPrice: z.number().optional(),
 });
 
@@ -367,10 +448,21 @@ export const ArbitrageOpportunitySchema = z.object({
 
 export const PriceAlertSchema = z.object({
   id: z.string(),
-  crop: z.string(),
-  state: z.string(),
-  thresholdType: AlertDirectionSchema,
-  thresholdPrice: z.number(),
+  crop: z.string().optional(),
+  cropId: z.string().optional(),
+  cropName: z.string().optional(),
+  state: z.string().optional(),
+  mandiId: z.string().optional(),
+  mandiName: z.string().optional(),
+  alertType: AlertTypeSchema.optional(),
+  thresholdType: AlertDirectionSchema.optional(),
+  direction: AlertDirectionSchema.optional(),
+  thresholdPrice: z.number().optional(),
+  percentage: z.number().optional(),
+  days: z.number().int().optional(),
+  trendDirection: TrendDirectionSchema.optional(),
+  cooldownHours: z.number().int().optional(),
+  lastNotifiedAt: z.string().optional(),
   isActive: z.boolean(),
 });
 
@@ -385,7 +477,7 @@ export const StateCoverageSchema = z.object({
 });
 
 export const FrontendStateSchema = z.object({
-  code: z.string(),
+  id: z.string(),
   name: z.string(),
 });
 
@@ -394,4 +486,88 @@ export const FrontendPriceTrendSchema = z.object({
   price: z.number(),
   minPrice: z.number(),
   maxPrice: z.number(),
+});
+
+export const PredictionDaySchema = z.object({
+  date: z.string(),
+  predictedPrice: z.number(),
+  confidence: z.number(),
+});
+
+export const PredictionResultSchema = z.object({
+  cropId: z.string(),
+  mandiId: z.string(),
+  predictions: z.array(PredictionDaySchema),
+  trend: z.enum(['Bullish', 'Bearish', 'Neutral']),
+  generatedAt: z.coerce.date(),
+  expiresAt: z.coerce.date(),
+});
+
+export const PredictionStatusSchema = z.object({
+  hasValidPrediction: z.boolean(),
+  expiresAt: z.coerce.date().nullable(),
+  generatedAt: z.coerce.date().nullable(),
+  trend: z.enum(['Bullish', 'Bearish', 'Neutral']).nullable(),
+});
+
+export const PredictionDataCheckSchema = z.object({
+  hasEnoughData: z.boolean(),
+  priceCount: z.number(),
+  minRequired: z.number(),
+  hasPrediction: z.boolean(),
+});
+
+export const AnalyticsPredictQuerySchema = z.object({
+  stateId: z.string().min(1).optional(),
+  mandiId: z.string().min(1).optional(),
+  cropId: z.string().min(1).optional(),
+});
+
+export const AnalyticsPredictLevelSchema = z.enum(['states', 'apmcs', 'crops', 'prediction']);
+
+export const StateRowSchema = z.object({
+  stateId: z.string(),
+  stateName: z.string(),
+  totalApmcs: z.number().int().min(0),
+  eligiblePairs: z.number().int().min(0),
+  predictionsAvailable: z.number().int().min(0),
+});
+
+export const APMCRowSchema = z.object({
+  stateId: z.string(),
+  stateName: z.string(),
+  mandiId: z.string(),
+  mandiName: z.string(),
+  eligibleCrops: z.number().int().min(0),
+  eligiblePairs: z.number().int().min(0),
+  predictionsAvailable: z.number().int().min(0),
+});
+
+export const CropRowSchema = z.object({
+  stateId: z.string(),
+  stateName: z.string(),
+  mandiId: z.string(),
+  mandiName: z.string(),
+  cropId: z.string(),
+  cropName: z.string(),
+  priceCount: z.number().int().min(0),
+  hasPrediction: z.boolean(),
+  trend: z.enum(['Bullish', 'Bearish', 'Neutral']).nullable(),
+  nextPredictedPrice: z.number().nullable(),
+  confidence: z.number().nullable(),
+});
+
+export const AnalyticsPredictResponseSchema = z.object({
+  level: AnalyticsPredictLevelSchema,
+  filters: AnalyticsPredictQuerySchema,
+  generatedOnMiss: z.number().int().min(0),
+  skippedOnCap: z.number().int().min(0),
+  cap: z.number().int().min(1),
+  data: z.union([
+    z.array(StateRowSchema),
+    z.array(APMCRowSchema),
+    z.array(CropRowSchema),
+    PredictionResultSchema,
+    z.null(),
+  ]),
 });

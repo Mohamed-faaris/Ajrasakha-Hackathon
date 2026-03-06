@@ -1,25 +1,55 @@
 import { Mandi } from '../models';
 
+interface MandiDoc {
+  _id: string;
+  name: string;
+  stateId: string;
+  stateName: string;
+  districtId?: string;
+  districtName?: string;
+  location?: { coordinates: [number, number] };
+  isEnamIntegrated?: boolean;
+  source?: string;
+}
+
+const transformMandi = (doc: MandiDoc) => ({
+  id: doc._id,
+  name: doc.name,
+  stateId: doc.stateId,
+  stateName: doc.stateName,
+  district: doc.districtName || doc.districtId,
+  latitude: doc.location?.coordinates?.[1] || 0,
+  longitude: doc.location?.coordinates?.[0] || 0,
+  isEnamIntegrated: doc.isEnamIntegrated,
+  source: doc.source,
+});
+
 export const getAllMandis = async () => {
-  return Mandi.find().sort({ name: 1 }).lean();
+  const docs = await Mandi.find().sort({ name: 1 }).lean() as MandiDoc[];
+  return docs.map(transformMandi);
 };
 
 export const getMandiById = async (id: string) => {
-  return Mandi.findById(id).lean();
+  const doc = await Mandi.findById(id).lean() as MandiDoc | null;
+  return doc ? transformMandi(doc) : null;
 };
 
 export const getMandisByState = async (stateId: string) => {
-  return Mandi.find({ stateId }).sort({ name: 1 }).lean();
+  const docs = await Mandi.find({
+    stateId: { $regex: new RegExp(`^${stateId}$`, 'i') }
+  }).sort({ name: 1 }).lean() as MandiDoc[];
+  return docs.map(transformMandi);
 };
 
 export const searchMandis = async (query: string) => {
-  return Mandi.find({
+  const docs = await Mandi.find({
     name: { $regex: query, $options: 'i' }
-  }).sort({ name: 1 }).lean();
+  }).sort({ name: 1 }).lean() as MandiDoc[];
+  return docs.map(transformMandi);
 };
 
 export const getMandisInBounds = async (minLng: number, minLat: number, maxLng: number, maxLat: number) => {
-  return Mandi.find({
+  const docs = await Mandi.find({
     location: {
       $geoWithin: {
         $box: [
@@ -28,5 +58,6 @@ export const getMandisInBounds = async (minLng: number, minLat: number, maxLng: 
         ]
       }
     }
-  }).lean();
+  }).lean() as MandiDoc[];
+  return docs.map(transformMandi);
 };

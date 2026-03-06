@@ -166,7 +166,8 @@ bun dev
 
 ## Setup Instructions
 
-### 1. Repository Setup
+<details>
+<summary><strong>1. Repository Setup</strong> (Click to expand)</summary>
 
 ```bash
 # Clone repository
@@ -176,8 +177,10 @@ cd Ajrasakha-Hackathon
 # Verify directory structure
 ls -la
 ```
+</details>
 
-### 2. Database Setup
+<details>
+<summary><strong>2. Database Setup</strong> (Click to expand)</summary>
 
 #### Option A: MongoDB Atlas (Cloud)
 1. Create account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
@@ -200,8 +203,10 @@ docker run -d \
 sudo apt-get install mongodb
 sudo systemctl start mongodb
 ```
+</details>
 
-### 3. Service-by-Service Setup
+<details>
+<summary><strong>3. Service-by-Service Setup</strong> (Click to expand)</summary>
 
 #### Server (Node.js/Express)
 
@@ -312,24 +317,20 @@ cp .env.example .env
 # Run scraper
 python main.py
 ```
+</details>
 
 ---
 
 ## Environment Configuration
 
-### Configuration Strategy
-
 Ajrasakha uses a **single root `.env` file** as the source of truth. All services read from this file using the `dotenv` pattern.
-
-### Required Environment Variables
-
-Copy `.env.example` to `.env` and configure:
 
 ```bash
 cp .env.example .env
 ```
 
-#### Core Server Configuration
+<details>
+<summary><strong>Core Server Configuration</strong> (Click to expand)</summary>
 
 | Variable | Required | Description | Example |
 |----------|----------|-------------|---------|
@@ -338,8 +339,10 @@ cp .env.example .env
 | `BETTER_AUTH_SECRET` | Yes | Min 32 char secret for auth | Generate with `openssl rand -base64 32` |
 | `BETTER_AUTH_URL` | Yes | Auth service URL | `http://localhost:5000` |
 | `BETTER_AUTH_TRUSTED_ORIGINS` | Yes | Allowed CORS origins | `http://localhost:5173,http://localhost:3000` |
+</details>
 
-#### Frontend Configuration
+<details>
+<summary><strong>Frontend Configuration</strong> (Click to expand)</summary>
 
 | Variable | Required | Description | Example |
 |----------|----------|-------------|---------|
@@ -349,15 +352,19 @@ cp .env.example .env
 | `VITE_FIREBASE_AUTH_DOMAIN` | Yes* | Firebase auth domain | `project.firebaseapp.com` |
 
 *Required for push notifications
+</details>
 
-#### Prediction Engine Configuration
+<details>
+<summary><strong>Prediction Engine Configuration</strong> (Click to expand)</summary>
 
 | Variable | Required | Description | Example |
 |----------|----------|-------------|---------|
 | `PREDICTION_ENGINE_PORT` | Yes | Prediction API port | `8000` |
 | `PREDICTION_ENGINE_URL` | Yes | Full URL for server to call | `http://localhost:8000` |
+</details>
 
-#### Scraper Engine Configuration
+<details>
+<summary><strong>Scraper Engine Configuration</strong> (Click to expand)</summary>
 
 | Variable | Required | Description | Example |
 |----------|----------|-------------|---------|
@@ -367,8 +374,10 @@ cp .env.example .env
 | `OPENAI_API_KEY` | Conditional | Required if using OpenAI | `sk-...` |
 | `OPENROUTER_API_KEY` | Conditional | Required if using OpenRouter | `sk-or-...` |
 | `AGENT_MODE` | Yes | `discover`, `scrape`, or `discover_and_scrape` | `discover_and_scrape` |
+</details>
 
-### Generating Secrets
+<details>
+<summary><strong>Generating Secrets</strong> (Click to expand)</summary>
 
 ```bash
 # Generate Better Auth secret
@@ -378,6 +387,7 @@ openssl rand -base64 32
 # Go to Firebase Console > Project Settings > Service Accounts
 # Click "Generate new private key"
 ```
+</details>
 
 ---
 
@@ -396,23 +406,28 @@ openssl rand -base64 32
 
 ### Running Services
 
-Use separate terminal windows/tabs for each service:
+Use the root-level bun scripts to run services:
 
 ```bash
+# Start all services at once
+bun dev
+
+# Or run individual services in separate terminals:
+
 # Terminal 1: Server
-cd server && bun dev
+bun dev:server
 
 # Terminal 2: Consumer Portal
-cd consumer-portal && bun dev
+bun dev:consumer-portal
 
 # Terminal 3: APMC Portal (optional)
-cd apmc-portal && bun dev
+bun dev:apmc-portal
 
 # Terminal 4: Prediction Engine
-cd pridiction-engine && source .venv/bin/activate && uvicorn app.main:app --reload
+bun dev:prediction
 
 # Terminal 5: Dev Portal (optional)
-cd dev-portal && bun dev
+bun dev:dev-portal
 ```
 
 ### Development Scripts
@@ -458,148 +473,6 @@ python main.py --mode scrape      # Scraping only
 ```
 
 ---
-
-## API Documentation
-
-### Authentication
-
-All API endpoints (except health check and auth routes) require authentication via Better Auth session cookies.
-
-```bash
-# Login
-curl -X POST http://localhost:5000/api/auth/sign-in/email \
-  -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","password":"password"}'
-```
-
-### Core Endpoints
-
-| Endpoint | Method | Description | Auth Required |
-|----------|--------|-------------|---------------|
-| `/api/health` | GET | Health check | No |
-| `/api/auth/*` | Various | Authentication | Varies |
-| `/api/crops` | GET | List all crops | Yes |
-| `/api/crops/:id` | GET | Get crop details | Yes |
-| `/api/mandis` | GET | List all mandis | Yes |
-| `/api/mandis/:id` | GET | Get mandi details | Yes |
-| `/api/prices` | GET | Query prices with filters | Yes |
-| `/api/prices/latest` | GET | Latest prices | Yes |
-| `/api/predictions/:cropId/:mandiId` | GET | Get prediction | Yes |
-| `/api/predictions/:cropId/:mandiId` | POST | Generate prediction | Yes |
-| `/api/alerts` | GET | List user alerts | Yes |
-| `/api/alerts` | POST | Create alert | Yes |
-| `/api/alerts/:id` | DELETE | Delete alert | Yes |
-| `/api/topmovers` | GET | Top price movers | Yes |
-| `/api/coverage` | GET | Data coverage stats | Yes |
-
-### Query Parameters
-
-#### Price Query (`/api/prices`)
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `cropId` | string | Filter by crop ID |
-| `mandiId` | string | Filter by mandi ID |
-| `startDate` | ISO date | Start date range |
-| `endDate` | ISO date | End date range |
-| `limit` | number | Max results (default 100) |
-| `page` | number | Pagination page |
-
-### Response Format
-
-```json
-{
-  "success": true,
-  "data": { ... },
-  "meta": {
-    "page": 1,
-    "limit": 100,
-    "total": 1000
-  }
-}
-```
-
-### Prediction API
-
-Direct access to prediction engine:
-
-```bash
-# Get prediction
-curl http://localhost:8000/predictions/crop-123/mandi-456
-
-# Generate new prediction
-curl -X POST http://localhost:8000/predictions/crop-123/mandi-456
-
-# Response format
-{
-  "crop_id": "crop-123",
-  "mandi_id": "mandi-456",
-  "predictions": [
-    {"date": "2024-01-01", "price": 2500.50, "confidence": 0.85},
-    ...
-  ],
-  "model_info": {
-    "type": "ARIMA",
-    "parameters": {...}
-  }
-}
-```
-
----
-
-## Testing
-
-### Frontend Tests
-
-```bash
-# Consumer Portal
-cd consumer-portal
-bun test              # Run all tests
-bun test:watch        # Run in watch mode
-bun test:coverage     # Generate coverage report
-
-# APMC Portal
-cd apmc-portal
-bun test
-```
-
-### Backend Tests
-
-Currently, server and Python services do not have automated test suites configured. Testing is done via:
-
-1. **Manual API Testing**: Use tools like Postman or curl
-2. **Integration Testing**: Test full flows through frontend
-3. **Health Checks**: `curl http://localhost:5000/api/health`
-
-### Manual Test Checklist
-
-```bash
-# 1. Health checks
-curl http://localhost:5000/api/health
-curl http://localhost:8000/health
-
-# 2. Authentication flow
-# - Sign up via consumer portal
-# - Log in
-# - Verify session persists
-
-# 3. Price queries
-# - Search for crops
-# - View price charts
-# - Check map view
-
-# 4. Alerts
-# - Create price alert
-# - Verify in database: db.alerts.find()
-
-# 5. Predictions
-# - Request prediction for crop/mandi
-# - Verify response format
-```
-
----
-
-## Deployment
 
 ### Production Checklist
 

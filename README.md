@@ -5,6 +5,10 @@ Problem statement: https://vicharanashala.github.io/ajrasakha-hackathon/docs/pro
 Ajrasakha is a comprehensive agricultural market intelligence platform that empowers farmers, traders, and APMC operators with real-time price analytics, AI-driven forecasting, and automated alerts across Indian mandi markets.
 
 ---
+jury Notes : 
+  check demo.md
+  we used to bun instead of node due to faster devlopment you could use node as well since we did not used any bun specific apis
+---
 
 ## Table of Contents
 

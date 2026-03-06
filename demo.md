@@ -34,6 +34,24 @@ devloper api with rate limits
 <img width="1636" height="784" alt="image" src="https://github.com/user-attachments/assets/8df34ab5-82d2-4471-ad6a-000f00a78706" />
 <img width="1623" height="472" alt="image" src="https://github.com/user-attachments/assets/fc2d3f5f-f231-457e-a74d-1826b24ffefc" />
 
+price alert 
+<img width="1151" height="991" alt="image" src="https://github.com/user-attachments/assets/5329ba3e-6b93-417a-bae0-817f77b3dabd" />
+push notifactions
+<img width="1920" height="1072" alt="image" src="https://github.com/user-attachments/assets/a050e28e-1d17-43a6-b11d-3d83ae4aa0ef" />
+email
+<img width="1660" height="967" alt="image" src="https://github.com/user-attachments/assets/52fb20a2-4e29-48e6-9368-e84b23535b36" />
+
+APMC-portel
+<img width="1915" height="964" alt="image" src="https://github.com/user-attachments/assets/92dab476-25b4-486a-91f5-f05f80166d87" />
+<img width="1920" height="974" alt="image" src="https://github.com/user-attachments/assets/6f7f6c7e-efae-48c9-9e61-fef231104b29" />
+<img width="1920" height="959" alt="image" src="https://github.com/user-attachments/assets/fd1f95c5-b430-48a9-9559-1fd65ae71457" />
+<img width="1917" height="947" alt="image" src="https://github.com/user-attachments/assets/ce1e1829-0d83-4c35-900c-d91b946623a1" />
+<img width="1920" height="964" alt="image" src="https://github.com/user-attachments/assets/013e669d-f3f3-48b7-91b6-56722fa717b3" />
+
+Prediction Engine Admin
+http://localhost:8000/admin/ui
+<img width="1913" height="943" alt="image" src="https://github.com/user-attachments/assets/87552964-710e-46b5-b730-9a5feb3c4969" />
+
 
 
 

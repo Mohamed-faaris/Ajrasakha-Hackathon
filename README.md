@@ -455,28 +455,6 @@ python main.py --mode scrape      # Scraping only
 
 ---
 
-### Production Checklist
-
-- [ ] All environment variables configured
-- [ ] MongoDB indexes created
-- [ ] Firebase Cloud Messaging configured
-- [ ] SSL certificates installed
-- [ ] Rate limiting enabled
-- [ ] Logging and monitoring setup
-
-### Docker Deployment
-
-```dockerfile
-# Example Dockerfile for server
-FROM oven/bun:1-alpine
-WORKDIR /app
-COPY package*.json .
-RUN bun install --production
-COPY . .
-RUN bun run build
-EXPOSE 5000
-CMD ["bun", "start"]
-```
 
 ### Environment-Specific Configurations
 

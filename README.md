@@ -127,16 +127,9 @@ cp .env.example .env
 # Using Docker:
 docker run -d -p 27017:27017 --name ajrasakha-mongo mongo:7
 
-# 4. Install dependencies and start services (in separate terminals)
-
-# Terminal 1 - Server
-(cd server && bun install && bun dev)
-
-# Terminal 2 - Consumer Portal
-(cd consumer-portal && bun install && bun dev)
-
-# Terminal 3 - Prediction Engine
-(cd pridiction-engine && python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt && uvicorn app.main:app --reload)
+# 4. Install all dependencies and start services
+bun install:all
+bun dev
 
 # Access the app at http://localhost:3000
 ```

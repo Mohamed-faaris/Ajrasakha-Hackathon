@@ -110,145 +110,287 @@ A visual showcase of the Ajrasakha platform features, including consumer portal,
 
 <img width="1624" height="968" alt="Database 2" src="https://github.com/user-attachments/assets/c8d5abfe-3be0-479d-b12b-4cea7ccfb6f9" />
 
-### Actual Data (mongosh)
+### Actual Data from MongoDB (JSON)
 
+#### Database: mandi_insights
 
+---
 
-Once connected, switch to the database:
+## 1. Prices Collection
 
-```javascript
-db = db.getSiblingDB('mandi_insights')
+```json
+[
+  {
+    "_id": "69943b8f0fb4723b3ff735f1",
+    "cropId": "maize",
+    "cropName": "MAIZE",
+    "mandiId": "py-pondicherry-thattanchavady-apmc",
+    "mandiName": "THATTANCHAVADY APMC",
+    "stateId": "PY",
+    "stateName": "PONDICHERRY",
+    "districtId": "pondicherry",
+    "districtName": "PONDICHERRY",
+    "date": "2026-02-11T00:00:00.000Z",
+    "minPrice": 1929,
+    "maxPrice": 1929,
+    "modalPrice": 1929,
+    "unit": "Qui",
+    "arrival": 36,
+    "source": "enam",
+    "sourceId": "34529995"
+  },
+  {
+    "_id": "69943b8f0fb4723b3ff735f2",
+    "cropId": "millets",
+    "cropName": "MILLETS",
+    "mandiId": "py-pondicherry-thattanchavady-apmc",
+    "mandiName": "THATTANCHAVADY APMC",
+    "stateId": "PY",
+    "stateName": "PONDICHERRY",
+    "districtId": "pondicherry",
+    "districtName": "PONDICHERRY",
+    "date": "2026-02-10T00:00:00.000Z",
+    "minPrice": 3600,
+    "maxPrice": 3600,
+    "modalPrice": 3600,
+    "unit": "Qui",
+    "arrival": 1,
+    "source": "enam",
+    "sourceId": "34529993"
+  }
+]
 ```
 
-#### Insert Actual Data
+---
 
-```javascript
-db.predictions.insertMany([
+## 2. Mandis Collection
+
+```json
+[
   {
-    _id: ObjectId("69a777360cadf6de30bf2ae5"),
-    cropId: "beetroot",
-    mandiId: "mh-pune-punemanjri-apmc",
-    expiresAt: ISODate("2026-03-06T13:50:52.433Z"),
-    generatedAt: ISODate("2026-03-05T13:50:52.433Z"),
-    predictions: [
-      { date: ISODate("2026-03-05T13:50:52.433Z"), predictedPrice: 1591.85, confidence: 71.8 },
-      { date: ISODate("2026-03-06T13:50:52.433Z"), predictedPrice: 1583.7, confidence: 67.8 },
-      { date: ISODate("2026-03-07T13:50:52.433Z"), predictedPrice: 1575.56, confidence: 63.8 },
-      { date: ISODate("2026-03-08T13:50:52.433Z"), predictedPrice: 1567.41, confidence: 59.8 },
-      { date: ISODate("2026-03-09T13:50:52.433Z"), predictedPrice: 1559.26, confidence: 55.8 },
-      { date: ISODate("2026-03-10T13:50:52.433Z"), predictedPrice: 1551.11, confidence: 51.8 },
-      { date: ISODate("2026-03-11T13:50:52.433Z"), predictedPrice: 1542.96, confidence: 47.8 }
-    ],
-    trend: "Bearish",
-    updatedAt: ISODate("2026-03-05T13:50:52.433Z")
+    "_id": "mh-hingoli-adarsh-krushi-bazar-apmc",
+    "name": "ADARSH KRUSHI BAZAR APMC",
+    "stateId": "MH",
+    "stateName": "MAHARASHTRA",
+    "districtId": "hingoli",
+    "districtName": "HINGOLI",
+    "sourceMandiId": "3992"
   },
   {
-    _id: ObjectId("69a910f20cadf6de30bf2c9e"),
-    mandiId: "gj-morbi-apmc-halvad",
-    cropId: "wheat",
-    expiresAt: ISODate("2026-03-07T11:30:44.818Z"),
-    generatedAt: ISODate("2026-03-06T11:30:44.818Z"),
-    predictions: [
-      { date: ISODate("2026-03-06T11:30:44.818Z"), predictedPrice: 2195, confidence: 88.4 },
-      { date: ISODate("2026-03-07T11:30:44.818Z"), predictedPrice: 2190, confidence: 84.4 },
-      { date: ISODate("2026-03-08T11:30:44.818Z"), predictedPrice: 2185, confidence: 80.4 },
-      { date: ISODate("2026-03-09T11:30:44.818Z"), predictedPrice: 2180, confidence: 76.4 },
-      { date: ISODate("2026-03-10T11:30:44.818Z"), predictedPrice: 2175, confidence: 72.4 },
-      { date: ISODate("2026-03-11T11:30:44.818Z"), predictedPrice: 2170, confidence: 68.4 },
-      { date: ISODate("2026-03-12T11:30:44.818Z"), predictedPrice: 2165, confidence: 64.4 }
-    ],
-    trend: "Neutral",
-    updatedAt: ISODate("2026-03-06T11:30:44.818Z")
-  },
-  {
-    _id: ObjectId("69a910f20cadf6de30bf2c9f"),
-    cropId: "wheat",
-    mandiId: "mh-akola-akola-apmc",
-    expiresAt: ISODate("2026-03-07T11:30:46.396Z"),
-    generatedAt: ISODate("2026-03-06T11:30:46.396Z"),
-    predictions: [
-      { date: ISODate("2026-03-06T11:30:46.396Z"), predictedPrice: 2280.33, confidence: 89.7 },
-      { date: ISODate("2026-03-07T11:30:46.396Z"), predictedPrice: 2280.67, confidence: 85.7 },
-      { date: ISODate("2026-03-08T11:30:46.396Z"), predictedPrice: 2281, confidence: 81.7 },
-      { date: ISODate("2026-03-09T11:30:46.396Z"), predictedPrice: 2281.33, confidence: 77.7 },
-      { date: ISODate("2026-03-10T11:30:46.396Z"), predictedPrice: 2281.67, confidence: 73.7 },
-      { date: ISODate("2026-03-11T11:30:46.396Z"), predictedPrice: 2282, confidence: 69.7 },
-      { date: ISODate("2026-03-12T11:30:46.396Z"), predictedPrice: 2282.33, confidence: 65.7 }
-    ],
-    trend: "Neutral",
-    updatedAt: ISODate("2026-03-06T11:30:46.396Z")
-  },
-  {
-    _id: ObjectId("69a910f20cadf6de30bf2ca0"),
-    cropId: "brinjal",
-    mandiId: "mh-pune-punemanjri-apmc",
-    expiresAt: ISODate("2026-03-07T11:30:44.305Z"),
-    generatedAt: ISODate("2026-03-06T11:30:44.305Z"),
-    predictions: [
-      { date: ISODate("2026-03-06T11:30:44.305Z"), predictedPrice: 3500, confidence: 72.5 },
-      { date: ISODate("2026-03-07T11:30:44.305Z"), predictedPrice: 3500, confidence: 68.5 },
-      { date: ISODate("2026-03-08T11:30:44.305Z"), predictedPrice: 3500, confidence: 64.5 },
-      { date: ISODate("2026-03-09T11:30:44.305Z"), predictedPrice: 3500, confidence: 60.5 },
-      { date: ISODate("2026-03-10T11:30:44.305Z"), predictedPrice: 3500, confidence: 56.5 },
-      { date: ISODate("2026-03-11T11:30:44.305Z"), predictedPrice: 3500, confidence: 52.5 },
-      { date: ISODate("2026-03-12T11:30:44.305Z"), predictedPrice: 3500, confidence: 48.5 }
-    ],
-    trend: "Neutral",
-    updatedAt: ISODate("2026-03-06T11:30:44.305Z")
-  },
-  {
-    _id: ObjectId("69a910f20cadf6de30bf2ca1"),
-    cropId: "bajrapearl-milletcumbu",
-    mandiId: "gj-banaskanth-deesabhildi-apmc",
-    expiresAt: ISODate("2026-03-07T11:30:46.316Z"),
-    generatedAt: ISODate("2026-03-06T11:30:46.316Z"),
-    predictions: [
-      { date: ISODate("2026-03-06T11:30:46.315Z"), predictedPrice: 2741.78, confidence: 86.8 },
-      { date: ISODate("2026-03-07T11:30:46.315Z"), predictedPrice: 2733.56, confidence: 82.8 },
-      { date: ISODate("2026-03-08T11:30:46.315Z"), predictedPrice: 2725.33, confidence: 78.8 },
-      { date: ISODate("2026-03-09T11:30:46.315Z"), predictedPrice: 2717.11, confidence: 74.8 },
-      { date: ISODate("2026-03-10T11:30:46.315Z"), predictedPrice: 2708.89, confidence: 70.8 },
-      { date: ISODate("2026-03-11T11:30:46.315Z"), predictedPrice: 2700.67, confidence: 66.8 },
-      { date: ISODate("2026-03-12T11:30:46.315Z"), predictedPrice: 2692.44, confidence: 62.8 }
-    ],
-    trend: "Neutral",
-    updatedAt: ISODate("2026-03-06T11:30:46.316Z")
-  },
-  {
-    _id: ObjectId("69a910f20cadf6de30bf2ca3"),
-    mandiId: "mh-raigad-alibagh-apmc",
-    cropId: "rice",
-    expiresAt: ISODate("2026-03-07T11:30:41.193Z"),
-    generatedAt: ISODate("2026-03-06T11:30:41.193Z"),
-    predictions: [
-      { date: ISODate("2026-03-06T11:30:41.193Z"), predictedPrice: 2600, confidence: 90 },
-      { date: ISODate("2026-03-07T11:30:41.193Z"), predictedPrice: 2600, confidence: 86 },
-      { date: ISODate("2026-03-08T11:30:41.193Z"), predictedPrice: 2600, confidence: 82 },
-      { date: ISODate("2026-03-09T11:30:41.193Z"), predictedPrice: 2600, confidence: 78 },
-      { date: ISODate("2026-03-10T11:30:41.193Z"), predictedPrice: 2600, confidence: 74 },
-      { date: ISODate("2026-03-11T11:30:41.193Z"), predictedPrice: 2600, confidence: 70 },
-      { date: ISODate("2026-03-12T11:30:41.193Z"), predictedPrice: 2600, confidence: 66 }
-    ],
-    trend: "Neutral",
-    updatedAt: ISODate("2026-03-06T11:30:41.193Z")
-  },
-  {
-    _id: ObjectId("69a910f20cadf6de30bf2ca4"),
-    cropId: "wheat",
-    mandiId: "gj-gandhinagar-kalol-apmc",
-    expiresAt: ISODate("2026-03-07T11:30:44.063Z"),
-    generatedAt: ISODate("2026-03-06T11:30:44.063Z"),
-    predictions: [
-      { date: ISODate("2026-03-06T11:30:44.061Z"), predictedPrice: 2260, confidence: 87 },
-      { date: ISODate("2026-03-07T11:30:44.061Z"), predictedPrice: 2270, confidence: 83 },
-      { date: ISODate("2026-03-08T11:30:44.061Z"), predictedPrice: 2280, confidence: 79 },
-      { date: ISODate("2026-03-09T11:30:44.061Z"), predictedPrice: 2290, confidence: 75 },
-      { date: ISODate("2026-03-10T11:30:44.061Z"), predictedPrice: 2300, confidence: 71 },
-      { date: ISODate("2026-03-11T11:30:44.061Z"), predictedPrice: 2310, confidence: 67 },
-      { date: ISODate("2026-03-12T11:30:44.061Z"), predictedPrice: 2320, confidence: 63 }
-    ],
-    trend: "Bullish",
-    updatedAt: ISODate("2026-03-06T11:30:44.063Z")
+    "_id": "tn-thanjavur-adirampattinam-apmc",
+    "name": "ADIRAMPATTINAM APMC",
+    "stateId": "TN",
+    "stateName": "TAMIL NADU",
+    "districtId": "thanjavur",
+    "districtName": "THANJAVUR",
+    "sourceMandiId": "4680"
   }
-])
+]
+```
+
+---
+
+## 3. Crops Collection
+
+```json
+[
+  {
+    "_id": "barnyard-millet",
+    "name": "BARNYARD MILLET",
+    "commodityGroup": "Cereals"
+  },
+  {
+    "_id": "black-gramurd-beanswhole",
+    "name": "BLACK GRAM(URD BEANS)(WHOLE)",
+    "commodityGroup": "Pulses"
+  }
+]
+```
+
+---
+
+## 4. Alerts Collection
+
+```json
+[
+  {
+    "_id": "69a93a3500d15f64733cb89b",
+    "userId": "5397a1bb-e056-49f9-8ef1-dd28bb9c606e",
+    "cropId": "ambat-chuka",
+    "cropName": "AMBAT CHUKA",
+    "alertType": "price",
+    "thresholdPrice": 3232,
+    "cooldownHours": 24,
+    "isActive": true
+  },
+  {
+    "_id": "69aaaa53b24a6d7ab39eb75f",
+    "userId": "1e21b738-02fe-4d77-98fb-55d94835f54b",
+    "cropId": "ambat-chuka",
+    "cropName": "AMBAT CHUKA",
+    "alertType": "price",
+    "thresholdPrice": 2000,
+    "cooldownHours": 24,
+    "isActive": true
+  }
+]
+```
+
+---
+
+## 5. UserProfiles Collection
+
+```json
+[
+  {
+    "_id": "699a26dd82a1c9674b893413",
+    "userId": "699431bdf67e62f3e98df31d",
+    "preferredCrops": [],
+    "preferredMandis": [],
+    "notificationSettings": {
+      "email": { "enabled": true, "priceAlerts": true, "dailyDigest": false, "weeklyReport": true },
+      "sms": { "enabled": false, "priceAlerts": false },
+      "push": { "enabled": true, "priceAlerts": true }
+    },
+    "language": "en",
+    "farmerDetails": { "isFarmer": false, "primaryCrops": [] },
+    "traderDetails": { "isTrader": false, "tradingStates": [] }
+  },
+  {
+    "_id": "69a92c1694ef303bcd803578",
+    "userId": "1e21b738-02fe-4d77-98fb-55d94835f54b",
+    "role": "farmer",
+    "preferredCrops": [],
+    "preferredMandis": [],
+    "notificationSettings": {
+      "email": { "enabled": true, "priceAlerts": true, "dailyDigest": false, "weeklyReport": true },
+      "sms": { "enabled": false, "priceAlerts": false },
+      "push": { "enabled": true, "priceAlerts": true }
+    },
+    "language": "en",
+    "farmerDetails": { "isFarmer": true, "farmSize": 10, "primaryCrops": ["jblb"] },
+    "traderDetails": { "isTrader": false, "tradingStates": [] }
+  }
+]
+```
+
+---
+
+## 6. Sources Collection
+
+```json
+[
+  {
+    "_id": "698fb3cfd954acef4db65c0a",
+    "entryUrl": "https://enam.gov.in/web/",
+    "baseUrl": "https://enam.gov.in",
+    "extractionType": "html_table",
+    "htmlPageUrl": "https://enam.gov.in/web/dashboard/agmarknet",
+    "htmlSelector": "table.table",
+    "healthStatus": "STALE"
+  },
+  {
+    "_id": "698fba82d954acef4db65c0e",
+    "entryUrl": "https://agmarknet.gov.in",
+    "baseUrl": "https://agmarknet.gov.in",
+    "endpoint": "https://api.agmarknet.gov.in/v1/dashboard-filters/?dashboard_name=marketwise_price_arrival",
+    "endpointMethod": "GET",
+    "extractionType": "api",
+    "healthStatus": "STALE"
+  }
+]
+```
+
+---
+
+## 7. States Collection
+
+```json
+[
+  {
+    "_id": "TN",
+    "name": "tamil nadu",
+    "districts": [
+      { "_id": "ARIYALUR", "name": "ariyalur" },
+      { "_id": "CHENNAI", "name": "chennai" },
+      { "_id": "COIMBATORE", "name": "coimbatore" },
+      { "_id": "MADURAI", "name": "madurai" },
+      { "_id": "SALEM", "name": "salem" }
+    ]
+  },
+  {
+    "_id": "WB",
+    "name": "west bengal",
+    "districts": [
+      { "_id": "KOLKATA", "name": "kolkata" },
+      { "_id": "DARJEELING", "name": "darjeeling" },
+      { "_id": "HOOGHLY", "name": "hooghly" }
+    ]
+  }
+]
+```
+
+---
+
+## 8. Coverage Collection
+
+```json
+{
+  "_id": "current",
+  "computedAt": "2026-03-04T03:30:00.068Z",
+  "coveragePercent": 9.35,
+  "coveredApmcs": 405,
+  "totalApmcs": 4330,
+  "totalPrices": 1608,
+  "statesCovered": 19,
+  "latestDate": "2026-03-01T00:00:00.000Z"
+}
+```
+
+---
+
+## 9. Predictions Collection (227 records)
+
+```json
+[
+  {
+    "_id": "69a777360cadf6de30bf2ae5",
+    "cropId": "beetroot",
+    "mandiId": "mh-pune-punemanjri-apmc",
+    "expiresAt": "2026-03-06T13:50:52.433Z",
+    "generatedAt": "2026-03-05T13:50:52.433Z",
+    "predictions": [
+      { "date": "2026-03-05T13:50:52.433Z", "predictedPrice": 1591.85, "confidence": 71.8 },
+      { "date": "2026-03-06T13:50:52.433Z", "predictedPrice": 1583.7, "confidence": 67.8 },
+      { "date": "2026-03-07T13:50:52.433Z", "predictedPrice": 1575.56, "confidence": 63.8 }
+    ],
+    "trend": "Bearish"
+  },
+  {
+    "_id": "69a910f20cadf6de30bf2c9e",
+    "mandiId": "gj-morbi-apmc-halvad",
+    "cropId": "wheat",
+    "expiresAt": "2026-03-07T11:30:44.818Z",
+    "generatedAt": "2026-03-06T11:30:44.818Z",
+    "predictions": [
+      { "date": "2026-03-06T11:30:44.818Z", "predictedPrice": 2195, "confidence": 88.4 },
+      { "date": "2026-03-07T11:30:44.818Z", "predictedPrice": 2190, "confidence": 84.4 },
+      { "date": "2026-03-08T11:30:44.818Z", "predictedPrice": 2185, "confidence": 80.4 }
+    ],
+    "trend": "Neutral"
+  },
+  {
+    "_id": "69a910f20cadf6de30bf2ca4",
+    "cropId": "wheat",
+    "mandiId": "gj-gandhinagar-kalol-apmc",
+    "expiresAt": "2026-03-07T11:30:44.063Z",
+    "generatedAt": "2026-03-06T11:30:44.063Z",
+    "predictions": [
+      { "date": "2026-03-06T11:30:44.061Z", "predictedPrice": 2260, "confidence": 87 },
+      { "date": "2026-03-07T11:30:44.061Z", "predictedPrice": 2270, "confidence": 83 },
+      { "date": "2026-03-08T11:30:44.061Z", "predictedPrice": 2280, "confidence": 79 }
+    ],
+    "trend": "Bullish"
+  }
+]
 ```

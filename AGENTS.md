@@ -38,11 +38,6 @@ if (!apiUrl) {
 | `VITE_FIREBASE_API_KEY` | Firebase client key | From Firebase Console |
 | `VITE_FIREBASE_AUTH_DOMAIN` | Firebase auth domain | `project.firebaseapp.com` |
 
-### Dev Portal (`VITE_` prefix required)
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `VITE_API_URL` | API base URL | `http://localhost:5000/api/dev` |
-
 ### APMC Portal (`VITE_` prefix required)
 | Variable | Description | Example |
 |----------|-------------|---------|

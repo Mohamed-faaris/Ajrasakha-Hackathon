@@ -34,7 +34,7 @@ Ajrasakha is a comprehensive agricultural market intelligence platform that empo
 | **Market Analytics** | Top movers, trend analysis, coverage maps | Consumer Portal |
 | **APMC Management** | Portal for operators to manage listings and submissions | APMC Portal |
 | **Data Ingestion** | AI-powered scraping from 150+ government sources | Scraper Engine |
-| **Developer API** | RESTful APIs with key management for third-party access | Dev Portal |
+| **Developer API** | RESTful APIs with key management for third-party access | Server |
 
 ### Target Users
 
@@ -54,7 +54,6 @@ flowchart TB
     subgraph Client["Client Layer"]
         CP[Consumer Portal<br/>React/Vite<br/>Port: 3000]
         AP[APMC Portal<br/>Operators<br/>Port: 8080]
-        DP[Dev Portal<br/>API Keys<br/>Port: 5173]
         TPA[Third-Party Apps<br/>API Consumers]
     end
 
@@ -79,7 +78,6 @@ flowchart TB
 
     CP --> NGINX
     AP --> NGINX
-    DP --> NGINX
     TPA --> NGINX
 
     NGINX --> Server
@@ -105,7 +103,6 @@ flowchart LR
 
     API --> CP[Consumer Portal]
     API --> AP[APMC Portal]
-    API --> DP[Dev Portal]
 ```
 
 ---
@@ -258,20 +255,6 @@ bun dev
 
 The portal will be available at `http://localhost:8080`
 
-#### Dev Portal (React)
-
-```bash
-cd dev-portal
-
-# Install dependencies
-bun install
-
-# Start development server
-bun dev
-```
-
-The portal will be available at `http://localhost:5173`
-
 #### Prediction Engine (Python/FastAPI)
 
 ```bash
@@ -400,7 +383,6 @@ openssl rand -base64 32
 | Server API | 5000 | http://localhost:5000 | Main backend |
 | Consumer Portal | 3000 | http://localhost:3000 | End-user app |
 | APMC Portal | 8080 | http://localhost:8080 | Operator portal |
-| Dev Portal | 5173 | http://localhost:5173 | API key management |
 | Prediction Engine | 8000 | http://localhost:8000 | ML service |
 | MongoDB | 27017 | mongodb://localhost:27017 | Database |
 
@@ -425,9 +407,6 @@ bun dev:apmc-portal
 
 # Terminal 4: Prediction Engine
 bun dev:prediction
-
-# Terminal 5: Dev Portal (optional)
-bun dev:dev-portal
 ```
 
 ### Development Scripts
@@ -446,7 +425,7 @@ bun run typecheck # Run TypeScript checks
 #### Frontend Apps
 
 ```bash
-# Consumer Portal, APMC Portal, Dev Portal
+# Consumer Portal, APMC Portal
 bun dev           # Start dev server
 bun run build     # Build for production
 bun run preview   # Preview production build
@@ -657,9 +636,6 @@ Ajrasakha-Hackathon/
 │   └── package.json
 │
 ├── apmc-portal/              # React frontend (operators)
-│   └── src/
-│
-├── dev-portal/               # Developer API portal
 │   └── src/
 │
 ├── pridiction-engine/        # Python FastAPI ML service

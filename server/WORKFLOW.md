@@ -809,7 +809,6 @@ EMAIL_FROM=noreply@example.com
 
 - All auth routes use secure session cookies
 - CORS restricts origins to configured whitelist
-- API keys available for dev portal access
 - No sensitive data logged to console
 
 ### Performance Optimizations

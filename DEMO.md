@@ -394,3 +394,151 @@ A visual showcase of the Ajrasakha platform features, including consumer portal,
   }
 ]
 ```
+
+---
+
+## 10. Logs Collection
+
+```json
+[
+  {
+    "_id": "69a7e1fc5018289ab5f87196",
+    "level": "INFO",
+    "component": "orchestrator",
+    "message": "Starting scrape and load pipeline for 2026-03-04",
+    "metadata": {},
+    "timestamp": "2026-03-04T07:40:44.161Z"
+  },
+  {
+    "_id": "69a7e1fc5018289ab5f87197",
+    "level": "INFO",
+    "component": "scraper",
+    "message": "Starting scraper for date: 2026-03-04",
+    "metadata": {},
+    "timestamp": "2026-03-04T07:40:44.199Z"
+  }
+]
+```
+
+---
+
+## 11. Loader_Logs Collection
+
+```json
+[
+  {
+    "_id": "69a91dc47db41e93e5643fd6",
+    "type": "missing_crop",
+    "rawName": "MALE GOAT",
+    "source": "msamb",
+    "date": "2026-03-05",
+    "record": {
+      "cropName": "MALE GOAT",
+      "mandiName": "BHIVANDI",
+      "date": "2026-03-05",
+      "minPrice": 2145,
+      "maxPrice": 3500,
+      "modalPrice": 5500,
+      "unit": "NAG",
+      "arrival": 4500,
+      "source": "msamb"
+    }
+  },
+  {
+    "_id": "69a91dc47db41e93e5643fd7",
+    "type": "missing_mandi",
+    "rawName": "JALGAON-MASAWAT",
+    "source": "msamb",
+    "date": "2026-03-05",
+    "record": {
+      "cropName": "GRAM",
+      "mandiName": "JALGAON-MASAWAT",
+      "date": "2026-03-05",
+      "minPrice": 189,
+      "maxPrice": 4675,
+      "modalPrice": 4960,
+      "unit": "QUINTAL",
+      "arrival": 4900,
+      "source": "msamb"
+    }
+  }
+]
+```
+
+---
+
+## 12. Agent_Logs Collection
+
+```json
+[
+  {
+    "_id": "698fa73eb23cd1a6e17a8af2",
+    "timestamp": "2026-02-13T22:35:42.099Z",
+    "level": "INFO",
+    "logger": "mandi-agent",
+    "message": "2026-02-14 04:05:42 | INFO     | mandi-agent | Mandi AI Agent starting",
+    "module": "main",
+    "funcName": "main",
+    "lineNo": 37
+  },
+  {
+    "_id": "698fa8468c2160614fbfb514",
+    "timestamp": "2026-02-13T22:40:06.973Z",
+    "level": "INFO",
+    "logger": "mandi-agent",
+    "message": "2026-02-14 04:10:06 | INFO     | mandi-agent | Mandi AI Agent starting",
+    "module": "main",
+    "funcName": "main",
+    "lineNo": 37
+  }
+]
+```
+
+---
+
+## 13. APIKey Collection
+
+```json
+[
+  {
+    "_id": "6a657463-9cbd-4dd3-bf96-5fd129f58ae0",
+    "configId": "default",
+    "name": "test",
+    "start": "TqovtK",
+    "referenceId": "5397a1bb-e056-49f9-8ef1-dd28bb9c606e",
+    "key": "Xl0EJSPpQRFQ8Yt1bvRTqyK5QvQxZDVkj3St3usplgU",
+    "enabled": true,
+    "rateLimitEnabled": true,
+    "rateLimitTimeWindow": 86400000,
+    "rateLimitMax": 10,
+    "requestCount": 0,
+    "expiresAt": "2027-03-05T08:47:10.903Z",
+    "createdAt": "2026-03-05T08:47:10.903Z",
+    "permissions": {
+      "prices": ["read"],
+      "crops": ["read"],
+      "states": ["read"]
+    }
+  },
+  {
+    "_id": "3c99962d-16f9-4ece-b2a1-de0efeaac20d",
+    "configId": "default",
+    "name": "test",
+    "start": "ZEubzJ",
+    "referenceId": "1e21b738-02fe-4d77-98fb-55d94835f54b",
+    "key": "my1vdnK6M8PMonB7km3YOtBn424_rXcuVn-cHPn2sFs",
+    "enabled": true,
+    "rateLimitEnabled": true,
+    "rateLimitTimeWindow": 86400000,
+    "rateLimitMax": 10,
+    "requestCount": 0,
+    "expiresAt": "2027-03-06T06:05:29.403Z",
+    "createdAt": "2026-03-06T06:05:29.403Z",
+    "permissions": {
+      "prices": ["read"],
+      "crops": ["read"],
+      "states": ["read"]
+    }
+  }
+]
+```

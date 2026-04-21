@@ -1,0 +1,29 @@
+{
+  "name": "scraper-engine-ts",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/cli.ts",
+    "build": "tsc -p tsconfig.json",
+    "latest:enam": "bun run src/cli.ts latest enam",
+    "scrape:enam": "bun run src/cli.ts scrape enam",
+    "map:enam": "bun run src/cli.ts map enam",
+    "normalize:enam": "bun run src/cli.ts normalize enam",
+    "verify:enam": "bun run src/cli.ts verify enam",
+    "inspect:enam": "bun run src/cli.ts inspect enam",
+    "inspect:enam:server": "bun run src/cli.ts inspect enam --role server",
+    "serve": "bun run src/cli.ts server",
+    "server": "bun run src/cli.ts server",
+    "cron": "bun run src/cli.ts cron"
+  },
+  "dependencies": {
+    "@mariozechner/pi-ai": "^0.68.0",
+    "@mariozechner/pi-coding-agent": "^0.68.0",
+    "node-cron": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "typescript": "^5.9.3"
+  }
+}

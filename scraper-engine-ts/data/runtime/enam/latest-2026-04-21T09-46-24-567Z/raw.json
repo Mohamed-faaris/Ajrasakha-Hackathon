@@ -1,0 +1,55 @@
+{
+  "data": [
+    {
+      "id": "34718753",
+      "state": "ANDHRA PRADESH",
+      "apmc": "GUNTUR",
+      "commodity": "CHILLI-TEJA",
+      "min_price": "13250",
+      "modal_price": "13250",
+      "max_price": "17700",
+      "commodity_arrivals": "0",
+      "commodity_traded": "225",
+      "created_at": "2026-04-20",
+      "status": "1",
+      "Commodity_Uom": "Qui"
+    },
+    {
+      "id": "34718756",
+      "state": "ANDHRA PRADESH",
+      "apmc": "GUNTUR",
+      "commodity": "CHILLI-THAALU",
+      "min_price": "6200",
+      "modal_price": "6200",
+      "max_price": "10000",
+      "commodity_arrivals": "0",
+      "commodity_traded": "5",
+      "created_at": "2026-04-20",
+      "status": "1",
+      "Commodity_Uom": "Qui"
+    },
+    {
+      "id": "34718748",
+      "state": "ANDHRA PRADESH",
+      "apmc": "GUNTUR",
+      "commodity": "CHILLI-DEVANURU DELUX",
+      "min_price": "14000",
+      "modal_price": "14000",
+      "max_price": "14000",
+      "commodity_arrivals": "0",
+      "commodity_traded": "1",
+      "created_at": "2026-04-20",
+      "status": "1",
+      "Commodity_Uom": "Qui"
+    }
+  ],
+  "meta": {
+    "tradeUrl": "https://enam.gov.in/web/dashboard/trade-data",
+    "filterState": "-- All --",
+    "filterApmc": "-- Select APMCs --",
+    "filterCommodity": "-- Select Commodity --"
+  },
+  "sourceUrl": "https://enam.gov.in/web/",
+  "sourceDate": "2026-04-20",
+  "fetchedAt": "2026-04-21T09:46:24.556Z"
+}

@@ -5,4 +5,5 @@ packages:
   - "shared"
   - "seeder"
   - "scraper-engine/*"
+  - "scraper-engine-ts"
   - "pridiction-engine"

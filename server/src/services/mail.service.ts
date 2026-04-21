@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import type { Transporter, SendMailOptions } from 'nodemailer';
+import type { Options as SMTPTransportOptions } from 'nodemailer/lib/smtp-transport';
 import { env } from '../config/env';
 
 let transporter: Transporter | null = null;
@@ -13,7 +14,7 @@ export const initializeMailTransport = (): Transporter | null => {
   }
 
   try {
-    transporter = nodemailer.createTransport({
+    const transportOptions: SMTPTransportOptions = {
       host: env.SMTP_HOST,
       port: env.SMTP_PORT,
       secure: env.SMTP_PORT === 465,
@@ -21,7 +22,9 @@ export const initializeMailTransport = (): Transporter | null => {
         user: env.SMTP_USER,
         pass: env.SMTP_PASS,
       },
-    });
+    };
+
+    transporter = nodemailer.createTransport(transportOptions);
 
     console.log('Email transport initialized');
     return transporter;

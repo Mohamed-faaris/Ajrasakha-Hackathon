@@ -17,6 +17,10 @@ interface NotificationResult {
   invalidTokens: string[];
 }
 
+const normalizeUserId = (userId: string | Types.ObjectId): string => {
+  return typeof userId === 'string' ? userId : userId.toString();
+};
+
 export const sendPushNotification = async (
   tokens: string[],
   title: string,
@@ -71,7 +75,7 @@ export const sendPushNotification = async (
 };
 
 export const getUserFCMTokens = async (userId: string | Types.ObjectId): Promise<string[]> => {
-  const userProfile = await UserProfile.findOne({ userId }).lean();
+  const userProfile = await UserProfile.findOne({ userId: normalizeUserId(userId) }).lean();
   
   if (!userProfile || !(userProfile as any).fcmTokens || (userProfile as any).fcmTokens.length === 0) {
     return [];
@@ -86,7 +90,7 @@ export const removeInvalidToken = async (
 ): Promise<boolean> => {
   try {
     const result = await UserProfile.findOneAndUpdate(
-      { userId },
+      { userId: normalizeUserId(userId) },
       { $pull: { fcmTokens: { token } } },
       { new: true }
     );
@@ -105,7 +109,7 @@ export const cleanupInvalidTokens = async (
 
   try {
     await UserProfile.findOneAndUpdate(
-      { userId },
+      { userId: normalizeUserId(userId) },
       { $pull: { fcmTokens: { token: { $in: invalidTokens } } } }
     );
     console.log(`Cleaned up ${invalidTokens.length} invalid FCM tokens for user ${userId}`);
@@ -210,7 +214,7 @@ export const registerFCMToken = async (
 ): Promise<boolean> => {
   try {
     const result = await UserProfile.findOneAndUpdate(
-      { userId },
+      { userId: normalizeUserId(userId) },
       {
         $addToSet: {
           fcmTokens: {
@@ -236,7 +240,7 @@ export const updateTokenLastUsed = async (
 ): Promise<void> => {
   try {
     await UserProfile.findOneAndUpdate(
-      { userId, 'fcmTokens.token': token },
+      { userId: normalizeUserId(userId), 'fcmTokens.token': token },
       { $set: { 'fcmTokens.$.lastUsedAt': new Date() } }
     );
   } catch (error) {

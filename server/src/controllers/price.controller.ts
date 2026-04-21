@@ -3,6 +3,13 @@ import * as priceService from '../services/price.service';
 import { validateQuery, validateParams } from '../middlewares/validate.middleware';
 import { GetPricesQuerySchema, GetLatestPricesQuerySchema, GetPriceTrendsQuerySchema, GetByMandiAndCropParamsSchema, PricesByMandiAndCropQuerySchema } from '@shared/schemas';
 
+const firstQueryValue = (value: string | string[] | undefined): string | undefined => {
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+  return value;
+};
+
 export const getPrices = async (req: Request, res: Response) => {
   const query = GetPricesQuerySchema.parse(req.query);
   const result = await priceService.getPrices(query);
@@ -49,14 +56,23 @@ export const getUniqueStates = async (req: Request, res: Response) => {
 };
 
 export const getCropsForMandi = async (req: Request, res: Response) => {
-  const { mandiId } = req.params;
+  const mandiId = firstQueryValue(req.params.mandiId);
+  if (!mandiId) {
+    res.status(400).json({ error: 'mandiId is required' });
+    return;
+  }
   const crops = await priceService.getCropsForMandi(mandiId);
   res.json(crops);
 };
 
 export const getPricesForMandi = async (req: Request, res: Response) => {
-  const { mandiId } = req.params;
-  const limit = req.query.limit ? parseInt(req.query.limit as string) : 100;
+  const mandiId = firstQueryValue(req.params.mandiId);
+  if (!mandiId) {
+    res.status(400).json({ error: 'mandiId is required' });
+    return;
+  }
+  const limitRaw = firstQueryValue(req.query.limit as string | string[] | undefined);
+  const limit = limitRaw ? parseInt(limitRaw, 10) : 100;
   const prices = await priceService.getPricesForMandi(mandiId, limit);
   res.json(prices);
 };

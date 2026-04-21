@@ -1,39 +1,22 @@
 {
-  "name": "Ajrasakha-Hackathon",
+  "name": "ajrasakha-monorepo",
+  "private": true,
   "version": "1.0.0",
-  "description": "Ajrasakha Hackathon project with consumer-portal and server",
-  "main": "index.js",
+  "packageManager": "pnpm@10.30.3",
   "scripts": {
-    "install:consumer-portal": "cd consumer-portal && bun install",
-    "install:server": "cd server && bun install",
-    "install:seeder": "cd seeder && bun install",
-    "install:loader": "cd scraper-engine/loader && bun install",
-    "install:parser": "cd scraper-engine/parser && bun install",
-    "install:prediction": "cd pridiction-engine && python3 -m venv .venv && .venv/bin/pip install -r requirements.txt",
-    "install:shared": "cd shared && bun install",
-    "install:apmc-portal": "cd apmc-portal && bun install",
-    "setup:env": "test -f .env || (cp .env.example .env 2>/dev/null && echo 'Created .env from .env.example - PLEASE CONFIGURE VALUES') || echo 'WARNING: .env.example not found. Create .env manually with required values.'",
-    "install:all": "bun run setup:env && bun run install:shared && bun run install:consumer-portal && bun run install:server && bun run install:seeder && bun run install:loader && bun run install:parser && bun run install:prediction && bun run install:apmc-portal",
-    "dev:consumer-portal": "cd consumer-portal && bun dev",
-    "dev:server": "cd server && bun dev",
-    "dev:prediction": "cd pridiction-engine && source .venv/bin/activate && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload",
-    "dev:apmc-portal": "cd apmc-portal && bun dev",
-    "dev": "concurrently \"bun run dev:consumer-portal\" \"bun run dev:server\" \"bun run dev:prediction\" \"bun run dev:apmc-portal\" ",
-    "build:consumer-portal": "cd consumer-portal && bun run build",
-    "build:server": "cd server && bun run build",
-    "build": "bun run build:consumer-portal && bun run build:server",
-    "start:server": "cd server && bun start",
-    "start:prediction": "cd pridiction-engine && source .venv/bin/activate && uvicorn app.main:app --host 0.0.0.0 --port 8000",
-    "prod": "bun run build && bun run start:server"
+    "dev": "turbo run dev --parallel --continue --filter=consumer-portal --filter=apmc-portal --filter=server --filter=prediction-engine --filter=endpoint-discovery",
+    "dev:web": "turbo run dev --filter=consumer-portal --filter=apmc-portal",
+    "dev:api": "turbo run dev --filter=server --filter=prediction-engine --filter=endpoint-discovery",
+    "build": "turbo run build --filter=consumer-portal --filter=apmc-portal --filter=server --filter=prediction-engine --filter=endpoint-discovery",
+    "lint": "turbo run lint --filter=consumer-portal --filter=apmc-portal",
+    "test": "turbo run test --filter=consumer-portal --filter=apmc-portal",
+    "setup:env": "test -f .env || (cp .env.example .env 2>/dev/null && echo 'Created .env from .env.example - please configure values') || echo 'WARNING: .env.example not found. Create .env manually with required values.'",
+    "setup:js": "pnpm install",
+    "setup:python": "python3 -m venv pridiction-engine/.venv && pridiction-engine/.venv/bin/pip install -r pridiction-engine/requirements.txt && python3 -m venv scraper-engine/endpoint-discovery/.venv && scraper-engine/endpoint-discovery/.venv/bin/pip install -r scraper-engine/endpoint-discovery/requirements.txt && scraper-engine/endpoint-discovery/.venv/bin/playwright install chromium",
+    "setup": "pnpm run setup:env && pnpm run setup:js && pnpm run setup:python",
+    "check": "pnpm run lint && pnpm run test && pnpm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
-    "@types/nodemailer": "^7.0.11",
-    "concurrently": "^9.2.1"
-  },
-  "dependencies": {
-    "nodemailer": "^8.0.1"
+    "turbo": "^2.9.6"
   }
 }

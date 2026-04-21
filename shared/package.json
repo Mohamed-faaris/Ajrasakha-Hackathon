@@ -1,7 +1,14 @@
 {
   "name": "shared",
+  "private": true,
   "version": "1.0.0",
+  "scripts": {
+    "build": "pnpm exec tsc -p tsconfig.json --noEmit"
+  },
   "dependencies": {
     "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
   }
 }

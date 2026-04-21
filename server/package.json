@@ -26,6 +26,7 @@
     "mongoose": "^9.2.3",
     "node-cron": "^4.2.1",
     "nodemailer": "^6.10.0",
+    "shared": "workspace:*",
     "zod": "^4.3.6"
   },
   "devDependencies": {

@@ -1,7 +1,22 @@
 import { type Request, type Response, type NextFunction } from 'express';
-import { ZodError, type ZodType } from 'zod';
+import { ZodError } from 'zod';
 
-export const validateQuery = <T extends ZodType>(schema: T) => {
+type SchemaLike<T = unknown> = {
+  parse: (input: unknown) => T;
+};
+
+const isValidationError = (error: unknown): error is { issues: unknown[]; name?: string } => {
+  return typeof error === 'object' && error !== null && 'issues' in error;
+};
+
+const getValidationError = (error: unknown): { issues: unknown[] } | null => {
+  if (error instanceof ZodError || isValidationError(error)) {
+    return error as { issues: unknown[] };
+  }
+  return null;
+};
+
+export const validateQuery = <T>(schema: SchemaLike<T>) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = schema.parse(req.params);
@@ -9,10 +24,11 @@ export const validateQuery = <T extends ZodType>(schema: T) => {
       next();
     } catch (error: any) {
       console.error("VALIDATION ERROR CAUGHT:", error);
-      if (error?.name === 'ZodError' || error instanceof ZodError) {
+      const validationError = getValidationError(error);
+      if (validationError) {
         res.status(400).json({
           error: 'Validation error',
-          details: error.issues,
+          details: validationError.issues,
         });
         return;
       }
@@ -21,17 +37,18 @@ export const validateQuery = <T extends ZodType>(schema: T) => {
   };
 };
 
-export const validateParams = <T extends ZodType>(schema: T) => {
+export const validateParams = <T>(schema: SchemaLike<T>) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = schema.parse(req.params);
       req.params = result as typeof req.params;
       next();
     } catch (error) {
-      if (error instanceof ZodError) {
+      const validationError = getValidationError(error);
+      if (validationError) {
         res.status(400).json({
           error: 'Validation error',
-          details: error.issues,
+          details: validationError.issues,
         });
         return;
       }
@@ -40,16 +57,17 @@ export const validateParams = <T extends ZodType>(schema: T) => {
   };
 };
 
-export const validateBody = <T extends ZodType>(schema: T) => {
+export const validateBody = <T>(schema: SchemaLike<T>) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       req.body = schema.parse(req.body);
       next();
     } catch (error) {
-      if (error instanceof ZodError) {
+      const validationError = getValidationError(error);
+      if (validationError) {
         res.status(400).json({
           error: 'Validation error',
-          details: error.issues,
+          details: validationError.issues,
         });
         return;
       }

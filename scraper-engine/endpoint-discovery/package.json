@@ -1,0 +1,11 @@
+{
+  "name": "endpoint-discovery",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "setup": "python3 -m venv .venv && .venv/bin/pip install -r requirements.txt",
+    "dev": "./.venv/bin/python main.py",
+    "start": "./.venv/bin/python main.py",
+    "build": "./.venv/bin/python -m compileall app"
+  }
+}

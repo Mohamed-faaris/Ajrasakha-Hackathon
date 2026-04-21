@@ -7,7 +7,7 @@ Ajrasakha is a comprehensive agricultural market intelligence platform that empo
 ---
 **Jury Notes:**
 - Check [demo.md](demo.md) for project demonstration
-- We used Bun instead of Node.js for faster development, but you can use Node.js as well since we did not use any Bun-specific APIs
+- The workspace is managed with pnpm and Turbo. Individual packages may still use Bun or Python entrypoints where they already exist.
 - To view Mermaid diagrams in VS Code, install the [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid) extension, or view this file on GitHub
 ---
 
@@ -126,9 +126,11 @@ cp .env.example .env
 # Using Docker:
 docker run -d -p 27017:27017 --name ajrasakha-mongo mongo:7
 
-# 4. Install all dependencies and start services
-bun install:all
-bun dev
+# 4. Prepare the workspace
+pnpm run setup
+
+# 5. Start the main development stack
+pnpm dev
 
 # Access the app at http://localhost:3000
 ```
@@ -141,8 +143,8 @@ bun dev
 
 | Software | Version | Purpose |
 |----------|---------|---------|
-| Node.js | 18+ | JavaScript runtime for all Node services |
-| Bun | 1.0+ | Package manager and runtime (faster than npm/pnpm) |
+| Node.js | 18+ | JavaScript runtime for the workspace apps and services |
+| pnpm | 10+ | Workspace package manager and Turbo runner |
 | Python | 3.11+ | Prediction and scraper engines |
 | MongoDB | 6.0+ | Primary database (local or Atlas) |
 | Git | 2.30+ | Version control |
@@ -151,7 +153,7 @@ bun dev
 
 | Software | Purpose |
 |----------|---------|
-| Bun | Alternative runtime for loader/parser utilities |
+| Bun | Alternative runtime for existing loader/parser utilities |
 | Docker | Containerized MongoDB and deployment |
 | Playwright | For scraper engine browser automation |
 
@@ -213,14 +215,14 @@ sudo systemctl start mongodb
 cd server
 
 # Install dependencies
-bun install
+pnpm install
 
 # Copy environment file
 cp .env.example .env
 # Edit .env with your MongoDB URI and auth secrets
 
 # Start development server
-bun dev
+pnpm --dir server run dev
 ```
 
 The server will be available at `http://localhost:5000`
@@ -231,14 +233,14 @@ The server will be available at `http://localhost:5000`
 cd consumer-portal
 
 # Install dependencies
-bun install
+pnpm install
 
 # Copy environment file
 cp .env.example .env
 # Edit .env with API URLs
 
 # Start development server
-bun dev
+pnpm --dir consumer-portal run dev
 ```
 
 The portal will be available at `http://localhost:3000`
@@ -249,10 +251,10 @@ The portal will be available at `http://localhost:3000`
 cd apmc-portal
 
 # Install dependencies
-bun install
+pnpm install
 
 # Start development server
-bun dev
+pnpm --dir apmc-portal run dev
 ```
 
 The portal will be available at `http://localhost:8080`
@@ -263,19 +265,10 @@ The portal will be available at `http://localhost:8080`
 cd pridiction-engine
 
 # Create virtual environment
-python -m venv .venv
-
-# Activate virtual environment
-# Linux/macOS:
-source .venv/bin/activate
-# Windows:
-# .venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
+pnpm --dir pridiction-engine run setup
 
 # Start development server
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+pnpm --dir pridiction-engine run dev
 ```
 
 The API will be available at `http://localhost:8000`
@@ -285,22 +278,15 @@ The API will be available at `http://localhost:8000`
 ```bash
 cd scraper-engine/endpoint-discovery
 
-# Create virtual environment
-python -m venv .venv
-source .venv/bin/activate  # or .venv\Scripts\activate on Windows
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Install Playwright browser
-playwright install chromium
+# Set up the Python environment
+pnpm --dir scraper-engine/endpoint-discovery run setup
 
 # Copy environment file
 cp .env.example .env
 # Edit .env with LLM API keys and MongoDB URI
 
 # Run scraper
-python main.py
+pnpm --dir scraper-engine/endpoint-discovery run dev
 ```
 </details>
 
@@ -390,25 +376,25 @@ openssl rand -base64 32
 
 ### Running Services
 
-Use the root-level bun scripts to run services:
+Use the root-level pnpm/Turbo scripts to run services:
 
 ```bash
 # Start all services at once
-bun dev
+pnpm dev
 
 # Or run individual services in separate terminals:
 
 # Terminal 1: Server
-bun dev:server
+pnpm --dir server run dev
 
 # Terminal 2: Consumer Portal
-bun dev:consumer-portal
+pnpm --dir consumer-portal run dev
 
 # Terminal 3: APMC Portal (optional)
-bun dev:apmc-portal
+pnpm --dir apmc-portal run dev
 
 # Terminal 4: Prediction Engine
-bun dev:prediction
+pnpm --dir pridiction-engine run dev
 ```
 
 ### Development Scripts
@@ -416,41 +402,38 @@ bun dev:prediction
 #### Server
 
 ```bash
-cd server
-bun dev           # Start with hot reload
-bun run build     # Build for production
-bun start         # Start production build
-bun run lint      # Run ESLint
-bun run typecheck # Run TypeScript checks
+pnpm --dir server run dev
+pnpm --dir server run build
+pnpm --dir server run start
+pnpm --dir server run lint
+pnpm --dir server run typecheck
 ```
 
 #### Frontend Apps
 
 ```bash
 # Consumer Portal, APMC Portal
-bun dev           # Start dev server
-bun run build     # Build for production
-bun run preview   # Preview production build
-bun test          # Run tests
-bun run lint      # Run linter
+pnpm --dir consumer-portal run dev
+pnpm --dir consumer-portal run build
+pnpm --dir consumer-portal run preview
+pnpm --dir consumer-portal run test
+pnpm --dir consumer-portal run lint
 ```
 
 #### Prediction Engine
 
 ```bash
-cd pridiction-engine
-uvicorn app.main:app --reload                    # Dev with reload
-uvicorn app.main:app --host 0.0.0.0 --port 8000  # Production
-gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker  # With workers
+pnpm --dir pridiction-engine run setup
+pnpm --dir pridiction-engine run dev
+pnpm --dir pridiction-engine run start
 ```
 
 #### Scraper Engine
 
 ```bash
-cd scraper-engine/endpoint-discovery
-python main.py                    # Run with .env config
-python main.py --mode discover    # Discovery only
-python main.py --mode scrape      # Scraping only
+pnpm --dir scraper-engine/endpoint-discovery run setup
+pnpm --dir scraper-engine/endpoint-discovery run dev
+pnpm --dir scraper-engine/endpoint-discovery run start
 ```
 
 ---
@@ -668,7 +651,7 @@ Ajrasakha-Hackathon/
 ### Infrastructure
 - **Database**: MongoDB (Atlas or self-hosted)
 - **Push Notifications**: Firebase Cloud Messaging
-- **Package Manager**: Bun (Node.js), pip (Python)
+- **Package Manager**: pnpm/Turbo (Node.js), pip (Python)
 - **Version Control**: Git
 
 ---

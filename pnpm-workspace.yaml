@@ -1,0 +1,8 @@
+packages:
+  - "consumer-portal"
+  - "apmc-portal"
+  - "server"
+  - "shared"
+  - "seeder"
+  - "scraper-engine/*"
+  - "pridiction-engine"
